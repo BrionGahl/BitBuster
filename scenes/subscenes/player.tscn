@@ -1,0 +1,68 @@
+[gd_scene load_steps=9 format=3 uid="uid://det6gkgxg57mw"]
+
+[ext_resource type="Script" path="res://src/entity/player/Player.cs" id="1_nju6n"]
+[ext_resource type="Texture2D" uid="uid://2ruli1e1oei3" path="res://assets/player/player_tank.png" id="2_wsan7"]
+[ext_resource type="Texture2D" uid="uid://h883uofr64k4" path="res://assets/player/player_tank_gun.png" id="3_cic8t"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2k5yj"]
+atlas = ExtResource("2_wsan7")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g7578"]
+atlas = ExtResource("2_wsan7")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3cx1q"]
+atlas = ExtResource("2_wsan7")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_udnnf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2k5yj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g7578")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3cx1q")
+}],
+"loop": true,
+"name": &"moving",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pjmg8"]
+radius = 32.0
+height = 64.0
+
+[node name="Player" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_nju6n")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+
+[node name="Hull" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+rotation = 1.5708
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_udnnf")
+animation = &"moving"
+frame_progress = 0.861227
+
+[node name="Gun" type="Sprite2D" parent="."]
+top_level = true
+texture_filter = 1
+rotation = 1.5708
+scale = Vector2(4, 4)
+texture = ExtResource("3_cic8t")
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_pjmg8")

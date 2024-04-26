@@ -1,0 +1,16 @@
+<Project Sdk="Godot.NET.Sdk/4.2.2">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net7.0</TargetFramework>
+    <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'ios' ">net8.0</TargetFramework>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Serilog" Version="4.0.0-dev-02160" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="5.1.0-dev-00943" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="src\entity\enemies\" />
+    <Folder Include="src\entity\player\" />
+  </ItemGroup>
+</Project>
