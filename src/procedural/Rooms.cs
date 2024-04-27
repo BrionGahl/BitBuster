@@ -9,10 +9,14 @@ namespace BitBuster.procedural;
 public enum RoomType
 {
 	NORMAL = 1,
-	START = 2,
-	BOSS = 3,
-	TREASURE = 4,
-	SECRET = 5
+	NORMAL_BIG = 2,
+	NORMAL_LONG = 3,
+	NORMAL_TALL = 4,
+	START = 5,
+	BOSS = 6,
+	TREASURE = 7,
+	SECRET = 8,
+	STORE = 9
 }
 
 public partial class Rooms : Node2D
