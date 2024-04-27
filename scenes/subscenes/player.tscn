@@ -39,20 +39,21 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pjmg8"]
-radius = 32.0
-height = 64.0
+radius = 7.0
+height = 16.0
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["player"]]
 motion_mode = 1
 script = ExtResource("1_nju6n")
+Speed = 75.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(4, 4)
 position_smoothing_enabled = true
 
 [node name="Hull" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 rotation = 1.5708
-scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_udnnf")
 animation = &"moving"
 frame_progress = 0.861227
@@ -61,7 +62,6 @@ frame_progress = 0.861227
 top_level = true
 texture_filter = 1
 rotation = 1.5708
-scale = Vector2(4, 4)
 texture = ExtResource("3_cic8t")
 
 [node name="Collider" type="CollisionShape2D" parent="."]

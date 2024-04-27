@@ -4,7 +4,7 @@ using Godot;
 
 namespace BitBuster.entity.player;
 
-public partial class PlayerController : CharacterBody2D
+public partial class Player : CharacterBody2D
 {
 	private Sprite2D Gun { get; set; }
 	private AnimatedSprite2D Hull { get; set; }
