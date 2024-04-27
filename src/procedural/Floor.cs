@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using BitBuster.data;
+using BitBuster.entity.player;
 using Godot;
 using Serilog.Core;
 using Logger = BitBuster.utils.Logger;
@@ -188,10 +189,13 @@ public partial class Floor : Node2D
 
 		for (int i = 0; i < data.Objects.Count; i++)
 		{
-			Logger.Log.Debug("HERE");
+			Logger.Log.Debug("Adding Child to Extra...");
 			Node2D newObject = data.Objects[i].Duplicate() as Node2D;
 			newObject.Position += worldOffset;
 			LevelExtra.AddChild(newObject);
+
+			if (newObject.IsInGroup("player"))
+				Player = newObject as Player;
 		}
 
 		for (int i = 0; i < data.TileMap.Count; i++)

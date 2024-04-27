@@ -57,8 +57,8 @@ public partial class Rooms : Node2D
 			int cellSourceId = room.GetCellSourceId(0, v);
 			Vector2I atlasCoords = room.GetCellAtlasCoords(0, v);
 			
-			// if (_random.Randf() > chance)
-			// 	continue;
+			if (_random.Randf() > chance)
+				continue;
 			
 			data.TileMap.Add(new TileMapData(v, cellSourceId, targetId, atlasCoords));
 		}
