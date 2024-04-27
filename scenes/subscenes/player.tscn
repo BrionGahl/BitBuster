@@ -50,6 +50,7 @@ Speed = 75.0
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)
 position_smoothing_enabled = true
+position_smoothing_speed = 8.0
 
 [node name="Hull" type="AnimatedSprite2D" parent="."]
 texture_filter = 1

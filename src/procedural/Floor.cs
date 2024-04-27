@@ -160,10 +160,9 @@ public partial class Floor : Node2D
 		}
 
 		_endRooms.Reverse();
-
-		MapGrid[_endRooms[0].X, _endRooms[0].Y] = (int)RoomType.TREASURE;
+		MapGrid[_endRooms[0].X, _endRooms[2].Y] = (int)RoomType.BOSS;
 		MapGrid[_endRooms[1].X, _endRooms[1].Y] = (int)RoomType.SECRET;
-		MapGrid[_endRooms[2].X, _endRooms[2].Y] = (int)RoomType.BOSS;
+		MapGrid[_endRooms[2].X, _endRooms[0].Y] = (int)RoomType.TREASURE;
 	}
 
 	private void PlaceRooms()
