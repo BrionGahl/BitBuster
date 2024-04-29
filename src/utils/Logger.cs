@@ -6,7 +6,7 @@ namespace BitBuster.utils;
 public static class Logger
 {
     public static readonly Serilog.Core.Logger Log = new LoggerConfiguration()
-        .MinimumLevel.Debug()
+        .MinimumLevel.Information()
         .WriteTo.Console(theme: AnsiConsoleTheme.Literate, outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u4}] - {Message:lj}{NewLine}{Exception}")
         .CreateLogger();
 }

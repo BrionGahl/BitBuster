@@ -8,15 +8,15 @@ namespace BitBuster.procedural;
 
 public enum RoomType
 {
+	NONE = 0,
 	NORMAL = 1,
-	NORMAL_BIG = 2,
-	NORMAL_LONG = 3,
-	NORMAL_TALL = 4,
-	START = 5,
-	BOSS = 6,
-	TREASURE = 7,
-	SECRET = 8,
-	STORE = 9
+	START = 2,
+	BOSS = 3,
+	TREASURE = 4,
+	SECRET = 5,
+	STORE = 6,
+	LR_NORMAL = 7,
+	TB_NORMAL = 8
 }
 
 public partial class Rooms : Node2D
@@ -29,20 +29,20 @@ public partial class Rooms : Node2D
 
 	public override void _Notification(int what)
 	{
-		if (what == NotificationSceneInstantiated)
-		{
-			_random = new RandomNumberGenerator();
-			_random.Randomize();
+		if (what != NotificationSceneInstantiated) 
+			return;
+		
+		_random = new RandomNumberGenerator();
+		_random.Randomize();
 
-			TileMap room = GetChild((int)RoomType.NORMAL - 1).GetChild(0) as TileMap;
-			RoomSize = room.GetUsedRect().Size;
-			CellSize = room.TileSet.TileSize;
-		}
+		TileMap room = GetChild((int)RoomType.NORMAL - 1).GetChild(0) as TileMap;
+		RoomSize = room.GetUsedRect().Size;
+		CellSize = room.TileSet.TileSize;
 	}
 	public RoomData GetRoomData(RoomType type)
 	{
-		Node2D group = GetChild((int)type - 1) as Node2D;
-		int index = _random.RandiRange(0, group.GetChildCount() - 1);
+		Node2D group = GetChild((int)type - 1) as Node2D; // Grab room type group
+		int index = _random.RandiRange(0, group.GetChildCount() - 1); // Randomly select a room
 		TileMap room = group.GetChild(index) as TileMap;
 		RoomData data = new RoomData();
 		
@@ -58,13 +58,15 @@ public partial class Rooms : Node2D
 			TileData cellData = room.GetCellTileData(0, v);
 			float chance = cellData.GetCustomData("chance").As<float>();
 			int targetId = cellData.GetCustomData("target_id").AsInt32();
+			Vector2I direction = cellData.GetCustomData("direction").AsVector2I();
+			
 			int cellSourceId = room.GetCellSourceId(0, v);
 			Vector2I atlasCoords = room.GetCellAtlasCoords(0, v);
 			
 			if (_random.Randf() > chance)
 				continue;
 			
-			data.TileMap.Add(new TileMapData(v, cellSourceId, targetId, atlasCoords));
+			data.TileMap.Add(new TileMapData(v, cellSourceId, targetId, atlasCoords, direction));
 		}
 		
 		return data;
