@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://src/procedural/Floor.cs" id="1_qfgiw"]
 [ext_resource type="TileSet" uid="uid://dgja5h4hys5wf" path="res://assets/tiles/tilemap.tres" id="3_0ap6v"]
 [ext_resource type="Script" path="res://src/world/Camera.cs" id="4_e2pov"]
-[ext_resource type="Texture2D" uid="uid://biv7yfakm7026" path="res://assets/etc/camera_border.png" id="4_smynp"]
+[ext_resource type="Texture2D" uid="uid://57dbmg07g7d1" path="res://assets/etc/camera_border.png" id="4_smynp"]
 
 [node name="Floor" type="Node2D"]
 script = ExtResource("1_qfgiw")
