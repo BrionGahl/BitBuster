@@ -1,14 +1,28 @@
-[gd_scene load_steps=4 format=3 uid="uid://c5uf74rr7eydj"]
+[gd_scene load_steps=6 format=3 uid="uid://c5uf74rr7eydj"]
 
 [ext_resource type="Script" path="res://src/procedural/Level.cs" id="1_ji0t6"]
 [ext_resource type="Script" path="res://src/procedural/Floor.cs" id="1_qfgiw"]
 [ext_resource type="TileSet" uid="uid://dgja5h4hys5wf" path="res://assets/tiles/tilemap.tres" id="3_0ap6v"]
+[ext_resource type="Script" path="res://src/world/Camera.cs" id="4_e2pov"]
+[ext_resource type="Texture2D" uid="uid://57dbmg07g7d1" path="res://assets/etc/camera_border.png" id="4_smynp"]
 
 [node name="Floor" type="Node2D"]
 script = ExtResource("1_qfgiw")
 
 [node name="Level" type="Node2D" parent="."]
 script = ExtResource("1_ji0t6")
+
+[node name="Camera" type="Camera2D" parent="Level"]
+position = Vector2(1440, 1120)
+zoom = Vector2(2, 2)
+position_smoothing_enabled = true
+position_smoothing_speed = 8.0
+script = ExtResource("4_e2pov")
+
+[node name="Border" type="Sprite2D" parent="Level/Camera"]
+z_index = 2
+scale = Vector2(0.500868, 0.501543)
+texture = ExtResource("4_smynp")
 
 [node name="TileMapMain" type="TileMap" parent="Level"]
 texture_filter = 1
