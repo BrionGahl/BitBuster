@@ -31,7 +31,6 @@ public partial class Door : Area2D
 		_marker2D = GetNode<Marker2D>("Destination");
 		
 		this.BodyEntered += OnBodyEntered;
-		
 	}
 
 	public void SetDoorInfo(float radian, Vector2I position, Vector2I offset)
@@ -64,5 +63,8 @@ public partial class Door : Area2D
 		Logger.Log.Information("body entered..." + Type);
 		
 		body.GlobalPosition = _marker2D.GlobalPosition + Offset;
+		
+		// TODO: play around with this...
+		// body.RotationDegrees = (int)Type + 180;
 	}
 }

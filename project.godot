@@ -15,8 +15,13 @@ run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GlobalEvents="*res://src/world/GlobalEvents.cs"
+
 [display]
 
+window/stretch/mode="viewport"
 mouse_cursor/custom_image="res://assets/cursor/cursor.png"
 
 [dotnet]
@@ -78,4 +83,4 @@ interact={
 
 [rendering]
 
-environment/defaults/default_clear_color=Color(0.154876, 0.154876, 0.154876, 1)
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)

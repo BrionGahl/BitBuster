@@ -237,9 +237,12 @@ public partial class Floor : Node2D
 			LevelExtra.AddChild(newObject);
 
 			if (newObject.IsInGroup("player"))
+			{
+				Logger.Log.Debug("Grabbed Player Object on Level Generation...");
 				Player = newObject as Player;
+			}
 		}
-
+		
 		for (int i = 0; i < data.TileMap.Count; i++)
 		{
 			if (adjacentRooms.Contains(data.TileMap[i].Direction))

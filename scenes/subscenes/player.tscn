@@ -64,8 +64,3 @@ texture = ExtResource("3_cic8t")
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_pjmg8")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(4, 4)
-position_smoothing_enabled = true
-position_smoothing_speed = 8.0
