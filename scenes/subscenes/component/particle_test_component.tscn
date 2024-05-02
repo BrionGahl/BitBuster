@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://0yeb7m7v427v"]
+
+[ext_resource type="Texture2D" uid="uid://doyv63w0irhgw" path="res://assets/particles/smoke_16.png" id="1_8h46y"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_emwqo"]
+particles_animation = true
+particles_anim_h_frames = 12
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_qyqg1"]
+offsets = PackedFloat32Array(0, 0.0537975, 0.946203, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_nirwl"]
+gradient = SubResource("Gradient_qyqg1")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_eq746"]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 8.0
+angle_min = -45.0
+angle_max = 45.0
+direction = Vector3(-5, 0, 0)
+initial_velocity_min = 2.0
+initial_velocity_max = 8.0
+radial_velocity_min = 4.0
+radial_velocity_max = 8.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.9
+scale_max = 0.9
+color_ramp = SubResource("GradientTexture1D_nirwl")
+anim_speed_min = 0.8
+anim_speed_max = 1.0
+
+[node name="ParticleTestComponent" type="GPUParticles2D"]
+texture_filter = 1
+material = SubResource("CanvasItemMaterial_emwqo")
+position = Vector2(-10, 0)
+process_material = SubResource("ParticleProcessMaterial_eq746")
+texture = ExtResource("1_8h46y")
+lifetime = 0.25
+explosiveness = 0.4

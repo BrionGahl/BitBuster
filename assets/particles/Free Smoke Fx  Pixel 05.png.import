@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://fbpjngvxoaue"
-path="res://.godot/imported/track.png-37738ce03f9c4eeb8114f5bd02393e41.ctex"
+uid="uid://b65wxw3dw26go"
+path="res://.godot/imported/Free Smoke Fx  Pixel 05.png-550349868eb023d82b2057e08619ffab.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/player/track.png"
-dest_files=["res://.godot/imported/track.png-37738ce03f9c4eeb8114f5bd02393e41.ctex"]
+source_file="res://assets/particles/Free Smoke Fx  Pixel 05.png"
+dest_files=["res://.godot/imported/Free Smoke Fx  Pixel 05.png-550349868eb023d82b2057e08619ffab.ctex"]
 
 [params]
 

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dy8a4nya53ird"]
+
+[ext_resource type="Script" path="res://src/component/LineTrailComponent.cs" id="1_tpovq"]
+
+[sub_resource type="Curve" id="Curve_jkf4y"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="TrailComponent" type="Line2D"]
+top_level = true
+z_index = -1
+texture_filter = 1
+width_curve = SubResource("Curve_jkf4y")
+script = ExtResource("1_tpovq")
+TrailLength = 50

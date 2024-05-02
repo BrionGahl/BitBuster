@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://det6gkgxg57mw"]
+[gd_scene load_steps=10 format=3 uid="uid://det6gkgxg57mw"]
 
 [ext_resource type="Script" path="res://src/entity/player/Player.cs" id="1_nju6n"]
 [ext_resource type="Texture2D" uid="uid://2ruli1e1oei3" path="res://assets/player/player_tank.png" id="2_wsan7"]
 [ext_resource type="Texture2D" uid="uid://h883uofr64k4" path="res://assets/player/player_tank_gun.png" id="3_cic8t"]
+[ext_resource type="PackedScene" uid="uid://btdrka86pvjsd" path="res://scenes/subscenes/component/track_trail_component.tscn" id="4_g7sml"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2k5yj"]
 atlas = ExtResource("2_wsan7")
@@ -64,3 +65,5 @@ texture = ExtResource("3_cic8t")
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_pjmg8")
+
+[node name="TrackTrailComponent" parent="." instance=ExtResource("4_g7sml")]

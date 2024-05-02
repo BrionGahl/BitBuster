@@ -17,7 +17,7 @@ public partial class Camera : Camera2D
 
 	private void OnPlayerEnterRoom(Vector2 position)
 	{
-		Logger.Log.Information("Did this work?");
+		Logger.Log.Information("Moving camera to global position: " + position);
 		GlobalPosition = position;
 	}
 
