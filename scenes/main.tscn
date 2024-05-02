@@ -38,6 +38,7 @@ offset_right = 1161.0
 offset_bottom = 651.0
 
 [node name="TileMapMain" type="TileMap" parent="Level"]
+z_index = 1
 texture_filter = 1
 tile_set = ExtResource("3_0ap6v")
 format = 2
