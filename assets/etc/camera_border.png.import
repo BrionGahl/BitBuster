@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://fbpjngvxoaue"
-path="res://.godot/imported/track.png-37738ce03f9c4eeb8114f5bd02393e41.ctex"
+uid="uid://bhk5nrlkp2n1n"
+path="res://.godot/imported/camera_border.png-6e6fd351e01a13a662e45edad49878c2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/player/track.png"
-dest_files=["res://.godot/imported/track.png-37738ce03f9c4eeb8114f5bd02393e41.ctex"]
+source_file="res://assets/etc/camera_border.png"
+dest_files=["res://.godot/imported/camera_border.png-6e6fd351e01a13a662e45edad49878c2.ctex"]
 
 [params]
 

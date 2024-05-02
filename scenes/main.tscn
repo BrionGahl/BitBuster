@@ -1,10 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://c5uf74rr7eydj"]
+[gd_scene load_steps=8 format=3 uid="uid://c5uf74rr7eydj"]
 
 [ext_resource type="Script" path="res://src/procedural/Level.cs" id="1_ji0t6"]
 [ext_resource type="Script" path="res://src/procedural/Floor.cs" id="1_qfgiw"]
 [ext_resource type="TileSet" uid="uid://dgja5h4hys5wf" path="res://assets/tiles/tilemap.tres" id="3_0ap6v"]
+[ext_resource type="Shader" path="res://assets/shaders/crt.gdshader" id="3_8ifkm"]
 [ext_resource type="Script" path="res://src/world/Camera.cs" id="4_e2pov"]
-[ext_resource type="Texture2D" uid="uid://57dbmg07g7d1" path="res://assets/etc/camera_border.png" id="4_smynp"]
+[ext_resource type="Texture2D" uid="uid://bhk5nrlkp2n1n" path="res://assets/etc/camera_border.png" id="4_smynp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k6mvd"]
+shader = ExtResource("3_8ifkm")
+shader_parameter/fisheye_strength = 1.0
 
 [node name="Floor" type="Node2D"]
 script = ExtResource("1_qfgiw")
@@ -23,6 +28,14 @@ script = ExtResource("4_e2pov")
 z_index = 2
 scale = Vector2(0.500868, 0.501543)
 texture = ExtResource("4_smynp")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Level/Camera"]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="Level/Camera/CanvasLayer"]
+material = SubResource("ShaderMaterial_k6mvd")
+offset_right = 1161.0
+offset_bottom = 651.0
 
 [node name="TileMapMain" type="TileMap" parent="Level"]
 texture_filter = 1

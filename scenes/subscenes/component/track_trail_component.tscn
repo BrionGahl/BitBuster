@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://btdrka86pvjsd"]
+
+[ext_resource type="PackedScene" uid="uid://dy8a4nya53ird" path="res://scenes/subscenes/component/line_trail_component.tscn" id="1_4uc7g"]
+
+[sub_resource type="Gradient" id="Gradient_bts43"]
+offsets = PackedFloat32Array(0, 0.418367)
+colors = PackedColorArray(0, 0, 0, 1, 0.625597, 0.625597, 0.625597, 1)
+
+[node name="TrackTrailComponent" type="Node2D"]
+
+[node name="LeftTrackStart" type="Marker2D" parent="."]
+position = Vector2(-5, -6)
+
+[node name="TrailComponent" parent="LeftTrackStart" instance=ExtResource("1_4uc7g")]
+texture_repeat = 2
+width = 2.0
+width_curve = null
+gradient = SubResource("Gradient_bts43")
+TrailLength = 3000
+
+[node name="RightTrackStart" type="Marker2D" parent="."]
+position = Vector2(-5, 6)
+
+[node name="TrailComponent" parent="RightTrackStart" instance=ExtResource("1_4uc7g")]
+texture_repeat = 2
+width = 2.0
+width_curve = null
+gradient = SubResource("Gradient_bts43")
+TrailLength = 3000
