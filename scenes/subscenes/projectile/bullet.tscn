@@ -11,7 +11,7 @@ size = Vector2(2, 4)
 
 [node name="Bullet" type="CharacterBody2D"]
 z_index = 1
-collision_layer = 2
+collision_layer = 16
 collision_mask = 13
 script = ExtResource("1_07tvk")
 
@@ -23,8 +23,8 @@ texture = ExtResource("2_qlveo")
 shape = SubResource("RectangleShape2D_u4xfs")
 
 [node name="Hitbox" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 15
+collision_layer = 16
+collision_mask = 23
 
 [node name="AreaCollider" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("RectangleShape2D_c7r3b")

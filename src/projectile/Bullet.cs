@@ -23,7 +23,7 @@ public partial class Bullet : CharacterBody2D
 		
 		TopLevel = true;
 		
-		_hitbox.BodyEntered += OnBodyEntered;
+		_hitbox.AreaEntered += OnAreaEntered;
 	}
 	
 	public override void _Process(double delta)
@@ -43,6 +43,9 @@ public partial class Bullet : CharacterBody2D
 			Rotation = Velocity.Angle() - Constants.GunSpriteOffset;
 
 			_remainingBounces--;
+		} else if (collision != null && _remainingBounces == 0)
+		{
+			QueueFree();
 		}
 	}
 
@@ -56,12 +59,10 @@ public partial class Bullet : CharacterBody2D
 		Velocity = new Vector2(0, -speed).Rotated(GlobalRotation);
 	}
 
-	private void OnBodyEntered(Node2D body)
+	private void OnAreaEntered(Area2D area)
 	{
-		if (_remainingBounces == 0)
-		{
-			Logger.Log.Information("Collided with " + body);
-			QueueFree();
-		}
+		Logger.Log.Information("Hitbox hit at " + area);
+		
+		
 	}
 }

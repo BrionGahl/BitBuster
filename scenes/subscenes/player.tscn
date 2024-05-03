@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://det6gkgxg57mw"]
+[gd_scene load_steps=13 format=3 uid="uid://det6gkgxg57mw"]
 
 [ext_resource type="Script" path="res://src/entity/player/Player.cs" id="1_nju6n"]
 [ext_resource type="Texture2D" uid="uid://2ruli1e1oei3" path="res://assets/player/player_tank.png" id="2_wsan7"]
@@ -45,6 +45,9 @@ animations = [{
 radius = 7.0
 height = 16.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wia58"]
+size = Vector2(16, 16)
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 z_index = 1
 collision_layer = 2
@@ -77,3 +80,8 @@ MaxHealth = 3.0
 
 [node name="Weapon" type="Node2D" parent="."]
 script = ExtResource("6_2kg3p")
+
+[node name="HitboxComponentTODO" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponentTODO"]
+shape = SubResource("RectangleShape2D_wia58")
