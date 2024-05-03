@@ -20,6 +20,7 @@ public partial class Floor : Node2D
 	private RandomNumberGenerator _random;
 	private Rooms _rooms;
 
+	// TODO: Refactor most of this to be private
 	public int Level { get; set; } = 3;
 	public int[,] MapGrid { get; set; }
 

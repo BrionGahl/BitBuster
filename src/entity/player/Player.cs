@@ -20,7 +20,6 @@ public partial class Player : CharacterBody2D
 
 	private Vector2 _movementDirection;
 	private float _rotationDirection;
-	private const float GunSpriteOffset = (float) Math.PI / 2;
 	
 	private void GetInput() 
 	{
@@ -30,7 +29,7 @@ public partial class Player : CharacterBody2D
 
 	private void SetGunRotationAndPosition()
 	{
-		Gun.Rotation = GetGlobalMousePosition().AngleToPoint(Position) - GunSpriteOffset;
+		Gun.Rotation = GetGlobalMousePosition().AngleToPoint(Position) - Constants.GunSpriteOffset;
 		Gun.Position = Position;
 	}
 

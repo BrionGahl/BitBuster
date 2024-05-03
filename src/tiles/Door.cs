@@ -60,8 +60,11 @@ public partial class Door : Area2D
 
 	private void OnBodyEntered(Node2D body)
 	{
-		Logger.Log.Information("body entered..." + Type);
+		if (!body.IsInGroup("player"))
+			return; // TODO: Might need to free projectiles coming in...
 		
+		Logger.Log.Information("body entered..." + Type);
+
 		body.GlobalPosition = _marker2D.GlobalPosition + Offset;
 		
 		// TODO: play around with this...
