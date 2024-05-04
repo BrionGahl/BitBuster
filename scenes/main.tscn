@@ -25,7 +25,7 @@ position_smoothing_speed = 8.0
 script = ExtResource("4_e2pov")
 
 [node name="Border" type="Sprite2D" parent="Level/Camera"]
-z_index = 2
+z_index = 5
 scale = Vector2(0.500868, 0.501543)
 texture = ExtResource("4_smynp")
 
@@ -38,7 +38,7 @@ offset_right = 1161.0
 offset_bottom = 651.0
 
 [node name="TileMapMain" type="TileMap" parent="Level"]
-z_index = 1
+z_index = 3
 texture_filter = 1
 tile_set = ExtResource("3_0ap6v")
 format = 2

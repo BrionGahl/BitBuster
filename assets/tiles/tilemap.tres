@@ -318,7 +318,7 @@ use_texture_padding = false
 
 [resource]
 physics_layer_0/collision_layer = 1
-physics_layer_0/collision_mask = 0
+physics_layer_0/collision_mask = 30
 custom_data_layer_0/name = "chance"
 custom_data_layer_0/type = 3
 custom_data_layer_1/name = "target_id"
