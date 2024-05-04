@@ -6,10 +6,6 @@ namespace BitBuster.entity.player;
 
 public partial class Player : CharacterBody2D
 {
-	private Sprite2D Gun { get; set; }
-	private AnimatedSprite2D Hull { get; set; }
-	private CollisionShape2D Collider { get; set; }
-	
 	[Export]
 	public float Speed { get; set; } = 300;
 	
@@ -17,6 +13,9 @@ public partial class Player : CharacterBody2D
 	public float RotationSpeed { get; set; } = 3f;
 	
 	private bool IsIdle => Velocity.Equals(Vector2.Zero);
+
+	private Sprite2D _gun;
+	private AnimatedSprite2D _hull;
 
 	private Vector2 _movementDirection;
 	private float _rotationDirection;
@@ -29,22 +28,22 @@ public partial class Player : CharacterBody2D
 
 	private void SetGunRotationAndPosition()
 	{
-		Gun.Rotation = GetGlobalMousePosition().AngleToPoint(Position) - Constants.GunSpriteOffset;
-		Gun.Position = Position;
+		_gun.Rotation = GetGlobalMousePosition().AngleToPoint(Position) - Constants.GunSpriteOffset;
+		_gun.Position = Position;
 	}
 
 	private void HandleAnimations()
 	{;
 		if (IsIdle)
 		{
-			Hull.Animation = "default";	// maybe make this better / dont hardcode string
+			_hull.Animation = "default";	// maybe make this better / dont hardcode string
 		}
 		else
 		{
-			Hull.Animation = "moving";
+			_hull.Animation = "moving";
 		}
 		
-		Hull.Play();
+		_hull.Play();
 
 	}
 
@@ -52,9 +51,8 @@ public partial class Player : CharacterBody2D
 	{
 		Logger.Log.Information("Loading player...");
 		
-		Gun = GetNode<Sprite2D>("Gun");
-		Hull = GetNode<AnimatedSprite2D>("Hull");
-		Collider = GetNode<CollisionShape2D>("Collider");
+		_gun = GetNode<Sprite2D>("Gun");
+		_hull = GetNode<AnimatedSprite2D>("Hull");
 	}
 	
 	public override void _Process(double delta)
