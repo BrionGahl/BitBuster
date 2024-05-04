@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using BitBuster.data;
 using BitBuster.projectile;
 using BitBuster.utils;
 using Godot;
@@ -68,7 +70,7 @@ public partial class Weapon : Node2D
 	private void Shoot()
 	{
 		Bullet bullet = _bullet.Instantiate<CharacterBody2D>() as Bullet;
-		bullet.SetTrajectory(_parent.GlobalPosition, GetGlobalMousePosition().AngleToPoint(_parent.GlobalPosition) - Constants.GunSpriteOffset, BulletSpeed, MaxBounces);
+		bullet.SetTrajectory(_parent.GlobalPosition, GetGlobalMousePosition().AngleToPoint(_parent.GlobalPosition) - Constants.GunSpriteOffset, BulletSpeed, MaxBounces, new AttackData(1.0f, new List<EffectType>()));
 		AddChild(bullet);
 	}
 

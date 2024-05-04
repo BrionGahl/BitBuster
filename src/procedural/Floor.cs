@@ -23,15 +23,14 @@ public partial class Floor : Node2D
 	// TODO: Refactor most of this to be private
 	public int Level { get; set; } = 3;
 	public int[,] MapGrid { get; set; }
-
-	public CharacterBody2D Player { get; set; }
-
+	
 	public PackedScene Rooms { get; set; }
 	public PackedScene Doors { get; set; }
 	
 	public SceneTree SceneTree { get; set; }
 	public TileMap LevelMain { get; set; }
 	public Node2D LevelExtra { get; set; }
+	public CharacterBody2D LevelPlayer { get; set; }
 	
 	public override void _Ready()
 	{
@@ -41,7 +40,11 @@ public partial class Floor : Node2D
 		SceneTree = GetTree();
 		LevelMain = GetNode<TileMap>("Level/TileMapMain");
 		LevelExtra = GetNode<Node2D>("Level/Extra");
-
+		
+		LevelPlayer = GetNode<CharacterBody2D>("Level/Player");
+		if (LevelPlayer == null)
+			Logger.Log.Information("hmm");
+		
 		_random = new RandomNumberGenerator();
 		
 		_roomLimit = _random.RandiRange(0, 2) + 5 + Level * 2;
@@ -235,15 +238,13 @@ public partial class Floor : Node2D
 			Logger.Log.Debug("Adding Child to Extra...");
 			Node2D newObject = data.Objects[i].Duplicate() as Node2D;
 			newObject.Position += worldOffset;
-			
+
 			if (newObject.IsInGroup("player"))
 			{
-				Logger.Log.Debug("Grabbed Player Object on Level Generation...");
-				if (Player == null)
-					Player = newObject as Player;
-				LevelExtra.GetParent<Node2D>().AddChild(Player);
+				LevelPlayer.Position = newObject.Position;
 				continue;
 			}
+			
 			LevelExtra.AddChild(newObject);
 		}
 		

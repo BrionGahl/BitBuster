@@ -1,4 +1,6 @@
 using System;
+using BitBuster.Component;
+using BitBuster.data;
 using BitBuster.utils;
 using Godot;
 
@@ -15,7 +17,8 @@ public partial class Bullet : CharacterBody2D
 
 	private Timer _parentIFrameTimer;
 	private Timer _deathAnimationTimer;
-	
+
+	private AttackData _attackData;
 	private int _remainingBounces;
 	private float _hueShift;
 	
@@ -66,7 +69,7 @@ public partial class Bullet : CharacterBody2D
 
 	}
 
-	public void SetTrajectory(Vector2 position, float rotation, float speed, int maxBounces)
+	public void SetTrajectory(Vector2 position, float rotation, float speed, int maxBounces, AttackData attackData)
 	{
 		GlobalPosition = position;
 		GlobalRotation = rotation;
@@ -76,6 +79,7 @@ public partial class Bullet : CharacterBody2D
 		
 		_bulletTexture.Modulate = Color.FromHsv(_remainingBounces * _hueShift, 1.0f, 1.0f);
 
+		_attackData = attackData;
 		
 		Velocity = new Vector2(0, -speed).Rotated(GlobalRotation);
 	}
@@ -93,7 +97,12 @@ public partial class Bullet : CharacterBody2D
 	private void OnAreaEntered(Area2D area)
 	{
 		Logger.Log.Information("Hitbox hit at " + area.Name);
-		
+		if (area is HitboxComponent)
+		{
+			HitboxComponent hitboxComponent = area as HitboxComponent;
+
+			hitboxComponent.Damage(_attackData);
+		}
 		PrepForFree();
 		_deathAnimationTimer.Start();
 		
