@@ -22,7 +22,7 @@ GlobalEvents="*res://src/world/GlobalEvents.cs"
 [display]
 
 window/stretch/mode="viewport"
-mouse_cursor/custom_image="res://assets/cursor/cursor.png"
+mouse_cursor/tooltip_position_offset=Vector2(0, 0)
 
 [dotnet]
 
