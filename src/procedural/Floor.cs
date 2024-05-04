@@ -235,13 +235,16 @@ public partial class Floor : Node2D
 			Logger.Log.Debug("Adding Child to Extra...");
 			Node2D newObject = data.Objects[i].Duplicate() as Node2D;
 			newObject.Position += worldOffset;
-			LevelExtra.AddChild(newObject);
-
+			
 			if (newObject.IsInGroup("player"))
 			{
 				Logger.Log.Debug("Grabbed Player Object on Level Generation...");
-				Player = newObject as Player;
+				if (Player == null)
+					Player = newObject as Player;
+				LevelExtra.GetParent<Node2D>().AddChild(Player);
+				continue;
 			}
+			LevelExtra.AddChild(newObject);
 		}
 		
 		for (int i = 0; i < data.TileMap.Count; i++)

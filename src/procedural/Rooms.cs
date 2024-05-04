@@ -23,7 +23,6 @@ public partial class Rooms : Node2D
 {
 	private RandomNumberGenerator _random;
 
-	private TileMap _room;
 	public Vector2I RoomSize { get; set; }
 	public Vector2I CellSize { get; set; }
 

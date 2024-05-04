@@ -5,22 +5,22 @@ namespace BitBuster.Component;
 public partial class HealthComponent : Node2D
 {
 
-	private float _health;
-
-	[Export] public float MaxHealth { get; set; } = 10.0f;
-
+	[Export]
+	public float MaxHealth { get; set; } = 10.0f;
+	
+	[Export]
+	public float CurrentHealth { get; set; }
 
 	public override void _Ready()
 	{
-		_health = MaxHealth;
+		CurrentHealth = MaxHealth;
 	}
 
 	public void Damage(float damage)
 	{
-		_health -= damage;
+		CurrentHealth -= damage;
 		
-		if (_health <= 0)
+		if (CurrentHealth <= 0)
 			GetParent().QueueFree();
 	}
-	
 }
