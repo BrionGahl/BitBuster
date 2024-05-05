@@ -1,4 +1,5 @@
 using System;
+using BitBuster.component;
 using BitBuster.utils;
 using Godot;
 
@@ -7,11 +8,14 @@ namespace BitBuster.entity.player;
 public partial class Player : CharacterBody2D
 {
 	[Export]
-	public float Speed { get; set; } = 300;
-	
-	[Export]
-	public float RotationSpeed { get; set; } = 3f;
-	
+	private StatsComponent _statsComponent;
+
+	private float Speed
+	{
+		get => _statsComponent.Speed;
+		set => _statsComponent.Speed = value;
+	}
+	private float RotationSpeed => Speed / 25;
 	private bool IsIdle => Velocity.Equals(Vector2.Zero);
 
 	private Sprite2D _gun;
@@ -19,6 +23,33 @@ public partial class Player : CharacterBody2D
 
 	private Vector2 _movementDirection;
 	private float _rotationDirection;
+	
+	public override void _Ready()
+	{
+		Logger.Log.Information("Loading player...");
+		
+		_gun = GetNode<Sprite2D>("Gun");
+		_hull = GetNode<AnimatedSprite2D>("Hull");
+	}
+	
+	public override void _Process(double delta)
+	{
+		GetInput();
+		SetGunRotationAndPosition();
+		
+		HandleAnimations();
+		
+		if (!IsIdle)
+			Rotation += _rotationDirection * RotationSpeed * (float)delta;
+		
+		Velocity = _movementDirection * Speed;
+
+	}
+	
+	public override void _PhysicsProcess(double delta)
+	{
+		MoveAndSlide();
+	}
 	
 	private void GetInput() 
 	{
@@ -45,32 +76,5 @@ public partial class Player : CharacterBody2D
 		
 		_hull.Play();
 
-	}
-
-	public override void _Ready()
-	{
-		Logger.Log.Information("Loading player...");
-		
-		_gun = GetNode<Sprite2D>("Gun");
-		_hull = GetNode<AnimatedSprite2D>("Hull");
-	}
-	
-	public override void _Process(double delta)
-	{
-		GetInput();
-		SetGunRotationAndPosition();
-		
-		HandleAnimations();
-		
-		if (!IsIdle)
-			Rotation += _rotationDirection * RotationSpeed * (float)delta;
-		
-		Velocity = _movementDirection * Speed;
-
-	}
-	
-	public override void _PhysicsProcess(double delta)
-	{
-		MoveAndSlide();
 	}
 }

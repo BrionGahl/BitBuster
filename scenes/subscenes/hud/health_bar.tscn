@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://3u4f7f4glsn3"]
+
+[ext_resource type="Script" path="res://src/hud/HealthBar.cs" id="1_5wpep"]
+[ext_resource type="Texture2D" uid="uid://qtq5hs0hw3uv" path="res://assets/interface/bar_background.png" id="2_1kg7j"]
+[ext_resource type="Texture2D" uid="uid://codokxekuu45j" path="res://assets/interface/bar_filled.png" id="3_r1wpv"]
+
+[node name="HealthBar" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 10.0
+offset_bottom = 10.0
+scale = Vector2(2, 2)
+script = ExtResource("1_5wpep")
+
+[node name="HealthEmpty" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 16.0
+texture = ExtResource("2_1kg7j")
+stretch_mode = 1
+
+[node name="HealthFull" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 16.0
+texture = ExtResource("3_r1wpv")
+stretch_mode = 1

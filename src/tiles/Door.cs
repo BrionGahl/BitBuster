@@ -61,7 +61,7 @@ public partial class Door : Area2D
 	private void OnBodyEntered(Node2D body)
 	{
 		if (!body.IsInGroup("player"))
-			return; // TODO: Might need to free projectiles coming in...
+			return; 
 		
 		Logger.Log.Information("body entered..." + Type);
 
