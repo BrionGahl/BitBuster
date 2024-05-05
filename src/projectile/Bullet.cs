@@ -69,19 +69,19 @@ public partial class Bullet : CharacterBody2D
 
 	}
 
-	public void SetTrajectory(Vector2 position, float rotation, float speed, int maxBounces, AttackData attackData)
+	public void SetTrajectory(Vector2 position, float rotation, AttackData attackData)
 	{
 		GlobalPosition = position;
 		GlobalRotation = rotation;
 
-		_remainingBounces = maxBounces;
-		_hueShift = 0.33f / maxBounces;
+		_remainingBounces = attackData.Bounces;
+		_hueShift = 0.33f / attackData.Bounces;
 		
 		_bulletTexture.Modulate = Color.FromHsv(_remainingBounces * _hueShift, 1.0f, 1.0f);
 
 		_attackData = attackData;
 		
-		Velocity = new Vector2(0, -speed).Rotated(GlobalRotation);
+		Velocity = new Vector2(0, -attackData.Speed).Rotated(GlobalRotation);
 	}
 
 	private void PrepForFree()

@@ -23,27 +23,22 @@ public partial class Floor : Node2D
 	// TODO: Refactor most of this to be private
 	public int Level { get; set; } = 3;
 	public int[,] MapGrid { get; set; }
+
+	private PackedScene _roomsScene;
+	private PackedScene _doorScene;
 	
-	public PackedScene Rooms { get; set; }
-	public PackedScene Doors { get; set; }
-	
-	public SceneTree SceneTree { get; set; }
-	public TileMap LevelMain { get; set; }
-	public Node2D LevelExtra { get; set; }
-	public CharacterBody2D LevelPlayer { get; set; }
+	private TileMap _levelMain { get; set; }
+	private Node2D _levelExtra { get; set; }
+	private CharacterBody2D _levelPlayer { get; set; }
 	
 	public override void _Ready()
 	{
-		Rooms = GD.Load<PackedScene>("res://scenes/subscenes/procedural/rooms.tscn");
-		Doors = GD.Load<PackedScene>("res://scenes/subscenes/tiles/door.tscn");
+		_roomsScene = GD.Load<PackedScene>("res://scenes/subscenes/procedural/rooms.tscn");
+		_doorScene = GD.Load<PackedScene>("res://scenes/subscenes/tiles/door.tscn");
 
-		SceneTree = GetTree();
-		LevelMain = GetNode<TileMap>("Level/TileMapMain");
-		LevelExtra = GetNode<Node2D>("Level/Extra");
-		
-		LevelPlayer = GetNode<CharacterBody2D>("Level/Player");
-		if (LevelPlayer == null)
-			Logger.Log.Information("hmm");
+		_levelMain = GetNode<TileMap>("Level/TileMapMain");
+		_levelExtra = GetNode<Node2D>("Level/Extra");
+		_levelPlayer = GetNode<CharacterBody2D>("Level/Player");
 		
 		_random = new RandomNumberGenerator();
 		
@@ -55,7 +50,7 @@ public partial class Floor : Node2D
 
 	private void GenerateLevel()
 	{
-		_rooms = Rooms.Instantiate<Node2D>() as Rooms;
+		_rooms = _roomsScene.Instantiate<Node2D>() as Rooms;
 		_random.Randomize();
 		
 		GenerateMap();
@@ -241,25 +236,25 @@ public partial class Floor : Node2D
 
 			if (newObject.IsInGroup("player"))
 			{
-				LevelPlayer.Position = newObject.Position;
+				_levelPlayer.Position = newObject.Position;
 				newObject.QueueFree();
 				continue;
 			}
 			
-			LevelExtra.AddChild(newObject);
+			_levelExtra.AddChild(newObject);
 		}
 		
 		for (int i = 0; i < data.TileMap.Count; i++)
 		{
 			if (adjacentRooms.Contains(data.TileMap[i].Direction))
 			{
-				Door door = Doors.Instantiate<Area2D>() as Door;
+				Door door = _doorScene.Instantiate<Area2D>() as Door;
 				door.SetDoorInfo(((Vector2)data.TileMap[i].Direction).Angle() + (float)Math.PI, data.TileMap[i].Offset * _rooms.CellSize + worldOffset, data.TileMap[i].Direction * 32);
-				LevelExtra.AddChild(door);
+				_levelExtra.AddChild(door);
 				continue; // dont put a tile here
 			}
 				
-			LevelMain.SetCell(0, mapOffset + data.TileMap[i].Offset, data.TileMap[i].TargetId,
+			_levelMain.SetCell(0, mapOffset + data.TileMap[i].Offset, data.TileMap[i].TargetId,
 				data.TileMap[i].AtlasCoords);
 		}
 	}

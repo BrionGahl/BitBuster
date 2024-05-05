@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using BitBuster.component;
 using BitBuster.data;
 using BitBuster.projectile;
 using BitBuster.utils;
@@ -13,19 +14,14 @@ public partial class Weapon : Node2D
 	public delegate void BulletCountChangeEventHandler(int count);
 
 	
-	[Export] 
-	public int BulletCount { get; set; } = 5;
-
 	[Export]
-	public float BulletSpeed { get; set; } = 100;
-
-	[Export]
-	public float ShootCooldown { get; set; } = 0.33f;
-
-	[Export]
-	public int MaxBounces { get; set; } = 1;
-
+	private StatsComponent _statsComponent;
 	
+	public int BulletCount
+	{
+		get => _statsComponent.ProjectileCount;
+		set => _statsComponent.ProjectileCount = value; 
+	}
 	
 	private Player _parent;
 	private PackedScene _bullet;
@@ -64,7 +60,7 @@ public partial class Weapon : Node2D
 			Shoot();
 			_canShoot = false;
 			
-			_shootTimer.Start(ShootCooldown);
+			_shootTimer.Start(_statsComponent.ProjectileCooldown);
 		}
 		
 	}
@@ -77,7 +73,7 @@ public partial class Weapon : Node2D
 	private void Shoot()
 	{
 		Bullet bullet = _bullet.Instantiate<CharacterBody2D>() as Bullet;
-		bullet.SetTrajectory(_parent.GlobalPosition, GetGlobalMousePosition().AngleToPoint(_parent.GlobalPosition) - Constants.GunSpriteOffset, BulletSpeed, MaxBounces, new AttackData(1.0f, new List<EffectType>()));
+		bullet.SetTrajectory(_parent.GlobalPosition, GetGlobalMousePosition().AngleToPoint(_parent.GlobalPosition) - Constants.GunSpriteOffset, _statsComponent.GetAttackData());
 		AddChild(bullet);
 	}
 
@@ -93,6 +89,7 @@ public partial class Weapon : Node2D
 	
 	private void OnBulletRemove(Node node)
 	{
+		// OnChildTreeExit signals before child leaves the tree. -1 indicates this.
 		EmitSignal(SignalName.BulletCountChange, GetChildren().Count - 1);
 	}
 }

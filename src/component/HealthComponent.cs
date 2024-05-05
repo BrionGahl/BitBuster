@@ -1,3 +1,4 @@
+using BitBuster.component;
 using BitBuster.data;
 using Godot;
 
@@ -7,13 +8,21 @@ public partial class HealthComponent : Node2D
 {
 	[Signal]
 	public delegate void HealthChangeEventHandler();
-
-
-	[Export]
-	public float MaxHealth { get; set; } = 3.0f;
 	
 	[Export]
-	public float CurrentHealth { get; set; }
+	private StatsComponent _statsComponent;
+
+	public float MaxHealth
+	{
+		get => _statsComponent.MaxHealth;
+		set => _statsComponent.MaxHealth = value; 
+	}
+	
+	public float CurrentHealth
+	{
+		get => _statsComponent.CurrentHealth;
+		set => _statsComponent.CurrentHealth = value; 
+	}
 
 	private Timer _deathAnimationTimer;
 	
