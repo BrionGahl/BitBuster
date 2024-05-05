@@ -1,5 +1,7 @@
 using BitBuster.Component;
+using BitBuster.utils;
 using Godot;
+using Serilog;
 
 namespace BitBuster.hud;
 
@@ -29,6 +31,8 @@ public partial class HealthBarWithDelta : ProgressBar
 		
 		_playerHealthComponent.HealthChange += OnHealthChange;
 		_timer.Timeout += OnDeltaTimeout;
+		
+		_timer.Start(0.125);
 	}
 	
 	private void OnHealthChange()
@@ -38,13 +42,14 @@ public partial class HealthBarWithDelta : ProgressBar
 
 		Size = new Vector2(_playerHealthComponent.MaxHealth * 16, 16);
 
-		_timer.Start();
+		_timer.Start(0.333);
 	}
 
 	private void OnDeltaTimeout()
 	{
+		Size = new Vector2(_playerHealthComponent.MaxHealth * 16, 16);
+
 		_deltaBar.MaxValue = _playerHealthComponent.MaxHealth;
 		_deltaBar.Value = Value;
 	}
-	
 }

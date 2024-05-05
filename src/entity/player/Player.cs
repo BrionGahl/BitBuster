@@ -65,16 +65,7 @@ public partial class Player : CharacterBody2D
 
 	private void HandleAnimations()
 	{;
-		if (IsIdle)
-		{
-			_hull.Animation = "default";	// maybe make this better / dont hardcode string
-		}
-		else
-		{
-			_hull.Animation = "moving";
-		}
-		
+		_hull.Animation = IsIdle ? "default" : "moving";
 		_hull.Play();
-
 	}
 }

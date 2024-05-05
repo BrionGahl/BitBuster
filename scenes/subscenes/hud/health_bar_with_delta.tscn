@@ -23,7 +23,7 @@ expand_margin_bottom = 1.0
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ansb"]
 bg_color = Color(0.36, 0, 0, 1)
 
-[node name="HealthBar2" type="ProgressBar"]
+[node name="HealthBar" type="ProgressBar"]
 z_index = 3
 offset_right = 48.0
 offset_bottom = 16.0

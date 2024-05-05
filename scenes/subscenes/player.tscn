@@ -80,7 +80,7 @@ _statsComponent = NodePath("../StatsComponent")
 one_shot = true
 
 [node name="StatsComponent" parent="." instance=ExtResource("5_bmnux")]
-MaxHealth = 3.0
+MaxHealth = 4.0
 ProjectileDamage = 1.0
 ProjectileCount = 3
 ProjectileCooldown = 0.33
