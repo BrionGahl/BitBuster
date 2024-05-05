@@ -9,6 +9,10 @@ namespace BitBuster.entity.player;
 public partial class Weapon : Node2D
 {
 
+	[Signal]
+	public delegate void BulletCountChangeEventHandler(int count);
+
+	
 	[Export] 
 	public int BulletCount { get; set; } = 5;
 
@@ -39,10 +43,13 @@ public partial class Weapon : Node2D
 		_parent = GetParent<CharacterBody2D>() as Player;
 		_shootTimer = GetNode<Timer>("ShootTimer");
 
-		_shootTimer.Timeout += OnShootTimeout;
-		
 		_hasShot = false;
 		_canShoot = true;
+		
+		_shootTimer.Timeout += OnShootTimeout;
+
+		ChildEnteredTree += OnBulletSpawn;
+		ChildExitingTree += OnBulletRemove;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -77,5 +84,15 @@ public partial class Weapon : Node2D
 	private void OnShootTimeout()
 	{
 		_canShoot = true;
+	}
+
+	private void OnBulletSpawn(Node node)
+	{
+		EmitSignal(SignalName.BulletCountChange, GetChildren().Count);
+	}
+	
+	private void OnBulletRemove(Node node)
+	{
+		EmitSignal(SignalName.BulletCountChange, GetChildren().Count - 1);
 	}
 }

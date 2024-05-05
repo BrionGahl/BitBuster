@@ -14,7 +14,7 @@ public partial class HealthBarWithDelta : ProgressBar
 	
 	public override void _Ready()
 	{
-		_playerHealthComponent = GetNode<Node2D>("../../Player/HealthComponent") as HealthComponent;
+		_playerHealthComponent = GetNode<Node2D>("../../../Player/HealthComponent") as HealthComponent;
 		_deltaBar = GetNode<ProgressBar>("DeltaBar");
 		_timer = GetNode<Timer>("Timer");
 		_overlay = GetNode<TextureRect>("Overlay");

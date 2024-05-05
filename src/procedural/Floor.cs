@@ -242,6 +242,7 @@ public partial class Floor : Node2D
 			if (newObject.IsInGroup("player"))
 			{
 				LevelPlayer.Position = newObject.Position;
+				newObject.QueueFree();
 				continue;
 			}
 			
