@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://det6gkgxg57mw"]
+[gd_scene load_steps=15 format=3 uid="uid://det6gkgxg57mw"]
 
 [ext_resource type="Script" path="res://src/entity/player/Player.cs" id="1_nju6n"]
 [ext_resource type="Texture2D" uid="uid://2ruli1e1oei3" path="res://assets/player/player_tank.png" id="2_wsan7"]
@@ -47,6 +47,9 @@ animations = [{
 radius = 7.0
 height = 16.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cfb50"]
+size = Vector2(16, 16)
+
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_statsComponent") groups=["player"]]
 z_index = 1
 collision_layer = 2
@@ -67,7 +70,6 @@ texture_filter = 1
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_udnnf")
 animation = &"moving"
-frame_progress = 0.861227
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_pjmg8")
@@ -96,3 +98,6 @@ _statsComponent = NodePath("../StatsComponent")
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("_healthComponent") instance=ExtResource("8_gp6gs")]
 _healthComponent = NodePath("../HealthComponent")
+
+[node name="Hitbox" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("RectangleShape2D_cfb50")

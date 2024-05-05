@@ -12,7 +12,6 @@ public partial class Weapon : Node2D
 
 	[Signal]
 	public delegate void BulletCountChangeEventHandler(int count);
-
 	
 	[Export]
 	private StatsComponent _statsComponent;
@@ -35,6 +34,8 @@ public partial class Weapon : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		_statsComponent ??= GetParent().GetNode<Node2D>("StatsComponent") as StatsComponent;
+		
 		_bullet = GD.Load<PackedScene>("res://scenes/subscenes/projectile/bullet.tscn");
 		_parent = GetParent<CharacterBody2D>() as Player;
 		_shootTimer = GetNode<Timer>("ShootTimer");

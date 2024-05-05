@@ -4,6 +4,9 @@ using Godot;
 
 namespace BitBuster.component;
 
+// https://docs.godotengine.org/en/stable/tutorials/scripting/c_sharp/c_sharp_exports.html
+// See this for bitwise Enums
+
 public enum EffectType
 {
 	Normal = 0,

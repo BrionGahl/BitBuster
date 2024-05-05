@@ -96,9 +96,10 @@ public partial class Bullet : CharacterBody2D
 
 	private void OnAreaEntered(Area2D area)
 	{
-		Logger.Log.Information("Hitbox hit at " + area.Name);
 		if (area is HitboxComponent)
 		{
+			Logger.Log.Information("Hitbox hit at " + area.Name);
+
 			HitboxComponent hitboxComponent = area as HitboxComponent;
 
 			hitboxComponent.Damage(_attackData);
@@ -111,6 +112,8 @@ public partial class Bullet : CharacterBody2D
 	private void OnParentIFrameTimeout()
 	{
 		_hitbox.SetCollisionMaskValue(2, true);
+		_hitbox.SetCollisionMaskValue(3, true);
+
 	}
 	
 	private void OnDeathAnimationTimeout()

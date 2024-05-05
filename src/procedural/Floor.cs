@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using BitBuster.data;
+using BitBuster.entity.enemy;
 using BitBuster.entity.player;
 using BitBuster.tiles;
 using Godot;
@@ -239,6 +240,11 @@ public partial class Floor : Node2D
 				_levelPlayer.Position = newObject.Position;
 				newObject.QueueFree();
 				continue;
+			}
+
+			if (newObject.IsInGroup("enemy"))
+			{
+				(newObject as WhitePanzer).LinkNodes();
 			}
 			
 			_levelExtra.AddChild(newObject);

@@ -1,5 +1,6 @@
 using BitBuster.component;
 using BitBuster.data;
+using BitBuster.utils;
 using Godot;
 
 namespace BitBuster.Component;
@@ -35,8 +36,15 @@ public partial class HealthComponent : Node2D
 		_deathAnimationTimer.Timeout += OnDeathAnimationTimeout;
 	}
 
+	public void LinkNodes()
+	{
+		_statsComponent = GetParent().GetNode<Node2D>("StatsComponent") as StatsComponent;
+	}
+
 	public void Damage(AttackData attackData)
 	{
+		Logger.Log.Information(this + " taking " + attackData.Damage + " damage.");
+		
 		CurrentHealth -= attackData.Damage;
 		
 		if (CurrentHealth <= 0)
