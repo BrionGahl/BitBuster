@@ -32,10 +32,23 @@ public partial class HealthComponent : Node2D
 		
 		if (CurrentHealth <= 0)
 		{
+			CurrentHealth = 0;
 			_deathAnimationTimer.Start();
 		}
+	
 		EmitSignal(SignalName.HealthChange);
-
+	}
+	
+	public void Heal(float heal)
+	{
+		CurrentHealth += heal;
+		
+		if (CurrentHealth > MaxHealth)
+		{
+			CurrentHealth = MaxHealth;
+		}
+	
+		EmitSignal(SignalName.HealthChange);
 	}
 
 	private void OnDeathAnimationTimeout()
