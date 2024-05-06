@@ -13,6 +13,8 @@ public partial class HealthComponent : Node2D
 	[Export]
 	private StatsComponent _statsComponent;
 
+	private GpuParticles2D _particleDeath;
+
 	public float MaxHealth
 	{
 		get => _statsComponent.MaxHealth;
@@ -30,6 +32,7 @@ public partial class HealthComponent : Node2D
 	public override void _Ready()
 	{
 		_deathAnimationTimer = GetNode<Timer>("DeathAnimationTimer");
+		_particleDeath = GetNode<GpuParticles2D>("ParticleDeath");
 		
 		CurrentHealth = MaxHealth;
 
@@ -50,6 +53,7 @@ public partial class HealthComponent : Node2D
 		if (CurrentHealth <= 0)
 		{
 			CurrentHealth = 0;
+			_particleDeath.Emitting = true;
 			_deathAnimationTimer.Start();
 		}
 	

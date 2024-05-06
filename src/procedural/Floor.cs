@@ -1,13 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using BitBuster.data;
 using BitBuster.entity.enemy;
 using BitBuster.entity.player;
 using BitBuster.tiles;
+using BitBuster.utils;
 using Godot;
-using Serilog.Core;
-using Logger = BitBuster.utils.Logger;
 
 namespace BitBuster.procedural;
 
@@ -28,18 +26,20 @@ public partial class Floor : Node2D
 	private PackedScene _roomsScene;
 	private PackedScene _doorScene;
 	
+	private NavigationRegion2D _levelRegion { get; set; }
 	private TileMap _levelMain { get; set; }
 	private Node2D _levelExtra { get; set; }
-	private CharacterBody2D _levelPlayer { get; set; }
+	private Player _levelPlayer { get; set; }
 	
 	public override void _Ready()
 	{
 		_roomsScene = GD.Load<PackedScene>("res://scenes/subscenes/procedural/rooms.tscn");
 		_doorScene = GD.Load<PackedScene>("res://scenes/subscenes/tiles/door.tscn");
 
-		_levelMain = GetNode<TileMap>("Level/TileMapMain");
+		_levelRegion = GetNode<NavigationRegion2D>("Level/NavRegion");
+		_levelMain = GetNode<TileMap>("Level/NavRegion/TileMapMain");
 		_levelExtra = GetNode<Node2D>("Level/Extra");
-		_levelPlayer = GetNode<CharacterBody2D>("Level/Player");
+		_levelPlayer = GetNode<CharacterBody2D>("Level/Player") as Player;
 		
 		_random = new RandomNumberGenerator();
 		
@@ -199,6 +199,7 @@ public partial class Floor : Node2D
 
 	private void PlaceRooms()
 	{
+		NavigationPolygon poly = new NavigationPolygon();
 		for (int x = 0; x < 9; x++)
 		{
 			for (int y = 0; y < 8; y++)
@@ -218,8 +219,12 @@ public partial class Floor : Node2D
 					adjacentRooms.Add(Vector2I.Right);
 
 				CopyRoom(new Vector2I(x, y), (RoomType)MapGrid[x, y], adjacentRooms);
+				poly.AddOutline(new Vector2[] {GridToWorld(new Vector2I(x, y)), GridToWorld(new Vector2I(x, y) + new Vector2I(320, 0)), GridToWorld(new Vector2I(x, y)) + new Vector2I(320, 320), GridToWorld(new Vector2I(x, y) + new Vector2I(0, 320))});
+				//_rooms.CellSize * _rooms.RoomSize * vector
 			}
 		}
+		_levelRegion.NavigationPolygon = poly;
+		_levelRegion.BakeNavigationPolygon();
 	}
 
 	private void CopyRoom(Vector2I offset, RoomType type, List<Vector2I> adjacentRooms)
@@ -228,13 +233,13 @@ public partial class Floor : Node2D
 		Vector2I mapOffset = GridToMap(offset);
 		
 		RoomData data = _rooms.GetRoomData(type);
-		
+
 		for (int i = 0; i < data.Objects.Count; i++)
 		{
 			Logger.Log.Debug("Adding Child to Extra...");
 			Node2D newObject = data.Objects[i].Duplicate() as Node2D;
 			newObject.Position += worldOffset;
-
+			
 			if (newObject.IsInGroup("player"))
 			{
 				_levelPlayer.Position = newObject.Position;
@@ -244,7 +249,7 @@ public partial class Floor : Node2D
 
 			if (newObject.IsInGroup("enemy"))
 			{
-				(newObject as WhitePanzer).LinkNodes();
+				(newObject as Enemy).LinkNodes(_levelPlayer);
 			}
 			
 			_levelExtra.AddChild(newObject);
@@ -256,7 +261,7 @@ public partial class Floor : Node2D
 			{
 				Door door = _doorScene.Instantiate<Area2D>() as Door;
 				door.SetDoorInfo(((Vector2)data.TileMap[i].Direction).Angle() + (float)Math.PI, data.TileMap[i].Offset * _rooms.CellSize + worldOffset, data.TileMap[i].Direction * 32);
-				_levelExtra.AddChild(door);
+				_levelRegion.AddChild(door);
 				continue; // dont put a tile here
 			}
 				

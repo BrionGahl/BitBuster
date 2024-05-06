@@ -28,8 +28,6 @@ public partial class Player : CharacterBody2D
 	{
 		Logger.Log.Information("Loading player...");
 		
-		_statsComponent ??= GetNode<Node2D>("StatsComponent") as StatsComponent;
-		
 		_gun = GetNode<Sprite2D>("Gun");
 		_hull = GetNode<AnimatedSprite2D>("Hull");
 	}

@@ -1,17 +1,13 @@
 using BitBuster.component;
 using BitBuster.Component;
+using BitBuster.entity.player;
 using BitBuster.utils;
 using Godot;
 
 namespace BitBuster.entity.enemy;
 
-public partial class WhitePanzer : CharacterBody2D
+public partial class WhitePanzer : Enemy
 {
-	[Export]
-	private StatsComponent _statsComponent;
-	private HealthComponent _healthComponent;
-	private HitboxComponent _hitboxComponent;
-
 	private float Speed
 	{
 		get => _statsComponent.Speed;
@@ -22,6 +18,8 @@ public partial class WhitePanzer : CharacterBody2D
 
 	private Sprite2D _gun;
 	private AnimatedSprite2D _hull;
+	private NavigationAgent2D _agent;
+	private Timer _agentTimer;
 
 	private Vector2 _movementDirection;
 	private float _rotationDirection;
@@ -30,27 +28,81 @@ public partial class WhitePanzer : CharacterBody2D
 	{
 		_gun = GetNode<Sprite2D>("Gun");
 		_hull = GetNode<AnimatedSprite2D>("Hull");
-	}
+		_agent = GetNode<NavigationAgent2D>("Agent");
+		_agentTimer = GetNode<Timer>("Agent/Timer");
+		
+		SetPhysicsProcess(false);
 
-	public void LinkNodes() // Make this a parent class
-	{
-		Logger.Log.Information("Linking Enemy Children...");
-		_statsComponent = GetNode<Node2D>("StatsComponent") as StatsComponent;
-		_healthComponent = GetNode<Node2D>("HealthComponent") as HealthComponent;
-		_hitboxComponent = GetNode<Node2D>("HitboxComponent") as HitboxComponent;
-
-		_healthComponent.LinkNodes();
-		_hitboxComponent.LinkNodes();
+		_agentTimer.Timeout += FindPath;
+		NavigationServer2D.MapChanged += OnNavServerReady;
 	}
 
 	public override void _Process(double delta)
 	{
-		SetGunRotationAndPosition();
+		Logger.Log.Information("State: " + State);
+
+		switch (State)
+		{
+			case EnemyState.Idle:
+				if (!_agent.IsTargetReachable())
+					return;
+				State = EnemyState.Pursue;
+				break;
+			case EnemyState.Pursue:
+				if (!_agent.IsTargetReachable())
+				{
+					State = EnemyState.Idle;
+					Position = _spawnPosition;
+					SetGunRotationAndPosition();
+					return;
+				}
+				
+				SetGunRotationAndPosition();
+				HandleAnimations();
+		
+				if (!IsIdle)
+					Rotation += _rotationDirection * RotationSpeed * (float)delta;
+
+				break;
+		}
+		
+	}
+
+	public override void _PhysicsProcess(double delta)
+	{
+		Logger.Log.Information("Physics State: " + State);
+		switch (State)
+		{
+			case EnemyState.Idle:
+				break;
+			case EnemyState.Pursue:
+				Vector2 dir = (_agent.GetNextPathPosition() - GlobalPosition).Normalized();
+				Velocity = dir * Speed;
+		
+				MoveAndSlide();
+				break;
+		}
 	}
 	
 	private void SetGunRotationAndPosition()
 	{
-		_gun.Rotation = GetGlobalMousePosition().AngleToPoint(Position) - Constants.GunSpriteOffset;
+		_gun.Rotation = _player.Position.AngleToPoint(Position) - Constants.GunSpriteOffset;
 		_gun.Position = Position;
+	}
+	
+	private void HandleAnimations()
+	{;
+		_hull.Animation = IsIdle ? "default" : "moving";
+		_hull.Play();
+	}
+
+	private void FindPath()
+	{
+		_agent.TargetPosition = _player.Position;
+	}
+
+	private void OnNavServerReady(Rid rid)
+	{
+		SetPhysicsProcess(true);
 	}
 }

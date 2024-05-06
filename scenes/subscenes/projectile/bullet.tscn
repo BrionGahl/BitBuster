@@ -129,9 +129,6 @@ collision_mask = 17
 [node name="AreaCollider" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("RectangleShape2D_c7r3b")
 
-[node name="ScreenNotifier" type="VisibleOnScreenNotifier2D" parent="."]
-scale = Vector2(0.2, 0.3)
-
 [node name="ParticleTrail" type="GPUParticles2D" parent="."]
 show_behind_parent = true
 amount = 16

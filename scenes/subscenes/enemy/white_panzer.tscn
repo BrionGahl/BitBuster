@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bva4np8rg3g20" path="res://scenes/subscenes/component/stats_component.tscn" id="5_rnn55"]
 [ext_resource type="PackedScene" uid="uid://btrxy7t83y8en" path="res://scenes/subscenes/component/health_component.tscn" id="6_l56yv"]
 [ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="7_hvtgx"]
-[ext_resource type="PackedScene" uid="uid://dy8a4nya53ird" path="res://scenes/subscenes/component/line_trail_component.tscn" id="8_0yf28"]
+[ext_resource type="PackedScene" uid="uid://btdrka86pvjsd" path="res://scenes/subscenes/component/track_trail_component.tscn" id="8_w6bws"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e51ju"]
 atlas = ExtResource("2_am8ye")
@@ -46,17 +46,15 @@ height = 16.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6yacv"]
 size = Vector2(16, 16)
 
-[node name="WhitePanzer" type="CharacterBody2D" node_paths=PackedStringArray("_statsComponent") groups=["enemy"]]
+[node name="WhitePanzer" type="CharacterBody2D" groups=["enemy"]]
 rotation = 1.5708
 collision_layer = 4
 collision_mask = 11
 motion_mode = 1
 script = ExtResource("1_u4acw")
-_statsComponent = NodePath("StatsComponent")
 
 [node name="Gun" type="Sprite2D" parent="."]
 top_level = true
-z_index = 2
 texture_filter = 1
 texture = ExtResource("1_o0mos")
 
@@ -90,4 +88,12 @@ _healthComponent = NodePath("../HealthComponent")
 position = Vector2(-1.04216e-14, -2.38419e-07)
 shape = SubResource("RectangleShape2D_6yacv")
 
-[node name="TrailComponent" parent="." instance=ExtResource("8_0yf28")]
+[node name="TrackTrailComponent" parent="." instance=ExtResource("8_w6bws")]
+
+[node name="Agent" type="NavigationAgent2D" parent="."]
+path_desired_distance = 30.0
+path_postprocessing = 1
+debug_enabled = true
+
+[node name="Timer" type="Timer" parent="Agent"]
+autostart = true
