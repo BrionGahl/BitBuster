@@ -84,6 +84,10 @@ interact={
 2d_physics/layer_4="Items"
 2d_physics/layer_5="Projectiles"
 
+[navigation]
+
+2d/default_edge_connection_margin=16.0
+
 [physics]
 
 2d/default_gravity=0.0
@@ -91,6 +95,6 @@ interact={
 
 [rendering]
 
-environment/defaults/default_clear_color=Color(0.412152, 0.412152, 0.412152, 1)
+environment/defaults/default_clear_color=Color(0.439049, 0.439049, 0.439049, 1)
 environment/stretch/mode="viewport"
 environment/size/transparent=false

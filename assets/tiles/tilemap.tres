@@ -1,7 +1,14 @@
-[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://dgja5h4hys5wf"]
+[gd_resource type="TileSet" load_steps=6 format=3 uid="uid://dgja5h4hys5wf"]
 
 [ext_resource type="Texture2D" uid="uid://djvs2t3vf41kg" path="res://assets/tiles/Tileset.png" id="1_o2as0"]
 [ext_resource type="Texture2D" uid="uid://dt03pxdnfobdi" path="res://assets/tiles/DoorTileset.png" id="2_7gd0r"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_aqt2t"]
+vertices = PackedVector2Array(4, 4, -4, 4, -4, -4, 4, -4)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_546r7"]
 resource_name = "tilemap"
@@ -113,6 +120,7 @@ texture = ExtResource("1_o2as0")
 1:3/0 = 0
 1:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 1:3/0/physics_layer_0/angular_velocity = 0.0
+1:3/0/custom_data_0 = 100.0
 2:3/0 = 0
 2:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 2:3/0/physics_layer_0/angular_velocity = 0.0
@@ -155,7 +163,8 @@ texture = ExtResource("1_o2as0")
 7:4/0 = 0
 7:4/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 7:4/0/physics_layer_0/angular_velocity = 0.0
-7:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+7:4/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_aqt2t")
+7:4/0/custom_data_0 = 100.0
 0:5/0 = 0
 0:5/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:5/0/physics_layer_0/angular_velocity = 0.0
@@ -181,8 +190,8 @@ texture = ExtResource("1_o2as0")
 7:5/0 = 0
 7:5/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 7:5/0/physics_layer_0/angular_velocity = 0.0
-7:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-7:5/0/custom_data_0 = 0.65
+7:5/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_aqt2t")
+7:5/0/custom_data_0 = 100.0
 0:6/0 = 0
 0:6/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:6/0/physics_layer_0/angular_velocity = 0.0
