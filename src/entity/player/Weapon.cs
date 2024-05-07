@@ -74,7 +74,7 @@ public partial class Weapon : Node2D
 	private void Shoot()
 	{
 		Bullet bullet = _bullet.Instantiate<CharacterBody2D>() as Bullet;
-		bullet.SetTrajectory(_parent.GlobalPosition, GetGlobalMousePosition().AngleToPoint(_parent.GlobalPosition) - Constants.GunSpriteOffset, _statsComponent.GetAttackData());
+		bullet.SetTrajectory(_parent.GlobalPosition, GetGlobalMousePosition().AngleToPoint(_parent.GlobalPosition) - Constants.HalfPIOffset, _statsComponent.GetAttackData());
 		AddChild(bullet);
 	}
 

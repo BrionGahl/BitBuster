@@ -1,3 +1,4 @@
+using System;
 using BitBuster.component;
 using BitBuster.Component;
 using BitBuster.entity.player;
@@ -39,54 +40,33 @@ public partial class WhitePanzer : Enemy
 
 	public override void _Process(double delta)
 	{
-		Logger.Log.Information("State: " + State);
+		// Logger.Log.Information("State: " + State);
 
-		switch (State)
-		{
-			case EnemyState.Idle:
-				if (!_agent.IsTargetReachable())
-					return;
-				State = EnemyState.Pursue;
-				break;
-			case EnemyState.Pursue:
-				if (!_agent.IsTargetReachable())
-				{
-					State = EnemyState.Idle;
-					Position = _spawnPosition;
-					SetGunRotationAndPosition();
-					return;
-				}
-				
-				SetGunRotationAndPosition();
-				HandleAnimations();
 		
-				if (!IsIdle)
-					Rotation += _rotationDirection * RotationSpeed * (float)delta;
-
-				break;
-		}
+		if (!_agent.IsTargetReachable())
+			return;
+		
+		
+		SetGunRotationAndPosition();
+		HandleAnimations();
+		
 		
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
-		Logger.Log.Information("Physics State: " + State);
-		switch (State)
-		{
-			case EnemyState.Idle:
-				break;
-			case EnemyState.Pursue:
-				Vector2 dir = (_agent.GetNextPathPosition() - GlobalPosition).Normalized();
-				Velocity = dir * Speed;
-		
-				MoveAndSlide();
-				break;
-		}
+		Vector2 goalVector = (_agent.GetNextPathPosition() - GlobalPosition).Normalized();
+				
+		if (!IsIdle)
+			Rotation = (float)Mathf.LerpAngle(Rotation, (goalVector.Angle() + Constants.HalfPIOffset), 0.05);
+		Velocity = new Vector2((float)(-Speed * Math.Sin(-Rotation)), (float)(-Speed * Math.Cos(-Rotation)));
+		MoveAndSlide();
+
 	}
 	
 	private void SetGunRotationAndPosition()
 	{
-		_gun.Rotation = _player.Position.AngleToPoint(Position) - Constants.GunSpriteOffset;
+		_gun.Rotation = (float)Mathf.LerpAngle(_gun.Rotation, _player.Position.AngleToPoint(Position) - Constants.HalfPIOffset, 0.5);
 		_gun.Position = Position;
 	}
 	

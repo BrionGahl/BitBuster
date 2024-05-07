@@ -66,6 +66,7 @@ rotation = 1.5708
 texture = ExtResource("3_cic8t")
 
 [node name="Hull" type="AnimatedSprite2D" parent="."]
+z_index = 1
 texture_filter = 1
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_udnnf")

@@ -59,7 +59,7 @@ public partial class Player : CharacterBody2D
 
 	private void SetGunRotationAndPosition()
 	{
-		_gun.Rotation = GetGlobalMousePosition().AngleToPoint(Position) - Constants.GunSpriteOffset;
+		_gun.Rotation = (float)Mathf.LerpAngle(_gun.Rotation, GetGlobalMousePosition().AngleToPoint(Position) - Constants.HalfPIOffset, 0.5);
 		_gun.Position = Position;
 	}
 

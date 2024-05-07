@@ -47,6 +47,7 @@ height = 16.0
 size = Vector2(16, 16)
 
 [node name="WhitePanzer" type="CharacterBody2D" groups=["enemy"]]
+z_index = 1
 rotation = 1.5708
 collision_layer = 4
 collision_mask = 11
@@ -55,10 +56,12 @@ script = ExtResource("1_u4acw")
 
 [node name="Gun" type="Sprite2D" parent="."]
 top_level = true
+z_index = 2
 texture_filter = 1
 texture = ExtResource("1_o0mos")
 
 [node name="Hull" type="AnimatedSprite2D" parent="."]
+z_index = 1
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_4duss")
 animation = &"moving"
@@ -89,6 +92,7 @@ position = Vector2(-1.04216e-14, -2.38419e-07)
 shape = SubResource("RectangleShape2D_6yacv")
 
 [node name="TrackTrailComponent" parent="." instance=ExtResource("8_w6bws")]
+rotation = -1.5708
 
 [node name="Agent" type="NavigationAgent2D" parent="."]
 path_desired_distance = 64.0
