@@ -3,7 +3,7 @@ using BitBuster.data;
 using BitBuster.utils;
 using Godot;
 
-namespace BitBuster.Component;
+namespace BitBuster.component;
 
 public partial class HealthComponent : Node2D
 {
@@ -11,20 +11,20 @@ public partial class HealthComponent : Node2D
 	public delegate void HealthChangeEventHandler();
 	
 	[Export]
-	private StatsComponent _statsComponent;
+	public StatsComponent StatsComponent { get; set; }
 
 	private GpuParticles2D _particleDeath;
 
 	public float MaxHealth
 	{
-		get => _statsComponent.MaxHealth;
-		set => _statsComponent.MaxHealth = value; 
+		get => StatsComponent.MaxHealth;
+		set => StatsComponent.MaxHealth = value; 
 	}
 	
 	public float CurrentHealth
 	{
-		get => _statsComponent.CurrentHealth;
-		set => _statsComponent.CurrentHealth = value; 
+		get => StatsComponent.CurrentHealth;
+		set => StatsComponent.CurrentHealth = value; 
 	}
 
 	private Timer _deathAnimationTimer;
@@ -37,11 +37,6 @@ public partial class HealthComponent : Node2D
 		CurrentHealth = MaxHealth;
 
 		_deathAnimationTimer.Timeout += OnDeathAnimationTimeout;
-	}
-
-	public void LinkNodes()
-	{
-		_statsComponent = GetParent().GetNode<Node2D>("StatsComponent") as StatsComponent;
 	}
 
 	public void Damage(AttackData attackData)

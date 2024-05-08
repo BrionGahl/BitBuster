@@ -233,6 +233,7 @@ public partial class Floor : Node2D
 		{
 			Logger.Log.Debug("Adding Child to Extra...");
 			Node2D newObject = data.Objects[i].Duplicate() as Node2D;
+			
 			newObject.Position += worldOffset;
 			
 			if (newObject.IsInGroup("player"))
@@ -243,9 +244,8 @@ public partial class Floor : Node2D
 			}
 
 			if (newObject.IsInGroup("enemy"))
-			{
-				(newObject as Enemy).LinkNodes(_levelPlayer);
-			}
+				(newObject as Enemy).InitializeEnemy(_levelPlayer);
+			
 			
 			_levelExtra.AddChild(newObject);
 		}
@@ -255,7 +255,7 @@ public partial class Floor : Node2D
 			if (adjacentRooms.Contains(data.TileMap[i].Direction))
 			{
 				Door door = _doorScene.Instantiate<Area2D>() as Door;
-				door.SetDoorInfo(((Vector2)data.TileMap[i].Direction).Angle() + (float)Math.PI, data.TileMap[i].Offset * _rooms.CellSize + worldOffset, data.TileMap[i].Direction * 32);
+				door.SetDoorInfo(((Vector2)data.TileMap[i].Direction).Angle() + Constants.PI, data.TileMap[i].Offset * _rooms.CellSize + worldOffset, data.TileMap[i].Direction * 32);
 				_levelExtra.AddChild(door);
 				continue; // dont put a tile here
 			}

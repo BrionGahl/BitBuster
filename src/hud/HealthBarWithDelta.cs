@@ -1,4 +1,4 @@
-using BitBuster.Component;
+using BitBuster.component;
 using BitBuster.utils;
 using Godot;
 using Serilog;

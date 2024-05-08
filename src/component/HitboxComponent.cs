@@ -1,24 +1,19 @@
 using BitBuster.data;
 using Godot;
 
-namespace BitBuster.Component;
+namespace BitBuster.component;
 
 public partial class HitboxComponent: Area2D
 {
 
 	[Export]
-	private HealthComponent _healthComponent;
-	
-	public void LinkNodes()
-	{
-		_healthComponent = GetParent().GetNode<Node2D>("HealthComponent") as HealthComponent;
-	}
+	public HealthComponent HealthComponent { get; set; }
 
 	public void Damage(AttackData attackData)
 	{
-		if (_healthComponent != null)
+		if (HealthComponent != null)
 		{
-			_healthComponent.Damage(attackData);
+			HealthComponent.Damage(attackData);
 		}
 	}
 }

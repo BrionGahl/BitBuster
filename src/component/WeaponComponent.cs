@@ -1,46 +1,40 @@
 using System.Collections.Generic;
 using BitBuster.component;
 using BitBuster.data;
+using BitBuster.entity.player;
 using BitBuster.projectile;
 using BitBuster.utils;
+using BitBuster.world;
 using Godot;
 
-namespace BitBuster.entity.player;
+namespace BitBuster.component;
 
-public partial class Weapon : Node2D
+public partial class WeaponComponent : Node2D
 {
 
 	[Signal]
 	public delegate void BulletCountChangeEventHandler(int count);
 	
 	[Export]
-	private StatsComponent _statsComponent;
+	public StatsComponent StatsComponent;
 	
 	public int BulletCount
 	{
-		get => _statsComponent.ProjectileCount;
-		set => _statsComponent.ProjectileCount = value; 
+		get => StatsComponent.ProjectileCount;
+		set => StatsComponent.ProjectileCount = value; 
 	}
 	
-	private Player _parent;
 	private PackedScene _bullet;
 	private Timer _shootTimer;
 	
 	private bool _hasShot;
 	private bool _canShoot;
-	
-	
-	
-	// Called when the node enters the scene tree for the first time.
+
 	public override void _Ready()
 	{
-		_statsComponent ??= GetParent().GetNode<Node2D>("StatsComponent") as StatsComponent;
-		
 		_bullet = GD.Load<PackedScene>("res://scenes/subscenes/projectile/bullet.tscn");
-		_parent = GetParent<CharacterBody2D>() as Player;
 		_shootTimer = GetNode<Timer>("ShootTimer");
 
-		_hasShot = false;
 		_canShoot = true;
 		
 		_shootTimer.Timeout += OnShootTimeout;
@@ -49,21 +43,17 @@ public partial class Weapon : Node2D
 		ChildExitingTree += OnBulletRemove;
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	public void AttemptShoot()
 	{
-		GetInput();
-		
-		// NOTE: Added 1 to offset Timer node child.
-		if (_hasShot && _canShoot && BulletCount + 1 - GetChildCount()> 0)
+		if (_canShoot && BulletCount + 1 - GetChildCount()> 0)
 		{
 			Logger.Log.Information("Shooting... " + (BulletCount - GetChildCount()) + "/" + BulletCount + ".");
-			Shoot();
-			_canShoot = false;
 			
-			_shootTimer.Start(_statsComponent.ProjectileCooldown);
+			Shoot();
+			
+			_canShoot = false;
+			_shootTimer.Start(StatsComponent.ProjectileCooldown);
 		}
-		
 	}
 	
 	private void GetInput() 
@@ -74,7 +64,7 @@ public partial class Weapon : Node2D
 	private void Shoot()
 	{
 		Bullet bullet = _bullet.Instantiate<CharacterBody2D>() as Bullet;
-		bullet.SetTrajectory(_parent.GlobalPosition, GetGlobalMousePosition().AngleToPoint(_parent.GlobalPosition) - Constants.HalfPIOffset, _statsComponent.GetAttackData());
+		bullet.SetTrajectory(GetParent<Node2D>().GlobalPosition, GetGlobalMousePosition().AngleToPoint(GetParent<Node2D>().GlobalPosition) - Constants.HalfPIOffset, StatsComponent.GetAttackData());
 		AddChild(bullet);
 	}
 

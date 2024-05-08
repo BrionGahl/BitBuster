@@ -1,17 +1,18 @@
 using Godot;
 using System;
+using BitBuster.component;
 using BitBuster.entity.player;
 using BitBuster.utils;
 
 public partial class BulletCounter : Control
 {
 
-	private Weapon _playerWeapon;
+	private WeaponComponent _playerWeapon;
 	private TextureRect _counter;
 	
 	public override void _Ready()
 	{
-		_playerWeapon = GetNode<Node2D>("../../../Player/Weapon") as Weapon;
+		_playerWeapon = GetNode<Node2D>("../../../Player/WeaponComponent") as WeaponComponent;
 		_counter = GetNode<TextureRect>("Counter");
 		
 		_counter.Size = new Vector2(_playerWeapon.BulletCount * 4, 4);

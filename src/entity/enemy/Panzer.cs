@@ -1,13 +1,12 @@
 using System;
 using BitBuster.component;
-using BitBuster.Component;
 using BitBuster.entity.player;
 using BitBuster.utils;
 using Godot;
 
 namespace BitBuster.entity.enemy;
 
-public partial class WhitePanzer : Enemy
+public partial class Panzer : Enemy
 {
 	private float Speed
 	{
@@ -40,28 +39,21 @@ public partial class WhitePanzer : Enemy
 
 	public override void _Process(double delta)
 	{
-		// Logger.Log.Information("State: " + State);
-
-		
 		if (!_agent.IsTargetReachable())
 			return;
-		
 		
 		SetGunRotationAndPosition();
 		HandleAnimations();
 		
-		
+		Vector2 goalVector = (_agent.GetNextPathPosition() - GlobalPosition).Normalized();
+		if (!IsIdle)
+			Rotation = (float)Mathf.LerpAngle(Rotation, (goalVector.Angle() + Constants.HalfPIOffset), 0.05);
+		Velocity = new Vector2((float)(-Speed * Math.Sin(-Rotation)), (float)(-Speed * Math.Cos(-Rotation)));
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
-		Vector2 goalVector = (_agent.GetNextPathPosition() - GlobalPosition).Normalized();
-				
-		if (!IsIdle)
-			Rotation = (float)Mathf.LerpAngle(Rotation, (goalVector.Angle() + Constants.HalfPIOffset), 0.05);
-		Velocity = new Vector2((float)(-Speed * Math.Sin(-Rotation)), (float)(-Speed * Math.Cos(-Rotation)));
 		MoveAndSlide();
-
 	}
 	
 	private void SetGunRotationAndPosition()

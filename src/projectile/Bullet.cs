@@ -1,7 +1,8 @@
 using System;
-using BitBuster.Component;
+using BitBuster.component;
 using BitBuster.data;
 using BitBuster.utils;
+using BitBuster.world;
 using Godot;
 
 namespace BitBuster.projectile;
@@ -64,7 +65,6 @@ public partial class Bullet : CharacterBody2D
 			
 			PrepForFree();
 			_deathAnimationTimer.Start();
-			
 		}
 
 	}
@@ -73,7 +73,7 @@ public partial class Bullet : CharacterBody2D
 	{
 		GlobalPosition = position;
 		GlobalRotation = rotation;
-
+		
 		_remainingBounces = attackData.Bounces;
 		_hueShift = 0.33f / attackData.Bounces;
 		
@@ -104,6 +104,7 @@ public partial class Bullet : CharacterBody2D
 
 			hitboxComponent.Damage(_attackData);
 		}
+		
 		PrepForFree();
 		_deathAnimationTimer.Start();
 		
@@ -111,9 +112,8 @@ public partial class Bullet : CharacterBody2D
 
 	private void OnParentIFrameTimeout()
 	{
-		_hitbox.SetCollisionMaskValue(2, true);
-		_hitbox.SetCollisionMaskValue(3, true);
-
+		_hitbox.SetCollisionMaskValue((int)BBCollisionLayer.Player, true);
+		_hitbox.SetCollisionMaskValue((int)BBCollisionLayer.Enemy, true);
 	}
 	
 	private void OnDeathAnimationTimeout()

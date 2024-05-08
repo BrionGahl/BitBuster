@@ -4,7 +4,7 @@
 [ext_resource type="TileSet" uid="uid://dgja5h4hys5wf" path="res://assets/tiles/tilemap.tres" id="2_bvjgm"]
 [ext_resource type="PackedScene" uid="uid://det6gkgxg57mw" path="res://scenes/subscenes/player.tscn" id="2_pa2gp"]
 [ext_resource type="PackedScene" uid="uid://lvawwpbpty0i" path="res://scenes/subscenes/tiles/player_detector.tscn" id="4_5l8sk"]
-[ext_resource type="PackedScene" uid="uid://jfv7afsl8mvt" path="res://scenes/subscenes/enemy/white_panzer.tscn" id="5_54c10"]
+[ext_resource type="PackedScene" uid="uid://jfv7afsl8mvt" path="res://scenes/subscenes/enemy/panzer.tscn" id="5_54c10"]
 
 [node name="Rooms" type="Node2D"]
 script = ExtResource("1_lawn4")
@@ -30,7 +30,6 @@ layer_0/tile_data = PackedInt32Array(0, 196608, 1, 65536, 131072, 1, 131072, 131
 [node name="PlayerDetector" parent="NORMAL/1" instance=ExtResource("4_5l8sk")]
 
 [node name="START" type="Node2D" parent="."]
-visible = false
 
 [node name="0" type="TileMap" parent="START"]
 texture_filter = 1
@@ -41,8 +40,8 @@ layer_0/tile_data = PackedInt32Array(0, 196608, 1, 65536, 131072, 1, 131072, 131
 [node name="PlayerDetector" parent="START/0" instance=ExtResource("4_5l8sk")]
 visible = false
 
-[node name="WhitePanzer" parent="START/0" instance=ExtResource("5_54c10")]
-position = Vector2(63, 78)
+[node name="Panzer" parent="START/0" instance=ExtResource("5_54c10")]
+position = Vector2(255, 78)
 
 [node name="Player" parent="START/0" instance=ExtResource("2_pa2gp")]
 position = Vector2(152, 152)
@@ -104,6 +103,7 @@ layer_0/tile_data = PackedInt32Array(262144, 196608, 1, 327680, 131072, 1, 39321
 [node name="PlayerDetector" parent="LR_NORMAL/0" instance=ExtResource("4_5l8sk")]
 
 [node name="TB_NORMAL" type="Node2D" parent="."]
+visible = false
 
 [node name="0" type="TileMap" parent="TB_NORMAL"]
 texture_filter = 1

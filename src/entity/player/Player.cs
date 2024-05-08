@@ -10,6 +10,9 @@ public partial class Player : CharacterBody2D
 	[Export]
 	private StatsComponent _statsComponent;
 
+	[Export] 
+	private WeaponComponent _weaponComponent;
+	
 	private float Speed
 	{
 		get => _statsComponent.Speed;
@@ -23,6 +26,7 @@ public partial class Player : CharacterBody2D
 
 	private Vector2 _movementDirection;
 	private float _rotationDirection;
+	private bool _hasShot;
 	
 	public override void _Ready()
 	{
@@ -39,11 +43,12 @@ public partial class Player : CharacterBody2D
 		
 		HandleAnimations();
 		
+		if (_hasShot)
+			_weaponComponent.AttemptShoot();
+		
 		if (!IsIdle)
 			Rotation += _rotationDirection * RotationSpeed * (float)delta;
-		
 		Velocity = _movementDirection * Speed;
-
 	}
 	
 	public override void _PhysicsProcess(double delta)
@@ -55,6 +60,7 @@ public partial class Player : CharacterBody2D
 	{
 		_rotationDirection = Input.GetAxis("left", "right");
 		_movementDirection = Transform.X * Input.GetAxis("down", "up");
+		_hasShot = Input.IsActionJustPressed("shoot");
 	}
 
 	private void SetGunRotationAndPosition()
