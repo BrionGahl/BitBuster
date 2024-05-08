@@ -24,18 +24,17 @@ public partial class WeaponComponent : Node2D
 		set => StatsComponent.ProjectileCount = value; 
 	}
 	
+	public bool CanShoot { get; private set; }
+	
 	private PackedScene _bullet;
 	private Timer _shootTimer;
 	
-	private bool _hasShot;
-	private bool _canShoot;
-
 	public override void _Ready()
 	{
 		_bullet = GD.Load<PackedScene>("res://scenes/subscenes/projectile/bullet.tscn");
 		_shootTimer = GetNode<Timer>("ShootTimer");
 
-		_canShoot = true;
+		CanShoot = true;
 		
 		_shootTimer.Timeout += OnShootTimeout;
 
@@ -45,20 +44,15 @@ public partial class WeaponComponent : Node2D
 
 	public void AttemptShoot()
 	{
-		if (_canShoot && BulletCount + 1 - GetChildCount()> 0)
+		if (CanShoot && BulletCount + 1 - GetChildCount()> 0)
 		{
 			Logger.Log.Information("Shooting... " + (BulletCount - GetChildCount()) + "/" + BulletCount + ".");
 			
 			Shoot();
 			
-			_canShoot = false;
+			CanShoot = false;
 			_shootTimer.Start(StatsComponent.ProjectileCooldown);
 		}
-	}
-	
-	private void GetInput() 
-	{
-		_hasShot = Input.IsActionJustPressed("shoot");
 	}
 
 	private void Shoot()
@@ -70,7 +64,7 @@ public partial class WeaponComponent : Node2D
 
 	private void OnShootTimeout()
 	{
-		_canShoot = true;
+		CanShoot = true;
 	}
 
 	private void OnBulletSpawn(Node node)
