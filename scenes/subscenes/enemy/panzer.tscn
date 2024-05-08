@@ -1,0 +1,107 @@
+[gd_scene load_steps=14 format=3 uid="uid://jfv7afsl8mvt"]
+
+[ext_resource type="Texture2D" uid="uid://b0d7wva4i1ysc" path="res://assets/enemy/enemy_tank_idle.png" id="1_cdhtg"]
+[ext_resource type="Texture2D" uid="uid://b75exrlheupv8" path="res://assets/enemy/enemy_gun.png" id="1_o0mos"]
+[ext_resource type="Script" path="res://src/entity/enemy/Panzer.cs" id="1_o4t3k"]
+[ext_resource type="Texture2D" uid="uid://b6blw88sbpd8j" path="res://assets/enemy/enemy_tank.png" id="2_am8ye"]
+[ext_resource type="PackedScene" uid="uid://bva4np8rg3g20" path="res://scenes/subscenes/component/stats_component.tscn" id="5_rnn55"]
+[ext_resource type="PackedScene" uid="uid://btrxy7t83y8en" path="res://scenes/subscenes/component/health_component.tscn" id="6_l56yv"]
+[ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="7_hvtgx"]
+[ext_resource type="PackedScene" uid="uid://btdrka86pvjsd" path="res://scenes/subscenes/component/track_trail_component.tscn" id="8_w6bws"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e51ju"]
+atlas = ExtResource("2_am8ye")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oayx7"]
+atlas = ExtResource("2_am8ye")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4duss"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_cdhtg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e51ju")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oayx7")
+}],
+"loop": true,
+"name": &"moving",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gbvby"]
+radius = 7.0
+height = 16.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6yacv"]
+size = Vector2(16, 16)
+
+[node name="Panzer" type="CharacterBody2D" groups=["enemy"]]
+z_index = 1
+rotation = 1.5708
+collision_layer = 4
+collision_mask = 15
+motion_mode = 1
+script = ExtResource("1_o4t3k")
+
+[node name="Gun" type="Sprite2D" parent="."]
+top_level = true
+z_index = 2
+texture_filter = 1
+texture = ExtResource("1_o0mos")
+
+[node name="Hull" type="AnimatedSprite2D" parent="."]
+z_index = 1
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_4duss")
+animation = &"moving"
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_gbvby")
+
+[node name="StatsComponent" parent="." instance=ExtResource("5_rnn55")]
+MaxHealth = 2.0
+ProjectileDamage = 1.0
+ProjectileCount = 1
+ProjectileCooldown = 1.5
+ProjectileBounces = 1
+ProjectileSpeed = 100.0
+Speed = 66.0
+SizeScalar = 1.0
+
+[node name="HealthComponent" parent="." instance=ExtResource("6_l56yv")]
+
+[node name="HitboxComponent" parent="." instance=ExtResource("7_hvtgx")]
+collision_mask = 27
+
+[node name="Hitbox" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(-1.04216e-14, -2.38419e-07)
+shape = SubResource("RectangleShape2D_6yacv")
+
+[node name="TrackTrailComponent" parent="." instance=ExtResource("8_w6bws")]
+rotation = -1.5708
+
+[node name="Agent" type="NavigationAgent2D" parent="."]
+path_desired_distance = 64.0
+target_desired_distance = 32.0
+path_max_distance = 32.0
+path_postprocessing = 1
+avoidance_enabled = true
+avoidance_layers = 4
+avoidance_mask = 4
+debug_enabled = true
+
+[node name="Timer" type="Timer" parent="Agent"]
+wait_time = 0.3
+autostart = true
