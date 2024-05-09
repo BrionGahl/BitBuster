@@ -3,6 +3,7 @@ using BitBuster.component;
 using BitBuster.entity.player;
 using BitBuster.utils;
 using Godot;
+using Godot.Collections;
 
 namespace BitBuster.entity.enemy;
 
@@ -49,5 +50,24 @@ public abstract partial class Enemy: CharacterBody2D
         _spawnPosition = Position;
 
         State = EnemyState.Idle;
+    }
+
+    protected bool CanSeePlayer(int bounces = 0)
+    {
+        try
+        {
+            PhysicsDirectSpaceState2D spaceState = GetWorld2D().DirectSpaceState;
+            PhysicsRayQueryParameters2D query = PhysicsRayQueryParameters2D.Create(Position, _player.Position,
+                CollisionMask, new Array<Rid> { GetRid() });
+
+            Dictionary results = spaceState.IntersectRay(query);
+
+            return results["rid"].AsRid() == _player.GetRid();
+        }
+        catch (ObjectDisposedException e)
+        {
+            Logger.Log.Error("Player has been killed or has been removed from the scene.");
+            return false;
+        }
     }
 }

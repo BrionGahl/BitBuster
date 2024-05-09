@@ -131,7 +131,14 @@ shape = SubResource("RectangleShape2D_c7r3b")
 
 [node name="ParticleTrail" type="GPUParticles2D" parent="."]
 show_behind_parent = true
+emitting = false
 amount = 16
+process_material = SubResource("ParticleProcessMaterial_4wejy")
+
+[node name="ParticleFastTrail" type="GPUParticles2D" parent="."]
+show_behind_parent = true
+emitting = false
+amount = 32
 process_material = SubResource("ParticleProcessMaterial_4wejy")
 
 [node name="ParticleBounce" type="GPUParticles2D" parent="."]

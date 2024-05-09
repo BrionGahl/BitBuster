@@ -44,6 +44,7 @@ offset_left = 9.0
 offset_top = 3.0
 offset_right = 57.0
 offset_bottom = 43.0
+scale = Vector2(1.5, 1.5)
 alignment = 1
 
 [node name="HealthBar" parent="Level/Hud/VBoxContainer" instance=ExtResource("8_giki5")]

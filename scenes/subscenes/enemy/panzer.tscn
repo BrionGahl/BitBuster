@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://jfv7afsl8mvt"]
+[gd_scene load_steps=15 format=3 uid="uid://jfv7afsl8mvt"]
 
 [ext_resource type="Texture2D" uid="uid://b0d7wva4i1ysc" path="res://assets/enemy/enemy_tank_idle.png" id="1_cdhtg"]
 [ext_resource type="Texture2D" uid="uid://b75exrlheupv8" path="res://assets/enemy/enemy_gun.png" id="1_o0mos"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://b6blw88sbpd8j" path="res://assets/enemy/enemy_tank.png" id="2_am8ye"]
 [ext_resource type="PackedScene" uid="uid://bva4np8rg3g20" path="res://scenes/subscenes/component/stats_component.tscn" id="5_rnn55"]
 [ext_resource type="PackedScene" uid="uid://btrxy7t83y8en" path="res://scenes/subscenes/component/health_component.tscn" id="6_l56yv"]
+[ext_resource type="PackedScene" uid="uid://cubpk1i28p0wk" path="res://scenes/subscenes/component/weapon_component.tscn" id="7_fpl3x"]
 [ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="7_hvtgx"]
 [ext_resource type="PackedScene" uid="uid://btdrka86pvjsd" path="res://scenes/subscenes/component/track_trail_component.tscn" id="8_w6bws"]
 
@@ -82,6 +83,8 @@ SizeScalar = 1.0
 
 [node name="HealthComponent" parent="." instance=ExtResource("6_l56yv")]
 
+[node name="WeaponComponent" parent="." instance=ExtResource("7_fpl3x")]
+
 [node name="HitboxComponent" parent="." instance=ExtResource("7_hvtgx")]
 collision_mask = 27
 
@@ -93,13 +96,11 @@ shape = SubResource("RectangleShape2D_6yacv")
 rotation = -1.5708
 
 [node name="Agent" type="NavigationAgent2D" parent="."]
-path_desired_distance = 64.0
-target_desired_distance = 32.0
-path_max_distance = 32.0
+path_desired_distance = 8.0
+target_desired_distance = 16.0
 path_postprocessing = 1
 avoidance_layers = 4
 avoidance_mask = 6
-debug_enabled = true
 
 [node name="Timer" type="Timer" parent="Agent"]
 wait_time = 0.3

@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://2ruli1e1oei3" path="res://assets/player/player_tank.png" id="2_wsan7"]
 [ext_resource type="Texture2D" uid="uid://h883uofr64k4" path="res://assets/player/player_tank_gun.png" id="3_cic8t"]
 [ext_resource type="PackedScene" uid="uid://btdrka86pvjsd" path="res://scenes/subscenes/component/track_trail_component.tscn" id="4_g7sml"]
-[ext_resource type="Script" path="res://src/component/WeaponComponent.cs" id="4_tpi4p"]
+[ext_resource type="PackedScene" uid="uid://cubpk1i28p0wk" path="res://scenes/subscenes/component/weapon_component.tscn" id="4_mw4jj"]
 [ext_resource type="PackedScene" uid="uid://bva4np8rg3g20" path="res://scenes/subscenes/component/stats_component.tscn" id="5_bmnux"]
 [ext_resource type="PackedScene" uid="uid://btrxy7t83y8en" path="res://scenes/subscenes/component/health_component.tscn" id="5_umbbr"]
 [ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="8_gp6gs"]
@@ -76,12 +76,8 @@ animation = &"moving"
 [node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_pjmg8")
 
-[node name="WeaponComponent" type="Node2D" parent="." node_paths=PackedStringArray("StatsComponent")]
-script = ExtResource("4_tpi4p")
+[node name="WeaponComponent" parent="." node_paths=PackedStringArray("StatsComponent") instance=ExtResource("4_mw4jj")]
 StatsComponent = NodePath("../StatsComponent")
-
-[node name="ShootTimer" type="Timer" parent="WeaponComponent"]
-one_shot = true
 
 [node name="StatsComponent" parent="." instance=ExtResource("5_bmnux")]
 MaxHealth = 4.0

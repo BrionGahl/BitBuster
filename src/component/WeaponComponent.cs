@@ -43,23 +43,23 @@ public partial class WeaponComponent : Node2D
 		ChildExitingTree += OnBulletRemove;
 	}
 
-	public void AttemptShoot()
+	public void AttemptShoot(float rotation)
 	{
 		if (CanShoot && BulletCount + 1 - GetChildCount()> 0)
 		{
 			Logger.Log.Information("Shooting... " + (BulletCount - GetChildCount()) + "/" + BulletCount + ".");
 			
-			Shoot();
+			Shoot(rotation);
 			StatsComponent.Speed /= 2;
 			CanShoot = false;
 			ShootTimer.Start(StatsComponent.ProjectileCooldown);
 		}
 	}
 
-	private void Shoot()
+	private void Shoot(float rotation)
 	{
 		Bullet bullet = _bullet.Instantiate<CharacterBody2D>() as Bullet;
-		bullet.SetTrajectory(GetParent<Node2D>().GlobalPosition, GetGlobalMousePosition().AngleToPoint(GetParent<Node2D>().GlobalPosition) - Constants.HalfPIOffset, StatsComponent.GetAttackData());
+		bullet.SetTrajectory(GetParent<Node2D>().GlobalPosition, rotation - Constants.HalfPIOffset, StatsComponent.GetAttackData());
 		AddChild(bullet);
 	}
 

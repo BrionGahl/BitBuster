@@ -81,6 +81,14 @@ public partial class Bullet : CharacterBody2D
 
 		_attackData = attackData;
 		
+		GetNode<GpuParticles2D>("ParticleTrail").Emitting = true;
+		if (attackData.Speed > 150)
+		{
+			GetNode<GpuParticles2D>("ParticleTrail").Emitting = false;
+			GetNode<GpuParticles2D>("ParticleFastTrail").Emitting = true;
+			
+		}
+			
 		Velocity = new Vector2(0, -attackData.Speed).Rotated(GlobalRotation);
 	}
 

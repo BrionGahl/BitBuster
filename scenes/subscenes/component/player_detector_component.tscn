@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://borqbw3u22j8v"]
+
+[node name="PlayerDetectorComponent" type="RayCast2D"]

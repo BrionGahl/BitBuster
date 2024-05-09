@@ -45,7 +45,7 @@ public partial class Player : CharacterBody2D
 		HandleAnimations();
 		
 		if (_hasShot)
-			_weaponComponent.AttemptShoot();
+			_weaponComponent.AttemptShoot(GetGlobalMousePosition().AngleToPoint(GlobalPosition));
 		
 		if (!IsIdle)
 			Rotation += _rotationDirection * RotationSpeed * (float)delta;

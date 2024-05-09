@@ -40,6 +40,10 @@ public partial class Panzer : Enemy
 
 	public override void _Process(double delta)
 	{
+		
+		// TODO: Might be able to use this to negate the path it took to player.
+		// _agent.GetCurrentNavigationPath()
+		
 		switch (State)
 		{
 			case EnemyState.Idle:
@@ -91,11 +95,13 @@ public partial class Panzer : Enemy
 			_target = new Vector2(x + Constants.RoomSize - (_player.Position.X % Constants.RoomSize), y + Constants.RoomSize - (_player.Position.Y % Constants.RoomSize));
 				
 			State = EnemyState.Evade;
-			return;
 		}
 		
 		SetGunRotationAndPosition();
 		HandleAnimations();
+		
+		if (CanSeePlayer() && _randomNumberGenerator.Randf() > 0.3f)
+			_weaponComponent.AttemptShoot(_player.Position.AngleToPoint(Position));
 		
 		Vector2 goalVector = (_agent.GetNextPathPosition() - GlobalPosition).Normalized();
 		if (!IsIdle)
@@ -114,9 +120,10 @@ public partial class Panzer : Enemy
 		if (_agent.DistanceToTarget() < 24)
 		{
 			State = EnemyState.Pursue;
-			return;
 		}
-			
+
+		CanSeePlayer();
+		
 		SetGunRotationAndPosition();
 		HandleAnimations();
 		
@@ -129,7 +136,10 @@ public partial class Panzer : Enemy
 
 	private void SetGunRotationAndPosition()
 	{
-		_gun.Rotation = (float)Mathf.LerpAngle(_gun.Rotation, _player.Position.AngleToPoint(Position) - Constants.HalfPIOffset, 0.5);
+		if (CanSeePlayer())
+			_gun.Rotation = (float)Mathf.LerpAngle(_gun.Rotation, _player.Position.AngleToPoint(Position) - Constants.HalfPIOffset, 0.5);
+		else
+			_gun.Rotation = (float)Mathf.LerpAngle(_gun.Rotation, Rotation, 0.1);
 		_gun.Position = Position;
 	}
 	
