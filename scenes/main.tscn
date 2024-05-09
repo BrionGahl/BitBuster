@@ -31,8 +31,7 @@ position_smoothing_speed = 8.0
 script = ExtResource("4_e2pov")
 
 [node name="Border" type="Sprite2D" parent="Level/Camera"]
-visible = false
-z_index = 5
+z_index = 11
 scale = Vector2(0.500868, 0.501543)
 texture = ExtResource("4_smynp")
 

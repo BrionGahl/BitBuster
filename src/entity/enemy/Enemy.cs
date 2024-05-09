@@ -9,9 +9,8 @@ namespace BitBuster.entity.enemy;
 public enum EnemyState
 {
     Idle = 0,
-    Surround = 1,
-    Pursue = 2,
-    Evade = 3,
+    Pursue = 1,
+    Evade = 2,
 }
 
 public abstract partial class Enemy: CharacterBody2D
@@ -24,9 +23,10 @@ public abstract partial class Enemy: CharacterBody2D
     protected WeaponComponent _weaponComponent;
 
     protected Vector2 _spawnPosition;
+    protected Vector2 _target;
 
     [Export]
-    public EnemyState State { get; set; } = EnemyState.Idle;
+    public EnemyState State { get; set; }
     
     public virtual void InitializeEnemy(Player player) // Make this a parent class
     {
@@ -47,5 +47,7 @@ public abstract partial class Enemy: CharacterBody2D
             _weaponComponent.StatsComponent = _statsComponent;
 
         _spawnPosition = Position;
+
+        State = EnemyState.Idle;
     }
 }

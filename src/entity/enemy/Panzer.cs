@@ -23,6 +23,7 @@ public partial class Panzer : Enemy
 
 	private Vector2 _movementDirection;
 	private float _rotationDirection;
+	private RandomNumberGenerator _randomNumberGenerator;
 	
 	public override void _Ready()
 	{
@@ -30,25 +31,30 @@ public partial class Panzer : Enemy
 		_hull = GetNode<AnimatedSprite2D>("Hull");
 		_agent = GetNode<NavigationAgent2D>("Agent");
 		_agentTimer = GetNode<Timer>("Agent/Timer");
-		
-		SetPhysicsProcess(false);
 
+		_randomNumberGenerator = new RandomNumberGenerator();
+		_randomNumberGenerator.Randomize();
+		
 		_agentTimer.Timeout += FindPath;
-		NavigationServer2D.MapChanged += OnNavServerReady;
 	}
 
 	public override void _Process(double delta)
 	{
-		if (!_agent.IsTargetReachable())
-			return;
+		switch (State)
+		{
+			case EnemyState.Idle:
+				Idle();
+				break;
+			case EnemyState.Pursue:
+				Pursue();
+				break;
+			case EnemyState.Evade:
+				Evade();
+				break;
+		}
 		
-		SetGunRotationAndPosition();
-		HandleAnimations();
 		
-		Vector2 goalVector = (_agent.GetNextPathPosition() - GlobalPosition).Normalized();
-		if (!IsIdle)
-			Rotation = (float)Mathf.LerpAngle(Rotation, (goalVector.Angle() + Constants.HalfPIOffset), 0.05);
-		Velocity = new Vector2((float)(-Speed * Math.Sin(-Rotation)), (float)(-Speed * Math.Cos(-Rotation)));
+		
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -56,6 +62,71 @@ public partial class Panzer : Enemy
 		MoveAndSlide();
 	}
 	
+	
+	
+	/*
+	 * States
+	 */ 
+	
+	// IDLE
+	private void Idle()
+	{
+		if (_agent.IsTargetReachable())
+			State = EnemyState.Pursue;
+	}
+	// PURSUE
+	private void Pursue()
+	{
+		if (!_agent.IsTargetReachable())
+		{
+			EnterIdle();
+			return;
+		}
+
+		if (_agent.DistanceToTarget() < 64) // Enter Evade
+		{
+			int x = (int) Math.Floor(Position.X / Constants.RoomSize) * Constants.RoomSize;
+			int y = (int) Math.Floor(Position.Y / Constants.RoomSize) * Constants.RoomSize;
+
+			_target = new Vector2(x + Constants.RoomSize - (_player.Position.X % Constants.RoomSize), y + Constants.RoomSize - (_player.Position.Y % Constants.RoomSize));
+				
+			State = EnemyState.Evade;
+			return;
+		}
+		
+		SetGunRotationAndPosition();
+		HandleAnimations();
+		
+		Vector2 goalVector = (_agent.GetNextPathPosition() - GlobalPosition).Normalized();
+		if (!IsIdle)
+			Rotation = Mathf.LerpAngle(Rotation, (goalVector.Angle() + Constants.HalfPIOffset), RotationSpeed / 60 );
+		Velocity = new Vector2((float)(-Speed * Math.Sin(-Rotation)), (float)(-Speed * Math.Cos(-Rotation)));
+	}
+	// EVADE
+	private void Evade()
+	{
+		if (!_agent.IsTargetReachable())
+		{
+			EnterIdle();
+			return;
+		}
+
+		if (_agent.DistanceToTarget() < 24)
+		{
+			State = EnemyState.Pursue;
+			return;
+		}
+			
+		SetGunRotationAndPosition();
+		HandleAnimations();
+		
+		Vector2 goalVector = (_agent.GetNextPathPosition() - GlobalPosition).Normalized();
+		if (!IsIdle)
+			Rotation = Mathf.LerpAngle(Rotation, (goalVector.Angle() + Constants.HalfPIOffset), RotationSpeed / 60 );
+		Velocity = new Vector2((float)(-Speed * Math.Sin(-Rotation)), (float)(-Speed * Math.Cos(-Rotation)));
+		
+	}
+
 	private void SetGunRotationAndPosition()
 	{
 		_gun.Rotation = (float)Mathf.LerpAngle(_gun.Rotation, _player.Position.AngleToPoint(Position) - Constants.HalfPIOffset, 0.5);
@@ -67,14 +138,24 @@ public partial class Panzer : Enemy
 		_hull.Animation = IsIdle ? "default" : "moving";
 		_hull.Play();
 	}
+	
+	private void EnterIdle()
+	{
+		Position = _spawnPosition;
+		State = EnemyState.Idle;
+		Velocity = Vector2.Zero;
+	}
 
 	private void FindPath()
 	{
-		_agent.TargetPosition = _player.Position;
-	}
-
-	private void OnNavServerReady(Rid rid)
-	{
-		SetPhysicsProcess(true);
+		switch (State)
+		{
+			case EnemyState.Evade:
+				_agent.TargetPosition = _target;
+				break;
+			default:
+				_agent.TargetPosition = _player.Position;
+				break;
+		}
 	}
 }

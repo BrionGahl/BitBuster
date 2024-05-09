@@ -9,6 +9,8 @@ using Godot;
 
 namespace BitBuster.procedural;
 
+
+// TODO: Change cell and room sizes to be constants
 public partial class Floor : Node2D
 {
 	private int _roomCount;
