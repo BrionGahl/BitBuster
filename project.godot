@@ -31,7 +31,9 @@ project/assembly_name="BitBuster"
 [file_customization]
 
 folder_colors={
-"res://assets/": "red"
+"res://assets/": "red",
+"res://scenes/": "green",
+"res://src/": "blue"
 }
 
 [input]

@@ -27,6 +27,8 @@ public partial class Panzer : Enemy
 	
 	public override void _Ready()
 	{
+		SetPhysicsProcess(false);
+		
 		_gun = GetNode<Sprite2D>("Gun");
 		_hull = GetNode<AnimatedSprite2D>("Hull");
 		_agent = GetNode<NavigationAgent2D>("Agent");
@@ -36,14 +38,16 @@ public partial class Panzer : Enemy
 		_randomNumberGenerator.Randomize();
 		
 		_agentTimer.Timeout += FindPath;
+		NavigationServer2D.MapChanged += OnMapReady;
 	}
 
 	public override void _Process(double delta)
 	{
-		
-		// TODO: Might be able to use this to negate the path it took to player.
-		// _agent.GetCurrentNavigationPath()
-		
+		HandleAnimations();
+	}
+
+	public override void _PhysicsProcess(double delta)
+	{
 		switch (State)
 		{
 			case EnemyState.Idle:
@@ -56,14 +60,6 @@ public partial class Panzer : Enemy
 				Evade();
 				break;
 		}
-		
-		
-		
-	}
-
-	public override void _PhysicsProcess(double delta)
-	{
-		MoveAndSlide();
 	}
 	
 	
@@ -98,15 +94,15 @@ public partial class Panzer : Enemy
 		}
 		
 		SetGunRotationAndPosition();
-		HandleAnimations();
-		
 		if (CanSeePlayer() && _randomNumberGenerator.Randf() > 0.3f)
-			_weaponComponent.AttemptShoot(_player.Position.AngleToPoint(Position));
+			_weaponComponent.AttemptShoot(_player.Position.AngleToPoint(Position) + _randomNumberGenerator.RandfRange(-Mathf.Pi / 9, Mathf.Pi / 9));
 		
 		Vector2 goalVector = (_agent.GetNextPathPosition() - GlobalPosition).Normalized();
 		if (!IsIdle)
-			Rotation = Mathf.LerpAngle(Rotation, (goalVector.Angle() + Constants.HalfPIOffset), RotationSpeed / 60 );
+			Rotation = Mathf.LerpAngle(Rotation, (goalVector.Angle() + Constants.HalfPiOffset), RotationSpeed / 60 );
 		Velocity = new Vector2((float)(-Speed * Math.Sin(-Rotation)), (float)(-Speed * Math.Cos(-Rotation)));
+		
+		MoveAndSlide();
 	}
 	// EVADE
 	private void Evade()
@@ -121,23 +117,25 @@ public partial class Panzer : Enemy
 		{
 			State = EnemyState.Pursue;
 		}
-
-		CanSeePlayer();
 		
 		SetGunRotationAndPosition();
-		HandleAnimations();
+		if (CanSeePlayer() && _randomNumberGenerator.Randf() > 0.3f)
+			_weaponComponent.AttemptShoot(_player.Position.AngleToPoint(Position) + _randomNumberGenerator.RandfRange(-Mathf.Pi / 9, Mathf.Pi / 9));
+
 		
 		Vector2 goalVector = (_agent.GetNextPathPosition() - GlobalPosition).Normalized();
 		if (!IsIdle)
-			Rotation = Mathf.LerpAngle(Rotation, (goalVector.Angle() + Constants.HalfPIOffset), RotationSpeed / 60 );
+			Rotation = Mathf.LerpAngle(Rotation, (goalVector.Angle() + Constants.HalfPiOffset), RotationSpeed / 60 );
 		Velocity = new Vector2((float)(-Speed * Math.Sin(-Rotation)), (float)(-Speed * Math.Cos(-Rotation)));
 		
+		MoveAndSlide();
 	}
 
 	private void SetGunRotationAndPosition()
 	{
+		
 		if (CanSeePlayer())
-			_gun.Rotation = (float)Mathf.LerpAngle(_gun.Rotation, _player.Position.AngleToPoint(Position) - Constants.HalfPIOffset, 0.5);
+			_gun.Rotation = (float)Mathf.LerpAngle(_gun.Rotation, _player.Position.AngleToPoint(Position) - Constants.HalfPiOffset, 0.5);
 		else
 			_gun.Rotation = (float)Mathf.LerpAngle(_gun.Rotation, Rotation, 0.1);
 		_gun.Position = Position;
@@ -167,5 +165,10 @@ public partial class Panzer : Enemy
 				_agent.TargetPosition = _player.Position;
 				break;
 		}
+	}
+	
+	private void OnMapReady(Rid rid)
+	{
+		SetPhysicsProcess(true);
 	}
 }

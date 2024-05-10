@@ -2,6 +2,7 @@ using System;
 using BitBuster.component;
 using BitBuster.utils;
 using Godot;
+using Serilog;
 
 namespace BitBuster.entity.player;
 
@@ -43,17 +44,16 @@ public partial class Player : CharacterBody2D
 		SetGunRotationAndPosition();
 		
 		HandleAnimations();
-		
-		if (_hasShot)
-			_weaponComponent.AttemptShoot(GetGlobalMousePosition().AngleToPoint(GlobalPosition));
-		
-		if (!IsIdle)
-			Rotation += _rotationDirection * RotationSpeed * (float)delta;
-		Velocity = _movementDirection * Speed;
 	}
 	
 	public override void _PhysicsProcess(double delta)
 	{
+		if (_hasShot)
+			_weaponComponent.AttemptShoot(GetGlobalMousePosition().AngleToPoint(Position));
+
+		if (!IsIdle)
+			Rotation += _rotationDirection * RotationSpeed * (float)delta;
+		Velocity = _movementDirection * Speed;
 		MoveAndSlide();
 	}
 	
@@ -66,7 +66,7 @@ public partial class Player : CharacterBody2D
 
 	private void SetGunRotationAndPosition()
 	{
-		_gun.Rotation = (float)Mathf.LerpAngle(_gun.Rotation, GetGlobalMousePosition().AngleToPoint(Position) - Constants.HalfPIOffset, 0.5);
+		_gun.Rotation = (float)Mathf.LerpAngle(_gun.Rotation, GetGlobalMousePosition().AngleToPoint(Position) - Constants.HalfPiOffset, 0.5);
 		_gun.Position = Position;
 	}
 

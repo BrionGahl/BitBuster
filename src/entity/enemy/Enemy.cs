@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using BitBuster.component;
 using BitBuster.entity.player;
 using BitBuster.utils;
@@ -12,6 +13,7 @@ public enum EnemyState
     Idle = 0,
     Pursue = 1,
     Evade = 2,
+    Attack = 3
 }
 
 public abstract partial class Enemy: CharacterBody2D
@@ -54,20 +56,13 @@ public abstract partial class Enemy: CharacterBody2D
 
     protected bool CanSeePlayer(int bounces = 0)
     {
-        try
-        {
-            PhysicsDirectSpaceState2D spaceState = GetWorld2D().DirectSpaceState;
-            PhysicsRayQueryParameters2D query = PhysicsRayQueryParameters2D.Create(Position, _player.Position,
-                CollisionMask, new Array<Rid> { GetRid() });
-
-            Dictionary results = spaceState.IntersectRay(query);
-
-            return results["rid"].AsRid() == _player.GetRid();
-        }
-        catch (ObjectDisposedException e)
-        {
-            Logger.Log.Error("Player has been killed or has been removed from the scene.");
+        PhysicsDirectSpaceState2D spaceState = GetWorld2D().DirectSpaceState;
+        PhysicsRayQueryParameters2D query;
+        
+        query = PhysicsRayQueryParameters2D.Create(Position, _player.Position, CollisionMask, new Array<Rid> { GetRid() });
+        Dictionary results = spaceState.IntersectRay(query);
+        if (results.Count == 0)
             return false;
-        }
+        return results["rid"].AsRid() == _player.GetRid();
     }
 }

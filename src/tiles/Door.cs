@@ -66,8 +66,5 @@ public partial class Door : Area2D
 		Logger.Log.Information("body entered..." + Type);
 
 		body.GlobalPosition = _marker2D.GlobalPosition + Offset;
-		
-		// TODO: play around with this...
-		// body.RotationDegrees = (int)Type + 180;
 	}
 }

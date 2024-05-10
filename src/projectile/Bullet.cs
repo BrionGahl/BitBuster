@@ -52,7 +52,7 @@ public partial class Bullet : CharacterBody2D
 		if (collision != null && _remainingBounces > 0)
 		{
 			Velocity = Velocity.Bounce(collision.GetNormal());
-			Rotation = Velocity.Angle() - Constants.HalfPIOffset;
+			Rotation = Velocity.Angle() - Constants.HalfPiOffset;
 			
 			_remainingBounces--;
 			_bulletTexture.Modulate = Color.FromHsv(_remainingBounces * _hueShift, 1.0f, 1.0f);

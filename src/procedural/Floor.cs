@@ -9,8 +9,6 @@ using Godot;
 
 namespace BitBuster.procedural;
 
-
-// TODO: Change cell and room sizes to be constants
 public partial class Floor : Node2D
 {
 	private int _roomCount;
@@ -21,7 +19,6 @@ public partial class Floor : Node2D
 	private RandomNumberGenerator _random;
 	private Rooms _rooms;
 
-	// TODO: Refactor most of this to be private
 	public int Level { get; set; } = 3;
 	public int[,] MapGrid { get; set; }
 
@@ -257,7 +254,7 @@ public partial class Floor : Node2D
 			if (adjacentRooms.Contains(data.TileMap[i].Direction))
 			{
 				Door door = _doorScene.Instantiate<Area2D>() as Door;
-				door.SetDoorInfo(((Vector2)data.TileMap[i].Direction).Angle() + Constants.PI, data.TileMap[i].Offset * _rooms.CellSize + worldOffset, data.TileMap[i].Direction * 32);
+				door.SetDoorInfo(((Vector2)data.TileMap[i].Direction).Angle() + Mathf.Pi, data.TileMap[i].Offset * _rooms.CellSize + worldOffset, data.TileMap[i].Direction * 32);
 				_levelExtra.AddChild(door);
 				continue; // dont put a tile here
 			}

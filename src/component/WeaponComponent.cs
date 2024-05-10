@@ -59,7 +59,7 @@ public partial class WeaponComponent : Node2D
 	private void Shoot(float rotation)
 	{
 		Bullet bullet = _bullet.Instantiate<CharacterBody2D>() as Bullet;
-		bullet.SetTrajectory(GetParent<Node2D>().GlobalPosition, rotation - Constants.HalfPIOffset, StatsComponent.GetAttackData());
+		bullet.SetTrajectory(GetParent<Node2D>().GlobalPosition, rotation - Constants.HalfPiOffset, StatsComponent.GetAttackData());
 		AddChild(bullet);
 	}
 
