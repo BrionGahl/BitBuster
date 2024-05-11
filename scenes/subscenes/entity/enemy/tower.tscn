@@ -35,11 +35,13 @@ texture = ExtResource("2_x0tog")
 [node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_4hc1y")
 
-[node name="HealthComponent" parent="." instance=ExtResource("3_411o0")]
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("StatsComponent") instance=ExtResource("3_411o0")]
+StatsComponent = NodePath("../StatsComponent")
 
-[node name="HitboxComponent" parent="." instance=ExtResource("4_6qlwy")]
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("HealthComponent") instance=ExtResource("4_6qlwy")]
 collision_layer = 4
 collision_mask = 27
+HealthComponent = NodePath("../HealthComponent")
 
 [node name="Hitbox" type="CollisionShape2D" parent="HitboxComponent"]
 shape = SubResource("RectangleShape2D_v1r4m")
@@ -52,4 +54,5 @@ ProjectileCooldown = 0.66
 ProjectileBounces = 1
 ProjectileSpeed = 150.0
 
-[node name="WeaponComponent" parent="." instance=ExtResource("6_ws2ev")]
+[node name="WeaponComponent" parent="." node_paths=PackedStringArray("StatsComponent") instance=ExtResource("6_ws2ev")]
+StatsComponent = NodePath("../StatsComponent")

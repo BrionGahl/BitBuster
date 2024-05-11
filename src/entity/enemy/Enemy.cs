@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using BitBuster.component;
 using BitBuster.entity.player;
+using BitBuster.state;
 using BitBuster.utils;
 using Godot;
 using Godot.Collections;
@@ -16,53 +17,67 @@ public enum EnemyState
     Attack = 3
 }
 
+
 public abstract partial class Enemy: CharacterBody2D
 {
-    protected Player _player;
+    public float Speed
+    {
+        get => StatsComponent.Speed;
+        set => StatsComponent.Speed = value;
+    }
+    public float RotationSpeed => Speed / 25;
+    public bool IsIdle => Velocity.Equals(Vector2.Zero);
+
+
+    // TODO: Transition this to state machine...
+    // Add visibility notifier for better performance and to add to idle
+    public Player Player;
     
-    protected StatsComponent _statsComponent;
-    protected HealthComponent _healthComponent;
-    protected HitboxComponent _hitboxComponent;
-    protected WeaponComponent _weaponComponent;
+    public StatsComponent StatsComponent { get; private set; }
+    public HealthComponent HealthComponent { get; private set; }
+    public HitboxComponent HitboxComponent { get; private set; }
+    public WeaponComponent WeaponComponent { get; private set; }
+    
+    public VisibleOnScreenNotifier2D OnScreenNotifier { get; private set; }
 
-    protected Vector2 _spawnPosition;
-    protected Vector2 _target;
+    public Vector2 SpawnPosition { get; private set; }
+    public Vector2 Target { get; set; }
 
+    protected RandomNumberGenerator _randomNumberGenerator;
+    
     [Export]
     public EnemyState State { get; set; }
-    
-    public virtual void InitializeEnemy(Player player) // Make this a parent class
-    {
-        Logger.Log.Information("Linking Enemy's Children...");
 
-        _player = player;
-        
-        _statsComponent = GetNodeOrNull<Node2D>("StatsComponent") as StatsComponent;
-        _healthComponent = GetNodeOrNull<Node2D>("HealthComponent") as HealthComponent;
-        _hitboxComponent = GetNodeOrNull<Node2D>("HitboxComponent") as HitboxComponent;
-        _weaponComponent = GetNodeOrNull<Node2D>("WeaponComponent") as WeaponComponent;
+     public override void _Ready()
+     {
+         Player = GetTree().GetFirstNodeInGroup("player") as Player;
+         
+         StatsComponent = GetNodeOrNull<Node2D>("StatsComponent") as StatsComponent;
+         HealthComponent = GetNodeOrNull<Node2D>("HealthComponent") as HealthComponent;
+         HitboxComponent = GetNodeOrNull<Node2D>("HitboxComponent") as HitboxComponent;
+         WeaponComponent = GetNodeOrNull<Node2D>("WeaponComponent") as WeaponComponent;
 
-        if (_healthComponent != null)
-            _healthComponent.StatsComponent = _statsComponent;
-        if (_hitboxComponent != null)
-            _hitboxComponent.HealthComponent = _healthComponent;
-        if (_weaponComponent != null)
-            _weaponComponent.StatsComponent = _statsComponent;
+         OnScreenNotifier = GetNode<VisibleOnScreenNotifier2D>("VisibleOnScreenNotifier2D");
 
-        _spawnPosition = Position;
+         HealthComponent.StatsComponent = StatsComponent;
+         HitboxComponent.HealthComponent = HealthComponent;
+         WeaponComponent.StatsComponent = StatsComponent;
+         
+         SpawnPosition = Position;
+     }
 
-        State = EnemyState.Idle;
-    }
-
-    protected bool CanSeePlayer(int bounces = 0)
+    public bool CanSeePlayer(int bounces = 0)
     {
         PhysicsDirectSpaceState2D spaceState = GetWorld2D().DirectSpaceState;
         PhysicsRayQueryParameters2D query;
         
-        query = PhysicsRayQueryParameters2D.Create(Position, _player.Position, CollisionMask, new Array<Rid> { GetRid() });
+        query = PhysicsRayQueryParameters2D.Create(Position, Player.Position, CollisionMask, new Array<Rid> { GetRid() });
         Dictionary results = spaceState.IntersectRay(query);
         if (results.Count == 0)
             return false;
-        return results["rid"].AsRid() == _player.GetRid();
+        return results["rid"].AsRid() == Player.GetRid();
     }
+
+    public abstract void SetGunRotationAndPosition();
+    public abstract void HandleAnimations();
 }

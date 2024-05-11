@@ -1,7 +1,8 @@
-using Godot;
 using System;
-using BitBuster.entity.enemy;
 using BitBuster.utils;
+using Godot;
+
+namespace BitBuster.entity.enemy;
 
 public partial class Tower : Enemy
 {
@@ -9,10 +10,11 @@ public partial class Tower : Enemy
 	private Sprite2D _gun;
 	private Sprite2D _body;
 	
-	private RandomNumberGenerator _randomNumberGenerator;
 
 	public override void _Ready()
 	{
+		base._Ready();
+		
 		_gun = GetNode<Sprite2D>("Gun");
 		_body = GetNode<Sprite2D>("Body");
 		
@@ -36,7 +38,7 @@ public partial class Tower : Enemy
 				SetGunRotationAndPosition();
 		
 				if (CanSeePlayer() && _randomNumberGenerator.Randf() > 0.3f)
-					_weaponComponent.AttemptShoot(_player.Position.AngleToPoint(Position) + _randomNumberGenerator.RandfRange(-Mathf.Pi / 9, Mathf.Pi / 9));
+					WeaponComponent.AttemptShoot(Player.Position.AngleToPoint(Position) + _randomNumberGenerator.RandfRange(-Mathf.Pi / 9, Mathf.Pi / 9));
 				break;
 		}
 		
@@ -49,12 +51,17 @@ public partial class Tower : Enemy
 	}
 	
 	
-	private void SetGunRotationAndPosition()
+	public override void SetGunRotationAndPosition()
 	{
 		if (CanSeePlayer())
-			_gun.Rotation = (float)Mathf.LerpAngle(_gun.Rotation, _player.Position.AngleToPoint(Position) - Constants.HalfPiOffset, 0.5);
+			_gun.Rotation = (float)Mathf.LerpAngle(_gun.Rotation, Player.Position.AngleToPoint(Position) - Constants.HalfPiOffset, 0.5);
 		else
 			_gun.Rotation = (float)Mathf.LerpAngle(_gun.Rotation, Rotation, 0.1);
 		_gun.Position = Position;
+	}
+
+	public override void HandleAnimations()
+	{
+		throw new NotImplementedException();
 	}
 }

@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://src/procedural/Rooms.cs" id="1_lawn4"]
 [ext_resource type="TileSet" uid="uid://dgja5h4hys5wf" path="res://assets/tiles/tilemap.tres" id="2_bvjgm"]
-[ext_resource type="PackedScene" uid="uid://det6gkgxg57mw" path="res://scenes/subscenes/player.tscn" id="2_pa2gp"]
+[ext_resource type="PackedScene" uid="uid://det6gkgxg57mw" path="res://scenes/subscenes/entity/player/player.tscn" id="2_pa2gp"]
 [ext_resource type="PackedScene" uid="uid://lvawwpbpty0i" path="res://scenes/subscenes/tiles/player_detector.tscn" id="4_5l8sk"]
-[ext_resource type="PackedScene" uid="uid://jfv7afsl8mvt" path="res://scenes/subscenes/enemy/panzer.tscn" id="5_54c10"]
-[ext_resource type="PackedScene" uid="uid://bhljrlptytonc" path="res://scenes/subscenes/enemy/tower.tscn" id="6_s61rk"]
+[ext_resource type="PackedScene" uid="uid://jfv7afsl8mvt" path="res://scenes/subscenes/entity/enemy/panzer.tscn" id="5_54c10"]
+[ext_resource type="PackedScene" uid="uid://bhljrlptytonc" path="res://scenes/subscenes/entity/enemy/tower.tscn" id="6_s61rk"]
 
 [node name="Rooms" type="Node2D"]
 script = ExtResource("1_lawn4")
@@ -43,11 +43,11 @@ layer_0/tile_data = PackedInt32Array(0, 196608, 1, 65536, 131072, 1, 131072, 131
 [node name="Player" parent="START/0" instance=ExtResource("2_pa2gp")]
 position = Vector2(152, 152)
 
+[node name="Tower" parent="START/0" instance=ExtResource("6_s61rk")]
+position = Vector2(50, 49)
+
 [node name="Panzer" parent="START/0" instance=ExtResource("5_54c10")]
 position = Vector2(262, 270)
-
-[node name="Tower" parent="START/0" instance=ExtResource("6_s61rk")]
-position = Vector2(49, 43)
 
 [node name="BOSS" type="Node2D" parent="."]
 visible = false

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://src/procedural/Level.cs" id="1_ji0t6"]
 [ext_resource type="Script" path="res://src/procedural/Floor.cs" id="1_qfgiw"]
 [ext_resource type="TileSet" uid="uid://dgja5h4hys5wf" path="res://assets/tiles/tilemap.tres" id="3_0ap6v"]
-[ext_resource type="PackedScene" uid="uid://det6gkgxg57mw" path="res://scenes/subscenes/player.tscn" id="3_jatvy"]
+[ext_resource type="PackedScene" uid="uid://det6gkgxg57mw" path="res://scenes/subscenes/entity/player/player.tscn" id="3_jatvy"]
 [ext_resource type="Script" path="res://src/world/Camera.cs" id="4_e2pov"]
 [ext_resource type="Texture2D" uid="uid://bhk5nrlkp2n1n" path="res://assets/etc/camera_border.png" id="4_smynp"]
 [ext_resource type="PackedScene" uid="uid://c4g61mo4wfsdd" path="res://scenes/subscenes/hud/health_bar_with_delta.tscn" id="8_giki5"]

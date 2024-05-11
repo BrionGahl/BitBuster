@@ -43,16 +43,17 @@ public partial class Player : CharacterBody2D
 		GetInput();
 		SetGunRotationAndPosition();
 		
-		HandleAnimations();
-	}
-	
-	public override void _PhysicsProcess(double delta)
-	{
 		if (_hasShot)
 			_weaponComponent.AttemptShoot(GetGlobalMousePosition().AngleToPoint(Position));
 
 		if (!IsIdle)
 			Rotation += _rotationDirection * RotationSpeed * (float)delta;
+		
+		HandleAnimations();
+	}
+	
+	public override void _PhysicsProcess(double delta)
+	{
 		Velocity = _movementDirection * Speed;
 		MoveAndSlide();
 	}
