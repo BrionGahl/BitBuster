@@ -43,11 +43,11 @@ layer_0/tile_data = PackedInt32Array(0, 196608, 1, 65536, 131072, 1, 131072, 131
 [node name="Player" parent="START/0" instance=ExtResource("2_pa2gp")]
 position = Vector2(152, 152)
 
-[node name="Tower" parent="START/0" instance=ExtResource("6_s61rk")]
-position = Vector2(50, 49)
-
 [node name="Panzer" parent="START/0" instance=ExtResource("5_54c10")]
 position = Vector2(262, 270)
+
+[node name="Tower" parent="START/0" instance=ExtResource("6_s61rk")]
+position = Vector2(54, 46)
 
 [node name="BOSS" type="Node2D" parent="."]
 visible = false

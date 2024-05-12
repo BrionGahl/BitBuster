@@ -241,7 +241,9 @@ public partial class Floor : Node2D
 				newObject.QueueFree();
 				continue;
 			}
-			
+
+			if (newObject.IsInGroup("enemy"))
+				(newObject as Enemy).SpawnPosition = newObject.Position;
 			_levelExtra.AddChild(newObject);
 		}
 		

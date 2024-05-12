@@ -29,7 +29,7 @@ public partial class StateMachine : Node2D
 		}
 
 		if (InitialState == null)
-			InitialState = _states["sleep"];
+			InitialState = _states[GetChild(0).Name.ToString().ToLower()];
 			
 		InitialState.Enter();
 		CurrentState = InitialState;

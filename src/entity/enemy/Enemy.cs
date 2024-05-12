@@ -38,16 +38,11 @@ public abstract partial class Enemy: CharacterBody2D
     public HitboxComponent HitboxComponent { get; private set; }
     public WeaponComponent WeaponComponent { get; private set; }
     
-    public VisibleOnScreenNotifier2D OnScreenNotifier { get; private set; }
-
-    public Vector2 SpawnPosition { get; private set; }
-    public Vector2 Target { get; set; }
-
-    protected RandomNumberGenerator _randomNumberGenerator;
+    public StateMachine StateMachine { get; set; }
     
-    [Export]
-    public EnemyState State { get; set; }
-
+    public Vector2 SpawnPosition { get; set; }
+    public Vector2 Target { get; set; }
+    
      public override void _Ready()
      {
          Player = GetTree().GetFirstNodeInGroup("player") as Player;
@@ -56,9 +51,9 @@ public abstract partial class Enemy: CharacterBody2D
          HealthComponent = GetNodeOrNull<Node2D>("HealthComponent") as HealthComponent;
          HitboxComponent = GetNodeOrNull<Node2D>("HitboxComponent") as HitboxComponent;
          WeaponComponent = GetNodeOrNull<Node2D>("WeaponComponent") as WeaponComponent;
-
-         OnScreenNotifier = GetNode<VisibleOnScreenNotifier2D>("VisibleOnScreenNotifier2D");
-
+         
+         StateMachine = GetNode<Node2D>("StateMachine") as StateMachine;
+         
          HealthComponent.StatsComponent = StatsComponent;
          HitboxComponent.HealthComponent = HealthComponent;
          WeaponComponent.StatsComponent = StatsComponent;
@@ -78,6 +73,6 @@ public abstract partial class Enemy: CharacterBody2D
         return results["rid"].AsRid() == Player.GetRid();
     }
 
-    public abstract void SetGunRotationAndPosition();
+    public abstract void SetGunRotationAndPosition(float radian = 0);
     public abstract void HandleAnimations();
 }
