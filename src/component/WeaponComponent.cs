@@ -33,6 +33,7 @@ public partial class WeaponComponent : Node2D
 	public override void _Ready()
 	{
 		_bullet = GD.Load<PackedScene>("res://scenes/subscenes/projectile/bullet.tscn");
+		
 		ShootTimer = GetNode<Timer>("ShootTimer");
 
 		CanShoot = true;
@@ -45,15 +46,36 @@ public partial class WeaponComponent : Node2D
 
 	public void AttemptShoot(float rotation)
 	{
-		if (CanShoot && BulletCount + 1 - GetChildCount()> 0)
+		switch (StatsComponent.ProjectileWeaponType)
 		{
-			Logger.Log.Information("Shooting... " + (BulletCount - GetChildCount()) + "/" + BulletCount + ".");
+			case (WeaponType.Normal):
+				if (CanShoot && BulletCount + 1 - GetChildCount() > 0)
+				{
+					Logger.Log.Information("Shooting... " + (BulletCount - GetChildCount()) + "/" + BulletCount + ".");
 			
-			Shoot(rotation);
-			StatsComponent.Speed /= 2;
-			CanShoot = false;
-			ShootTimer.Start(StatsComponent.ProjectileCooldown);
+					Shoot(rotation);
+					
+					StatsComponent.Speed /= 2;
+					CanShoot = false;
+					ShootTimer.Start(StatsComponent.ProjectileCooldown);
+				}
+				break;
+			case (WeaponType.Tri):
+				if (CanShoot && BulletCount + 1 - GetChildCount() > 2)
+				{
+					Logger.Log.Information("Shooting... " + (BulletCount - GetChildCount()) + "/" + BulletCount + ".");
+			
+					Shoot(rotation + Mathf.Pi / 9);
+					Shoot(rotation);
+					Shoot(rotation - Mathf.Pi / 9);
+
+					StatsComponent.Speed /= 2;
+					CanShoot = false;
+					ShootTimer.Start(StatsComponent.ProjectileCooldown);
+				}
+				break;
 		}
+		
 	}
 
 	private void Shoot(float rotation)

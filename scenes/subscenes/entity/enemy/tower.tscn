@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://src/state/Sleep.cs" id="3_u2ue8"]
 [ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="4_6qlwy"]
 [ext_resource type="PackedScene" uid="uid://bva4np8rg3g20" path="res://scenes/subscenes/component/stats_component.tscn" id="5_b0t5c"]
-[ext_resource type="Script" path="res://src/state/Attack.cs" id="5_tybqr"]
+[ext_resource type="Script" path="res://src/state/idle/Attack.cs" id="5_tybqr"]
 [ext_resource type="PackedScene" uid="uid://cubpk1i28p0wk" path="res://scenes/subscenes/component/weapon_component.tscn" id="6_ws2ev"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4hc1y"]
@@ -58,6 +58,7 @@ HealthComponent = NodePath("../HealthComponent")
 shape = SubResource("RectangleShape2D_v1r4m")
 
 [node name="StatsComponent" parent="." instance=ExtResource("5_b0t5c")]
+Source = 3
 MaxHealth = 3.0
 CurrentHealth = 3.0
 ProjectileDamage = 1.0

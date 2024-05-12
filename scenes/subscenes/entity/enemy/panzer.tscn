@@ -1,13 +1,14 @@
-[gd_scene load_steps=19 format=3 uid="uid://jfv7afsl8mvt"]
+[gd_scene load_steps=20 format=3 uid="uid://jfv7afsl8mvt"]
 
 [ext_resource type="Texture2D" uid="uid://b0d7wva4i1ysc" path="res://assets/enemy/enemy_tank_idle.png" id="1_cdhtg"]
 [ext_resource type="Texture2D" uid="uid://b75exrlheupv8" path="res://assets/enemy/enemy_gun.png" id="1_o0mos"]
 [ext_resource type="Script" path="res://src/entity/enemy/Panzer.cs" id="1_o4t3k"]
 [ext_resource type="Texture2D" uid="uid://b6blw88sbpd8j" path="res://assets/enemy/enemy_tank.png" id="2_am8ye"]
 [ext_resource type="Script" path="res://src/state/Sleep.cs" id="3_sdctr"]
-[ext_resource type="Script" path="res://src/state/Pursue.cs" id="4_uk8v8"]
+[ext_resource type="Script" path="res://src/state/moveable/Pursue.cs" id="4_jjqeq"]
+[ext_resource type="Script" path="res://src/state/moveable/Evade.cs" id="5_e2mfr"]
 [ext_resource type="PackedScene" uid="uid://bva4np8rg3g20" path="res://scenes/subscenes/component/stats_component.tscn" id="5_rnn55"]
-[ext_resource type="Script" path="res://src/state/Evade.cs" id="5_siry4"]
+[ext_resource type="Script" path="res://src/state/moveable/Pace.cs" id="6_30a6s"]
 [ext_resource type="PackedScene" uid="uid://btrxy7t83y8en" path="res://scenes/subscenes/component/health_component.tscn" id="6_l56yv"]
 [ext_resource type="PackedScene" uid="uid://cubpk1i28p0wk" path="res://scenes/subscenes/component/weapon_component.tscn" id="7_fpl3x"]
 [ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="7_hvtgx"]
@@ -65,10 +66,13 @@ script = ExtResource("1_o4t3k")
 script = ExtResource("3_sdctr")
 
 [node name="Pursue" type="Node" parent="StateMachine"]
-script = ExtResource("4_uk8v8")
+script = ExtResource("4_jjqeq")
 
 [node name="Evade" type="Node" parent="StateMachine"]
-script = ExtResource("5_siry4")
+script = ExtResource("5_e2mfr")
+
+[node name="Pace" type="Node" parent="StateMachine"]
+script = ExtResource("6_30a6s")
 
 [node name="Gun" type="Sprite2D" parent="."]
 top_level = true
@@ -87,6 +91,7 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_gbvby")
 
 [node name="StatsComponent" parent="." instance=ExtResource("5_rnn55")]
+Source = 3
 MaxHealth = 3.0
 CurrentHealth = 3.0
 ProjectileDamage = 1.0

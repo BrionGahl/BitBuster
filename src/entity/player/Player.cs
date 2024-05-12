@@ -62,7 +62,7 @@ public partial class Player : CharacterBody2D
 	{
 		_rotationDirection = Input.GetAxis("left", "right");
 		_movementDirection = Transform.X * Input.GetAxis("down", "up");
-		_hasShot = Input.IsActionJustPressed("shoot");
+		_hasShot = Input.IsActionPressed("shoot");
 	}
 
 	private void SetGunRotationAndPosition()

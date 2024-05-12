@@ -3,7 +3,7 @@ using BitBuster.entity.enemy;
 using BitBuster.utils;
 using Godot;
 
-namespace BitBuster.state;
+namespace BitBuster.state.moveable;
 
 public partial class Evade: State
 {
@@ -39,6 +39,7 @@ public partial class Evade: State
         int y = (int) Math.Floor(_parent.Position.Y / Constants.RoomSize) * Constants.RoomSize;
         
         _target = new Vector2(x + Constants.RoomSize - (_parent.Player.Position.X % Constants.RoomSize), y + Constants.RoomSize - (_parent.Player.Position.Y % Constants.RoomSize));
+        _agent.TargetPosition = _target;
     }
 
     public override void Exit()
@@ -57,7 +58,7 @@ public partial class Evade: State
             EmitSignal(SignalName.StateTransition, this, "sleep");
         }
 
-        if (_agent.DistanceToTarget() < 24)
+        if (_agent.DistanceToTarget() < 32)
         {
             EmitSignal(SignalName.StateTransition, this, "pursue");
         }

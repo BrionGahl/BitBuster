@@ -122,6 +122,8 @@ public partial class Bullet : CharacterBody2D
 	{
 		_hitbox.SetCollisionMaskValue((int)BBCollisionLayer.Player, true);
 		_hitbox.SetCollisionMaskValue((int)BBCollisionLayer.Enemy, true);
+		_hitbox.SetCollisionMaskValue((int)BBCollisionLayer.Projectile, true);
+		SetCollisionMaskValue((int)BBCollisionLayer.Projectile, true);
 	}
 	
 	private void OnDeathAnimationTimeout()

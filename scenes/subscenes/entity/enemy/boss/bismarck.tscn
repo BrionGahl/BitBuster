@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://80euygqrhta2"]
+
+[ext_resource type="PackedScene" uid="uid://btrxy7t83y8en" path="res://scenes/subscenes/component/health_component.tscn" id="1_6k16q"]
+[ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="2_wqse3"]
+[ext_resource type="PackedScene" uid="uid://bva4np8rg3g20" path="res://scenes/subscenes/component/stats_component.tscn" id="3_jqqca"]
+[ext_resource type="PackedScene" uid="uid://cubpk1i28p0wk" path="res://scenes/subscenes/component/weapon_component.tscn" id="4_piqkv"]
+
+[node name="Bismarck" type="CharacterBody2D"]
+
+[node name="HealthComponent" parent="." instance=ExtResource("1_6k16q")]
+
+[node name="HitboxComponent" parent="." instance=ExtResource("2_wqse3")]
+
+[node name="StatsComponent" parent="." instance=ExtResource("3_jqqca")]
+
+[node name="WeaponComponent" parent="." instance=ExtResource("4_piqkv")]

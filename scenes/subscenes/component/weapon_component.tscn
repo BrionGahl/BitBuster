@@ -2,9 +2,8 @@
 
 [ext_resource type="Script" path="res://src/component/WeaponComponent.cs" id="1_gqvkb"]
 
-[node name="WeaponComponent" type="Node2D" node_paths=PackedStringArray("StatsComponent")]
+[node name="WeaponComponent" type="Node2D"]
 script = ExtResource("1_gqvkb")
-StatsComponent = NodePath("")
 
 [node name="ShootTimer" type="Timer" parent="."]
 one_shot = true

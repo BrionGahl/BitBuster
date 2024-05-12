@@ -80,13 +80,15 @@ shape = SubResource("CapsuleShape2D_pjmg8")
 StatsComponent = NodePath("../StatsComponent")
 
 [node name="StatsComponent" parent="." instance=ExtResource("5_bmnux")]
-MaxHealth = 3.0
-CurrentHealth = 3.0
+MaxHealth = 20.0
+CurrentHealth = 20.0
 ProjectileDamage = 1.0
 ProjectileCount = 3
 ProjectileCooldown = 0.33
 ProjectileBounces = 1
 ProjectileSpeed = 100.0
+ProjectileDamageType = 1
+ProjectileWeaponType = 1
 Speed = 75.0
 SizeScalar = 1.0
 

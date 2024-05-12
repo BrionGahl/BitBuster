@@ -4,9 +4,8 @@ using BitBuster.entity.player;
 using BitBuster.utils;
 using Godot;
 
-namespace BitBuster.state;
+namespace BitBuster.state.moveable;
 
-// CLEAN UP CODE TO ALWAYS PULL WHAT I NEED FROM SIBLING eg. GetParen().GetNode<>()
 
 public partial class Pursue: State
 {
@@ -35,6 +34,7 @@ public partial class Pursue: State
 	public override void Enter()
 	{
 		Logger.Log.Information(_parent.Name + " entering pursue.");
+		_agent.TargetPosition = _parent.Player.Position;
 	}
 	
 	public override void Exit()
@@ -51,6 +51,11 @@ public partial class Pursue: State
 		if (!_notifier.IsOnScreen())
 		{
 			EmitSignal(SignalName.StateTransition, this, "sleep");
+		}
+
+		if (_parent.CanSeePlayer() && _agent.DistanceToTarget() > 64)
+		{
+			EmitSignal(SignalName.StateTransition, this, "pace");
 		}
 	
 		if (_agent.DistanceToTarget() < 64) // Enter Evade
