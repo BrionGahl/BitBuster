@@ -30,11 +30,11 @@ public partial class Attack : State
 	{
 	}
 
-	public override void StateUpdate()
+	public override void StateUpdate(double delta)
 	{
 	}
 
-	public override void StatePhysicsUpdate()
+	public override void StatePhysicsUpdate(double delta)
 	{
 		if (!_notifier.IsOnScreen())
 		{

@@ -109,13 +109,11 @@ public partial class Bullet : CharacterBody2D
 			Logger.Log.Information("Hitbox hit at " + area.Name);
 
 			HitboxComponent hitboxComponent = area as HitboxComponent;
-
 			hitboxComponent.Damage(_attackData);
 		}
 		
 		PrepForFree();
 		_deathAnimationTimer.Start();
-		
 	}
 
 	private void OnParentIFrameTimeout()

@@ -56,7 +56,9 @@ public abstract partial class Enemy: CharacterBody2D
          
          HealthComponent.StatsComponent = StatsComponent;
          HitboxComponent.HealthComponent = HealthComponent;
-         WeaponComponent.StatsComponent = StatsComponent;
+         
+         if (WeaponComponent != null)
+            WeaponComponent.StatsComponent = StatsComponent;
          
          SpawnPosition = Position;
      }

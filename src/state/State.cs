@@ -10,6 +10,6 @@ public abstract partial class State : Node
     public abstract void Init();
     public abstract void Enter();
     public abstract void Exit();
-    public abstract void StateUpdate();
-    public abstract void StatePhysicsUpdate();
+    public abstract void StateUpdate(double delta);
+    public abstract void StatePhysicsUpdate(double delta);
 }

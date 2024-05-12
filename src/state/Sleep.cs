@@ -1,3 +1,4 @@
+using BitBuster.component;
 using BitBuster.entity.enemy;
 using BitBuster.utils;
 using Godot;
@@ -32,15 +33,17 @@ public partial class Sleep: State
 			_agentTimer.Paused = false;
 	}
 
-	public override void StateUpdate()
+	public override void StateUpdate(double delta)
 	{
 	}
 
-	public override void StatePhysicsUpdate()
+	public override void StatePhysicsUpdate(double delta)
 	{
 		if (_notifier.IsOnScreen())
-			if (_agentTimer != null)
+			if (_agentTimer != null && _parent.WeaponComponent != null)
 				EmitSignal(SignalName.StateTransition, this, "pursue");
+			else if (_agentTimer != null)
+				EmitSignal(SignalName.StateTransition, this, "ram");
 			else
 				EmitSignal(SignalName.StateTransition, this, "attack");
 	}

@@ -88,7 +88,6 @@ ProjectileCooldown = 0.33
 ProjectileBounces = 1
 ProjectileSpeed = 100.0
 ProjectileDamageType = 1
-ProjectileWeaponType = 1
 Speed = 75.0
 SizeScalar = 1.0
 

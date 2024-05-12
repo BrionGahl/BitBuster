@@ -46,12 +46,12 @@ public partial class Evade: State
     {
     }
 
-    public override void StateUpdate()
+    public override void StateUpdate(double delta)
     {
         _parent.HandleAnimations();
     }
 
-    public override void StatePhysicsUpdate()
+    public override void StatePhysicsUpdate(double delta)
     {
         if (!_notifier.IsOnScreen())
         {

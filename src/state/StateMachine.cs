@@ -39,13 +39,13 @@ public partial class StateMachine : Node2D
 	public override void _Process(double delta)
 	{
 		if (CurrentState != null)
-			CurrentState.StateUpdate();
+			CurrentState.StateUpdate(delta);
 	}
 	
 	public override void _PhysicsProcess(double delta)
 	{
 		if (CurrentState != null)
-			CurrentState.StatePhysicsUpdate();
+			CurrentState.StatePhysicsUpdate(delta);
 	}
 
 	private void OnStateTransition(State state, string newStateName)
