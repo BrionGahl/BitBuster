@@ -8,17 +8,10 @@ public partial class Attack : State
 {
 	
 	private Enemy _parent;
-	private VisibleOnScreenNotifier2D _notifier;
 	
-	private RandomNumberGenerator _randomNumberGenerator;
-
 	public override void Init()
 	{
 		_parent = GetParent().GetParent<CharacterBody2D>() as Enemy;
-		_notifier = GetParent().GetParent().GetNode<VisibleOnScreenNotifier2D>("VisibleOnScreenNotifier2D");
-
-		_randomNumberGenerator = new RandomNumberGenerator();
-		_randomNumberGenerator.Randomize();
 	}
 
 	public override void Enter()
@@ -36,15 +29,11 @@ public partial class Attack : State
 
 	public override void StatePhysicsUpdate(double delta)
 	{
-		if (!_notifier.IsOnScreen())
+		if (!_parent.Notifier.IsOnScreen())
 		{
 			EmitSignal(SignalName.StateTransition, this, "sleep");
 		}
 
-		_parent.SetGunRotationAndPosition(Mathf.Pi/12);
-
-		if (_parent.CanSeePlayer() && _randomNumberGenerator.Randf() > 0.3f)
-			_parent.WeaponComponent.AttemptShoot(_parent.Player.Position.AngleToPoint(_parent.Position) + _randomNumberGenerator.RandfRange(-Mathf.Pi / 9, Mathf.Pi / 9));
-
+		_parent.AttackAction(delta);
 	}
 }

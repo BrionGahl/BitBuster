@@ -10,6 +10,7 @@ public partial class Tower : Enemy
 	private Sprite2D _body;
 	
 
+
 	public override void _Ready()
 	{
 		base._Ready();
@@ -26,8 +27,16 @@ public partial class Tower : Enemy
 		else
 			_gun.Rotation = (float)Mathf.LerpAngle(_gun.Rotation, _gun.Rotation + radian, 0.1);
 		_gun.Position = Position;
-	}	
+	}
 
+	public override void AttackAction(double delta)
+	{
+		SetGunRotationAndPosition(Mathf.Pi/12);
+		
+		if (CanSeePlayer() && RandomNumberGenerator.Randf() > 0.3f)
+			WeaponComponent.AttemptShoot(Player.Position.AngleToPoint(Position) + RandomNumberGenerator.RandfRange(-Mathf.Pi / 9, Mathf.Pi / 9));
+	}
+	
 	public override void HandleAnimations()
 	{
 	}

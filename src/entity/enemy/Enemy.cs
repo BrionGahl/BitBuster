@@ -9,15 +9,6 @@ using Godot.Collections;
 
 namespace BitBuster.entity.enemy;
 
-public enum EnemyState
-{
-    Idle = 0,
-    Pursue = 1,
-    Evade = 2,
-    Attack = 3
-}
-
-
 public abstract partial class Enemy: CharacterBody2D
 {
     public float Speed
@@ -37,11 +28,13 @@ public abstract partial class Enemy: CharacterBody2D
     public HealthComponent HealthComponent { get; private set; }
     public HitboxComponent HitboxComponent { get; private set; }
     public WeaponComponent WeaponComponent { get; private set; }
-    
-    public StateMachine StateMachine { get; set; }
+
+    public VisibleOnScreenNotifier2D Notifier { get; private set; }
     
     public Vector2 SpawnPosition { get; set; }
     public Vector2 Target { get; set; }
+    
+    protected RandomNumberGenerator RandomNumberGenerator;
     
      public override void _Ready()
      {
@@ -52,13 +45,17 @@ public abstract partial class Enemy: CharacterBody2D
          HitboxComponent = GetNodeOrNull<Node2D>("HitboxComponent") as HitboxComponent;
          WeaponComponent = GetNodeOrNull<Node2D>("WeaponComponent") as WeaponComponent;
          
-         StateMachine = GetNode<Node2D>("StateMachine") as StateMachine;
-         
          HealthComponent.StatsComponent = StatsComponent;
          HitboxComponent.HealthComponent = HealthComponent;
          
          if (WeaponComponent != null)
             WeaponComponent.StatsComponent = StatsComponent;
+         
+         Notifier = GetNode<VisibleOnScreenNotifier2D>("VisibleOnScreenNotifier2D");
+
+         
+         RandomNumberGenerator = new RandomNumberGenerator();
+         RandomNumberGenerator.Randomize();
          
          SpawnPosition = Position;
      }
@@ -77,4 +74,6 @@ public abstract partial class Enemy: CharacterBody2D
 
     public abstract void SetGunRotationAndPosition(float radian = 0);
     public abstract void HandleAnimations();
+    
+    public abstract void AttackAction(double delta);
 }

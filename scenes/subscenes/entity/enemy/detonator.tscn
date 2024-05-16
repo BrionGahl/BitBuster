@@ -53,7 +53,7 @@ radius = 7.0
 height = 16.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uv8ha"]
-radius = 650.093
+radius = 80.5047
 
 [sub_resource type="Gradient" id="Gradient_72yvo"]
 offsets = PackedFloat32Array(0.090301, 0.113712, 0.408027, 0.438127, 0.575251, 1)
@@ -90,6 +90,7 @@ script = ExtResource("1_hwlg7")
 
 [node name="Sleep" type="Node" parent="StateMachine"]
 script = ExtResource("3_5ci16")
+NextState = "ram"
 
 [node name="Ram" type="Node" parent="StateMachine"]
 script = ExtResource("4_l5pgs")
@@ -140,7 +141,10 @@ shape = SubResource("CircleShape2D_uv8ha")
 
 [node name="ExplodeEmitter" type="GPUParticles2D" parent="."]
 emitting = false
-amount = 64
+amount = 128
 process_material = SubResource("ParticleProcessMaterial_7imaq")
 one_shot = true
 explosiveness = 1.0
+
+[node name="FlashTimer" type="Timer" parent="."]
+wait_time = 0.3

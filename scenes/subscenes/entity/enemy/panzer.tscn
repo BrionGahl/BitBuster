@@ -64,6 +64,7 @@ script = ExtResource("1_o4t3k")
 
 [node name="Sleep" type="Node" parent="StateMachine"]
 script = ExtResource("3_sdctr")
+NextState = "pursue"
 
 [node name="Pursue" type="Node" parent="StateMachine"]
 script = ExtResource("4_jjqeq")
