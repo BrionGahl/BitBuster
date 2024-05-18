@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using BitBuster.data;
+using BitBuster.entity.enemy;
 using BitBuster.entity.player;
 using BitBuster.tiles;
+using BitBuster.utils;
 using Godot;
-using Serilog.Core;
-using Logger = BitBuster.utils.Logger;
 
 namespace BitBuster.procedural;
 
@@ -20,16 +19,16 @@ public partial class Floor : Node2D
 	private RandomNumberGenerator _random;
 	private Rooms _rooms;
 
-	// TODO: Refactor most of this to be private
 	public int Level { get; set; } = 3;
 	public int[,] MapGrid { get; set; }
 
 	private PackedScene _roomsScene;
 	private PackedScene _doorScene;
 	
+	private NavigationRegion2D _levelRegion { get; set; }
 	private TileMap _levelMain { get; set; }
 	private Node2D _levelExtra { get; set; }
-	private CharacterBody2D _levelPlayer { get; set; }
+	private Player _levelPlayer { get; set; }
 	
 	public override void _Ready()
 	{
@@ -38,7 +37,7 @@ public partial class Floor : Node2D
 
 		_levelMain = GetNode<TileMap>("Level/TileMapMain");
 		_levelExtra = GetNode<Node2D>("Level/Extra");
-		_levelPlayer = GetNode<CharacterBody2D>("Level/Player");
+		_levelPlayer = GetNode<CharacterBody2D>("Level/Player") as Player;
 		
 		_random = new RandomNumberGenerator();
 		
@@ -219,6 +218,7 @@ public partial class Floor : Node2D
 				CopyRoom(new Vector2I(x, y), (RoomType)MapGrid[x, y], adjacentRooms);
 			}
 		}
+	
 	}
 
 	private void CopyRoom(Vector2I offset, RoomType type, List<Vector2I> adjacentRooms)
@@ -227,20 +227,23 @@ public partial class Floor : Node2D
 		Vector2I mapOffset = GridToMap(offset);
 		
 		RoomData data = _rooms.GetRoomData(type);
-		
+
 		for (int i = 0; i < data.Objects.Count; i++)
 		{
 			Logger.Log.Debug("Adding Child to Extra...");
 			Node2D newObject = data.Objects[i].Duplicate() as Node2D;
+			
 			newObject.Position += worldOffset;
-
+			
 			if (newObject.IsInGroup("player"))
 			{
 				_levelPlayer.Position = newObject.Position;
 				newObject.QueueFree();
 				continue;
 			}
-			
+
+			if (newObject.IsInGroup("enemy"))
+				(newObject as Enemy).SpawnPosition = newObject.Position;
 			_levelExtra.AddChild(newObject);
 		}
 		
@@ -249,7 +252,7 @@ public partial class Floor : Node2D
 			if (adjacentRooms.Contains(data.TileMap[i].Direction))
 			{
 				Door door = _doorScene.Instantiate<Area2D>() as Door;
-				door.SetDoorInfo(((Vector2)data.TileMap[i].Direction).Angle() + (float)Math.PI, data.TileMap[i].Offset * _rooms.CellSize + worldOffset, data.TileMap[i].Direction * 32);
+				door.SetDoorInfo(((Vector2)data.TileMap[i].Direction).Angle() + Mathf.Pi, data.TileMap[i].Offset * _rooms.CellSize + worldOffset, data.TileMap[i].Direction * 32);
 				_levelExtra.AddChild(door);
 				continue; // dont put a tile here
 			}

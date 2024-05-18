@@ -1,7 +1,8 @@
 using System;
-using BitBuster.Component;
+using BitBuster.component;
 using BitBuster.data;
 using BitBuster.utils;
+using BitBuster.world;
 using Godot;
 
 namespace BitBuster.projectile;
@@ -51,7 +52,7 @@ public partial class Bullet : CharacterBody2D
 		if (collision != null && _remainingBounces > 0)
 		{
 			Velocity = Velocity.Bounce(collision.GetNormal());
-			Rotation = Velocity.Angle() - Constants.GunSpriteOffset;
+			Rotation = Velocity.Angle() - Constants.HalfPiOffset;
 			
 			_remainingBounces--;
 			_bulletTexture.Modulate = Color.FromHsv(_remainingBounces * _hueShift, 1.0f, 1.0f);
@@ -64,7 +65,6 @@ public partial class Bullet : CharacterBody2D
 			
 			PrepForFree();
 			_deathAnimationTimer.Start();
-			
 		}
 
 	}
@@ -73,7 +73,7 @@ public partial class Bullet : CharacterBody2D
 	{
 		GlobalPosition = position;
 		GlobalRotation = rotation;
-
+		
 		_remainingBounces = attackData.Bounces;
 		_hueShift = 0.33f / attackData.Bounces;
 		
@@ -81,6 +81,14 @@ public partial class Bullet : CharacterBody2D
 
 		_attackData = attackData;
 		
+		GetNode<GpuParticles2D>("ParticleTrail").Emitting = true;
+		if (attackData.Speed > 150)
+		{
+			GetNode<GpuParticles2D>("ParticleTrail").Emitting = false;
+			GetNode<GpuParticles2D>("ParticleFastTrail").Emitting = true;
+			
+		}
+			
 		Velocity = new Vector2(0, -attackData.Speed).Rotated(GlobalRotation);
 	}
 
@@ -96,21 +104,24 @@ public partial class Bullet : CharacterBody2D
 
 	private void OnAreaEntered(Area2D area)
 	{
-		Logger.Log.Information("Hitbox hit at " + area.Name);
 		if (area is HitboxComponent)
 		{
-			HitboxComponent hitboxComponent = area as HitboxComponent;
+			Logger.Log.Information("Hitbox hit at " + area.Name);
 
+			HitboxComponent hitboxComponent = area as HitboxComponent;
 			hitboxComponent.Damage(_attackData);
 		}
+		
 		PrepForFree();
 		_deathAnimationTimer.Start();
-		
 	}
 
 	private void OnParentIFrameTimeout()
 	{
-		_hitbox.SetCollisionMaskValue(2, true);
+		_hitbox.SetCollisionMaskValue((int)BBCollisionLayer.Player, true);
+		_hitbox.SetCollisionMaskValue((int)BBCollisionLayer.Enemy, true);
+		_hitbox.SetCollisionMaskValue((int)BBCollisionLayer.Projectile, true);
+		SetCollisionMaskValue((int)BBCollisionLayer.Projectile, true);
 	}
 	
 	private void OnDeathAnimationTimeout()

@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=3 uid="uid://b7vjxhy6ef0th"]
+
+[sub_resource type="CSharpScript" id="CSharpScript_3ovwh"]
+script/source = "using Godot;
+using System;
+using BitBuster.component;
+
+public partial class InRangeComponent : Area2D
+{
+	
+	[Signal]
+	public delegate void PlayerInRangeEventHandler(bool isInRange);
+
+	
+	public override void _Ready()
+	{
+		this.AreaEntered += InRangeEntered;
+		this.AreaExited += InRangeExited;
+	}
+
+	private void InRangeEntered(Area2D area)
+	{
+
+		if (!area.Owner.IsInGroup(\"player\"))
+			return;
+		
+		EmitSignal(SignalName.PlayerInRange, true);
+	}
+
+	private void InRangeExited(Area2D area)
+	{
+		if (!area.Owner.IsInGroup(\"player\"))
+			return;
+		
+		EmitSignal(SignalName.PlayerInRange, false);
+	}
+	
+}
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ujlnx"]
+radius = 37.0
+
+[node name="InRangeComponent" type="Area2D"]
+collision_layer = 4
+collision_mask = 2
+script = SubResource("CSharpScript_3ovwh")
+
+[node name="AreaCollider" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ujlnx")

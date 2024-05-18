@@ -1,12 +1,12 @@
-[gd_scene load_steps=14 format=3 uid="uid://det6gkgxg57mw"]
+[gd_scene load_steps=15 format=3 uid="uid://det6gkgxg57mw"]
 
 [ext_resource type="Script" path="res://src/entity/player/Player.cs" id="1_nju6n"]
 [ext_resource type="Texture2D" uid="uid://2ruli1e1oei3" path="res://assets/player/player_tank.png" id="2_wsan7"]
 [ext_resource type="Texture2D" uid="uid://h883uofr64k4" path="res://assets/player/player_tank_gun.png" id="3_cic8t"]
 [ext_resource type="PackedScene" uid="uid://btdrka86pvjsd" path="res://scenes/subscenes/component/track_trail_component.tscn" id="4_g7sml"]
+[ext_resource type="PackedScene" uid="uid://cubpk1i28p0wk" path="res://scenes/subscenes/component/weapon_component.tscn" id="4_mw4jj"]
 [ext_resource type="PackedScene" uid="uid://bva4np8rg3g20" path="res://scenes/subscenes/component/stats_component.tscn" id="5_bmnux"]
 [ext_resource type="PackedScene" uid="uid://btrxy7t83y8en" path="res://scenes/subscenes/component/health_component.tscn" id="5_umbbr"]
-[ext_resource type="Script" path="res://src/entity/player/Weapon.cs" id="6_2kg3p"]
 [ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="8_gp6gs"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2k5yj"]
@@ -47,13 +47,17 @@ animations = [{
 radius = 7.0
 height = 16.0
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_statsComponent") groups=["player"]]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cfb50"]
+size = Vector2(16, 16)
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_statsComponent", "_weaponComponent") groups=["player"]]
 z_index = 1
 collision_layer = 2
 collision_mask = 13
 motion_mode = 1
 script = ExtResource("1_nju6n")
 _statsComponent = NodePath("StatsComponent")
+_weaponComponent = NodePath("WeaponComponent")
 
 [node name="Gun" type="Sprite2D" parent="."]
 top_level = true
@@ -63,36 +67,37 @@ rotation = 1.5708
 texture = ExtResource("3_cic8t")
 
 [node name="Hull" type="AnimatedSprite2D" parent="."]
+z_index = 1
 texture_filter = 1
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_udnnf")
 animation = &"moving"
-frame_progress = 0.861227
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_pjmg8")
 
-[node name="Weapon" type="Node2D" parent="." node_paths=PackedStringArray("_statsComponent")]
-script = ExtResource("6_2kg3p")
-_statsComponent = NodePath("../StatsComponent")
-
-[node name="ShootTimer" type="Timer" parent="Weapon"]
-one_shot = true
+[node name="WeaponComponent" parent="." node_paths=PackedStringArray("StatsComponent") instance=ExtResource("4_mw4jj")]
+StatsComponent = NodePath("../StatsComponent")
 
 [node name="StatsComponent" parent="." instance=ExtResource("5_bmnux")]
-MaxHealth = 4.0
+MaxHealth = 3.0
+CurrentHealth = 3.0
 ProjectileDamage = 1.0
 ProjectileCount = 3
 ProjectileCooldown = 0.33
 ProjectileBounces = 1
 ProjectileSpeed = 100.0
+ProjectileDamageType = 1
 Speed = 75.0
 SizeScalar = 1.0
 
 [node name="TrackTrailComponent" parent="." instance=ExtResource("4_g7sml")]
 
-[node name="HealthComponent" parent="." node_paths=PackedStringArray("_statsComponent") instance=ExtResource("5_umbbr")]
-_statsComponent = NodePath("../StatsComponent")
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("StatsComponent") instance=ExtResource("5_umbbr")]
+StatsComponent = NodePath("../StatsComponent")
 
-[node name="HitboxComponent" parent="." node_paths=PackedStringArray("_healthComponent") instance=ExtResource("8_gp6gs")]
-_healthComponent = NodePath("../HealthComponent")
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("HealthComponent") instance=ExtResource("8_gp6gs")]
+HealthComponent = NodePath("../HealthComponent")
+
+[node name="Hitbox" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("RectangleShape2D_cfb50")

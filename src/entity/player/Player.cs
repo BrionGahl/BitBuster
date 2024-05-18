@@ -2,6 +2,7 @@ using System;
 using BitBuster.component;
 using BitBuster.utils;
 using Godot;
+using Serilog;
 
 namespace BitBuster.entity.player;
 
@@ -10,6 +11,9 @@ public partial class Player : CharacterBody2D
 	[Export]
 	private StatsComponent _statsComponent;
 
+	[Export] 
+	private WeaponComponent _weaponComponent;
+	
 	private float Speed
 	{
 		get => _statsComponent.Speed;
@@ -23,6 +27,7 @@ public partial class Player : CharacterBody2D
 
 	private Vector2 _movementDirection;
 	private float _rotationDirection;
+	private bool _hasShot;
 	
 	public override void _Ready()
 	{
@@ -30,6 +35,7 @@ public partial class Player : CharacterBody2D
 		
 		_gun = GetNode<Sprite2D>("Gun");
 		_hull = GetNode<AnimatedSprite2D>("Hull");
+
 	}
 	
 	public override void _Process(double delta)
@@ -37,17 +43,18 @@ public partial class Player : CharacterBody2D
 		GetInput();
 		SetGunRotationAndPosition();
 		
-		HandleAnimations();
-		
+		if (_hasShot)
+			_weaponComponent.AttemptShoot(GetGlobalMousePosition().AngleToPoint(Position));
+
 		if (!IsIdle)
 			Rotation += _rotationDirection * RotationSpeed * (float)delta;
 		
-		Velocity = _movementDirection * Speed;
-
+		HandleAnimations();
 	}
 	
 	public override void _PhysicsProcess(double delta)
 	{
+		Velocity = _movementDirection * Speed;
 		MoveAndSlide();
 	}
 	
@@ -55,11 +62,12 @@ public partial class Player : CharacterBody2D
 	{
 		_rotationDirection = Input.GetAxis("left", "right");
 		_movementDirection = Transform.X * Input.GetAxis("down", "up");
+		_hasShot = Input.IsActionPressed("shoot");
 	}
 
 	private void SetGunRotationAndPosition()
 	{
-		_gun.Rotation = GetGlobalMousePosition().AngleToPoint(Position) - Constants.GunSpriteOffset;
+		_gun.Rotation = (float)Mathf.LerpAngle(_gun.Rotation, GetGlobalMousePosition().AngleToPoint(Position) - Constants.HalfPiOffset, 0.5);
 		_gun.Position = Position;
 	}
 

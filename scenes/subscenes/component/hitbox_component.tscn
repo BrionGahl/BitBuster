@@ -1,15 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://qbyxihapjh1i"]
+[gd_scene load_steps=2 format=3 uid="uid://qbyxihapjh1i"]
 
 [ext_resource type="Script" path="res://src/component/HitboxComponent.cs" id="1_rocx6"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wia58"]
-size = Vector2(16, 16)
-
-[node name="HitboxComponent" type="Area2D" node_paths=PackedStringArray("_healthComponent")]
+[node name="HitboxComponent" type="Area2D"]
 collision_layer = 2
 collision_mask = 29
 script = ExtResource("1_rocx6")
-_healthComponent = NodePath("")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_wia58")
