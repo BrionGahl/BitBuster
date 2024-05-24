@@ -59,7 +59,7 @@ radius = 80.5047
 offsets = PackedFloat32Array(0.090301, 0.113712, 0.408027, 0.438127, 0.575251, 1)
 colors = PackedColorArray(1, 1, 0, 1, 0.894118, 0.678431, 0, 1, 0.721569, 0.384314, 0, 1, 0.666667, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_vc2sw"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ti6i6"]
 gradient = SubResource("Gradient_72yvo")
 
 [sub_resource type="Curve" id="Curve_xqnxc"]
@@ -67,7 +67,7 @@ max_value = 1.8
 _data = [Vector2(0, 1.8), 0.0, 0.0, 0, 0, Vector2(0.626911, 1.41802), 0.0, 0.0, 0, 0, Vector2(0.761468, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_cccye"]
+[sub_resource type="CurveTexture" id="CurveTexture_58dxa"]
 curve = SubResource("Curve_xqnxc")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7imaq"]
@@ -79,8 +79,8 @@ spread = 180.0
 initial_velocity_min = 90.0
 initial_velocity_max = 90.0
 gravity = Vector3(0, 0, 0)
-scale_curve = SubResource("CurveTexture_cccye")
-color_ramp = SubResource("GradientTexture1D_vc2sw")
+scale_curve = SubResource("CurveTexture_58dxa")
+color_ramp = SubResource("GradientTexture1D_ti6i6")
 
 [node name="Detonator" type="CharacterBody2D" groups=["enemy"]]
 rotation = 1.5708

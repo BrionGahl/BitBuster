@@ -7,3 +7,6 @@ script = ExtResource("1_gqvkb")
 
 [node name="ShootTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="BombTimer" type="Timer" parent="."]
+one_shot = true
