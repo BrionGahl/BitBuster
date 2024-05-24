@@ -19,9 +19,6 @@ public abstract partial class Enemy: CharacterBody2D
     public float RotationSpeed => Speed / 25;
     public bool IsIdle => Velocity.Equals(Vector2.Zero);
 
-
-    // TODO: Transition this to state machine...
-    // Add visibility notifier for better performance and to add to idle
     public Player Player;
     
     public StatsComponent StatsComponent { get; private set; }
