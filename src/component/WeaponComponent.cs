@@ -64,7 +64,7 @@ public partial class WeaponComponent : Node2D
 			case (WeaponType.Normal):
 				if (CanShoot && BulletCount + 2 - GetChildCount() > 0)
 				{
-					Logger.Log.Information("Shooting... " + (BulletCount - GetChildCount()) + "/" + BulletCount + ".");
+					Logger.Log.Information("Shooting... " + (BulletCount + 2 - GetChildCount()) + "/" + BulletCount + ".");
 			
 					Shoot(rotation);
 					
@@ -76,7 +76,7 @@ public partial class WeaponComponent : Node2D
 			case (WeaponType.Tri):
 				if (CanShoot && BulletCount + 2 - GetChildCount() > 2)
 				{
-					Logger.Log.Information("Shooting... " + (BulletCount - GetChildCount()) + "/" + BulletCount + ".");
+					Logger.Log.Information("Shooting... " + (BulletCount + 2 - GetChildCount()) + "/" + BulletCount + ".");
 			
 					Shoot(rotation + Mathf.Pi / 9);
 					Shoot(rotation);

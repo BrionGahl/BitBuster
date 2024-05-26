@@ -8,8 +8,12 @@ public partial class Panzer : MovingEnemy
 {
 	private Sprite2D _gun;
 	private AnimatedSprite2D _hull;
+	private CollisionShape2D _collider;
+	private GpuParticles2D _particleDeath;
 
-
+	private bool _hasDied;
+	private bool _animationFinished;
+	
 	public override void _Ready()
 	{
 		SetPhysicsProcess(false);
@@ -17,7 +21,9 @@ public partial class Panzer : MovingEnemy
 		base._Ready();
 		_gun = GetNode<Sprite2D>("Gun");
 		_hull = GetNode<AnimatedSprite2D>("Hull");
-		
+		_collider = GetNode<CollisionShape2D>("Collider");
+		_particleDeath = GetNode<GpuParticles2D>("ParticleDeath");
+
 		NavigationServer2D.MapChanged += OnMapReady;
 		AgentTimer.Timeout += OnAgentTimeout;
 	}
@@ -37,8 +43,37 @@ public partial class Panzer : MovingEnemy
 		_hull.Play();
 	}
 
+	public override void OnHealthIsZero()
+	{
+		_hull.Visible = false;
+		_gun.Visible = false;
+		_collider.SetDeferred("disabled", true);
+		HitboxComponent.SetDeferred("monitorable", false);
+		HitboxComponent.SetDeferred("monitoring", false);
+		
+		_particleDeath.Emitting = true;
+		
+		DeathAnimationTimer.Start();
+		_hasDied = true;
+	}
+
+	public override void OnDeathAnimationTimeout()
+	{
+		_animationFinished = true;
+	}
+
 	public override void AttackAction(double delta)
 	{
+		if (_hasDied)
+		{
+			if (WeaponComponent.GetChildCount() <= 2 && _animationFinished)
+			{
+				Logger.Log.Information(Name + " freed.");
+				QueueFree();
+			}
+			return;
+		}
+		
 		SetGunRotationAndPosition(Mathf.Pi/12);
 		if (CanSeePlayer() && RandomNumberGenerator.Randf() > 0.3f)
 			WeaponComponent.AttemptShoot(Player.Position.AngleToPoint(Position) + RandomNumberGenerator.RandfRange(-Mathf.Pi / 9, Mathf.Pi / 9));

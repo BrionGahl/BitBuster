@@ -9,6 +9,9 @@ public partial class HealthComponent : Node2D
 {
 	[Signal]
 	public delegate void HealthChangeEventHandler();
+
+	[Signal]
+	public delegate void HealthIsZeroEventHandler();
 	
 	[Export]
 	public StatsComponent StatsComponent { get; set; }
@@ -31,12 +34,7 @@ public partial class HealthComponent : Node2D
 	
 	public override void _Ready()
 	{
-		_deathAnimationTimer = GetNode<Timer>("DeathAnimationTimer");
-		_particleDeath = GetNode<GpuParticles2D>("ParticleDeath");
-		
 		CurrentHealth = MaxHealth;
-
-		_deathAnimationTimer.Timeout += OnDeathAnimationTimeout;
 	}
 
 	public void Damage(AttackData attackData)
@@ -48,12 +46,27 @@ public partial class HealthComponent : Node2D
 		if (CurrentHealth <= 0)
 		{
 			CurrentHealth = 0;
-			_particleDeath.Emitting = true;
-			_deathAnimationTimer.Start();
+			EmitSignal(SignalName.HealthIsZero);
 		}
 	
 		EmitSignal(SignalName.HealthChange);
 	}
+
+	public void Damage(float damage)
+	{
+		Logger.Log.Information(this + " taking " + damage + " damage.");
+		
+		CurrentHealth -= damage;
+		
+		if (CurrentHealth <= 0)
+		{
+			CurrentHealth = 0;
+			EmitSignal(SignalName.HealthIsZero);
+		}
+	
+		EmitSignal(SignalName.HealthChange);
+	}
+
 	
 	public void Heal(float heal)
 	{
