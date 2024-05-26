@@ -66,14 +66,10 @@ public partial class Panzer : MovingEnemy
 
 	public override void AttackAction(double delta)
 	{
-		if (_hasDied)
+		if (_hasDied && WeaponComponent.GetChildCount() <= 2 && _animationFinished)
 		{
-			if (WeaponComponent.GetChildCount() <= 2 && _animationFinished)
-			{
-				Logger.Log.Information(Name + " freed.");
-				QueueFree();
-			}
-			return;
+			Logger.Log.Information(Name + " freed.");
+			QueueFree();
 		}
 		
 		SetGunRotationAndPosition(Mathf.Pi/12);

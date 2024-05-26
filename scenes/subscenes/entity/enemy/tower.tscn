@@ -68,7 +68,7 @@ CurrentHealth = 3.0
 ProjectileDamage = 1.0
 ProjectileCount = 3
 ProjectileCooldown = 1.5
-ProjectileBounces = 1
+ProjectileBounces = 15
 ProjectileSpeed = 150.0
 
 [node name="WeaponComponent" parent="." node_paths=PackedStringArray("StatsComponent") instance=ExtResource("6_ws2ev")]
