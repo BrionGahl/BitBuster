@@ -46,6 +46,8 @@ public partial class Detonator : MovingEnemy
 	{
 		_hull.Visible = false;
 		_collider.SetDeferred("disabled", true);
+		
+		StatsComponent.Speed = 0;
 		HitboxComponent.SetDeferred("monitorable", false);
 		HitboxComponent.SetDeferred("monitoring", false);
 		
