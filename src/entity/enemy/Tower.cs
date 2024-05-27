@@ -54,10 +54,14 @@ public partial class Tower : Enemy
 
 	public override void AttackAction(double delta)
 	{
-		if (_hasDied && WeaponComponent.GetChildCount() <= 2 && _animationFinished)
+		if (_hasDied)
 		{
-			Logger.Log.Information(Name + " freed.");
-			QueueFree();
+			if (WeaponComponent.GetChildCount() <= 2 && _animationFinished)
+			{
+				Logger.Log.Information(Name + " freed.");
+				QueueFree();
+			}
+			return;
 		}
 		
 		SetGunRotationAndPosition(Mathf.Pi/12);

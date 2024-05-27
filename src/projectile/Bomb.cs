@@ -1,5 +1,6 @@
 using BitBuster.component;
 using BitBuster.data;
+using BitBuster.tiles;
 using BitBuster.utils;
 using Godot;
 
@@ -54,6 +55,17 @@ public partial class Bomb : StaticBody2D
 			
 			foreach (var area in _hitbox.GetOverlappingAreas())
 			{
+				
+				if (area.Equals(_hitboxComponent))
+					continue;
+				
+				if (area is BreakableWall)
+				{
+					BreakableWall wall = area as BreakableWall;
+					wall.Break();
+					return;
+				}
+				
 				if (area is HitboxComponent)
 				{
 					Logger.Log.Information("Hitbox hit at " + area.Name);

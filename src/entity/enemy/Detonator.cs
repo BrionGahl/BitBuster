@@ -1,6 +1,7 @@
 using System;
 using BitBuster.component;
 using BitBuster.data;
+using BitBuster.tiles;
 using BitBuster.utils;
 using Godot;
 
@@ -61,6 +62,7 @@ public partial class Detonator : MovingEnemy
 
 	public override void AttackAction(double delta)
 	{
+		
 		_timer -= (float)delta;
 		StatsComponent.Speed /= 4;
 		
@@ -79,6 +81,13 @@ public partial class Detonator : MovingEnemy
 				if (area.Equals(HitboxComponent))
 					continue;
 				
+				if (area is BreakableWall)
+				{
+					BreakableWall wall = area as BreakableWall;
+					wall.Break();
+					return;
+				}
+				
 				if (area is HitboxComponent)
 				{
 					Logger.Log.Information("Hitbox hit at " + area.Name);
@@ -95,6 +104,8 @@ public partial class Detonator : MovingEnemy
 			_timer = 1.5f;
 			if (StatsComponent.Speed < 35)
 				StatsComponent.Speed *= 4;
+
+			return;
 		}
 	}
 	

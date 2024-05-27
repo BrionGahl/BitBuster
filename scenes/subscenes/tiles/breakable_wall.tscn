@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bljqgl2ytnjup"]
+
+[ext_resource type="Script" path="res://src/tiles/BreakableWall.cs" id="1_02u2m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3y3or"]
+size = Vector2(16, 16)
+
+[node name="BreakableWall" type="Area2D"]
+collision_mask = 30
+script = ExtResource("1_02u2m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_3y3or")
