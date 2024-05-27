@@ -63,8 +63,11 @@ public partial class Detonator : MovingEnemy
 	public override void AttackAction(double delta)
 	{
 		
-		_timer -= (float)delta;
-		StatsComponent.Speed /= 4;
+		if (Position.DistanceTo(Player.Position) < 64)
+		{
+			_timer -= (float)delta;
+			StatsComponent.Speed /= 4;
+		}
 		
 		if (_timer <= 0 || HealthComponent.CurrentHealth <= 0)
 		{
@@ -99,13 +102,11 @@ public partial class Detonator : MovingEnemy
 			_hitbox.Monitoring = false;
 		}
 		
-		if (Position.DistanceTo(Player.Position) > 64)
+		if (Position.DistanceTo(Player.Position) >= 64)
 		{
 			_timer = 1.5f;
 			if (StatsComponent.Speed < 35)
-				StatsComponent.Speed *= 4;
-
-			return;
+				StatsComponent.Speed = 35;
 		}
 	}
 	

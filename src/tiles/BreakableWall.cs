@@ -17,6 +17,7 @@ public partial class BreakableWall : Area2D
 		// _tileMap.SetCell(0, _tileMap.LocalToMap(GlobalPosition));
 		
 		_tileMap.SetCell(0, _tileMap.LocalToMap(GlobalPosition), 0, new Vector2I(7 ,4));
+		_tileMap.
 		QueueFree();
 	}
 }

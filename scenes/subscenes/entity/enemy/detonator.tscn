@@ -126,6 +126,7 @@ shape = SubResource("CapsuleShape2D_qyxbd")
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
 [node name="Agent" type="NavigationAgent2D" parent="."]
+debug_enabled = true
 
 [node name="Timer" type="Timer" parent="Agent"]
 wait_time = 0.3
