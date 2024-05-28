@@ -84,6 +84,8 @@ color_ramp = SubResource("GradientTexture1D_vc2sw")
 
 [node name="Detonator" type="CharacterBody2D" groups=["enemy"]]
 rotation = 1.5708
+collision_layer = 4
+collision_mask = 47
 script = ExtResource("1_hwlg7")
 
 [node name="StateMachine" parent="." instance=ExtResource("3_0v0hy")]

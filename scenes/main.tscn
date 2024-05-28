@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c5uf74rr7eydj"]
+[gd_scene load_steps=10 format=3 uid="uid://c5uf74rr7eydj"]
 
 [ext_resource type="Script" path="res://src/procedural/Level.cs" id="1_ji0t6"]
 [ext_resource type="Script" path="res://src/procedural/Floor.cs" id="1_qfgiw"]
@@ -9,6 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://c4g61mo4wfsdd" path="res://scenes/subscenes/hud/health_bar_with_delta.tscn" id="8_giki5"]
 [ext_resource type="PackedScene" uid="uid://bj8lasfvi3jbi" path="res://scenes/subscenes/hud/bullet_counter.tscn" id="8_wr00u"]
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_jbxdc"]
+source_geometry_group_name = &"navigation_polygon_source_group"
+
 [node name="Floor" type="Node2D"]
 script = ExtResource("1_qfgiw")
 
@@ -18,7 +21,11 @@ script = ExtResource("1_ji0t6")
 [node name="Player" parent="Level" instance=ExtResource("3_jatvy")]
 position = Vector2(1440, 1120)
 
-[node name="TileMapMain" type="TileMap" parent="Level"]
+[node name="NavRegion" type="NavigationRegion2D" parent="Level"]
+navigation_polygon = SubResource("NavigationPolygon_jbxdc")
+use_edge_connections = false
+
+[node name="TileMapMain" type="TileMap" parent="Level/NavRegion"]
 texture_filter = 1
 tile_set = ExtResource("3_0ap6v")
 format = 2
@@ -31,6 +38,7 @@ position_smoothing_speed = 8.0
 script = ExtResource("4_e2pov")
 
 [node name="Border" type="Sprite2D" parent="Level/Camera"]
+visible = false
 z_index = 11
 scale = Vector2(0.500868, 0.501543)
 texture = ExtResource("4_smynp")

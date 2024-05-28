@@ -32,7 +32,7 @@ public partial class Pursue: State
 	
 	public override void StatePhysicsUpdate(double delta)
 	{
-		if (!_parent.Notifier.IsOnScreen())
+		if (!_parent.Notifier.IsOnScreen() || !_parent.Agent.IsTargetReachable())
 		{
 			EmitSignal(SignalName.StateTransition, this, "sleep");
 		}

@@ -4,8 +4,8 @@ namespace BitBuster.entity.enemy;
 
 public abstract partial class MovingEnemy: Enemy
 {
-    protected NavigationAgent2D Agent;
-    protected Timer AgentTimer;
+    public NavigationAgent2D Agent;
+    public Timer AgentTimer;
     
     public override void _Ready()
     {

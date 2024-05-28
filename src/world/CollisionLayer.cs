@@ -6,5 +6,6 @@ public enum BBCollisionLayer
     Player = 2,
     Enemy = 3,
     Item = 4,
-    Projectile = 5
+    Projectile = 5,
+    EnemyNoPass = 6
 }

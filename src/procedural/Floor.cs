@@ -35,7 +35,9 @@ public partial class Floor : Node2D
 		_roomsScene = GD.Load<PackedScene>("res://scenes/subscenes/procedural/rooms.tscn");
 		_doorScene = GD.Load<PackedScene>("res://scenes/subscenes/tiles/door.tscn");
 
-		_levelMain = GetNode<TileMap>("Level/TileMapMain");
+		_levelRegion = GetNode<NavigationRegion2D>("Level/NavRegion");
+		_levelMain = GetNode<TileMap>("Level/NavRegion/TileMapMain");
+		
 		_levelExtra = GetNode<Node2D>("Level/Extra");
 		_levelPlayer = GetNode<CharacterBody2D>("Level/Player") as Player;
 		
@@ -197,6 +199,7 @@ public partial class Floor : Node2D
 
 	private void PlaceRooms()
 	{
+		NavigationPolygon poly = new NavigationPolygon();
 		for (int x = 0; x < 9; x++)
 		{
 			for (int y = 0; y < 8; y++)
@@ -216,9 +219,11 @@ public partial class Floor : Node2D
 					adjacentRooms.Add(Vector2I.Right);
 
 				CopyRoom(new Vector2I(x, y), (RoomType)MapGrid[x, y], adjacentRooms);
+				poly.AddOutline(new Vector2[] {GridToWorld(new Vector2I(x, y)), GridToWorld(new Vector2I(x, y) + new Vector2I(320, 0)), GridToWorld(new Vector2I(x, y)) + new Vector2I(320, 320), GridToWorld(new Vector2I(x, y) + new Vector2I(0, 320))});
 			}
 		}
-	
+		_levelRegion.NavigationPolygon = poly;
+		_levelRegion.BakeNavigationPolygon();
 	}
 
 	private void CopyRoom(Vector2I offset, RoomType type, List<Vector2I> adjacentRooms)
@@ -253,7 +258,7 @@ public partial class Floor : Node2D
 			{
 				Door door = _doorScene.Instantiate<Area2D>() as Door;
 				door.SetDoorInfo(((Vector2)data.TileMap[i].Direction).Angle() + Mathf.Pi, data.TileMap[i].Offset * _rooms.CellSize + worldOffset, data.TileMap[i].Direction * 32);
-				_levelExtra.AddChild(door);
+				_levelRegion.AddChild(door);
 				continue; // dont put a tile here
 			}
 				
