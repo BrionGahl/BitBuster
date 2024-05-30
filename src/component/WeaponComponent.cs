@@ -19,27 +19,40 @@ public partial class WeaponComponent : Node2D
 	public StatsComponent StatsComponent;
 	
 	public Timer ShootTimer { get; private set; }
-
+	public Timer BombTimer { get; private set; }
+	
 	public int BulletCount
 	{
 		get => StatsComponent.ProjectileCount;
 		set => StatsComponent.ProjectileCount = value; 
 	}
 	
+	public int BombCount
+	{
+		get => StatsComponent.BombCount;
+		set => StatsComponent.BombCount = value; 
+	}
+	
 	public bool CanShoot { get; private set; }
+	public bool CanBomb { get; private set; }
 	
 	private PackedScene _bullet;
+	private PackedScene _bomb;
 	
 	public override void _Ready()
 	{
 		_bullet = GD.Load<PackedScene>("res://scenes/subscenes/projectile/bullet.tscn");
+		_bomb = GD.Load<PackedScene>("res://scenes/subscenes/projectile/bomb.tscn");
 		
 		ShootTimer = GetNode<Timer>("ShootTimer");
+		BombTimer = GetNode<Timer>("BombTimer");
 
 		CanShoot = true;
+		CanBomb = true;
 		
 		ShootTimer.Timeout += OnShootTimeout;
-
+		BombTimer.Timeout += OnBombTimeout;
+		
 		ChildEnteredTree += OnBulletSpawn;
 		ChildExitingTree += OnBulletRemove;
 	}
@@ -49,9 +62,9 @@ public partial class WeaponComponent : Node2D
 		switch (StatsComponent.ProjectileWeaponType)
 		{
 			case (WeaponType.Normal):
-				if (CanShoot && BulletCount + 1 - GetChildCount() > 0)
+				if (CanShoot && BulletCount + 2 - GetChildCount() > 0)
 				{
-					Logger.Log.Information("Shooting... " + (BulletCount - GetChildCount()) + "/" + BulletCount + ".");
+					Logger.Log.Information("Shooting... " + (BulletCount + 2 - GetChildCount()) + "/" + BulletCount + ".");
 			
 					Shoot(rotation);
 					
@@ -61,9 +74,9 @@ public partial class WeaponComponent : Node2D
 				}
 				break;
 			case (WeaponType.Tri):
-				if (CanShoot && BulletCount + 1 - GetChildCount() > 2)
+				if (CanShoot && BulletCount + 2 - GetChildCount() > 2)
 				{
-					Logger.Log.Information("Shooting... " + (BulletCount - GetChildCount()) + "/" + BulletCount + ".");
+					Logger.Log.Information("Shooting... " + (BulletCount + 2 - GetChildCount()) + "/" + BulletCount + ".");
 			
 					Shoot(rotation + Mathf.Pi / 9);
 					Shoot(rotation);
@@ -85,10 +98,35 @@ public partial class WeaponComponent : Node2D
 		AddChild(bullet);
 	}
 
+	public void AttemptBomb()
+	{
+		if (CanBomb && BombCount > 0)
+		{
+			Logger.Log.Information("Bombed...");
+			Bomb();
+			
+			CanBomb = false;
+			BombTimer.Start();
+		} 
+	}
+
+	private void Bomb()
+	{
+		Bomb bomb = _bomb.Instantiate<StaticBody2D>() as Bomb;
+		bomb.SetPosition(GetParent<Node2D>().GlobalPosition, StatsComponent.GetBombAttackData());
+		BombCount--;
+		GetNode("/root").AddChild(bomb);
+	}
+
 	private void OnShootTimeout()
 	{
 		CanShoot = true;
 		StatsComponent.Speed *= 2;
+	}
+	
+	private void OnBombTimeout()
+	{
+		CanBomb = true;
 	}
 
 	private void OnBulletSpawn(Node node)

@@ -112,7 +112,6 @@ color_ramp = SubResource("GradientTexture1D_oto0t")
 [node name="Bullet" type="CharacterBody2D"]
 z_index = 1
 collision_layer = 16
-collision_mask = 9
 script = ExtResource("1_07tvk")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

@@ -28,6 +28,7 @@ public partial class Player : CharacterBody2D
 	private Vector2 _movementDirection;
 	private float _rotationDirection;
 	private bool _hasShot;
+	private bool _hasBombed;
 	
 	public override void _Ready()
 	{
@@ -46,6 +47,9 @@ public partial class Player : CharacterBody2D
 		if (_hasShot)
 			_weaponComponent.AttemptShoot(GetGlobalMousePosition().AngleToPoint(Position));
 
+		if (_hasBombed)
+			_weaponComponent.AttemptBomb();
+		
 		if (!IsIdle)
 			Rotation += _rotationDirection * RotationSpeed * (float)delta;
 		
@@ -63,6 +67,7 @@ public partial class Player : CharacterBody2D
 		_rotationDirection = Input.GetAxis("left", "right");
 		_movementDirection = Transform.X * Input.GetAxis("down", "up");
 		_hasShot = Input.IsActionPressed("shoot");
+		_hasBombed = Input.IsActionJustPressed("bomb");
 	}
 
 	private void SetGunRotationAndPosition()

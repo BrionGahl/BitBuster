@@ -15,8 +15,8 @@ public partial class HealthBar : Control
 		_healthEmpty = GetNode<TextureRect>("HealthEmpty");
 		_healthFull = GetNode<TextureRect>("HealthFull");
 
-		_playerHealthComponent = GetParent().GetParent().GetNode("Player").GetNode("HealthComponent") as HealthComponent;
-		
+		_playerHealthComponent = GetTree().GetFirstNodeInGroup("player").GetNode("HealthComponent") as HealthComponent;
+
 		_playerHealthComponent.HealthChange += OnHealthChange;
 	}
 

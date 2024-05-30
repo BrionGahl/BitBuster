@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://bljqgl2ytnjup"]
+
+[ext_resource type="Script" path="res://src/tiles/BreakableWall.cs" id="1_02u2m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3y3or"]
+size = Vector2(16, 16)
+
+[sub_resource type="Gradient" id="Gradient_02i8o"]
+offsets = PackedFloat32Array(0, 0.505017, 0.719064)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_c7bkw"]
+gradient = SubResource("Gradient_02i8o")
+
+[sub_resource type="Curve" id="Curve_g5h4v"]
+max_value = 1.8
+_data = [Vector2(0, 1.8), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ykvrp"]
+curve = SubResource("Curve_g5h4v")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4dawk"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(8, 8, 1)
+angle_min = -90.0
+angle_max = 180.0
+direction = Vector3(0, 0, 0)
+spread = 180.0
+radial_velocity_min = 10.0
+radial_velocity_max = 20.0
+gravity = Vector3(0, 0, 0)
+damping_min = 30.0
+damping_max = 60.0
+scale_curve = SubResource("CurveTexture_ykvrp")
+color_ramp = SubResource("GradientTexture1D_c7bkw")
+
+[node name="BreakableWall" type="StaticBody2D"]
+collision_mask = 30
+script = ExtResource("1_02u2m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_3y3or")
+
+[node name="ShatterEmitter" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 64
+process_material = SubResource("ParticleProcessMaterial_4dawk")
+one_shot = true
+explosiveness = 1.0
+
+[node name="AnimationTimer" type="Timer" parent="."]

@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://bhljrlptytonc"]
+[gd_scene load_steps=14 format=3 uid="uid://bhljrlptytonc"]
 
 [ext_resource type="Texture2D" uid="uid://b75exrlheupv8" path="res://assets/enemy/enemy_gun.png" id="1_hcbxy"]
 [ext_resource type="Script" path="res://src/entity/enemy/Tower.cs" id="1_rk63p"]
-[ext_resource type="PackedScene" path="res://scenes/subscenes/state/state_machine.tscn" id="2_3x707"]
+[ext_resource type="PackedScene" uid="uid://dpul1hjxi1dkq" path="res://scenes/subscenes/state/state_machine.tscn" id="2_3x707"]
+[ext_resource type="PackedScene" uid="uid://6d0b62fihn27" path="res://scenes/subscenes/component/particle_death_component.tscn" id="2_qma42"]
 [ext_resource type="Texture2D" uid="uid://mmgfgc8178lk" path="res://assets/enemy/enemy_turret.png" id="2_x0tog"]
 [ext_resource type="PackedScene" uid="uid://btrxy7t83y8en" path="res://scenes/subscenes/component/health_component.tscn" id="3_411o0"]
 [ext_resource type="Script" path="res://src/state/Sleep.cs" id="3_u2ue8"]
@@ -23,6 +24,8 @@ collision_layer = 4
 collision_mask = 15
 motion_mode = 1
 script = ExtResource("1_rk63p")
+
+[node name="ParticleDeath" parent="." instance=ExtResource("2_qma42")]
 
 [node name="StateMachine" parent="." instance=ExtResource("2_3x707")]
 
@@ -65,10 +68,14 @@ CurrentHealth = 3.0
 ProjectileDamage = 1.0
 ProjectileCount = 3
 ProjectileCooldown = 1.5
-ProjectileBounces = 1
+ProjectileBounces = 15
 ProjectileSpeed = 150.0
 
 [node name="WeaponComponent" parent="." node_paths=PackedStringArray("StatsComponent") instance=ExtResource("6_ws2ev")]
 StatsComponent = NodePath("../StatsComponent")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="DeathAnimationTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true

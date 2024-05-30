@@ -56,7 +56,10 @@ public partial class StatsComponent : Node2D
 	public EffectType ProjectileDamageType { get; set; }
 	[Export]
 	public WeaponType ProjectileWeaponType { get; set; }
-	
+	[Export] 
+	public int BombCount { get; set; }
+	[Export]
+	public float BombDamage { get; set; }
 	// Control Related Stats
 	[Export]
 	public float Speed { get; set; }
@@ -73,5 +76,10 @@ public partial class StatsComponent : Node2D
 	public AttackData GetAttackData()
 	{
 		return new AttackData(ProjectileDamage, ProjectileSpeed, ProjectileBounces, ProjectileDamageType, Source);
+	}
+
+	public AttackData GetBombAttackData()
+	{
+		return new AttackData(BombDamage, 0f, 0, EffectType.Normal, Source);
 	}
 }
