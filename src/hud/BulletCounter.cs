@@ -12,7 +12,8 @@ public partial class BulletCounter : Control
 	
 	public override void _Ready()
 	{
-		_playerWeapon = GetNode<Node2D>("../../../Player/WeaponComponent") as WeaponComponent;
+		_playerWeapon = GetTree().GetFirstNodeInGroup("player").GetNode("WeaponComponent") as WeaponComponent;
+
 		_counter = GetNode<TextureRect>("Counter");
 		
 		_counter.Size = new Vector2(_playerWeapon.BulletCount * 4, 4);

@@ -53,25 +53,31 @@ public partial class Bomb : StaticBody2D
 			if (!_hitbox.Monitoring)
 				return;
 			
-			foreach (var area in _hitbox.GetOverlappingAreas())
+			foreach (var body in _hitbox.GetOverlappingBodies())
 			{
+				Logger.Log.Information(body.Name + "");
+				// if (body.Equals(this))
+				// 	continue;
 				
-				if (area.Equals(_hitboxComponent))
-					continue;
-				
-				if (area is BreakableWall)
+				if (body is BreakableWall)
 				{
-					BreakableWall wall = area as BreakableWall;
+					BreakableWall wall = body as BreakableWall;
 					wall.Break();
 					return;
 				}
+			}
+			
+			foreach (var area in _hitbox.GetOverlappingAreas())
+			{
+				if (area.Equals(_hitboxComponent))
+					continue;
 				
 				if (area is HitboxComponent)
 				{
 					Logger.Log.Information("Hitbox hit at " + area.Name);
 
 					HitboxComponent hitboxComponent = area as HitboxComponent;
-					hitboxComponent.Damage(_attackData);
+					hitboxComponent.Damage(new AttackData(2f, 0, 0, EffectType.Normal, SourceType.Enemy));
 				}
 			}
 			_hitbox.Monitoring = false;

@@ -79,17 +79,24 @@ public partial class Detonator : MovingEnemy
 			if (!_hitbox.Monitoring)
 				return;
 			
+			foreach (var body in _hitbox.GetOverlappingBodies())
+			{
+				Logger.Log.Information(body.Name + "");
+				// if (body.Equals(this))
+				// 	continue;
+				
+				if (body is BreakableWall)
+				{
+					BreakableWall wall = body as BreakableWall;
+					wall.Break();
+					return;
+				}
+			}
+			
 			foreach (var area in _hitbox.GetOverlappingAreas())
 			{
 				if (area.Equals(HitboxComponent))
 					continue;
-				
-				if (area is BreakableWall)
-				{
-					BreakableWall wall = area as BreakableWall;
-					wall.Break();
-					return;
-				}
 				
 				if (area is HitboxComponent)
 				{
