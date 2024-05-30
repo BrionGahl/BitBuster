@@ -103,6 +103,6 @@ bomb={
 
 [rendering]
 
-environment/defaults/default_clear_color=Color(0.439049, 0.439049, 0.439049, 1)
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)
 environment/stretch/mode="viewport"
 environment/size/transparent=false
