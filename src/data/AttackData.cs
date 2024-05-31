@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using BitBuster.component;
+using BitBuster.world;
 
 namespace BitBuster.data;
 

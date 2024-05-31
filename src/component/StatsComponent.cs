@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BitBuster.data;
+using BitBuster.world;
 using Godot;
 
 namespace BitBuster.component;
@@ -8,29 +9,8 @@ namespace BitBuster.component;
 // https://docs.godotengine.org/en/stable/tutorials/scripting/c_sharp/c_sharp_exports.html
 // See this for bitwise Enums
 
-[Flags]
-public enum EffectType
-{
-	Normal = 0,
-	Homing = 1
-}
-
-public enum WeaponType
-{
-	Normal = 0,
-	Tri = 1,
-	Laser = 4,
-}
-
-public enum SourceType
-{
-	Player = 2,
-	Enemy = 3
-}
-
 public partial class StatsComponent : Node2D
 {
-
 	// Misc Related Stats
 	[Export]
 	public SourceType Source { get; set; }
@@ -46,6 +26,8 @@ public partial class StatsComponent : Node2D
 	public float MaxHealth { get; set; }
 	[Export]
 	public float CurrentHealth { get; set; }
+	[Export]
+	public float Overheal { get; set; }
 
 	// Weapon Related Stats
 	[Export]
@@ -85,5 +67,10 @@ public partial class StatsComponent : Node2D
 	public AttackData GetBombAttackData()
 	{
 		return new AttackData(BombDamage, 0f, 0, EffectType.Normal, Source);
+	}
+
+	public void AddItemData(ItemData itemData)
+	{
+		// TODO: soon... tm.
 	}
 }
