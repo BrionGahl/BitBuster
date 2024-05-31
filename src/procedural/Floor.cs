@@ -262,8 +262,7 @@ public partial class Floor : Node2D
 				continue; // dont put a tile here
 			}
 				
-			_levelMain.SetCell(0, mapOffset + data.TileMap[i].Offset, data.TileMap[i].TargetId,
-				data.TileMap[i].AtlasCoords);
+			_levelMain.SetCell(0, mapOffset + data.TileMap[i].Offset, data.TileMap[i].TargetId, data.TileMap[i].AtlasCoords);
 		}
 	}
 

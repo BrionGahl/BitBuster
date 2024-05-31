@@ -34,6 +34,12 @@ public partial class StatsComponent : Node2D
 	// Misc Related Stats
 	[Export]
 	public SourceType Source { get; set; }
+	[Export] 
+	public int BombCount { get; set; }
+	[Export]
+	public int KeyCardCount { get; set; }
+	[Export]
+	public int CreditCount { get; set; }
 	
 	// Health Related Stats
 	[Export]
@@ -56,8 +62,6 @@ public partial class StatsComponent : Node2D
 	public EffectType ProjectileDamageType { get; set; }
 	[Export]
 	public WeaponType ProjectileWeaponType { get; set; }
-	[Export] 
-	public int BombCount { get; set; }
 	[Export]
 	public float BombDamage { get; set; }
 	// Control Related Stats
