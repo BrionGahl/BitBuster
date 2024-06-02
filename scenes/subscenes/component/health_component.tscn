@@ -4,3 +4,6 @@
 
 [node name="HealthComponent" type="Node2D"]
 script = ExtResource("1_mpy7l")
+
+[node name="IFrameTimer" type="Timer" parent="."]
+one_shot = true

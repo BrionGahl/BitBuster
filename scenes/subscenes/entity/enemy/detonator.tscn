@@ -108,6 +108,7 @@ MaxHealth = 2.0
 CurrentHealth = 2.0
 BombDamage = 2.0
 Speed = 35.0
+ITime = 0.5
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("StatsComponent") instance=ExtResource("4_1cin2")]
 StatsComponent = NodePath("../StatsComponent")

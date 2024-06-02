@@ -94,6 +94,7 @@ ProjectileSpeed = 100.0
 ProjectileSizeScalar = Vector2(1, 1)
 BombDamage = 1.0
 Speed = 75.0
+ITime = 0.5
 
 [node name="TrackTrailComponent" parent="." instance=ExtResource("4_g7sml")]
 

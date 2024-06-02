@@ -53,6 +53,8 @@ public abstract partial class Item: Area2D
     [Export]
     public float Speed { get; private set; }
     [Export]
+    public float ITime { get; private set; }
+    [Export]
     public EffectType TrailEffect { get; private set; }
 
     // Node Specifics

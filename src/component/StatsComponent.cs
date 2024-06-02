@@ -54,6 +54,8 @@ public partial class StatsComponent : Node2D
 	[Export]
 	public float Speed { get; set; }
 	[Export]
+	public float ITime { get; set; }
+	[Export]
 	public EffectType TrailEffect { get; set; }
 		
 	public override void _Ready()
@@ -86,6 +88,7 @@ public partial class StatsComponent : Node2D
 
 		BombDamage += item.BombDamage;
 		Speed += item.Speed;
+		ITime += item.ITime;
 		TrailEffect = TrailEffect | item.TrailEffect;
 	}
 }
