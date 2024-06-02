@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bfjahv86jalt0"]
 
-[ext_resource type="Script" path="res://src/items/normal/SteelPlating.cs" id="1_k71dw"]
+[ext_resource type="Script" path="res://src/items/Item.cs" id="1_7n341"]
 [ext_resource type="Texture2D" uid="uid://bfaxbmdo64stn" path="res://assets/items/item_steel_plating.png" id="1_ljncx"]
 [ext_resource type="PackedScene" uid="uid://ddckip0887shk" path="res://scenes/subscenes/component/particle_item_pickup_component.tscn" id="2_r368i"]
 
@@ -11,12 +11,11 @@ size = Vector2(16, 16)
 z_index = 1
 collision_layer = 8
 collision_mask = 0
-script = ExtResource("1_k71dw")
+script = ExtResource("1_7n341")
 ItemName = "Steel Plating"
-ItemDescription = "A bit tougher... +2 Health"
+ItemDescription = "Real heavy duty stuff... +2 Health"
 AddedHealth = 2.0
 MaxHealth = 2.0
-ProjectileDamageType = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_k1piv")

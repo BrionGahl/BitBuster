@@ -3,85 +3,85 @@ using Godot;
 
 namespace BitBuster.items;
 
-public abstract partial class Item: Area2D
+public partial class Item: Area2D
 {
-    [Export]
-    public string ItemName { get; private set; }
-    [Export]
-    public string ItemDescription { get; private set; }
-    [Export]
-    public ItemType ItemType { get; private set; }
+	[Export]
+	public string ItemName { get; private set; }
+	[Export]
+	public string ItemDescription { get; private set; }
+	[Export]
+	public ItemType ItemType { get; private set; }
 
-    public bool IsUnlocked { get; set; } = true;
-    
-    [Export]
-    public int AddedBombs { get; private set; }
-    [Export]
-    public int AddedKeyCard { get; private set; }
-    [Export]
-    public int AddedCredit { get; private set; }
-    [Export]
-    public float AddedHealth { get; private set; }
-    [Export]
-    public float AddedOverheal { get; private set; }
-    
-    // Health Related Stats
-    [Export]
-    public float MaxHealth { get; private set; }
+	public bool IsUnlocked { get; set; } = true;
+	
+	[Export]
+	public int AddedBombs { get; private set; }
+	[Export]
+	public int AddedKeyCard { get; private set; }
+	[Export]
+	public int AddedCredit { get; private set; }
+	[Export]
+	public float AddedHealth { get; private set; }
+	[Export]
+	public float AddedOverheal { get; private set; }
+	
+	// Health Related Stats
+	[Export]
+	public float MaxHealth { get; private set; }
 
-    // Weapon Related Stats
-    [Export]
-    public float ProjectileDamage { get; private set; }
-    [Export]
-    public int ProjectileCount { get; private set; }
-    [Export]
-    public float ProjectileCooldown { get; private set; }
-    [Export]
-    public int ProjectileBounces { get; private set; }
-    [Export]
-    public float ProjectileSpeed { get; private set; }
-    [Export]
-    public EffectType ProjectileDamageType { get; private set; }
-    [Export]
-    public WeaponType ProjectileWeaponType { get; private set; }
-    [Export]
-    public Vector2 ProjectileSizeScalar { get; private set; } 
-    [Export]
-    public float BombDamage { get; private set; }
-    
-    // Control Related Stats
-    [Export]
-    public float Speed { get; private set; }
-    [Export]
-    public float ITime { get; private set; }
-    [Export]
-    public EffectType TrailEffect { get; private set; }
+	// Weapon Related Stats
+	[Export]
+	public float ProjectileDamage { get; private set; }
+	[Export]
+	public int ProjectileCount { get; private set; }
+	[Export]
+	public float ProjectileCooldown { get; private set; }
+	[Export]
+	public int ProjectileBounces { get; private set; }
+	[Export]
+	public float ProjectileSpeed { get; private set; }
+	[Export]
+	public EffectType ProjectileDamageType { get; private set; }
+	[Export]
+	public WeaponType ProjectileWeaponType { get; private set; }
+	[Export]
+	public Vector2 ProjectileSizeScalar { get; private set; } 
+	[Export]
+	public float BombDamage { get; private set; }
+	
+	// Control Related Stats
+	[Export]
+	public float Speed { get; private set; }
+	[Export]
+	public float ITime { get; private set; }
+	[Export]
+	public EffectType TrailEffect { get; private set; }
 
-    // Node Specifics
-    public Sprite2D Sprite { get; private set; }
-    public Timer AnimationTimer { get; private set; }
-    public GpuParticles2D Particles2D { get; private set; }
-    
-    public override void _Ready()
-    {
-        Sprite = GetNode<Sprite2D>("Sprite2D");
-        AnimationTimer = GetNode<Timer>("Timer");
-        Particles2D = GetNode<GpuParticles2D>("ParticleItemPickupComponent");
-        
-        AnimationTimer.Timeout += OnAnimationTimeout;
-    }
+	// Node Specifics
+	public Sprite2D Sprite { get; private set; }
+	public Timer AnimationTimer { get; private set; }
+	public GpuParticles2D Particles2D { get; private set; }
+	
+	public override void _Ready()
+	{
+		Sprite = GetNode<Sprite2D>("Sprite2D");
+		AnimationTimer = GetNode<Timer>("Timer");
+		Particles2D = GetNode<GpuParticles2D>("ParticleItemPickupComponent");
+		
+		AnimationTimer.Timeout += OnAnimationTimeout;
+	}
 
-    public virtual void OnPickup()
-    {
-        Particles2D.Emitting = true;
+	public void OnPickup()
+	{
+		Particles2D.Emitting = true;
 
-        Sprite.Visible = false;
-        
-        AnimationTimer.Start();
-    }
+		Sprite.Visible = false;
+		
+		AnimationTimer.Start();
+	}
 
-    public virtual void OnAnimationTimeout()
-    {
-        QueueFree();
-    }
+	public void OnAnimationTimeout()
+	{
+		QueueFree();
+	}
 }

@@ -1,5 +1,4 @@
 using BitBuster.component;
-using BitBuster.items.pickup;
 using BitBuster.world;
 using Godot;
 

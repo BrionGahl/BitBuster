@@ -79,7 +79,10 @@ public partial class StatsComponent : Node2D
 		
 		ProjectileDamage += item.ProjectileDamage;
 		ProjectileCount += item.ProjectileCount;
-		ProjectileCooldown += item.ProjectileCooldown; // dec
+		ProjectileCooldown -= item.ProjectileCooldown; // TODO NEED LIMIT SO IT CAN BE NO LESS THAN 0.1
+		if (ProjectileCooldown < 0.11f)
+			ProjectileCooldown = 0.11f;
+		
 		ProjectileBounces += item.ProjectileBounces;
 		ProjectileSpeed += item.ProjectileSpeed;
 		ProjectileSizeScalar += item.ProjectileSizeScalar;
