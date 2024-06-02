@@ -103,8 +103,8 @@ ProjectileCount = 3
 ProjectileCooldown = 1.5
 ProjectileBounces = 1
 ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
 Speed = 50.0
-SizeScalar = 1.0
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("StatsComponent") instance=ExtResource("6_l56yv")]
 StatsComponent = NodePath("../StatsComponent")

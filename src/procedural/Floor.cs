@@ -5,6 +5,7 @@ using BitBuster.entity.enemy;
 using BitBuster.entity.player;
 using BitBuster.tiles;
 using BitBuster.utils;
+using BitBuster.world;
 using Godot;
 
 namespace BitBuster.procedural;
@@ -24,14 +25,17 @@ public partial class Floor : Node2D
 
 	private PackedScene _roomsScene;
 	private PackedScene _doorScene;
-	
-	private NavigationRegion2D _levelRegion { get; set; }
-	private TileMap _levelMain { get; set; }
-	private Node2D _levelExtra { get; set; }
-	private Player _levelPlayer { get; set; }
+
+	private Global _global;
+	private NavigationRegion2D _levelRegion;
+	private TileMap _levelMain;
+	private Node2D _levelExtra;
+	private Player _levelPlayer;
 	
 	public override void _Ready()
 	{
+		_global = GetNode<Global>("/root/Global");
+		
 		_roomsScene = GD.Load<PackedScene>("res://scenes/subscenes/procedural/rooms.tscn");
 		_doorScene = GD.Load<PackedScene>("res://scenes/subscenes/tiles/door.tscn");
 

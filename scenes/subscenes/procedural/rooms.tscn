@@ -1,12 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://32elsci7h0v1"]
+[gd_scene load_steps=10 format=3 uid="uid://32elsci7h0v1"]
 
 [ext_resource type="Script" path="res://src/procedural/Rooms.cs" id="1_lawn4"]
 [ext_resource type="TileSet" uid="uid://dgja5h4hys5wf" path="res://assets/tiles/tilemap.tres" id="2_bvjgm"]
 [ext_resource type="PackedScene" uid="uid://det6gkgxg57mw" path="res://scenes/subscenes/entity/player/player.tscn" id="2_pa2gp"]
 [ext_resource type="PackedScene" uid="uid://lvawwpbpty0i" path="res://scenes/subscenes/tiles/player_detector.tscn" id="4_5l8sk"]
-[ext_resource type="PackedScene" uid="uid://bnh75c1b1t0ty" path="res://scenes/subscenes/entity/enemy/detonator.tscn" id="6_3dedg"]
 [ext_resource type="PackedScene" uid="uid://bhljrlptytonc" path="res://scenes/subscenes/entity/enemy/tower.tscn" id="6_s61rk"]
 [ext_resource type="PackedScene" uid="uid://bljqgl2ytnjup" path="res://scenes/subscenes/tiles/breakable_wall.tscn" id="7_s2n8b"]
+[ext_resource type="PackedScene" uid="uid://3ndee481nixy" path="res://scenes/subscenes/items/normal/rocket_science.tscn" id="9_0gfpf"]
+[ext_resource type="PackedScene" uid="uid://dd3e26ey6r6nv" path="res://scenes/subscenes/items/pickup/healthpack.tscn" id="9_7elik"]
+[ext_resource type="PackedScene" uid="uid://bfjahv86jalt0" path="res://scenes/subscenes/items/normal/steel_plating.tscn" id="9_re6gd"]
 
 [node name="Rooms" type="Node2D"]
 script = ExtResource("1_lawn4")
@@ -47,9 +49,6 @@ position = Vector2(168, 88)
 [node name="BreakableWall2" parent="START/0" instance=ExtResource("7_s2n8b")]
 position = Vector2(88, 184)
 
-[node name="Detonator" parent="START/0" instance=ExtResource("6_3dedg")]
-position = Vector2(112, 48)
-
 [node name="PlayerDetector" parent="START/0" instance=ExtResource("4_5l8sk")]
 visible = false
 
@@ -58,6 +57,15 @@ position = Vector2(52, 49)
 
 [node name="Player" parent="START/0" instance=ExtResource("2_pa2gp")]
 position = Vector2(152, 152)
+
+[node name="Healthpack" parent="START/0" instance=ExtResource("9_7elik")]
+position = Vector2(208, 224)
+
+[node name="SteelPlating" parent="START/0" instance=ExtResource("9_re6gd")]
+position = Vector2(168, 224)
+
+[node name="RocketScience" parent="START/0" instance=ExtResource("9_0gfpf")]
+position = Vector2(128, 224)
 
 [node name="BOSS" type="Node2D" parent="."]
 visible = false

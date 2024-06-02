@@ -46,10 +46,8 @@ public partial class Detonator : MovingEnemy
 
 	public override void OnHealthIsZero()
 	{
-		_hull.Visible = false;
 		_collider.SetDeferred("disabled", true);
 		
-		StatsComponent.Speed = 0;
 		HitboxComponent.SetDeferred("monitorable", false);
 		HitboxComponent.SetDeferred("monitoring", false);
 		
@@ -72,27 +70,13 @@ public partial class Detonator : MovingEnemy
 		
 		if (_timer <= 0 || HealthComponent.CurrentHealth <= 0)
 		{
-			if (HealthComponent.CurrentHealth > 0)
-				HealthComponent.Damage(2f);
-			
+			_hull.Visible = false;
+			StatsComponent.Speed = 0;
+
 			_explodeEmitter.Emitting = true;
 			
 			if (!_hitbox.Monitoring)
 				return;
-			
-			foreach (var body in _hitbox.GetOverlappingBodies())
-			{
-				Logger.Log.Information(body.Name + "");
-				// if (body.Equals(this))
-				// 	continue;
-				
-				if (body is BreakableWall)
-				{
-					BreakableWall wall = body as BreakableWall;
-					wall.Break();
-					return;
-				}
-			}
 			
 			foreach (var area in _hitbox.GetOverlappingAreas())
 			{
@@ -102,12 +86,24 @@ public partial class Detonator : MovingEnemy
 				if (area is HitboxComponent)
 				{
 					Logger.Log.Information("Hitbox hit at " + area.Name);
-
 					HitboxComponent hitboxComponent = area as HitboxComponent;
-					hitboxComponent.Damage(new AttackData(2f, 0, 0, EffectType.Normal, SourceType.Enemy));
+					hitboxComponent.Damage(StatsComponent.GetBombAttackData());
 				}
 			}
+			
+			foreach (var body in _hitbox.GetOverlappingBodies())
+			{
+				if (body is BreakableWall)
+				{
+					BreakableWall wall = body as BreakableWall;
+					wall.Break();
+					return;
+				}
+			}
+			
 			_hitbox.Monitoring = false;
+			if (HealthComponent.CurrentHealth > 0)
+				HealthComponent.Damage(2f);
 		}
 		
 		if (Position.DistanceTo(Player.Position) >= 64)

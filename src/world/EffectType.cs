@@ -6,5 +6,7 @@ namespace BitBuster.world;
 public enum EffectType
 {
     Normal = 0,
-    Homing = 1
+    Fire = 1,
+    Confuse = 2,
+    Freeze = 4,
 }

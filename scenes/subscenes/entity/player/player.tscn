@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://det6gkgxg57mw"]
+[gd_scene load_steps=17 format=3 uid="uid://det6gkgxg57mw"]
 
 [ext_resource type="Script" path="res://src/entity/player/Player.cs" id="1_nju6n"]
 [ext_resource type="Texture2D" uid="uid://2ruli1e1oei3" path="res://assets/player/player_tank.png" id="2_wsan7"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bva4np8rg3g20" path="res://scenes/subscenes/component/stats_component.tscn" id="5_bmnux"]
 [ext_resource type="PackedScene" uid="uid://btrxy7t83y8en" path="res://scenes/subscenes/component/health_component.tscn" id="5_umbbr"]
 [ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="8_gp6gs"]
+[ext_resource type="Script" path="res://src/items/ItemPickupHitbox.cs" id="9_s5uk3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2k5yj"]
 atlas = ExtResource("2_wsan7")
@@ -50,10 +51,12 @@ height = 16.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cfb50"]
 size = Vector2(16, 16)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r5da5"]
+
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_statsComponent", "_weaponComponent") groups=["player"]]
 z_index = 1
 collision_layer = 2
-collision_mask = 13
+collision_mask = 5
 motion_mode = 1
 script = ExtResource("1_nju6n")
 _statsComponent = NodePath("StatsComponent")
@@ -80,6 +83,7 @@ shape = SubResource("CapsuleShape2D_pjmg8")
 StatsComponent = NodePath("../StatsComponent")
 
 [node name="StatsComponent" parent="." instance=ExtResource("5_bmnux")]
+BombCount = 1000
 MaxHealth = 3.0
 CurrentHealth = 3.0
 ProjectileDamage = 1.0
@@ -87,11 +91,9 @@ ProjectileCount = 3
 ProjectileCooldown = 0.33
 ProjectileBounces = 1
 ProjectileSpeed = 100.0
-ProjectileDamageType = 1
-BombCount = 1000
+ProjectileSizeScalar = Vector2(1, 1)
 BombDamage = 1.0
 Speed = 75.0
-SizeScalar = 1.0
 
 [node name="TrackTrailComponent" parent="." instance=ExtResource("4_g7sml")]
 
@@ -103,3 +105,15 @@ HealthComponent = NodePath("../HealthComponent")
 
 [node name="Hitbox" type="CollisionShape2D" parent="HitboxComponent"]
 shape = SubResource("RectangleShape2D_cfb50")
+
+[node name="ItemPickupHitbox" type="Area2D" parent="." node_paths=PackedStringArray("StatsComponent", "HealthComponent")]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("9_s5uk3")
+StatsComponent = NodePath("../StatsComponent")
+HealthComponent = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemPickupHitbox"]
+shape = SubResource("RectangleShape2D_r5da5")
+
+[node name="ItemsList" type="Node2D" parent="ItemPickupHitbox"]

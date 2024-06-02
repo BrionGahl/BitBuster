@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BitBuster.data;
+using BitBuster.items;
 using BitBuster.world;
 using Godot;
 
@@ -41,9 +42,12 @@ public partial class StatsComponent : Node2D
 	[Export]
 	public float ProjectileSpeed { get; set; }
 	[Export]
+	public Vector2 ProjectileSizeScalar { get; set; }
+	[Export]
 	public EffectType ProjectileDamageType { get; set; }
 	[Export]
 	public WeaponType ProjectileWeaponType { get; set; }
+
 	[Export]
 	public float BombDamage { get; set; }
 	// Control Related Stats
@@ -51,9 +55,7 @@ public partial class StatsComponent : Node2D
 	public float Speed { get; set; }
 	[Export]
 	public EffectType TrailEffect { get; set; }
-	[Export]
-	public float SizeScalar { get; set; } // NOT IMPLEMENTED
-	
+		
 	public override void _Ready()
 	{
 		// Logic for default stats go here...
@@ -61,16 +63,29 @@ public partial class StatsComponent : Node2D
 
 	public AttackData GetAttackData()
 	{
-		return new AttackData(ProjectileDamage, ProjectileSpeed, ProjectileBounces, ProjectileDamageType, Source);
+		return new AttackData(ProjectileDamage, ProjectileSpeed, ProjectileBounces, ProjectileSizeScalar, ProjectileDamageType, Source);
 	}
 
 	public AttackData GetBombAttackData()
 	{
-		return new AttackData(BombDamage, 0f, 0, EffectType.Normal, Source);
+		return new AttackData(BombDamage, 0f, 0, Vector2.Zero, EffectType.Normal, Source);
 	}
 
-	public void AddItemData(ItemData itemData)
+	public void AddItem(Item item)
 	{
-		// TODO: soon... tm.
+		MaxHealth += item.MaxHealth;
+		
+		ProjectileDamage += item.ProjectileDamage;
+		ProjectileCount += item.ProjectileCount;
+		ProjectileCooldown += item.ProjectileCooldown; // dec
+		ProjectileBounces += item.ProjectileBounces;
+		ProjectileSpeed += item.ProjectileSpeed;
+		ProjectileSizeScalar += item.ProjectileSizeScalar;
+		ProjectileDamageType = ProjectileDamageType | item.ProjectileDamageType;
+		ProjectileWeaponType = ProjectileWeaponType | item.ProjectileWeaponType;
+
+		BombDamage += item.BombDamage;
+		Speed += item.Speed;
+		TrailEffect = TrailEffect | item.TrailEffect;
 	}
 }

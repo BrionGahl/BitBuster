@@ -39,7 +39,7 @@ public partial class HealthComponent : Node2D
 
 	public void Damage(AttackData attackData)
 	{
-		Logger.Log.Information(this + " taking " + attackData.Damage + " damage.");
+		Logger.Log.Information(GetParent().Name + " taking " + attackData.Damage + " damage.");
 		
 		CurrentHealth -= attackData.Damage;
 		

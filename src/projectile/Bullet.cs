@@ -1,6 +1,7 @@
 using System;
 using BitBuster.component;
 using BitBuster.data;
+using BitBuster.items;
 using BitBuster.utils;
 using BitBuster.world;
 using Godot;
@@ -80,7 +81,7 @@ public partial class Bullet : CharacterBody2D
 		_bulletTexture.Modulate = Color.FromHsv(_remainingBounces * _hueShift, 1.0f, 1.0f);
 
 		_attackData = attackData;
-		
+		Scale = new Vector2(_attackData.Size.X, _attackData.Size.Y);
 		GetNode<GpuParticles2D>("ParticleTrail").Emitting = true;
 		if (attackData.Speed > 150)
 		{
@@ -104,6 +105,9 @@ public partial class Bullet : CharacterBody2D
 
 	private void OnAreaEntered(Area2D area)
 	{
+		if (area is Item)
+			return;
+		
 		if (area is HitboxComponent)
 		{
 			Logger.Log.Information("Hitbox hit at " + area.Name);

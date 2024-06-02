@@ -46,27 +46,11 @@ public partial class Bomb : StaticBody2D
 		_timeTillExplosion -= (float)delta;
 		if (_timeTillExplosion < 0 || _healthComponent.CurrentHealth <= 0)
 		{
-			if (_healthComponent.CurrentHealth > 0)
-				_healthComponent.Damage(2f);
-		
+			_bombTexture.Visible = false;
 			_explodeEmitter.Emitting = true;
 
 			if (!_hitbox.Monitoring)
 				return;
-			
-			foreach (var body in _hitbox.GetOverlappingBodies())
-			{
-				Logger.Log.Information(body.Name + "");
-				// if (body.Equals(this))
-				// 	continue;
-				
-				if (body is BreakableWall)
-				{
-					BreakableWall wall = body as BreakableWall;
-					wall.Break();
-					return;
-				}
-			}
 			
 			foreach (var area in _hitbox.GetOverlappingAreas())
 			{
@@ -78,9 +62,21 @@ public partial class Bomb : StaticBody2D
 					Logger.Log.Information("Hitbox hit at " + area.Name);
 
 					HitboxComponent hitboxComponent = area as HitboxComponent;
-					hitboxComponent.Damage(new AttackData(2f, 0, 0, EffectType.Normal, SourceType.Enemy));
+					hitboxComponent.Damage(_attackData);
 				}
 			}
+			
+			foreach (var body in _hitbox.GetOverlappingBodies())
+			{
+				if (body is BreakableWall)
+				{
+					BreakableWall wall = body as BreakableWall;
+					wall.Break();
+				}
+			}
+			
+			if (_healthComponent.CurrentHealth > 0)
+				_healthComponent.Damage(2f);
 			_hitbox.Monitoring = false;
 		}
 	}
@@ -93,7 +89,6 @@ public partial class Bomb : StaticBody2D
 
 	private void OnHealthIsZero()
 	{
-		_bombTexture.Visible = false;
 		_hitboxComponent.SetDeferred("monitorable", false);
 		_hitboxComponent.SetDeferred("monitoring", false);
 		

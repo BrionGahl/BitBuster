@@ -70,6 +70,7 @@ ProjectileCount = 3
 ProjectileCooldown = 1.5
 ProjectileBounces = 15
 ProjectileSpeed = 150.0
+ProjectileSizeScalar = Vector2(1, 1)
 
 [node name="WeaponComponent" parent="." node_paths=PackedStringArray("StatsComponent") instance=ExtResource("6_ws2ev")]
 StatsComponent = NodePath("../StatsComponent")
