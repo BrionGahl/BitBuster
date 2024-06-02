@@ -14,7 +14,7 @@ collision_mask = 0
 script = ExtResource("1_edmxi")
 ItemName = "Warhead"
 ItemDescription = "I am become death... +3 Damage, -1 Projectile Speed"
-ProjectileDamage = 3.0
+ProjectileDamage = 1.5
 ProjectileSpeed = -50.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
