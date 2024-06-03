@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://32elsci7h0v1"]
+[gd_scene load_steps=10 format=3 uid="uid://32elsci7h0v1"]
 
 [ext_resource type="Script" path="res://src/procedural/Rooms.cs" id="1_lawn4"]
 [ext_resource type="TileSet" uid="uid://dgja5h4hys5wf" path="res://assets/tiles/tilemap.tres" id="2_bvjgm"]
@@ -6,7 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://lvawwpbpty0i" path="res://scenes/subscenes/tiles/player_detector.tscn" id="4_5l8sk"]
 [ext_resource type="PackedScene" uid="uid://bhljrlptytonc" path="res://scenes/subscenes/entity/enemy/tower.tscn" id="6_s61rk"]
 [ext_resource type="PackedScene" uid="uid://bljqgl2ytnjup" path="res://scenes/subscenes/tiles/breakable_wall.tscn" id="7_s2n8b"]
+[ext_resource type="PackedScene" uid="uid://c0sr5f3atq4ph" path="res://scenes/subscenes/items/normal/warhead.tscn" id="9_6bqdw"]
 [ext_resource type="PackedScene" uid="uid://dd3e26ey6r6nv" path="res://scenes/subscenes/items/pickup/healthpack.tscn" id="9_7elik"]
+[ext_resource type="PackedScene" uid="uid://bfjahv86jalt0" path="res://scenes/subscenes/items/normal/steel_plating.tscn" id="9_re6gd"]
 
 [node name="Rooms" type="Node2D"]
 script = ExtResource("1_lawn4")
@@ -34,7 +36,6 @@ layer_0/tile_data = PackedInt32Array(0, 196608, 1, 65536, 131072, 1, 131072, 131
 visible = false
 
 [node name="START" type="Node2D" parent="."]
-visible = false
 
 [node name="0" type="TileMap" parent="START"]
 texture_filter = 1
@@ -60,6 +61,13 @@ position = Vector2(152, 152)
 [node name="Healthpack" parent="START/0" instance=ExtResource("9_7elik")]
 position = Vector2(208, 224)
 
+[node name="SteelPlating" parent="START/0" instance=ExtResource("9_re6gd")]
+position = Vector2(152, 224)
+
+[node name="Warhead" parent="START/0" instance=ExtResource("9_6bqdw")]
+position = Vector2(128, 224)
+ProjectileSpeed = -25.0
+
 [node name="BOSS" type="Node2D" parent="."]
 visible = false
 
@@ -72,6 +80,7 @@ layer_0/tile_data = PackedInt32Array(0, 196608, 1, 65536, 131072, 1, 131072, 131
 [node name="PlayerDetector" parent="BOSS/0" instance=ExtResource("4_5l8sk")]
 
 [node name="TREASURE" type="Node2D" parent="."]
+visible = false
 
 [node name="0" type="TileMap" parent="TREASURE"]
 texture_filter = 1

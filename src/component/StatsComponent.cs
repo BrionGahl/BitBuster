@@ -75,12 +75,14 @@ public partial class StatsComponent : Node2D
 
 	public void AddItem(Item item)
 	{
-		MaxHealth += item.MaxHealth;
+		MaxHealth = MaxHealth + item.MaxHealth < 1
+			? 1
+			: MaxHealth + item.MaxHealth;
 		
 		ProjectileDamage += item.ProjectileDamage;
 		ProjectileCount += item.ProjectileCount;
-		ProjectileCooldown = (ProjectileCooldown - item.ProjectileCooldown < 0.11f)
-			? 0.11f
+		ProjectileCooldown = ProjectileCooldown - item.ProjectileCooldown < 0.05f
+			? 0.05f
 			: ProjectileCooldown - item.ProjectileCooldown;
 		
 		ProjectileBounces += item.ProjectileBounces;
