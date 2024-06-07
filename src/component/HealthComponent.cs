@@ -31,12 +31,15 @@ public partial class HealthComponent : Node2D
 	}
 
 	private Timer _iFrameTimer;
+	private AnimationPlayer _parentAnimationPlayer;
+	
 	private bool _canBeHit = true;
 	
 	public override void _Ready()
 	{
 		CurrentHealth = MaxHealth;
 		_iFrameTimer = GetNode<Timer>("IFrameTimer");
+		_parentAnimationPlayer = GetParent().GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
 
 		_iFrameTimer.Timeout += IFrameTimeout;
 	}
@@ -49,6 +52,9 @@ public partial class HealthComponent : Node2D
 		Logger.Log.Information(GetParent().Name + " taking " + attackData.Damage + " damage.");
 		_canBeHit = false;
 
+		if (_parentAnimationPlayer != null)
+			_parentAnimationPlayer.Play("effect_damage_blink", -1D, StatsComponent.ITime);
+		
 		CurrentHealth -= attackData.Damage;
 		
 		if (CurrentHealth <= 0)

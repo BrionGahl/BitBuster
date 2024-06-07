@@ -36,7 +36,6 @@ public partial class Player : CharacterBody2D
 		
 		_gun = GetNode<Sprite2D>("Gun");
 		_hull = GetNode<AnimatedSprite2D>("Hull");
-
 	}
 	
 	public override void _Process(double delta)
