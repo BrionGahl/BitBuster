@@ -8,6 +8,8 @@ public partial class BreakableWall : StaticBody2D
 	private TileMap _tileMap;
 	private GpuParticles2D _shatterEmitter;
 	private Timer _animationTimer;
+
+	private bool _isBroken;
 	
 	public override void _Ready()
 	{
@@ -21,9 +23,13 @@ public partial class BreakableWall : StaticBody2D
 	
 	public void Break()
 	{
+		if (_isBroken)
+			return;
+		
+		_isBroken = true;
 		_tileMap.SetCell(0, _tileMap.LocalToMap(GlobalPosition));
 		_navRegion.BakeNavigationPolygon();
-
+		
 		_shatterEmitter.Emitting = true;
 		_animationTimer.Start();
 	}

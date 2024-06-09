@@ -30,16 +30,30 @@ public partial class HealthComponent : Node2D
 		set => StatsComponent.CurrentHealth = value; 
 	}
 
-	private Timer _deathAnimationTimer;
+	private Timer _iFrameTimer;
+	private AnimationPlayer _parentAnimationPlayer;
+	
+	private bool _canBeHit = true;
 	
 	public override void _Ready()
 	{
 		CurrentHealth = MaxHealth;
+		_iFrameTimer = GetNode<Timer>("IFrameTimer");
+		_parentAnimationPlayer = GetParent().GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
+
+		_iFrameTimer.Timeout += IFrameTimeout;
 	}
 
 	public void Damage(AttackData attackData)
 	{
-		Logger.Log.Information(this + " taking " + attackData.Damage + " damage.");
+		if (!_canBeHit)
+			return;
+		
+		Logger.Log.Information(GetParent().Name + " taking " + attackData.Damage + " damage.");
+		_canBeHit = false;
+
+		if (_parentAnimationPlayer != null)
+			_parentAnimationPlayer.Play("effect_damage_blink", -1D, StatsComponent.ITime);
 		
 		CurrentHealth -= attackData.Damage;
 		
@@ -50,10 +64,14 @@ public partial class HealthComponent : Node2D
 		}
 	
 		EmitSignal(SignalName.HealthChange);
+		_iFrameTimer.Start(StatsComponent.ITime);
 	}
 
 	public void Damage(float damage)
 	{
+		if (!_canBeHit)
+			return;
+		
 		Logger.Log.Information(this + " taking " + damage + " damage.");
 		
 		CurrentHealth -= damage;
@@ -80,8 +98,8 @@ public partial class HealthComponent : Node2D
 		EmitSignal(SignalName.HealthChange);
 	}
 
-	private void OnDeathAnimationTimeout()
+	private void IFrameTimeout()
 	{
-		GetParent().QueueFree();
+		_canBeHit = true;
 	}
 }

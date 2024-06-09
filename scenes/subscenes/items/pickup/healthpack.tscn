@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://dd3e26ey6r6nv"]
+
+[ext_resource type="Texture2D" uid="uid://dpjose0wt0pe6" path="res://assets/items/pickup_healthpack.png" id="1_3cgxq"]
+[ext_resource type="Script" path="res://src/items/Item.cs" id="1_k8533"]
+[ext_resource type="PackedScene" uid="uid://ddckip0887shk" path="res://scenes/subscenes/component/particle_item_pickup_component.tscn" id="3_ydlpm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5saa8"]
+size = Vector2(16, 16)
+
+[node name="Healthpack" type="Area2D"]
+z_index = 1
+collision_layer = 8
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_k8533")
+ItemName = "Health Pack"
+ItemType = 1
+AddedHealth = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_5saa8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_3cgxq")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="ParticleItemPickupComponent" parent="." instance=ExtResource("3_ydlpm")]

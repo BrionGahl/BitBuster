@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using BitBuster.data;
 using BitBuster.entity.enemy;
 using BitBuster.entity.player;
+using BitBuster.items;
 using BitBuster.tiles;
 using BitBuster.utils;
+using BitBuster.world;
 using Godot;
 
 namespace BitBuster.procedural;
@@ -24,14 +26,18 @@ public partial class Floor : Node2D
 
 	private PackedScene _roomsScene;
 	private PackedScene _doorScene;
-	
-	private NavigationRegion2D _levelRegion { get; set; }
-	private TileMap _levelMain { get; set; }
-	private Node2D _levelExtra { get; set; }
-	private Player _levelPlayer { get; set; }
+
+	private Global _global;
+	private List<PackedScene> _availableLootPool;
+	private NavigationRegion2D _levelRegion;
+	private TileMap _levelMain;
+	private Node2D _levelExtra;
+	private Player _levelPlayer;
 	
 	public override void _Ready()
 	{
+		_global = GetNode<Global>("/root/Global");
+		_availableLootPool = new List<PackedScene>(_global.CompleteItemPoolList);
 		_roomsScene = GD.Load<PackedScene>("res://scenes/subscenes/procedural/rooms.tscn");
 		_doorScene = GD.Load<PackedScene>("res://scenes/subscenes/tiles/door.tscn");
 
@@ -233,6 +239,16 @@ public partial class Floor : Node2D
 		
 		RoomData data = _rooms.GetRoomData(type);
 
+		if (type == RoomType.TREASURE)
+		{
+			int itemToSpawn = _random.RandiRange(0, _availableLootPool.Count - 1);
+			Item item = _availableLootPool[itemToSpawn].Instantiate<Area2D>() as Item;
+			_availableLootPool.RemoveAt(itemToSpawn);
+			
+			item.Position += worldOffset + new Vector2I(160, 160);
+			_levelExtra.AddChild(item);
+		}
+		
 		for (int i = 0; i < data.Objects.Count; i++)
 		{
 			Logger.Log.Debug("Adding Child to Extra...");
@@ -262,8 +278,7 @@ public partial class Floor : Node2D
 				continue; // dont put a tile here
 			}
 				
-			_levelMain.SetCell(0, mapOffset + data.TileMap[i].Offset, data.TileMap[i].TargetId,
-				data.TileMap[i].AtlasCoords);
+			_levelMain.SetCell(0, mapOffset + data.TileMap[i].Offset, data.TileMap[i].TargetId, data.TileMap[i].AtlasCoords);
 		}
 	}
 

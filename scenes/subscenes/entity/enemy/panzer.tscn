@@ -1,5 +1,6 @@
-[gd_scene load_steps=21 format=3 uid="uid://jfv7afsl8mvt"]
+[gd_scene load_steps=27 format=3 uid="uid://jfv7afsl8mvt"]
 
+[ext_resource type="Shader" path="res://assets/shaders/hit_blink.gdshader" id="1_bjb8l"]
 [ext_resource type="Texture2D" uid="uid://b0d7wva4i1ysc" path="res://assets/enemy/enemy_tank_idle.png" id="1_cdhtg"]
 [ext_resource type="Texture2D" uid="uid://b75exrlheupv8" path="res://assets/enemy/enemy_gun.png" id="1_o0mos"]
 [ext_resource type="Script" path="res://src/entity/enemy/Panzer.cs" id="1_o4t3k"]
@@ -15,6 +16,18 @@
 [ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="7_hvtgx"]
 [ext_resource type="PackedScene" uid="uid://btdrka86pvjsd" path="res://scenes/subscenes/component/track_trail_component.tscn" id="8_w6bws"]
 [ext_resource type="PackedScene" uid="uid://dpul1hjxi1dkq" path="res://scenes/subscenes/state/state_machine.tscn" id="10_bq77k"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mb5df"]
+resource_local_to_scene = true
+shader = ExtResource("1_bjb8l")
+shader_parameter/flash_color = Color(1, 0.188235, 0, 1)
+shader_parameter/flash_modifier = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hqeg8"]
+resource_local_to_scene = true
+shader = ExtResource("1_bjb8l")
+shader_parameter/flash_color = Color(1, 0.188235, 0, 1)
+shader_parameter/flash_modifier = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e51ju"]
 atlas = ExtResource("2_am8ye")
@@ -53,8 +66,70 @@ height = 16.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6yacv"]
 size = Vector2(16, 16)
 
+[sub_resource type="Animation" id="Animation_sgyqk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/flash_modifier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Gun:material:shader_parameter/flash_modifier")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_bpk2u"]
+resource_name = "effect_damage_blink"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/flash_modifier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.5, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Gun:material:shader_parameter/flash_modifier")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.5, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4jgg4"]
+_data = {
+"RESET": SubResource("Animation_sgyqk"),
+"effect_damage_blink": SubResource("Animation_bpk2u")
+}
+
 [node name="Panzer" type="CharacterBody2D" groups=["enemy"]]
 z_index = 1
+material = SubResource("ShaderMaterial_mb5df")
 rotation = 1.5708
 collision_layer = 4
 collision_mask = 47
@@ -82,11 +157,14 @@ script = ExtResource("6_30a6s")
 top_level = true
 z_index = 2
 texture_filter = 1
+material = SubResource("ShaderMaterial_hqeg8")
+use_parent_material = true
 texture = ExtResource("1_o0mos")
 
 [node name="Hull" type="AnimatedSprite2D" parent="."]
 z_index = 1
 texture_filter = 1
+use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_4duss")
 animation = &"moving"
 
@@ -103,8 +181,9 @@ ProjectileCount = 3
 ProjectileCooldown = 1.5
 ProjectileBounces = 1
 ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
 Speed = 50.0
-SizeScalar = 1.0
+ITime = 0.2
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("StatsComponent") instance=ExtResource("6_l56yv")]
 StatsComponent = NodePath("../StatsComponent")
@@ -140,3 +219,8 @@ autostart = true
 [node name="DeathAnimationTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4jgg4")
+}

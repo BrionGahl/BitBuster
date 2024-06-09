@@ -1,9 +1,13 @@
 using Godot;
+using Godot.Collections;
 
 namespace BitBuster.data;
 
 public class TileMapData
 {
+    // SPECIAL TILES
+    public static Vector2I BREAKABLE_TILE = new Vector2I(4, 0);
+    
     public Vector2I Offset { get; set; }
     public int Cell { get; set; }
     public int TargetId { get; set; }

@@ -1,5 +1,6 @@
-[gd_scene load_steps=23 format=3 uid="uid://bnh75c1b1t0ty"]
+[gd_scene load_steps=28 format=3 uid="uid://bnh75c1b1t0ty"]
 
+[ext_resource type="Shader" path="res://assets/shaders/hit_blink.gdshader" id="1_57o7d"]
 [ext_resource type="Script" path="res://src/entity/enemy/Detonator.cs" id="1_hwlg7"]
 [ext_resource type="PackedScene" uid="uid://bva4np8rg3g20" path="res://scenes/subscenes/component/stats_component.tscn" id="2_7xdjd"]
 [ext_resource type="PackedScene" uid="uid://dpul1hjxi1dkq" path="res://scenes/subscenes/state/state_machine.tscn" id="3_0v0hy"]
@@ -10,6 +11,12 @@
 [ext_resource type="PackedScene" uid="uid://btdrka86pvjsd" path="res://scenes/subscenes/component/track_trail_component.tscn" id="5_vdkw3"]
 [ext_resource type="Texture2D" uid="uid://b0d7wva4i1ysc" path="res://assets/enemy/enemy_tank_idle.png" id="6_y5uuv"]
 [ext_resource type="Texture2D" uid="uid://b6blw88sbpd8j" path="res://assets/enemy/enemy_tank.png" id="7_7rumx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_behow"]
+resource_local_to_scene = true
+shader = ExtResource("1_57o7d")
+shader_parameter/flash_color = Color(1, 0.188235, 0, 1)
+shader_parameter/flash_modifier = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_us74s"]
 atlas = ExtResource("6_y5uuv")
@@ -53,7 +60,7 @@ radius = 7.0
 height = 16.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uv8ha"]
-radius = 48.5077
+radius = 86.0523
 
 [sub_resource type="Gradient" id="Gradient_vpgl7"]
 offsets = PackedFloat32Array(0.090301, 0.113712, 0.408027, 0.438127, 0.575251, 1)
@@ -82,7 +89,45 @@ gravity = Vector3(0, 0, 0)
 scale_curve = SubResource("CurveTexture_cccye")
 color_ramp = SubResource("GradientTexture1D_vc2sw")
 
+[sub_resource type="Animation" id="Animation_0cnnw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/flash_modifier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_svvht"]
+resource_name = "effect_damage_blink"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/flash_modifier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.5, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gu0m7"]
+_data = {
+"RESET": SubResource("Animation_0cnnw"),
+"effect_damage_blink": SubResource("Animation_svvht")
+}
+
 [node name="Detonator" type="CharacterBody2D" groups=["enemy"]]
+material = SubResource("ShaderMaterial_behow")
 rotation = 1.5708
 collision_layer = 4
 collision_mask = 47
@@ -100,13 +145,16 @@ script = ExtResource("4_l5pgs")
 [node name="Hull" type="AnimatedSprite2D" parent="."]
 z_index = 1
 texture_filter = 1
+use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_1jxot")
 
 [node name="StatsComponent" parent="." instance=ExtResource("2_7xdjd")]
 Source = 3
 MaxHealth = 2.0
 CurrentHealth = 2.0
+BombDamage = 2.0
 Speed = 35.0
+ITime = 0.2
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("StatsComponent") instance=ExtResource("4_1cin2")]
 StatsComponent = NodePath("../StatsComponent")
@@ -115,6 +163,8 @@ StatsComponent = NodePath("../StatsComponent")
 rotation = -1.5708
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("HealthComponent") instance=ExtResource("5_10edi")]
+collision_layer = 4
+collision_mask = 27
 HealthComponent = NodePath("../HealthComponent")
 
 [node name="Hitbox" type="CollisionShape2D" parent="HitboxComponent"]
@@ -153,3 +203,8 @@ amount = 128
 process_material = SubResource("ParticleProcessMaterial_kdmpl")
 one_shot = true
 explosiveness = 1.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_gu0m7")
+}
