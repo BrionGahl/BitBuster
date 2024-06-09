@@ -1,13 +1,20 @@
-[gd_scene load_steps=10 format=3 uid="uid://c5uf74rr7eydj"]
+[gd_scene load_steps=12 format=3 uid="uid://c5uf74rr7eydj"]
 
 [ext_resource type="Script" path="res://src/procedural/Level.cs" id="1_ji0t6"]
 [ext_resource type="Script" path="res://src/procedural/Floor.cs" id="1_qfgiw"]
 [ext_resource type="TileSet" uid="uid://dgja5h4hys5wf" path="res://assets/tiles/tilemap.tres" id="3_0ap6v"]
 [ext_resource type="PackedScene" uid="uid://det6gkgxg57mw" path="res://scenes/subscenes/entity/player/player.tscn" id="3_jatvy"]
 [ext_resource type="Script" path="res://src/world/Camera.cs" id="4_e2pov"]
+[ext_resource type="Shader" path="res://assets/shaders/hit_blink.gdshader" id="4_irvtp"]
 [ext_resource type="Texture2D" uid="uid://bhk5nrlkp2n1n" path="res://assets/etc/camera_border.png" id="4_smynp"]
 [ext_resource type="PackedScene" uid="uid://c4g61mo4wfsdd" path="res://scenes/subscenes/hud/health_bar_with_delta.tscn" id="8_giki5"]
 [ext_resource type="PackedScene" uid="uid://bj8lasfvi3jbi" path="res://scenes/subscenes/hud/bullet_counter.tscn" id="8_wr00u"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qf65b"]
+resource_local_to_scene = true
+shader = ExtResource("4_irvtp")
+shader_parameter/flash_color = Color(1, 0.188235, 0, 1)
+shader_parameter/flash_modifier = 0.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_jbxdc"]
 source_geometry_group_name = &"navigation_polygon_source_group"
@@ -19,6 +26,7 @@ script = ExtResource("1_qfgiw")
 script = ExtResource("1_ji0t6")
 
 [node name="Player" parent="Level" instance=ExtResource("3_jatvy")]
+material = SubResource("ShaderMaterial_qf65b")
 position = Vector2(1440, 1120)
 
 [node name="NavRegion" type="NavigationRegion2D" parent="Level"]

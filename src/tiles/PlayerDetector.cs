@@ -14,6 +14,7 @@ public partial class PlayerDetector : Area2D
 	public override void _Ready()
 	{
 		_globalEvents = GetNode<GlobalEvents>("/root/GlobalEvents");
+		
 		this.BodyEntered += OnBodyEntered;
 	}
 	
