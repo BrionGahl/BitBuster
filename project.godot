@@ -22,6 +22,8 @@ Global="*res://src/world/Global.cs"
 
 [display]
 
+window/size/viewport_width=1024
+window/size/viewport_height=640
 window/stretch/mode="viewport"
 mouse_cursor/tooltip_position_offset=Vector2(0, 0)
 
