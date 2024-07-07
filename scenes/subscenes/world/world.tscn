@@ -1,18 +1,18 @@
 [gd_scene load_steps=12 format=3 uid="uid://c5uf74rr7eydj"]
 
-[ext_resource type="Script" path="res://src/procedural/Level.cs" id="1_ji0t6"]
-[ext_resource type="Script" path="res://src/procedural/Floor.cs" id="1_qfgiw"]
-[ext_resource type="TileSet" uid="uid://dgja5h4hys5wf" path="res://assets/tiles/tilemap.tres" id="3_0ap6v"]
-[ext_resource type="PackedScene" uid="uid://det6gkgxg57mw" path="res://scenes/subscenes/entity/player/player.tscn" id="3_jatvy"]
-[ext_resource type="Script" path="res://src/world/Camera.cs" id="4_e2pov"]
-[ext_resource type="Shader" path="res://assets/shaders/hit_blink.gdshader" id="4_irvtp"]
-[ext_resource type="Texture2D" uid="uid://bhk5nrlkp2n1n" path="res://assets/etc/camera_border.png" id="4_smynp"]
-[ext_resource type="PackedScene" uid="uid://c4g61mo4wfsdd" path="res://scenes/subscenes/hud/health_bar_with_delta.tscn" id="8_giki5"]
-[ext_resource type="PackedScene" uid="uid://bj8lasfvi3jbi" path="res://scenes/subscenes/hud/bullet_counter.tscn" id="8_wr00u"]
+[ext_resource type="Script" path="res://src/procedural/Floor.cs" id="1_stp2f"]
+[ext_resource type="Script" path="res://src/procedural/Level.cs" id="2_ee4vf"]
+[ext_resource type="PackedScene" uid="uid://det6gkgxg57mw" path="res://scenes/subscenes/entity/player/player.tscn" id="3_4o6h7"]
+[ext_resource type="Shader" path="res://assets/shaders/hit_blink.gdshader" id="4_r6231"]
+[ext_resource type="TileSet" uid="uid://dgja5h4hys5wf" path="res://assets/tiles/tilemap.tres" id="5_syvcy"]
+[ext_resource type="Script" path="res://src/world/Camera.cs" id="6_wmu15"]
+[ext_resource type="Texture2D" uid="uid://bhk5nrlkp2n1n" path="res://assets/etc/camera_border.png" id="7_6vqql"]
+[ext_resource type="PackedScene" uid="uid://c4g61mo4wfsdd" path="res://scenes/subscenes/hud/health_bar_with_delta.tscn" id="8_m2os8"]
+[ext_resource type="PackedScene" uid="uid://bj8lasfvi3jbi" path="res://scenes/subscenes/hud/bullet_counter.tscn" id="9_aogs4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qf65b"]
 resource_local_to_scene = true
-shader = ExtResource("4_irvtp")
+shader = ExtResource("4_r6231")
 shader_parameter/flash_color = Color(1, 0.188235, 0, 1)
 shader_parameter/flash_modifier = 0.0
 
@@ -20,12 +20,12 @@ shader_parameter/flash_modifier = 0.0
 source_geometry_group_name = &"navigation_polygon_source_group"
 
 [node name="Floor" type="Node2D"]
-script = ExtResource("1_qfgiw")
+script = ExtResource("1_stp2f")
 
 [node name="Level" type="Node2D" parent="."]
-script = ExtResource("1_ji0t6")
+script = ExtResource("2_ee4vf")
 
-[node name="Player" parent="Level" instance=ExtResource("3_jatvy")]
+[node name="Player" parent="Level" instance=ExtResource("3_4o6h7")]
 material = SubResource("ShaderMaterial_qf65b")
 position = Vector2(1440, 1120)
 
@@ -35,7 +35,7 @@ use_edge_connections = false
 
 [node name="TileMapMain" type="TileMap" parent="Level/NavRegion"]
 texture_filter = 1
-tile_set = ExtResource("3_0ap6v")
+tile_set = ExtResource("5_syvcy")
 format = 2
 
 [node name="Camera" type="Camera2D" parent="Level"]
@@ -43,12 +43,12 @@ position = Vector2(1440, 1120)
 zoom = Vector2(2, 2)
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
-script = ExtResource("4_e2pov")
+script = ExtResource("6_wmu15")
 
 [node name="Border" type="Sprite2D" parent="Level/Camera"]
 z_index = 11
 scale = Vector2(0.500868, 0.501543)
-texture = ExtResource("4_smynp")
+texture = ExtResource("7_6vqql")
 
 [node name="Extra" type="Node2D" parent="Level"]
 
@@ -62,11 +62,11 @@ offset_bottom = 43.0
 scale = Vector2(1.5, 1.5)
 alignment = 1
 
-[node name="HealthBar" parent="Level/Hud/VBoxContainer" instance=ExtResource("8_giki5")]
+[node name="HealthBar" parent="Level/Hud/VBoxContainer" instance=ExtResource("8_m2os8")]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 
-[node name="BulletCounter" parent="Level/Hud/VBoxContainer" instance=ExtResource("8_wr00u")]
+[node name="BulletCounter" parent="Level/Hud/VBoxContainer" instance=ExtResource("9_aogs4")]
 layout_mode = 2

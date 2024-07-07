@@ -1,8 +1,7 @@
-using Godot;
-using System;
 using BitBuster.component;
-using BitBuster.entity.player;
-using BitBuster.utils;
+using Godot;
+
+namespace BitBuster.hud;
 
 public partial class BulletCounter : Control
 {

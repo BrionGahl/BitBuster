@@ -11,6 +11,5 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src\entity\player\" />
-    <Folder Include="src\items\equipment\" />
   </ItemGroup>
 </Project>

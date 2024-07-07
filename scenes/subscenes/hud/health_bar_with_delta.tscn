@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://c4g61mo4wfsdd"]
 
 [ext_resource type="Script" path="res://src/hud/HealthBarWithDelta.cs" id="1_2ysb8"]
-[ext_resource type="Texture2D" uid="uid://bb70urfajlvvq" path="res://assets/interface/bar_overlay.png" id="2_ut0lg"]
+[ext_resource type="Texture2D" uid="uid://bb70urfajlvvq" path="res://assets/hud/bar_overlay.png" id="2_dul06"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e27wu"]
 
@@ -59,5 +59,5 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_ut0lg")
+texture = ExtResource("2_dul06")
 stretch_mode = 1

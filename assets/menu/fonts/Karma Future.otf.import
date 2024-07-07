@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://6ovp1ft654sm"
-path="res://.godot/imported/Karma Suture.otf-f1263578dc0231f0aa4c668108f7a050.fontdata"
+uid="uid://boj4ahk23hdn6"
+path="res://.godot/imported/Karma Future.otf-fc9bd067c0d3cd97c3cfb18faef387c4.fontdata"
 
 [deps]
 
-source_file="res://assets/interface/fonts/Karma Suture.otf"
-dest_files=["res://.godot/imported/Karma Suture.otf-f1263578dc0231f0aa4c668108f7a050.fontdata"]
+source_file="res://assets/menu/fonts/Karma Future.otf"
+dest_files=["res://.godot/imported/Karma Future.otf-fc9bd067c0d3cd97c3cfb18faef387c4.fontdata"]
 
 [params]
 

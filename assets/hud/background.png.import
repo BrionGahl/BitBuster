@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bb70urfajlvvq"
-path="res://.godot/imported/bar_overlay.png-7ab00879f85f4654fec098403054e420.ctex"
+uid="uid://b3j552xtg3mga"
+path="res://.godot/imported/background.png-411cff2151f7d6ba8544ecc1d677a624.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/interface/bar_overlay.png"
-dest_files=["res://.godot/imported/bar_overlay.png-7ab00879f85f4654fec098403054e420.ctex"]
+source_file="res://assets/hud/background.png"
+dest_files=["res://.godot/imported/background.png-411cff2151f7d6ba8544ecc1d677a624.ctex"]
 
 [params]
 
