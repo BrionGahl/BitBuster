@@ -127,7 +127,7 @@ _data = {
 "effect_damage_blink": SubResource("Animation_0o8y6")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_statsComponent", "_weaponComponent") groups=["player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_statsComponent", "_weaponComponent", "_healthComponent") groups=["player"]]
 z_index = 1
 material = SubResource("ShaderMaterial_b5w6s")
 collision_layer = 2
@@ -136,6 +136,7 @@ motion_mode = 1
 script = ExtResource("1_nju6n")
 _statsComponent = NodePath("StatsComponent")
 _weaponComponent = NodePath("WeaponComponent")
+_healthComponent = NodePath("HealthComponent")
 
 [node name="Gun" type="Sprite2D" parent="."]
 top_level = true

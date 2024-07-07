@@ -28,6 +28,7 @@ public abstract partial class Enemy: CharacterBody2D
 
     public VisibleOnScreenNotifier2D Notifier { get; private set; }
     public Timer DeathAnimationTimer { get; private set; }
+    public AnimationPlayer AnimationPlayer { get; private set; }
     
     public Vector2 SpawnPosition { get; set; }
     public Vector2 Target { get; set; }
@@ -51,6 +52,7 @@ public abstract partial class Enemy: CharacterBody2D
          
          Notifier = GetNode<VisibleOnScreenNotifier2D>("VisibleOnScreenNotifier2D");
          DeathAnimationTimer = GetNode<Timer>("DeathAnimationTimer");
+         AnimationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
          
          RandomNumberGenerator = new RandomNumberGenerator();
          RandomNumberGenerator.Randomize();
@@ -59,6 +61,7 @@ public abstract partial class Enemy: CharacterBody2D
 
          DeathAnimationTimer.Timeout += OnDeathAnimationTimeout;
          HealthComponent.HealthIsZero += OnHealthIsZero;
+         HealthComponent.HealthChange += OnDamageTaken;
      }
 
     public bool CanSeePlayer(int bounces = 0)
@@ -71,6 +74,11 @@ public abstract partial class Enemy: CharacterBody2D
         if (results.Count == 0)
             return false;
         return results["rid"].AsRid() == Player.GetRid();
+    }
+
+    private void OnDamageTaken()
+    {
+        AnimationPlayer.Play("effect_damage_blink", -1D, StatsComponent.ITime);
     }
     
     public abstract void SetGunRotationAndPosition(float radian = 0);
