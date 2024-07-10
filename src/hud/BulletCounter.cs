@@ -29,8 +29,4 @@ public partial class BulletCounter : Control
 		else
 			_counter.Size = new Vector2(trueCount * 4, 4);
 	}
-
-
-
-
 }
