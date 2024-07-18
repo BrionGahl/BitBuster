@@ -13,6 +13,9 @@ public partial class Player : CharacterBody2D
 
 	[Export] 
 	private WeaponComponent _weaponComponent;
+
+	[Export] 
+	private HealthComponent _healthComponent;
 	
 	private float Speed
 	{
@@ -24,6 +27,7 @@ public partial class Player : CharacterBody2D
 
 	private Sprite2D _gun;
 	private AnimatedSprite2D _hull;
+	private AnimationPlayer _animationPlayer;
 
 	private Vector2 _movementDirection;
 	private float _rotationDirection;
@@ -36,6 +40,9 @@ public partial class Player : CharacterBody2D
 		
 		_gun = GetNode<Sprite2D>("Gun");
 		_hull = GetNode<AnimatedSprite2D>("Hull");
+		_animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+
+		_healthComponent.HealthChange += OnHealthChange;
 	}
 	
 	public override void _Process(double delta)
@@ -79,5 +86,13 @@ public partial class Player : CharacterBody2D
 	{;
 		_hull.Animation = IsIdle ? "default" : "moving";
 		_hull.Play();
+	}
+	
+	private void OnHealthChange(float value)
+	{
+		if (value < 0)
+			_animationPlayer.Play("effect_damage_blink", -1D, _statsComponent.ITime);
+		else
+			_animationPlayer.Play("effect_heal_blink", -1D);
 	}
 }

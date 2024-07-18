@@ -1,8 +1,7 @@
-using Godot;
-using System;
 using BitBuster.component;
-using BitBuster.entity.player;
-using BitBuster.utils;
+using Godot;
+
+namespace BitBuster.hud;
 
 public partial class BulletCounter : Control
 {
@@ -30,8 +29,4 @@ public partial class BulletCounter : Control
 		else
 			_counter.Size = new Vector2(trueCount * 4, 4);
 	}
-
-
-
-
 }

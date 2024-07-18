@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://det6gkgxg57mw"]
+[gd_scene load_steps=24 format=3 uid="uid://det6gkgxg57mw"]
 
 [ext_resource type="Shader" path="res://assets/shaders/hit_blink.gdshader" id="1_3o33y"]
 [ext_resource type="Script" path="res://src/entity/player/Player.cs" id="1_nju6n"]
@@ -92,6 +92,30 @@ tracks/1/keys = {
 "update": 0,
 "values": [0.0]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Gun:material:shader_parameter/flash_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0.188235, 0, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:material:shader_parameter/flash_color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0.188235, 0, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_0o8y6"]
 resource_name = "effect_damage_blink"
@@ -120,14 +144,90 @@ tracks/1/keys = {
 "update": 0,
 "values": [0.5, 0.0]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Gun:material:shader_parameter/flash_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0.188235, 0, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:material:shader_parameter/flash_color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0.188235, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_g4sgd"]
+resource_name = "effect_heal_blink"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Gun:material:shader_parameter/flash_modifier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.5, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Gun:material:shader_parameter/flash_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.239216, 0.933333, 0, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:material:shader_parameter/flash_modifier")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.5, 0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:material:shader_parameter/flash_color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.239216, 0.933333, 0, 1)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pq2ln"]
 _data = {
 "RESET": SubResource("Animation_w6a02"),
-"effect_damage_blink": SubResource("Animation_0o8y6")
+"effect_damage_blink": SubResource("Animation_0o8y6"),
+"effect_heal_blink": SubResource("Animation_g4sgd")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_statsComponent", "_weaponComponent") groups=["player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_statsComponent", "_weaponComponent", "_healthComponent") groups=["player"]]
 z_index = 1
 material = SubResource("ShaderMaterial_b5w6s")
 collision_layer = 2
@@ -136,6 +236,7 @@ motion_mode = 1
 script = ExtResource("1_nju6n")
 _statsComponent = NodePath("StatsComponent")
 _weaponComponent = NodePath("WeaponComponent")
+_healthComponent = NodePath("HealthComponent")
 
 [node name="Gun" type="Sprite2D" parent="."]
 top_level = true

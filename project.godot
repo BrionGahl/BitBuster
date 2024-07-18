@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="BitBuster"
-run/main_scene="res://scenes/main.tscn"
+run/main_scene="res://scenes/subscenes/menu/home_menu.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -22,6 +22,8 @@ Global="*res://src/world/Global.cs"
 
 [display]
 
+window/size/viewport_width=1024
+window/size/viewport_height=768
 window/stretch/mode="viewport"
 mouse_cursor/tooltip_position_offset=Vector2(0, 0)
 

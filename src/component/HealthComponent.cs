@@ -8,16 +8,14 @@ namespace BitBuster.component;
 public partial class HealthComponent : Node2D
 {
 	[Signal]
-	public delegate void HealthChangeEventHandler();
+	public delegate void HealthChangeEventHandler(float value);
 
 	[Signal]
 	public delegate void HealthIsZeroEventHandler();
 	
 	[Export]
 	public StatsComponent StatsComponent { get; set; }
-
-	private GpuParticles2D _particleDeath;
-
+	
 	public float MaxHealth
 	{
 		get => StatsComponent.MaxHealth;
@@ -31,7 +29,6 @@ public partial class HealthComponent : Node2D
 	}
 
 	private Timer _iFrameTimer;
-	private AnimationPlayer _parentAnimationPlayer;
 	
 	private bool _canBeHit = true;
 	
@@ -39,8 +36,6 @@ public partial class HealthComponent : Node2D
 	{
 		CurrentHealth = MaxHealth;
 		_iFrameTimer = GetNode<Timer>("IFrameTimer");
-		_parentAnimationPlayer = GetParent().GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
-
 		_iFrameTimer.Timeout += IFrameTimeout;
 	}
 
@@ -52,9 +47,6 @@ public partial class HealthComponent : Node2D
 		Logger.Log.Information(GetParent().Name + " taking " + attackData.Damage + " damage.");
 		_canBeHit = false;
 
-		if (_parentAnimationPlayer != null)
-			_parentAnimationPlayer.Play("effect_damage_blink", -1D, StatsComponent.ITime);
-		
 		CurrentHealth -= attackData.Damage;
 		
 		if (CurrentHealth <= 0)
@@ -63,7 +55,7 @@ public partial class HealthComponent : Node2D
 			EmitSignal(SignalName.HealthIsZero);
 		}
 	
-		EmitSignal(SignalName.HealthChange);
+		EmitSignal(SignalName.HealthChange, -attackData.Damage);
 		_iFrameTimer.Start(StatsComponent.ITime);
 	}
 
@@ -72,7 +64,7 @@ public partial class HealthComponent : Node2D
 		if (!_canBeHit)
 			return;
 		
-		Logger.Log.Information(this + " taking " + damage + " damage.");
+		Logger.Log.Information(GetParent().Name + " taking " + damage + " damage.");
 		
 		CurrentHealth -= damage;
 		
@@ -80,9 +72,10 @@ public partial class HealthComponent : Node2D
 		{
 			CurrentHealth = 0;
 			EmitSignal(SignalName.HealthIsZero);
+			return;
 		}
 	
-		EmitSignal(SignalName.HealthChange);
+		EmitSignal(SignalName.HealthChange, -damage);
 	}
 
 	
@@ -95,7 +88,7 @@ public partial class HealthComponent : Node2D
 			CurrentHealth = MaxHealth;
 		}
 	
-		EmitSignal(SignalName.HealthChange);
+		EmitSignal(SignalName.HealthChange, heal);
 	}
 
 	private void IFrameTimeout()

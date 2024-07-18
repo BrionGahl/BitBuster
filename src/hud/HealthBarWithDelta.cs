@@ -35,7 +35,7 @@ public partial class HealthBarWithDelta : ProgressBar
 		_timer.Start(0.125);
 	}
 	
-	private void OnHealthChange()
+	private void OnHealthChange(float value)
 	{
 		MaxValue = _playerHealthComponent.MaxHealth;
 		Value = _playerHealthComponent.CurrentHealth;

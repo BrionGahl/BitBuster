@@ -20,7 +20,7 @@ public partial class HealthBar : Control
 		_playerHealthComponent.HealthChange += OnHealthChange;
 	}
 
-	private void OnHealthChange()
+	private void OnHealthChange(float value)
 	{
 		_healthEmpty.Size = new Vector2(_playerHealthComponent.MaxHealth * 16, 16);
 		
