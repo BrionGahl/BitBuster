@@ -8,7 +8,7 @@ namespace BitBuster.component;
 public partial class HealthComponent : Node2D
 {
 	[Signal]
-	public delegate void HealthChangeEventHandler();
+	public delegate void HealthChangeEventHandler(float value);
 
 	[Signal]
 	public delegate void HealthIsZeroEventHandler();
@@ -55,7 +55,7 @@ public partial class HealthComponent : Node2D
 			EmitSignal(SignalName.HealthIsZero);
 		}
 	
-		EmitSignal(SignalName.HealthChange);
+		EmitSignal(SignalName.HealthChange, -attackData.Damage);
 		_iFrameTimer.Start(StatsComponent.ITime);
 	}
 
@@ -72,9 +72,10 @@ public partial class HealthComponent : Node2D
 		{
 			CurrentHealth = 0;
 			EmitSignal(SignalName.HealthIsZero);
+			return;
 		}
 	
-		EmitSignal(SignalName.HealthChange);
+		EmitSignal(SignalName.HealthChange, -damage);
 	}
 
 	
@@ -87,7 +88,7 @@ public partial class HealthComponent : Node2D
 			CurrentHealth = MaxHealth;
 		}
 	
-		EmitSignal(SignalName.HealthChange);
+		EmitSignal(SignalName.HealthChange, heal);
 	}
 
 	private void IFrameTimeout()

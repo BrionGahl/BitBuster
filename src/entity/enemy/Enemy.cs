@@ -61,7 +61,7 @@ public abstract partial class Enemy: CharacterBody2D
 
          DeathAnimationTimer.Timeout += OnDeathAnimationTimeout;
          HealthComponent.HealthIsZero += OnHealthIsZero;
-         HealthComponent.HealthChange += OnDamageTaken;
+         HealthComponent.HealthChange += OnHealthChange;
      }
 
     public bool CanSeePlayer(int bounces = 0)
@@ -76,7 +76,7 @@ public abstract partial class Enemy: CharacterBody2D
         return results["rid"].AsRid() == Player.GetRid();
     }
 
-    private void OnDamageTaken()
+    private void OnHealthChange(float value)
     {
         AnimationPlayer.Play("effect_damage_blink", -1D, StatsComponent.ITime);
     }

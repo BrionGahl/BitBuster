@@ -42,7 +42,7 @@ public partial class Player : CharacterBody2D
 		_hull = GetNode<AnimatedSprite2D>("Hull");
 		_animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 
-		_healthComponent.HealthChange += OnDamageTaken;
+		_healthComponent.HealthChange += OnHealthChange;
 	}
 	
 	public override void _Process(double delta)
@@ -88,8 +88,11 @@ public partial class Player : CharacterBody2D
 		_hull.Play();
 	}
 	
-	private void OnDamageTaken()
+	private void OnHealthChange(float value)
 	{
-		_animationPlayer.Play("effect_damage_blink", -1D, _statsComponent.ITime);
+		if (value < 0)
+			_animationPlayer.Play("effect_damage_blink", -1D, _statsComponent.ITime);
+		else
+			_animationPlayer.Play("effect_heal_blink", -1D);
 	}
 }
