@@ -68,7 +68,7 @@ public partial class Panzer : MovingEnemy
 	{
 		if (_hasDied)
 		{
-			if (WeaponComponent.GetChildCount() <= 2 && _animationFinished)
+			if (WeaponComponent.GetChildCount() <= 3 && _animationFinished)
 			{
 				Logger.Log.Information(Name + " freed.");
 				QueueFree();
@@ -78,7 +78,7 @@ public partial class Panzer : MovingEnemy
 		
 		SetGunRotationAndPosition(Mathf.Pi/12);
 		if (CanSeePlayer() && RandomNumberGenerator.Randf() > 0.3f)
-			WeaponComponent.AttemptShoot(Player.Position.AngleToPoint(Position) + RandomNumberGenerator.RandfRange(-Mathf.Pi / 9, Mathf.Pi / 9));
+			WeaponComponent.AttemptShoot(Player.Position.AngleToPoint(Position));
 	}
 
 	public override void MoveAction(double delta)

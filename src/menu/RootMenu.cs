@@ -1,3 +1,4 @@
+using BitBuster.utils;
 using Godot;
 using Godot.Collections;
 
@@ -65,15 +66,19 @@ public partial class RootMenu : Control
 		_creditReturnButton.Pressed += MoveToMainMenu;
 
 		_mainGamePackedScene = ResourceLoader.Load<PackedScene>("res://scenes/subscenes/world/world.tscn");
+		
+		Logger.Log.Information("RootMenu is Ready!");
 	}
 
 	private void StartGame()
 	{
+		Logger.Log.Information("Moving to Game and Level Generation...");
 		GetTree().ChangeSceneToPacked(_mainGamePackedScene);
 	}
 	
 	private void QuitGame()
 	{
+		Logger.Log.Information("Closing Game...");
 		GetTree().Quit();
 	}
 	

@@ -1,10 +1,40 @@
-[gd_scene load_steps=5 format=3 uid="uid://t7jiw2i3paak"]
+[gd_scene load_steps=11 format=3 uid="uid://t7jiw2i3paak"]
 
 [ext_resource type="Script" path="res://src/tiles/Door.cs" id="1_fxrn5"]
 [ext_resource type="Texture2D" uid="uid://d0xyx13qi14hs" path="res://assets/tiles/door.png" id="2_vw0rc"]
+[ext_resource type="Shader" path="res://assets/shaders/rainbow_gradient.gdshader" id="3_vhqev"]
+[ext_resource type="Texture2D" uid="uid://cokfni522151l" path="res://assets/tiles/door_shut.png" id="4_h5coi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ajxog"]
 size = Vector2(3, 32)
+
+[sub_resource type="Gradient" id="Gradient_u0vee"]
+offsets = PackedFloat32Array(0, 0.662207, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 0.462745, 1, 1, 1, 0.462745, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ffker"]
+gradient = SubResource("Gradient_u0vee")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nq0yd"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(6, 14, 1)
+angle_max = 360.0
+spread = 15.0
+initial_velocity_min = 20.0
+initial_velocity_max = 20.0
+gravity = Vector3(0, 0, 0)
+damping_min = 5.0
+damping_max = 12.0
+scale_min = 0.2
+scale_max = 2.0
+color_ramp = SubResource("GradientTexture1D_ffker")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s3dv3"]
+shader = ExtResource("3_vhqev")
+shader_parameter/strength = 0.5
+shader_parameter/speed = 0.5
+shader_parameter/angle = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3seb1"]
 size = Vector2(16, 32)
@@ -18,7 +48,12 @@ script = ExtResource("1_fxrn5")
 position = Vector2(1.5, 16)
 shape = SubResource("RectangleShape2D_ajxog")
 
-[node name="DoorOpen" type="Sprite2D" parent="."]
+[node name="OpenDoorEmitter" type="GPUParticles2D" parent="."]
+position = Vector2(8, 16)
+amount = 12
+process_material = SubResource("ParticleProcessMaterial_nq0yd")
+
+[node name="DoorFrame" type="Sprite2D" parent="."]
 texture_filter = 1
 position = Vector2(8, 16)
 texture = ExtResource("2_vw0rc")
@@ -26,10 +61,18 @@ texture = ExtResource("2_vw0rc")
 [node name="Destination" type="Marker2D" parent="."]
 position = Vector2(8, 16)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="DoorClosed" type="Sprite2D" parent="."]
+visible = false
+z_index = -1
+texture_filter = 1
+material = SubResource("ShaderMaterial_s3dv3")
+position = Vector2(8, 16)
+texture = ExtResource("4_h5coi")
+
+[node name="EntityBlockingBody" type="StaticBody2D" parent="."]
 collision_layer = 32
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EntityBlockingBody"]
 position = Vector2(8, 16)
 shape = SubResource("RectangleShape2D_3seb1")

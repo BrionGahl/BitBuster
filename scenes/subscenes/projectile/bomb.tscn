@@ -43,6 +43,7 @@ scale_curve = SubResource("CurveTexture_huy24")
 color_ramp = SubResource("GradientTexture1D_knl6g")
 
 [node name="Bomb" type="StaticBody2D"]
+top_level = true
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_wlod3")

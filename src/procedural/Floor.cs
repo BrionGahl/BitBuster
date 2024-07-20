@@ -270,11 +270,13 @@ public partial class Floor : Node2D
 		
 		for (int i = 0; i < data.TileMap.Count; i++)
 		{
+			// If a tile has a direction vector tied to it, it must be a type of door.
 			if (adjacentRooms.Contains(data.TileMap[i].Direction))
 			{
 				Door door = _doorScene.Instantiate<Area2D>() as Door;
 				door.SetDoorInfo(((Vector2)data.TileMap[i].Direction).Angle() + Mathf.Pi, data.TileMap[i].Offset * _rooms.CellSize + worldOffset, data.TileMap[i].Direction * 32);
 				_levelRegion.AddChild(door);
+				door.FinalizeDoor();
 				continue; // dont put a tile here
 			}
 				

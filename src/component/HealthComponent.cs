@@ -36,7 +36,7 @@ public partial class HealthComponent : Node2D
 	{
 		CurrentHealth = MaxHealth;
 		_iFrameTimer = GetNode<Timer>("IFrameTimer");
-		_iFrameTimer.Timeout += IFrameTimeout;
+		_iFrameTimer.Timeout += OnIFrameTimeout;
 	}
 
 	public void Damage(AttackData attackData)
@@ -91,7 +91,7 @@ public partial class HealthComponent : Node2D
 		EmitSignal(SignalName.HealthChange, heal);
 	}
 
-	private void IFrameTimeout()
+	private void OnIFrameTimeout()
 	{
 		_canBeHit = true;
 	}

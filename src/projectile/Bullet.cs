@@ -132,7 +132,6 @@ public partial class Bullet : CharacterBody2D
 	
 	private void OnDeathAnimationTimeout()
 	{
-		Logger.Log.Information("Freeing bullet...");
 		QueueFree();
 	}
 }
