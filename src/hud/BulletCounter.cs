@@ -22,7 +22,7 @@ public partial class BulletCounter : Control
 
 	private void OnBulletCountChange(int count)
 	{
-		int trueCount = _playerWeapon.BulletCount + 2 - count;
+		int trueCount = _playerWeapon.BulletCount + _playerWeapon.BaseChildComponents - count;
 		_counter.Visible = true;
 		if (trueCount == 0)
 			_counter.Visible = false;

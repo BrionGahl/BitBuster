@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://t7jiw2i3paak"]
+[gd_scene load_steps=6 format=3 uid="uid://t7jiw2i3paak"]
 
 [ext_resource type="Script" path="res://src/tiles/Door.cs" id="1_fxrn5"]
 [ext_resource type="Texture2D" uid="uid://d0xyx13qi14hs" path="res://assets/tiles/door.png" id="2_vw0rc"]
+[ext_resource type="Texture2D" uid="uid://cokfni522151l" path="res://assets/tiles/door_shut.png" id="4_h5coi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ajxog"]
 size = Vector2(3, 32)
@@ -18,7 +19,7 @@ script = ExtResource("1_fxrn5")
 position = Vector2(1.5, 16)
 shape = SubResource("RectangleShape2D_ajxog")
 
-[node name="DoorOpen" type="Sprite2D" parent="."]
+[node name="DoorFrame" type="Sprite2D" parent="."]
 texture_filter = 1
 position = Vector2(8, 16)
 texture = ExtResource("2_vw0rc")
@@ -26,10 +27,18 @@ texture = ExtResource("2_vw0rc")
 [node name="Destination" type="Marker2D" parent="."]
 position = Vector2(8, 16)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="DoorClosed" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 0.0588235, 0, 1)
+z_index = -1
+texture_filter = 1
+position = Vector2(8, 16)
+texture = ExtResource("4_h5coi")
+
+[node name="EntityBlockingBody" type="StaticBody2D" parent="."]
 collision_layer = 32
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EntityBlockingBody"]
 position = Vector2(8, 16)
 shape = SubResource("RectangleShape2D_3seb1")

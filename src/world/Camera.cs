@@ -20,5 +20,4 @@ public partial class Camera : Camera2D
 		Logger.Log.Information("Moving camera to global position: " + position);
 		GlobalPosition = position;
 	}
-
 }

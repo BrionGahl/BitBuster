@@ -20,6 +20,7 @@ public partial class WeaponComponent : Node2D
 	
 	public Timer ShootTimer { get; private set; }
 	public Timer BombTimer { get; private set; }
+	public Node2D Bombs { get; private set; }
 	
 	public int BulletCount
 	{
@@ -35,6 +36,7 @@ public partial class WeaponComponent : Node2D
 	
 	public bool CanShoot { get; private set; }
 	public bool CanBomb { get; private set; }
+	public int BaseChildComponents { get; private set; }
 	
 	private PackedScene _bullet;
 	private PackedScene _bomb;
@@ -43,12 +45,14 @@ public partial class WeaponComponent : Node2D
 	{
 		_bullet = GD.Load<PackedScene>("res://scenes/subscenes/projectile/bullet.tscn");
 		_bomb = GD.Load<PackedScene>("res://scenes/subscenes/projectile/bomb.tscn");
-		
+
+		Bombs = GetNode<Node2D>("Bombs");
 		ShootTimer = GetNode<Timer>("ShootTimer");
 		BombTimer = GetNode<Timer>("BombTimer");
 
 		CanShoot = true;
 		CanBomb = true;
+		BaseChildComponents = GetChildCount();
 		
 		ShootTimer.Timeout += OnShootTimeout;
 		BombTimer.Timeout += OnBombTimeout;
@@ -62,9 +66,9 @@ public partial class WeaponComponent : Node2D
 		switch (StatsComponent.ProjectileWeaponType)
 		{
 			case (WeaponType.Normal):
-				if (CanShoot && BulletCount + 2 - GetChildCount() > 0)
+				if (CanShoot && BulletCount + BaseChildComponents - GetChildCount() > 0)
 				{
-					Logger.Log.Information("Shooting... " + (BulletCount + 2 - GetChildCount()) + "/" + BulletCount + ".");
+					Logger.Log.Information("Shooting... " + (BulletCount + 3 - GetChildCount()) + "/" + BulletCount + ".");
 			
 					Shoot(rotation);
 					
@@ -74,7 +78,7 @@ public partial class WeaponComponent : Node2D
 				}
 				break;
 			case (WeaponType.Tri):
-				if (CanShoot && BulletCount + 2 - GetChildCount() > 2)
+				if (CanShoot && BulletCount + BaseChildComponents - GetChildCount() > BaseChildComponents)
 				{
 					Logger.Log.Information("Shooting... " + (BulletCount + 2 - GetChildCount()) + "/" + BulletCount + ".");
 			
@@ -115,7 +119,7 @@ public partial class WeaponComponent : Node2D
 		Bomb bomb = _bomb.Instantiate<StaticBody2D>() as Bomb;
 		bomb.SetPosition(GetParent<Node2D>().GlobalPosition, StatsComponent.GetBombAttackData());
 		BombCount--;
-		GetNode("/root").AddChild(bomb);
+		Bombs.AddChild(bomb);
 	}
 
 	private void OnShootTimeout()

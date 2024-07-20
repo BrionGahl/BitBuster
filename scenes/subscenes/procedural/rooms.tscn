@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://src/procedural/Rooms.cs" id="1_lawn4"]
 [ext_resource type="TileSet" uid="uid://dgja5h4hys5wf" path="res://assets/tiles/tilemap.tres" id="2_bvjgm"]
 [ext_resource type="PackedScene" uid="uid://det6gkgxg57mw" path="res://scenes/subscenes/entity/player/player.tscn" id="2_pa2gp"]
-[ext_resource type="PackedScene" uid="uid://lvawwpbpty0i" path="res://scenes/subscenes/tiles/player_detector.tscn" id="4_5l8sk"]
+[ext_resource type="PackedScene" uid="uid://lvawwpbpty0i" path="res://scenes/subscenes/tiles/entity_detector.tscn" id="4_5l8sk"]
 [ext_resource type="Shader" path="res://assets/shaders/hit_blink.gdshader" id="6_3x3u3"]
 [ext_resource type="PackedScene" uid="uid://bhljrlptytonc" path="res://scenes/subscenes/entity/enemy/tower.tscn" id="6_s61rk"]
 [ext_resource type="PackedScene" uid="uid://bljqgl2ytnjup" path="res://scenes/subscenes/tiles/breakable_wall.tscn" id="7_s2n8b"]

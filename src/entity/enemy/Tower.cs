@@ -56,7 +56,7 @@ public partial class Tower : Enemy
 	{
 		if (_hasDied)
 		{
-			if (WeaponComponent.GetChildCount() <= 2 && _animationFinished)
+			if (WeaponComponent.GetChildCount() <= 3 && _animationFinished)
 			{
 				Logger.Log.Information(Name + " freed.");
 				QueueFree();
