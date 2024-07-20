@@ -47,6 +47,8 @@ public partial class StatsComponent : Node2D
 	public EffectType ProjectileDamageType { get; set; }
 	[Export]
 	public WeaponType ProjectileWeaponType { get; set; }
+	[Export]
+	public float ProjectileAccuracy { get; set; }
 
 	[Export]
 	public float BombDamage { get; set; }

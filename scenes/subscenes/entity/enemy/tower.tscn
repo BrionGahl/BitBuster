@@ -148,6 +148,7 @@ ProjectileCooldown = 1.5
 ProjectileBounces = 2
 ProjectileSpeed = 150.0
 ProjectileSizeScalar = Vector2(1, 1)
+ProjectileAccuracy = 0.34
 ITime = 0.2
 
 [node name="WeaponComponent" parent="." node_paths=PackedStringArray("StatsComponent") instance=ExtResource("6_ws2ev")]

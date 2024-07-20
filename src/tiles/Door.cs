@@ -24,6 +24,7 @@ public partial class Door : Area2D
 	private Sprite2D _doorClosed;
 	private StaticBody2D _entityBlockingBody;
 	private CollisionShape2D _collisionShape;
+	private GpuParticles2D _openDoorEmitter;
 	private Marker2D _destination;
 	
 	public override void _Notification(int what)
@@ -34,6 +35,7 @@ public partial class Door : Area2D
 		_collisionShape = GetNode<CollisionShape2D>("CollisionShape2D");
 		_doorFrame = GetNode<Sprite2D>("DoorFrame");
 		_doorClosed = GetNode<Sprite2D>("DoorClosed");
+		_openDoorEmitter = GetNode<GpuParticles2D>("OpenDoorEmitter");
 		_entityBlockingBody = GetNode<StaticBody2D>("EntityBlockingBody");
 		_destination = GetNode<Marker2D>("Destination");
 		
@@ -85,6 +87,7 @@ public partial class Door : Area2D
 	private void OnToggleDoors(bool isOpen)
 	{
 		_doorClosed.Visible = !isOpen;
+		_openDoorEmitter.Emitting = isOpen;
 		_entityBlockingBody.SetCollisionLayerValue((int)BBCollisionLayer.World, !isOpen);;
 	}
 }

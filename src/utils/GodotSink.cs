@@ -74,7 +74,7 @@ public class GodotSink : ILogEventSink
                     OutputProperties.MessagePropertyName
                         => (logEvent, output) => logEvent.RenderMessage(output, formatProvider),
                     OutputProperties.NewLinePropertyName
-                        => (_, output) => output.Write('\n'),
+                        => (_, output) => output.Write(' '),
                     OutputProperties.TimestampPropertyName
                         => RenderTimestamp(propertyToken.Format),
                     _

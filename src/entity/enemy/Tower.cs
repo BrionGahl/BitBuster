@@ -67,7 +67,7 @@ public partial class Tower : Enemy
 		SetGunRotationAndPosition(Mathf.Pi/12);
 		
 		if (CanSeePlayer() && RandomNumberGenerator.Randf() > 0.3f)
-			WeaponComponent.AttemptShoot(Player.Position.AngleToPoint(Position) + RandomNumberGenerator.RandfRange(-Mathf.Pi / 9, Mathf.Pi / 9));
+			WeaponComponent.AttemptShoot(Player.Position.AngleToPoint(Position));
 	}
 	
 	public override void HandleAnimations()

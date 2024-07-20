@@ -40,6 +40,8 @@ public partial class WeaponComponent : Node2D
 	
 	private PackedScene _bullet;
 	private PackedScene _bomb;
+
+	private RandomNumberGenerator _random;
 	
 	public override void _Ready()
 	{
@@ -53,6 +55,8 @@ public partial class WeaponComponent : Node2D
 		CanShoot = true;
 		CanBomb = true;
 		BaseChildComponents = GetChildCount();
+
+		_random = new RandomNumberGenerator();
 		
 		ShootTimer.Timeout += OnShootTimeout;
 		BombTimer.Timeout += OnBombTimeout;
@@ -70,7 +74,7 @@ public partial class WeaponComponent : Node2D
 				{
 					Logger.Log.Information("Shooting... " + (BulletCount + 3 - GetChildCount()) + "/" + BulletCount + ".");
 			
-					Shoot(rotation);
+					Shoot(rotation + _random.RandfRange(-StatsComponent.ProjectileAccuracy, StatsComponent.ProjectileAccuracy));
 					
 					StatsComponent.Speed /= 2;
 					CanShoot = false;
