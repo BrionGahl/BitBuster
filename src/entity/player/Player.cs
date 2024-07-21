@@ -91,7 +91,7 @@ public partial class Player : CharacterBody2D
 	private void OnHealthChange(float value)
 	{
 		if (value < 0)
-			_animationPlayer.Play("effect_damage_blink", -1D, _statsComponent.ITime);
+			_animationPlayer.Play("effect_damage_blink", -1D, _statsComponent.ITime / 0.2f);
 		else
 			_animationPlayer.Play("effect_heal_blink", -1D);
 	}

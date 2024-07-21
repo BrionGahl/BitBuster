@@ -269,7 +269,6 @@ ProjectileCooldown = 0.33
 ProjectileBounces = 1
 ProjectileSpeed = 100.0
 ProjectileSizeScalar = Vector2(1, 1)
-ProjectileAccuracy = 0.17
 BombDamage = 1.0
 Speed = 75.0
 ITime = 0.2
