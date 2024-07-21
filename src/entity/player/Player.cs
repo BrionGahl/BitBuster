@@ -1,8 +1,6 @@
-using System;
 using BitBuster.component;
 using BitBuster.utils;
 using Godot;
-using Serilog;
 
 namespace BitBuster.entity.player;
 

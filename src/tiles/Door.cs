@@ -79,7 +79,7 @@ public partial class Door : Area2D
 		if (!body.IsInGroup("player"))
 			return; 
 		
-		Logger.Log.Information("body entered: {@Type}", Type);
+		Logger.Log.Information("body entered: {@type}", Type);
 
 		body.GlobalPosition = _destination.GlobalPosition + Offset;
 	}
