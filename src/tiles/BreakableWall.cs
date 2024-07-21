@@ -13,8 +13,9 @@ public partial class BreakableWall : StaticBody2D
 	
 	public override void _Ready()
 	{
-		_navRegion = GetNode<NavigationRegion2D>("/root/Floor/Level/NavRegion");
-		_tileMap = GetNode<TileMap>("/root/Floor/Level/NavRegion/TileMapMain");
+		// TODO: there should be a better way to deal with this...
+		_navRegion = GetNode<NavigationRegion2D>("/root/World/Level/NavRegion");
+		_tileMap = GetNode<TileMap>("/root/World/Level/NavRegion/TileMapMain");
 		_shatterEmitter = GetNode<GpuParticles2D>("ShatterEmitter");
 		_animationTimer = GetNode<Timer>("AnimationTimer");
 

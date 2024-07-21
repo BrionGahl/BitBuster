@@ -1,0 +1,96 @@
+[gd_scene load_steps=11 format=3 uid="uid://cdcjttks8vxna"]
+
+[ext_resource type="Texture2D" uid="uid://bh3b6e0uawv1" path="res://assets/hud/minimap/minimap_bg.png" id="1_f05oe"]
+[ext_resource type="Script" path="res://src/hud/Minimap.cs" id="2_pxnfo"]
+[ext_resource type="Texture2D" uid="uid://cada6kwp64owm" path="res://assets/hud/minimap/room_current.png" id="3_p847x"]
+[ext_resource type="Texture2D" uid="uid://cd2jbjjhlt5rs" path="res://assets/hud/minimap/room_empty.png" id="4_c1yc5"]
+[ext_resource type="Texture2D" uid="uid://cxittp2i3iiua" path="res://assets/hud/minimap/room_boss.png" id="5_uko4v"]
+[ext_resource type="Texture2D" uid="uid://g7q7wx5bk65o" path="res://assets/hud/minimap/room_upgrade.png" id="6_v4x1q"]
+[ext_resource type="Texture2D" uid="uid://b1vqqtvg2bamy" path="res://assets/hud/minimap/room_store.png" id="7_pv7r6"]
+[ext_resource type="Texture2D" uid="uid://bdgyobggc5e47" path="res://assets/hud/minimap/room_horizontal.png" id="8_gb3a8"]
+[ext_resource type="Texture2D" uid="uid://cs6radcjfng33" path="res://assets/hud/minimap/room_vertical.png" id="9_4sbcr"]
+[ext_resource type="Texture2D" uid="uid://wo20tkpwfcjk" path="res://assets/hud/minimap/room_unknown.png" id="10_bshld"]
+
+[node name="Minimap" type="TextureRect"]
+texture_filter = 1
+texture = ExtResource("1_f05oe")
+script = ExtResource("2_pxnfo")
+
+[node name="RoomsOnFloor" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CurrentPos" type="TextureRect" parent="RoomsOnFloor" groups=["current_position"]]
+z_index = 1
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+texture = ExtResource("3_p847x")
+
+[node name="RoomChoices" type="Control" parent="."]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="None" type="TextureRect" parent="RoomChoices"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Normal" type="TextureRect" parent="RoomChoices"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+texture = ExtResource("4_c1yc5")
+
+[node name="Start" type="TextureRect" parent="RoomChoices"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+texture = ExtResource("4_c1yc5")
+
+[node name="Boss" type="TextureRect" parent="RoomChoices"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+texture = ExtResource("5_uko4v")
+
+[node name="Treasure" type="TextureRect" parent="RoomChoices"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+texture = ExtResource("6_v4x1q")
+
+[node name="Secret" type="TextureRect" parent="RoomChoices"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Store" type="TextureRect" parent="RoomChoices"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+texture = ExtResource("7_pv7r6")
+
+[node name="LR_Normal" type="TextureRect" parent="RoomChoices"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+texture = ExtResource("8_gb3a8")
+
+[node name="TB_Normal" type="TextureRect" parent="RoomChoices"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+texture = ExtResource("9_4sbcr")
+
+[node name="Unknown" type="TextureRect" parent="RoomChoices"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+texture = ExtResource("10_bshld")
