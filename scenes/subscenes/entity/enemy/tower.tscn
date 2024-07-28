@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bhljrlptytonc"]
+[gd_scene load_steps=21 format=3 uid="uid://bhljrlptytonc"]
 
 [ext_resource type="Shader" path="res://assets/shaders/hit_blink.gdshader" id="1_14v67"]
 [ext_resource type="Texture2D" uid="uid://b75exrlheupv8" path="res://assets/enemy/enemy_gun.png" id="1_hcbxy"]
@@ -92,11 +92,14 @@ _data = {
 "effect_damage_blink": SubResource("Animation_5rh1h")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2db8v"]
+size = Vector2(12, 12)
+
 [node name="Tower" type="CharacterBody2D" groups=["enemy"]]
 z_index = 1
 material = SubResource("ShaderMaterial_kl216")
 collision_layer = 4
-collision_mask = 15
+collision_mask = 111
 motion_mode = 1
 script = ExtResource("1_rk63p")
 
@@ -145,8 +148,8 @@ CurrentHealth = 3.0
 ProjectileDamage = 1.0
 ProjectileCount = 3
 ProjectileCooldown = 1.5
-ProjectileBounces = 2
-ProjectileSpeed = 150.0
+ProjectileBounces = 1
+ProjectileSpeed = 100.0
 ProjectileSizeScalar = Vector2(1, 1)
 ProjectileAccuracy = 0.34
 ITime = 0.2
@@ -164,3 +167,11 @@ one_shot = true
 libraries = {
 "": SubResource("AnimationLibrary_u101d")
 }
+
+[node name="NoEntityPass" type="StaticBody2D" parent="."]
+scale = Vector2(0.983693, 1)
+collision_layer = 64
+collision_mask = 46
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NoEntityPass"]
+shape = SubResource("RectangleShape2D_2db8v")

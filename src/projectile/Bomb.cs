@@ -70,6 +70,7 @@ public partial class Bomb : StaticBody2D
 			{
 				if (body is BreakableWall)
 				{
+					Logger.Log.Information("HIIIIIITTT");
 					BreakableWall wall = body as BreakableWall;
 					wall.Break();
 				}

@@ -1,6 +1,7 @@
 using BitBuster.component;
 using BitBuster.utils;
 using Godot;
+using Serilog;
 
 namespace BitBuster.entity.player;
 
@@ -27,8 +28,15 @@ public partial class Player : CharacterBody2D
 	private AnimatedSprite2D _hull;
 	private AnimationPlayer _animationPlayer;
 
+	// OLD MOVEMENT
+	// private Vector2 _movementDirection;
+	// private float _rotationDirection;
+	
+	// NEW MOVEMENT
 	private Vector2 _movementDirection;
-	private float _rotationDirection;
+	private float _rotationGoal;
+	private int _movementScalar;
+	
 	private bool _hasShot;
 	private bool _hasBombed;
 	
@@ -54,22 +62,37 @@ public partial class Player : CharacterBody2D
 		if (_hasBombed)
 			_weaponComponent.AttemptBomb();
 		
-		if (!IsIdle)
-			Rotation += _rotationDirection * RotationSpeed * (float)delta;
+		HandleRotation();
+		
+		// OLD MOVEMENT
+		// if (!IsIdle)
+		// 	Rotation += _rotationDirection * RotationSpeed * (float)delta;
+		
 		
 		HandleAnimations();
 	}
 	
 	public override void _PhysicsProcess(double delta)
 	{
-		Velocity = _movementDirection * Speed;
+		// OLD MOVEMENT
+		// Velocity = _movementDirection * Speed;
+		
+		Velocity = _movementDirection.Normalized() * _movementScalar * Speed;
+		
 		MoveAndSlide();
 	}
 	
 	private void GetInput() 
 	{
-		_rotationDirection = Input.GetAxis("left", "right");
-		_movementDirection = Transform.X * Input.GetAxis("down", "up");
+		// OLD MOVEMENT
+		// _rotationDirection = Input.GetAxis("left", "right");
+		// _movementDirection = Transform.X * Input.GetAxis("down", "up");
+
+		// NEW MOVEMENT
+		_movementDirection = new Vector2(
+			Input.GetAxis("left", "right"), 
+			Input.GetAxis("up", "down"));
+
 		_hasShot = Input.IsActionPressed("shoot");
 		_hasBombed = Input.IsActionJustPressed("bomb");
 	}
@@ -81,9 +104,36 @@ public partial class Player : CharacterBody2D
 	}
 
 	private void HandleAnimations()
-	{;
+	{
 		_hull.Animation = IsIdle ? "default" : "moving";
 		_hull.Play();
+	}
+
+	// NEW MOVEMENT
+	private void HandleRotation()
+	{
+		if (_movementDirection == Vector2.Zero)
+			return;
+
+
+		Vector2 rotationVector = Vector2.FromAngle(Rotation).Normalized();
+		
+		if (rotationVector.DistanceTo(-_movementDirection.Normalized()) < 0.1f)
+		{
+			_movementScalar = 1;
+			_rotationGoal -= 2 * Mathf.Pi;
+		} else if (rotationVector.DistanceTo(_movementDirection.Normalized()) > 1.15f)
+		{
+			_movementScalar = 0;
+			_rotationGoal = _movementDirection.Angle();
+		}
+		else
+		{ 
+			_movementScalar = 1;
+			_rotationGoal = _movementDirection.Angle();
+		}
+		
+		Rotation = Mathf.LerpAngle(rotationVector.Angle(), _rotationGoal, 0.05f);
 	}
 	
 	private void OnHealthChange(float value)

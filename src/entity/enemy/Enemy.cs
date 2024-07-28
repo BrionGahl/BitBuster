@@ -78,9 +78,6 @@ public abstract partial class Enemy: CharacterBody2D
 
 	private void OnHealthChange(float value)
 	{
-		// 0.2 is the default
-		// 0.2 * what = new speed.
-		
 		AnimationPlayer.Play("effect_damage_blink", -1D, StatsComponent.ITime / 0.2f);
 	}
 	

@@ -17,7 +17,7 @@ width = 2.0
 width_curve = null
 gradient = SubResource("Gradient_bts43")
 antialiased = true
-TrailLength = 3000
+TrailLength = 100
 
 [node name="RightTrackStart" type="Marker2D" parent="."]
 position = Vector2(-5, 6)
@@ -28,4 +28,4 @@ width = 2.0
 width_curve = null
 gradient = SubResource("Gradient_bts43")
 antialiased = true
-TrailLength = 3000
+TrailLength = 100

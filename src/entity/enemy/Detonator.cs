@@ -132,5 +132,6 @@ public partial class Detonator : MovingEnemy
 	private void OnMapReady(Rid rid)
 	{
 		SetPhysicsProcess(true);
+		AgentTimer.Start();
 	}
 }
