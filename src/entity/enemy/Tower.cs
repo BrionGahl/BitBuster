@@ -3,25 +3,25 @@ using Godot;
 
 namespace BitBuster.entity.enemy;
 
-public partial class Tower : Enemy
+public partial class Tower : IdleEnemy
 {
 	
 	private Sprite2D _gun;
 	private Sprite2D _body;
 	private CollisionShape2D _collider;
 	private GpuParticles2D _particleDeath;
-
+	
 	private bool _hasDied;
 	private bool _animationFinished;
 
 	public override void _Ready()
 	{
 		base._Ready();
-		
 		_collider = GetNode<CollisionShape2D>("Collider");
 		_gun = GetNode<Sprite2D>("Gun");
 		_body = GetNode<Sprite2D>("Body");
 		_particleDeath = GetNode<GpuParticles2D>("ParticleDeath");
+		
 	}
 	
 	public override void SetGunRotationAndPosition(float radian = 0)
@@ -40,9 +40,11 @@ public partial class Tower : Enemy
 		_collider.SetDeferred("disabled", true);
 		HitboxComponent.SetDeferred("monitorable", false);
 		HitboxComponent.SetDeferred("monitoring", false);
+	
+		CleanAndRebake();
 
 		_particleDeath.Emitting = true;
-
+		
 		DeathAnimationTimer.Start();
 		_hasDied = true;
 	}

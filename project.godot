@@ -25,7 +25,8 @@ Global="*res://src/world/Global.cs"
 window/size/viewport_width=1024
 window/size/viewport_height=768
 window/stretch/mode="viewport"
-mouse_cursor/tooltip_position_offset=Vector2(0, 0)
+mouse_cursor/custom_image="res://assets/cursor/cursor.png"
+mouse_cursor/custom_image_hotspot=Vector2(16, 16)
 
 [dotnet]
 
@@ -94,6 +95,7 @@ bomb={
 2d_physics/layer_4="Items"
 2d_physics/layer_5="Projectiles"
 2d_physics/layer_6="EnemyNoPass"
+2d_physics/layer_7="EntityNoPass"
 
 [navigation]
 

@@ -7,5 +7,7 @@ public enum BBCollisionLayer
     Enemy = 3,
     Item = 4,
     Projectile = 5,
-    EnemyNoPass = 6
+    EnemyNoPass = 6,
+    EntityNoPass = 7,
+    BreakableWalls = 8
 }

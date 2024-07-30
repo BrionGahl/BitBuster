@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://c5uf74rr7eydj"]
+[gd_scene load_steps=12 format=3 uid="uid://c5uf74rr7eydj"]
 
 [ext_resource type="Script" path="res://src/procedural/World.cs" id="1_stp2f"]
 [ext_resource type="Script" path="res://src/procedural/Level.cs" id="2_ee4vf"]
 [ext_resource type="PackedScene" uid="uid://det6gkgxg57mw" path="res://scenes/subscenes/entity/player/player.tscn" id="3_4o6h7"]
 [ext_resource type="Shader" path="res://assets/shaders/hit_blink.gdshader" id="4_r6231"]
 [ext_resource type="TileSet" uid="uid://dgja5h4hys5wf" path="res://assets/tiles/tilemap.tres" id="5_syvcy"]
+[ext_resource type="TileSet" uid="uid://bfaj0cnqhpbw2" path="res://assets/tiles/tilemap-semi.tres" id="6_ntbeu"]
 [ext_resource type="Script" path="res://src/world/Camera.cs" id="6_wmu15"]
 [ext_resource type="Texture2D" uid="uid://bhk5nrlkp2n1n" path="res://assets/etc/camera_border.png" id="7_6vqql"]
 [ext_resource type="PackedScene" uid="uid://n3uhl8voulr4" path="res://scenes/subscenes/hud/hud.tscn" id="8_wjixc"]
@@ -15,7 +16,7 @@ shader = ExtResource("4_r6231")
 shader_parameter/flash_color = Color(1, 0.188235, 0, 1)
 shader_parameter/flash_modifier = 0.0
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_jbxdc"]
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_uf5lg"]
 source_geometry_group_name = &"navigation_polygon_source_group"
 
 [node name="World" type="Node2D"]
@@ -29,13 +30,21 @@ material = SubResource("ShaderMaterial_qf65b")
 position = Vector2(1440, 1120)
 
 [node name="NavRegion" type="NavigationRegion2D" parent="Level"]
-navigation_polygon = SubResource("NavigationPolygon_jbxdc")
-use_edge_connections = false
+navigation_polygon = SubResource("NavigationPolygon_uf5lg")
 
 [node name="TileMapMain" type="TileMap" parent="Level/NavRegion"]
 texture_filter = 1
 tile_set = ExtResource("5_syvcy")
 format = 2
+
+[node name="TileMapSemi" type="TileMap" parent="Level/NavRegion"]
+texture_filter = 1
+tile_set = ExtResource("6_ntbeu")
+format = 2
+
+[node name="Bakeable" type="Node2D" parent="Level/NavRegion"]
+
+[node name="Extra" type="Node2D" parent="Level/NavRegion"]
 
 [node name="Camera" type="Camera2D" parent="Level"]
 position = Vector2(1440, 1120)

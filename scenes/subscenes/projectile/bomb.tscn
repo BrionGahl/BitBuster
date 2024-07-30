@@ -57,7 +57,7 @@ CurrentHealth = 0.1
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("HealthComponent") instance=ExtResource("4_0lfle")]
 collision_layer = 8
-collision_mask = 23
+collision_mask = 151
 HealthComponent = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]

@@ -30,8 +30,12 @@ public partial class World : Node2D
 	private GlobalEvents _globalEvents;
 	
 	private List<PackedScene> _availableLootPool;
+	
 	private NavigationRegion2D _levelRegion;
 	private TileMap _levelMain;
+	private TileMap _levelSemi;
+	private Node2D _levelBakeable;
+	
 	private Node2D _levelExtra;
 	private Player _levelPlayer;
 	
@@ -45,13 +49,17 @@ public partial class World : Node2D
 
 		_levelRegion = GetNode<NavigationRegion2D>("Level/NavRegion");
 		_levelMain = GetNode<TileMap>("Level/NavRegion/TileMapMain");
+		_levelSemi = GetNode<TileMap>("Level/NavRegion/TileMapSemi");
+		_levelBakeable = GetNode<Node2D>("Level/NavRegion/Bakeable");
+		_levelExtra = GetNode<Node2D>("Level/NavRegion/Extra");
 		
-		_levelExtra = GetNode<Node2D>("Level/Extra");
 		_levelPlayer = GetNode<CharacterBody2D>("Level/Player") as Player;
 		
 		_availableLootPool = new List<PackedScene>(_global.CompleteItemPoolList);
 		_random = new RandomNumberGenerator();
+		
 		_globalEvents.IncrementAndGenerateLevel += OnIncrementAndGenerateLevel;
+		_globalEvents.BakeNavigationMesh += OnBakeNavigationMesh;
 		
 		GenerateLevel();
 	}
@@ -85,6 +93,16 @@ public partial class World : Node2D
 		
 		_global.WorldLevel++;
 		GenerateLevel();
+	}
+
+	private void OnBakeNavigationMesh(Vector2 position)
+	{
+		Logger.Log.Information("Rebakeing...");
+		if (position != Vector2.Inf)
+		{
+			_levelMain.SetCell(0, _levelMain.LocalToMap(position));
+		}
+		_levelRegion.BakeNavigationPolygon();
 	}
 
 	private void GenerateMap()
@@ -228,6 +246,7 @@ public partial class World : Node2D
 	private void PlaceRooms()
 	{
 		NavigationPolygon poly = new NavigationPolygon();
+		poly.AgentRadius = 4;
 		for (int x = 0; x < 9; x++)
 		{
 			for (int y = 0; y < 8; y++)
@@ -290,23 +309,24 @@ public partial class World : Node2D
 			if (newObject.IsInGroup("enemy"))
 				(newObject as Enemy).SpawnPosition = newObject.Position;
 			
-			// _levelExtra.CallDeferred("add_child", newObject);
 			_levelExtra.AddChild(newObject);
 		}
 		
 		for (int i = 0; i < data.TileMap.Count; i++)
 		{
 			// If a tile has a direction vector tied to it, it must be a type of door.
-			if (adjacentRooms.Contains(data.TileMap[i].Direction)  )
+			if (adjacentRooms.Contains(data.TileMap[i].Direction))
 			{
 				Door door = _doorScene.Instantiate<Area2D>() as Door;
-				door.SetDoorInfo(((Vector2)data.TileMap[i].Direction).Angle() + Mathf.Pi, data.TileMap[i].Offset * _rooms.CellSize + worldOffset, data.TileMap[i].Direction * 32);
-				_levelRegion.AddChild(door);
+				door.SetDoorInfo(((Vector2)data.TileMap[i].Direction).Angle(), data.TileMap[i].Offset * _rooms.CellSize + worldOffset, data.TileMap[i].Direction * 32);
+				_levelBakeable.AddChild(door);
 				door.FinalizeDoor();
-				continue; // dont put a tile here
+				continue; 
 			}
-				
-			_levelMain.SetCell(0, mapOffset + data.TileMap[i].Offset, data.TileMap[i].TargetId, data.TileMap[i].AtlasCoords);
+			if (data.TileMap[i].AtlasCoords.Equals(Constants.PIT_TILE))
+				_levelSemi.SetCell(0, mapOffset + data.TileMap[i].Offset, data.TileMap[i].TargetId, data.TileMap[i].AtlasCoords);	
+			else 
+				_levelMain.SetCell(0, mapOffset + data.TileMap[i].Offset, data.TileMap[i].TargetId, data.TileMap[i].AtlasCoords);
 		}
 	}
 

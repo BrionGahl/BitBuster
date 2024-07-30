@@ -13,6 +13,8 @@ public partial class Panzer : MovingEnemy
 
 	private bool _hasDied;
 	private bool _animationFinished;
+	private int _movementScalar;
+	private float _rotationGoal;
 	
 	public override void _Ready()
 	{
@@ -23,7 +25,7 @@ public partial class Panzer : MovingEnemy
 		_hull = GetNode<AnimatedSprite2D>("Hull");
 		_collider = GetNode<CollisionShape2D>("Collider");
 		_particleDeath = GetNode<GpuParticles2D>("ParticleDeath");
-
+		
 		NavigationServer2D.MapChanged += OnMapReady;
 		AgentTimer.Timeout += OnAgentTimeout;
 	}
@@ -84,10 +86,34 @@ public partial class Panzer : MovingEnemy
 	public override void MoveAction(double delta)
 	{
 		Vector2 goalVector = (Agent.GetNextPathPosition() - GlobalPosition).Normalized();
-		if (!IsIdle)
-			Rotation = Mathf.LerpAngle(Rotation, (goalVector.Angle() + Constants.HalfPiOffset), RotationSpeed / 60 );
-		Velocity = new Vector2((float)(-Speed * Math.Sin(-Rotation)), (float)(-Speed * Math.Cos(-Rotation)));
 		
+		// OLD MOVEMENT
+		// if (!IsIdle)
+		// 	Rotation = Mathf.LerpAngle(Rotation, (goalVector.Angle() + Constants.HalfPiOffset), RotationSpeed / 60 );
+		// Velocity = new Vector2((float)(-Speed * Math.Sin(-Rotation)), (float)(-Speed * Math.Cos(-Rotation)));
+		
+		if (goalVector == Vector2.Zero)
+			return;
+
+		Vector2 rotationVector = Vector2.FromAngle(Rotation).Normalized();
+		if (rotationVector.DistanceTo(-goalVector.Normalized()) < 0.1f)
+		{
+			_movementScalar = 1;
+			_rotationGoal -= 2 * Mathf.Pi;
+		} else if (rotationVector.DistanceTo(goalVector.Normalized()) > 0.6f)
+		{
+			_movementScalar = 0;
+			_rotationGoal = goalVector.Angle();
+		}
+		else
+		{ 
+			_movementScalar = 1;
+			_rotationGoal = goalVector.Angle();
+		}
+		
+		Rotation = Mathf.LerpAngle(rotationVector.Angle(), _rotationGoal, 0.05f);
+		
+		Velocity = goalVector.Normalized() * _movementScalar * Speed;
 		MoveAndSlide();
 	}
 
@@ -99,7 +125,6 @@ public partial class Panzer : MovingEnemy
 	private void OnMapReady(Rid rid)
 	{
 		SetPhysicsProcess(true);
+		AgentTimer.Start();
 	}
-
-	
 }

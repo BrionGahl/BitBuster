@@ -68,7 +68,7 @@ public partial class Pace: State
 
     private void GetNewTarget()
     {
-        _parent.Target = new Vector2(_paceStartPosition.X + _randomNumberGenerator.RandiRange(-16, 16), _paceStartPosition.Y + _randomNumberGenerator.RandiRange(-16, 16));
+        _parent.Target = new Vector2(_paceStartPosition.X + _randomNumberGenerator.RandiRange(-32, 32), _paceStartPosition.Y + _randomNumberGenerator.RandiRange(-32, 32));
     }
     
 }

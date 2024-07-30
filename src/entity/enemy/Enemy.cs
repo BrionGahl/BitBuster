@@ -68,8 +68,7 @@ public abstract partial class Enemy: CharacterBody2D
 	{
 		PhysicsDirectSpaceState2D spaceState = GetWorld2D().DirectSpaceState;
 		PhysicsRayQueryParameters2D query;
-		
-		query = PhysicsRayQueryParameters2D.Create(Position, Player.Position, CollisionMask, new Array<Rid> { GetRid() });
+		query = PhysicsRayQueryParameters2D.Create(Position, Player.Position, 47, new Array<Rid> { GetRid() });
 		Dictionary results = spaceState.IntersectRay(query);
 		if (results.Count == 0)
 			return false;
@@ -78,9 +77,6 @@ public abstract partial class Enemy: CharacterBody2D
 
 	private void OnHealthChange(float value)
 	{
-		// 0.2 is the default
-		// 0.2 * what = new speed.
-		
 		AnimationPlayer.Play("effect_damage_blink", -1D, StatsComponent.ITime / 0.2f);
 	}
 	
