@@ -3,7 +3,7 @@ using Godot;
 
 namespace BitBuster.entity.enemy;
 
-public partial class Tower : Enemy
+public partial class Tower : IdleEnemy
 {
 	
 	private Sprite2D _gun;
@@ -40,6 +40,8 @@ public partial class Tower : Enemy
 		_collider.SetDeferred("disabled", true);
 		HitboxComponent.SetDeferred("monitorable", false);
 		HitboxComponent.SetDeferred("monitoring", false);
+	
+		CleanAndRebake();
 
 		_particleDeath.Emitting = true;
 		

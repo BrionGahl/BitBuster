@@ -44,6 +44,7 @@ public partial class Door : Area2D
 
 	public void SetDoorInfo(float radian, Vector2I position, Vector2I offset)
 	{
+		radian += Mathf.Pi;
 		Type = (DoorType)(int)((radian * 180 / Math.PI) % 360);
 		Offset = offset;
 

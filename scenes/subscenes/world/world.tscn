@@ -42,6 +42,10 @@ texture_filter = 1
 tile_set = ExtResource("6_ntbeu")
 format = 2
 
+[node name="Bakeable" type="Node2D" parent="Level/NavRegion"]
+
+[node name="Extra" type="Node2D" parent="Level/NavRegion"]
+
 [node name="Camera" type="Camera2D" parent="Level"]
 position = Vector2(1440, 1120)
 zoom = Vector2(2, 2)

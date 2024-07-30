@@ -13,6 +13,7 @@ public abstract partial class MovingEnemy: Enemy
 
 		Agent = GetNode<NavigationAgent2D>("Agent");
 		AgentTimer = GetNode<Timer>("Agent/Timer");
+
 	}
 	
 	public abstract void MoveAction(double delta);

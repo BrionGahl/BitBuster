@@ -68,8 +68,7 @@ public abstract partial class Enemy: CharacterBody2D
 	{
 		PhysicsDirectSpaceState2D spaceState = GetWorld2D().DirectSpaceState;
 		PhysicsRayQueryParameters2D query;
-		
-		query = PhysicsRayQueryParameters2D.Create(Position, Player.Position, CollisionMask, new Array<Rid> { GetRid() });
+		query = PhysicsRayQueryParameters2D.Create(Position, Player.Position, 47, new Array<Rid> { GetRid() });
 		Dictionary results = spaceState.IntersectRay(query);
 		if (results.Count == 0)
 			return false;

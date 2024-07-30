@@ -206,10 +206,9 @@ shape = SubResource("RectangleShape2D_6yacv")
 path_desired_distance = 8.0
 target_desired_distance = 16.0
 path_postprocessing = 1
-avoidance_enabled = true
-radius = 32.0
+radius = 8.0
 avoidance_layers = 4
-avoidance_mask = 6
+avoidance_mask = 4
 debug_enabled = true
 
 [node name="Timer" type="Timer" parent="Agent"]

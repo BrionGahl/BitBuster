@@ -112,6 +112,7 @@ public partial class Panzer : MovingEnemy
 		}
 		
 		Rotation = Mathf.LerpAngle(rotationVector.Angle(), _rotationGoal, 0.05f);
+		
 		Velocity = goalVector.Normalized() * _movementScalar * Speed;
 		MoveAndSlide();
 	}
@@ -126,6 +127,4 @@ public partial class Panzer : MovingEnemy
 		SetPhysicsProcess(true);
 		AgentTimer.Start();
 	}
-
-	
 }

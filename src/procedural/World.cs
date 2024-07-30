@@ -34,6 +34,7 @@ public partial class World : Node2D
 	private NavigationRegion2D _levelRegion;
 	private TileMap _levelMain;
 	private TileMap _levelSemi;
+	private Node2D _levelBakeable;
 	
 	private Node2D _levelExtra;
 	private Player _levelPlayer;
@@ -49,13 +50,16 @@ public partial class World : Node2D
 		_levelRegion = GetNode<NavigationRegion2D>("Level/NavRegion");
 		_levelMain = GetNode<TileMap>("Level/NavRegion/TileMapMain");
 		_levelSemi = GetNode<TileMap>("Level/NavRegion/TileMapSemi");
+		_levelBakeable = GetNode<Node2D>("Level/NavRegion/Bakeable");
+		_levelExtra = GetNode<Node2D>("Level/NavRegion/Extra");
 		
-		_levelExtra = GetNode<Node2D>("Level/Extra");
 		_levelPlayer = GetNode<CharacterBody2D>("Level/Player") as Player;
 		
 		_availableLootPool = new List<PackedScene>(_global.CompleteItemPoolList);
 		_random = new RandomNumberGenerator();
+		
 		_globalEvents.IncrementAndGenerateLevel += OnIncrementAndGenerateLevel;
+		_globalEvents.BakeNavigationMesh += OnBakeNavigationMesh;
 		
 		GenerateLevel();
 	}
@@ -89,6 +93,16 @@ public partial class World : Node2D
 		
 		_global.WorldLevel++;
 		GenerateLevel();
+	}
+
+	private void OnBakeNavigationMesh(Vector2 position)
+	{
+		Logger.Log.Information("Rebakeing...");
+		if (position != Vector2.Inf)
+		{
+			_levelMain.SetCell(0, _levelMain.LocalToMap(position));
+		}
+		_levelRegion.BakeNavigationPolygon();
 	}
 
 	private void GenerateMap()
@@ -304,13 +318,12 @@ public partial class World : Node2D
 			if (adjacentRooms.Contains(data.TileMap[i].Direction))
 			{
 				Door door = _doorScene.Instantiate<Area2D>() as Door;
-				// TODO: get rid of this pi addition
-				door.SetDoorInfo(((Vector2)data.TileMap[i].Direction).Angle() + Mathf.Pi, data.TileMap[i].Offset * _rooms.CellSize + worldOffset, data.TileMap[i].Direction * 32);
-				_levelRegion.AddChild(door);
+				door.SetDoorInfo(((Vector2)data.TileMap[i].Direction).Angle(), data.TileMap[i].Offset * _rooms.CellSize + worldOffset, data.TileMap[i].Direction * 32);
+				_levelBakeable.AddChild(door);
 				door.FinalizeDoor();
 				continue; 
 			}
-			if (data.TileMap[i].AtlasCoords.Equals(new Vector2I(1, 3))) // TODO: Consider making this a static value
+			if (data.TileMap[i].AtlasCoords.Equals(Constants.PIT_TILE))
 				_levelSemi.SetCell(0, mapOffset + data.TileMap[i].Offset, data.TileMap[i].TargetId, data.TileMap[i].AtlasCoords);	
 			else 
 				_levelMain.SetCell(0, mapOffset + data.TileMap[i].Offset, data.TileMap[i].TargetId, data.TileMap[i].AtlasCoords);

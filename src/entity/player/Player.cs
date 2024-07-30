@@ -122,7 +122,7 @@ public partial class Player : CharacterBody2D
 		{
 			_movementScalar = 1;
 			_rotationGoal -= 2 * Mathf.Pi;
-		} else if (rotationVector.DistanceTo(_movementDirection.Normalized()) > 1.15f)
+		} else if (rotationVector.DistanceTo(_movementDirection.Normalized()) > 1.25f)
 		{
 			_movementScalar = 0;
 			_rotationGoal = _movementDirection.Angle();
