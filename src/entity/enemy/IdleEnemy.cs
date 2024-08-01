@@ -18,7 +18,7 @@ public abstract partial class IdleEnemy: Enemy
 
     public void CleanAndRebake()
     {
-        _staticCollider.Disabled = true;
+        _staticCollider.SetDeferred("Disabled", true);
         _globalEvents.EmitBakeNavigationMeshSignal(Vector2.Inf);
     }
 }
