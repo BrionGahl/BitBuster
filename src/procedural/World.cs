@@ -299,14 +299,15 @@ public partial class World : Node2D
 			
 			newObject.Position += worldOffset;
 			
-			if (newObject.IsInGroup("player"))
+			if (newObject.IsInGroup(Groups.GroupPlayer))
 			{
 				_levelPlayer.Position = newObject.Position;
+				Logger.Log.Information(newObject.Position.ToString());
 				newObject.QueueFree();
 				continue;
 			}
 
-			if (newObject.IsInGroup("enemy"))
+			if (newObject.IsInGroup(Groups.GroupEnemy))
 				(newObject as Enemy).SpawnPosition = newObject.Position;
 			
 			_levelExtra.AddChild(newObject);

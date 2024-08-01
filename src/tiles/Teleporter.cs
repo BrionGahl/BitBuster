@@ -27,7 +27,11 @@ public partial class Teleporter : Area2D
 
 	private void OnBodyEntered(Node2D body)
 	{
+		if (!body.IsInGroup(Groups.GroupPlayer))
+			return;
+		
 		Logger.Log.Information("Player entered teleporter, going to the next floor...");
+		body.Position = Constants.SPAWN_POSITION;
 		_globalEvents.CallDeferred("EmitIncrementAndGenerateLevelSignal");
 		_active = false;
 	}

@@ -22,12 +22,12 @@ public partial class EntityDetector : Area2D
 	
 	private void OnBodyEntered(Node2D body)
 	{
-		if (!body.IsInGroup("player"))
+		if (!body.IsInGroup(Groups.GroupPlayer))
 			return;
 		
 		foreach (var entity in GetOverlappingBodies())
 		{
-			if (entity.IsInGroup("enemy"))
+			if (entity.IsInGroup(Groups.GroupEnemy))
 				EnemyCount++;
 		}
 
@@ -45,7 +45,7 @@ public partial class EntityDetector : Area2D
 
 	private void OnBodyExited(Node2D body)
 	{
-		if (!body.IsInGroup("enemy"))
+		if (!body.IsInGroup(Groups.GroupEnemy))
 		{
 			return;
 		}

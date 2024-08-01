@@ -77,7 +77,7 @@ public partial class Door : Area2D
 
 	private void OnBodyEntered(Node2D body)
 	{
-		if (!body.IsInGroup("player"))
+		if (!body.IsInGroup(Groups.GroupPlayer))
 			return; 
 		
 		Logger.Log.Information("body entered: {@type}", Type);
