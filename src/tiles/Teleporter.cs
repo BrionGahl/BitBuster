@@ -31,7 +31,7 @@ public partial class Teleporter : Area2D
 			return;
 		
 		Logger.Log.Information("Player entered teleporter, going to the next floor...");
-		body.Position = Constants.SPAWN_POSITION;
+		body.Position = Constants.SpawnPosition;
 		_globalEvents.CallDeferred("EmitIncrementAndGenerateLevelSignal");
 		_active = false;
 	}

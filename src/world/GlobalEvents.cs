@@ -14,9 +14,8 @@ public partial class GlobalEvents : Node
 	public delegate void IncrementAndGenerateLevelEventHandler();
 	
 	[Signal]
-	public delegate void BakeNavigationMeshEventHandler(Vector2 position);
-
-
+	public delegate void BakeNavigationMeshEventHandler();
+	
 	public void EmitRoomEnteredSignal(Vector2 position)
 	{
 		EmitSignal(SignalName.RoomEnter, position);
@@ -32,8 +31,8 @@ public partial class GlobalEvents : Node
 		EmitSignal(SignalName.IncrementAndGenerateLevel);
 	}
 
-	public void EmitBakeNavigationMeshSignal(Vector2 position)
+	public void EmitBakeNavigationMeshSignal()
 	{
-		EmitSignal(SignalName.BakeNavigationMesh, position);
+		EmitSignal(SignalName.BakeNavigationMesh);
 	}
 }

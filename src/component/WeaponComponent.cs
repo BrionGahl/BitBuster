@@ -123,7 +123,9 @@ public partial class WeaponComponent : Node2D
 		Bomb bomb = _bomb.Instantiate<StaticBody2D>() as Bomb;
 		bomb.SetPosition(GetParent<Node2D>().GlobalPosition, StatsComponent.GetBombAttackData());
 		BombCount--;
+		
 		Bombs.AddChild(bomb);
+		bomb.FinalizeBomb();
 	}
 
 	private void OnShootTimeout()
