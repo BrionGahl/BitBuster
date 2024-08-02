@@ -17,5 +17,5 @@ public abstract partial class MovingEnemy: Enemy
 	}
 	
 	public abstract void MoveAction(double delta);
-	public abstract void OnAgentTimeout();
+	protected abstract void OnAgentTimeout();
 }

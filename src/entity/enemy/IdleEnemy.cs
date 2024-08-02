@@ -19,8 +19,8 @@ public abstract partial class IdleEnemy: Enemy
         _staticCollider = GetNode<CollisionShape2D>("StaticBody2D/CollisionShape2D");
     }
 
-    
-    public void CleanAndRebake()
+
+    protected void CleanAndRebake()
     {
         _staticBody.SetCollisionLayerValue((int)BBCollisionLayer.EntityNoPass, false);
         _globalEvents.EmitBakeNavigationMeshSignal();

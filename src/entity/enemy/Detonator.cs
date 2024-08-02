@@ -36,7 +36,7 @@ public partial class Detonator : MovingEnemy
 		AgentTimer.Timeout += OnAgentTimeout;
 	}
 
-	public override void SetGunRotationAndPosition(float radian = 0)
+	protected override void SetGunRotationAndPosition(float radian = 0)
 	{
 	}
 
@@ -46,7 +46,7 @@ public partial class Detonator : MovingEnemy
 		_hull.Play();
 	}
 
-	public override void OnHealthIsZero()
+	protected override void OnHealthIsZero()
 	{
 		_collider.SetDeferred("disabled", true);
 		
@@ -56,7 +56,7 @@ public partial class Detonator : MovingEnemy
 		DeathAnimationTimer.Start();
 	}
 
-	public override void OnDeathAnimationTimeout()
+	protected override void OnDeathAnimationTimeout()
 	{
 		QueueFree();
 	}
@@ -125,7 +125,7 @@ public partial class Detonator : MovingEnemy
 		MoveAndSlide();
 	}
 
-	public override void OnAgentTimeout()
+	protected override void OnAgentTimeout()
 	{
 		Agent.TargetPosition = Target == Vector2.Zero ? Player.Position : Target;
 	}

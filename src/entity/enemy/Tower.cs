@@ -23,8 +23,8 @@ public partial class Tower : IdleEnemy
 		_particleDeath = GetNode<GpuParticles2D>("ParticleDeath");
 		
 	}
-	
-	public override void SetGunRotationAndPosition(float radian = 0)
+
+	protected override void SetGunRotationAndPosition(float radian = 0)
 	{
 		if (CanSeePlayer())
 			_gun.Rotation = (float)Mathf.LerpAngle(_gun.Rotation, Player.Position.AngleToPoint(Position) - Constants.HalfPiOffset, 0.5);
@@ -33,7 +33,7 @@ public partial class Tower : IdleEnemy
 		_gun.Position = Position;
 	}
 
-	public override void OnHealthIsZero()
+	protected override void OnHealthIsZero()
 	{
 		_gun.Visible = false;
 		_body.Visible = false;
@@ -49,7 +49,7 @@ public partial class Tower : IdleEnemy
 		_hasDied = true;
 	}
 
-	public override void OnDeathAnimationTimeout()
+	protected override void OnDeathAnimationTimeout()
 	{
 		_animationFinished = true;
 	}

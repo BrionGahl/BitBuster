@@ -80,7 +80,7 @@ public partial class Item: Area2D
 		AnimationTimer.Start();
 	}
 
-	public void OnAnimationTimeout()
+	private void OnAnimationTimeout()
 	{
 		QueueFree();
 	}

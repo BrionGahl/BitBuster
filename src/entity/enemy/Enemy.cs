@@ -79,11 +79,11 @@ public abstract partial class Enemy: CharacterBody2D
 	{
 		AnimationPlayer.Play("effect_damage_blink", -1D, StatsComponent.ITime / 0.2f);
 	}
-	
-	public abstract void SetGunRotationAndPosition(float radian = 0);
+
+	protected abstract void SetGunRotationAndPosition(float radian = 0);
 	public abstract void HandleAnimations();
-	public abstract void OnHealthIsZero();
-	public abstract void OnDeathAnimationTimeout();
+	protected abstract void OnHealthIsZero();
+	protected abstract void OnDeathAnimationTimeout();
 	
 	public abstract void AttackAction(double delta);
 }
