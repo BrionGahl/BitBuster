@@ -12,6 +12,9 @@ namespace BitBuster.component;
 
 public partial class StatsComponent : Node2D
 {
+	[Signal]
+	public delegate void StatChangeEventHandler();
+	
 	// Misc Related Stats
 	[Export]
 	public SourceType Source { get; set; }
@@ -97,5 +100,12 @@ public partial class StatsComponent : Node2D
 		Speed += item.Speed;
 		ITime += item.ITime;
 		TrailEffect = TrailEffect | item.TrailEffect;
+		
+		EmitStatChangeSignal();
+	}
+
+	public void EmitStatChangeSignal()
+	{
+		EmitSignal(SignalName.StatChange);
 	}
 }

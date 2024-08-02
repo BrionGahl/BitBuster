@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://n3uhl8voulr4"]
+[gd_scene load_steps=7 format=3 uid="uid://n3uhl8voulr4"]
 
 [ext_resource type="PackedScene" uid="uid://c4g61mo4wfsdd" path="res://scenes/subscenes/hud/health_bar_with_delta.tscn" id="1_itswx"]
 [ext_resource type="PackedScene" uid="uid://bj8lasfvi3jbi" path="res://scenes/subscenes/hud/bullet_counter.tscn" id="2_muu5f"]
+[ext_resource type="PackedScene" uid="uid://kk07ijvac1k2" path="res://scenes/subscenes/hud/bomb_counter.tscn" id="3_d8y6y"]
 [ext_resource type="PackedScene" uid="uid://cdcjttks8vxna" path="res://scenes/subscenes/hud/minimap.tscn" id="3_v42l8"]
+[ext_resource type="PackedScene" uid="uid://bc8j74kbh608b" path="res://scenes/subscenes/hud/card_counter.tscn" id="4_wu1un"]
+[ext_resource type="PackedScene" uid="uid://chkhmv0eqskpp" path="res://scenes/subscenes/hud/credit_counter.tscn" id="5_xcmwk"]
 
 [node name="Hud" type="CanvasLayer"]
 
@@ -30,15 +33,25 @@ theme_override_constants/margin_bottom = 80
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+theme_override_constants/separation = 12
 alignment = 1
 
 [node name="HealthBar" parent="RootHud/HudMargins/VBoxContainer" instance=ExtResource("1_itswx")]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
-size_flags_horizontal = 0
 size_flags_vertical = 4
 
 [node name="BulletCounter" parent="RootHud/HudMargins/VBoxContainer" instance=ExtResource("2_muu5f")]
+layout_mode = 2
+size_flags_horizontal = 1
+
+[node name="BombCounter" parent="RootHud/HudMargins/VBoxContainer" instance=ExtResource("3_d8y6y")]
+layout_mode = 2
+
+[node name="CardCounter" parent="RootHud/HudMargins/VBoxContainer" instance=ExtResource("4_wu1un")]
+layout_mode = 2
+
+[node name="CreditCounter" parent="RootHud/HudMargins/VBoxContainer" instance=ExtResource("5_xcmwk")]
 layout_mode = 2
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="RootHud/HudMargins"]
