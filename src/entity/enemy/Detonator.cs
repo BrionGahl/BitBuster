@@ -39,6 +39,11 @@ public partial class Detonator : MovingEnemy
 	protected override void SetGunRotationAndPosition(float radian = 0)
 	{
 	}
+	
+	protected override void SetColor(Color color)
+	{
+		_hull.SelfModulate = color;
+	}
 
 	public override void HandleAnimations()
 	{

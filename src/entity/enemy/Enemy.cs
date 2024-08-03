@@ -4,6 +4,7 @@ using BitBuster.component;
 using BitBuster.entity.player;
 using BitBuster.state;
 using BitBuster.utils;
+using BitBuster.world;
 using Godot;
 using Godot.Collections;
 
@@ -16,19 +17,20 @@ public abstract partial class Enemy: CharacterBody2D
 		get => StatsComponent.Speed;
 		set => StatsComponent.Speed = value;
 	}
-	public float RotationSpeed => Speed / 25;
-	public bool IsIdle => Velocity.Equals(Vector2.Zero);
+
+	protected float RotationSpeed => Speed / 25;
+	protected bool IsIdle => Velocity.Equals(Vector2.Zero);
 
 	public Player Player;
-	
-	public StatsComponent StatsComponent { get; private set; }
-	public HealthComponent HealthComponent { get; private set; }
-	public HitboxComponent HitboxComponent { get; private set; }
-	public WeaponComponent WeaponComponent { get; private set; }
+
+	protected StatsComponent StatsComponent { get; private set; }
+	protected HealthComponent HealthComponent { get; private set; }
+	protected HitboxComponent HitboxComponent { get; private set; }
+	protected WeaponComponent WeaponComponent { get; private set; }
 
 	public VisibleOnScreenNotifier2D Notifier { get; private set; }
-	public Timer DeathAnimationTimer { get; private set; }
-	public AnimationPlayer AnimationPlayer { get; private set; }
+	protected Timer DeathAnimationTimer { get; private set; }
+	private AnimationPlayer AnimationPlayer { get; set; }
 	
 	public Vector2 SpawnPosition { get; set; }
 	public Vector2 Target { get; set; }
@@ -75,15 +77,39 @@ public abstract partial class Enemy: CharacterBody2D
 		return results["rid"].AsRid() == Player.GetRid();
 	}
 
+	public void MakeElite(EliteType type)
+	{
+		Logger.Log.Information("Spawning Elite of {@type}.", type);
+		switch (type)
+		{
+			case EliteType.Tough:
+				StatsComponent.MaxHealth *= 1.5f;
+				SetColor(Colors.Orange);
+				break;
+			case EliteType.Quick:
+				StatsComponent.Speed *= 1.25f;
+				SetColor(Colors.Yellow);
+				break;
+			case EliteType.Deadly:
+				StatsComponent.ProjectileDamage *= 2f;
+				SetColor(Colors.Red);
+				break;
+			case EliteType.Invisible:
+				SetColor(Colors.Transparent);
+				break;
+		}
+	}
+
 	private void OnHealthChange(float value)
 	{
 		AnimationPlayer.Play("effect_damage_blink", -1D, StatsComponent.ITime / 0.2f);
 	}
 
 	protected abstract void SetGunRotationAndPosition(float radian = 0);
-	public abstract void HandleAnimations();
+	protected abstract void SetColor(Color color);
 	protected abstract void OnHealthIsZero();
 	protected abstract void OnDeathAnimationTimeout();
 	
 	public abstract void AttackAction(double delta);
+	public abstract void HandleAnimations();
 }

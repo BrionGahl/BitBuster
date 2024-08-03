@@ -39,6 +39,12 @@ public partial class Panzer : MovingEnemy
 		_gun.Position = Position;
 	}
 
+	protected override void SetColor(Color color)
+	{
+		_gun.SelfModulate = color;
+		_hull.SelfModulate = color;
+	}
+
 	public override void HandleAnimations()
 	{
 		_hull.Animation = IsIdle ? "default" : "moving";

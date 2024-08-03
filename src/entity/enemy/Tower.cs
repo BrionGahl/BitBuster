@@ -33,6 +33,11 @@ public partial class Tower : IdleEnemy
 		_gun.Position = Position;
 	}
 
+	protected override void SetColor(Color color)
+	{
+		_gun.SelfModulate = color;
+		_body.SelfModulate = color;
+	}
 	protected override void OnHealthIsZero()
 	{
 		_gun.Visible = false;
