@@ -30,7 +30,7 @@ public partial class Panzer : MovingEnemy
 		AgentTimer.Timeout += OnAgentTimeout;
 	}
 
-	public override void SetGunRotationAndPosition(float radian = 0)
+	protected override void SetGunRotationAndPosition(float radian = 0)
 	{
 		if (CanSeePlayer())
 			_gun.Rotation = (float)Mathf.LerpAngle(_gun.Rotation, Player.Position.AngleToPoint(Position) - Constants.HalfPiOffset, 0.5);
@@ -39,13 +39,19 @@ public partial class Panzer : MovingEnemy
 		_gun.Position = Position;
 	}
 
+	protected override void SetColor(Color color)
+	{
+		_gun.SelfModulate = color;
+		_hull.SelfModulate = color;
+	}
+
 	public override void HandleAnimations()
 	{
 		_hull.Animation = IsIdle ? "default" : "moving";
 		_hull.Play();
 	}
 
-	public override void OnHealthIsZero()
+	protected override void OnHealthIsZero()
 	{
 		_hull.Visible = false;
 		_gun.Visible = false;
@@ -61,7 +67,7 @@ public partial class Panzer : MovingEnemy
 		_hasDied = true;
 	}
 
-	public override void OnDeathAnimationTimeout()
+	protected override void OnDeathAnimationTimeout()
 	{
 		_animationFinished = true;
 	}
@@ -117,7 +123,7 @@ public partial class Panzer : MovingEnemy
 		MoveAndSlide();
 	}
 
-	public override void OnAgentTimeout()
+	protected override void OnAgentTimeout()
 	{
 		Agent.TargetPosition = Target == Vector2.Zero ? Player.Position : Target;
 	}

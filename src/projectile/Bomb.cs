@@ -1,14 +1,18 @@
+using System.Collections.Generic;
 using BitBuster.component;
 using BitBuster.data;
 using BitBuster.tiles;
 using BitBuster.utils;
 using BitBuster.world;
 using Godot;
+using Godot.Collections;
 
 namespace BitBuster.projectile;
 
 public partial class Bomb : StaticBody2D
 {
+	private GlobalEvents _globalEvents;
+	
 	private Sprite2D _bombTexture;
 	private Area2D _hitbox;
 	private GpuParticles2D _explodeEmitter;
@@ -20,7 +24,6 @@ public partial class Bomb : StaticBody2D
 	private AttackData _attackData;
 
 	private float _timeTillExplosion;
-	
 	
 	public override void _Notification(int what)
 	{
@@ -39,6 +42,12 @@ public partial class Bomb : StaticBody2D
 		_timeTillExplosion = 2.5f;
 		_healthComponent.HealthIsZero += OnHealthIsZero;
 		_deathAnimationTimer.Timeout += OnDeathAnimationTimeout;
+	}
+	
+	public void FinalizeBomb()
+	{
+		// NOTE: This is needed since we can't grab the GlobalEvents singleton from a non-parented node. 
+		_globalEvents = GetNode<GlobalEvents>("/root/GlobalEvents");
 	}
 
 	public override void _Process(double delta)
@@ -68,13 +77,13 @@ public partial class Bomb : StaticBody2D
 			
 			foreach (var body in _hitbox.GetOverlappingBodies())
 			{
-				if (body is BreakableWall)
-				{
-					BreakableWall wall = body as BreakableWall;
-					wall.Break();
-				}
+				if (!body.IsInGroup(Groups.GroupBreakable)) 
+					continue;
+				
+				(body as BreakableWall).Break();
 			}
-			
+			_globalEvents.EmitBakeNavigationMeshSignal();
+
 			if (_healthComponent.CurrentHealth > 0)
 				_healthComponent.Damage(2f);
 			_hitbox.Monitoring = false;

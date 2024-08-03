@@ -34,9 +34,10 @@ public partial class World : Node2D
 	private NavigationRegion2D _levelRegion;
 	private TileMap _levelMain;
 	private TileMap _levelSemi;
-	private Node2D _levelBakeable;
 	
+	private Node2D _levelBakeable;
 	private Node2D _levelExtra;
+	
 	private Player _levelPlayer;
 	
 	public override void _Ready()
@@ -81,10 +82,13 @@ public partial class World : Node2D
 	private void CleanLevel()
 	{
 		_levelMain.Clear();
-		foreach (Node child in _levelExtra.GetChildren())
-		{
+		_levelSemi.Clear();
+		
+		foreach(Node child in _levelBakeable.GetChildren())
 			child.QueueFree();
-		}
+		
+		foreach (Node child in _levelExtra.GetChildren())
+			child.QueueFree();
 	}
 
 	private void OnIncrementAndGenerateLevel()
@@ -95,13 +99,9 @@ public partial class World : Node2D
 		GenerateLevel();
 	}
 
-	private void OnBakeNavigationMesh(Vector2 position)
+	private void OnBakeNavigationMesh()
 	{
 		Logger.Log.Information("Rebakeing...");
-		if (position != Vector2.Inf)
-		{
-			_levelMain.SetCell(0, _levelMain.LocalToMap(position));
-		}
 		_levelRegion.BakeNavigationPolygon();
 	}
 
@@ -299,17 +299,25 @@ public partial class World : Node2D
 			
 			newObject.Position += worldOffset;
 			
-			if (newObject.IsInGroup("player"))
+			if (newObject.IsInGroup(Groups.GroupPlayer))
 			{
 				_levelPlayer.Position = newObject.Position;
+				Logger.Log.Information(newObject.Position.ToString());
 				newObject.QueueFree();
 				continue;
 			}
-
-			if (newObject.IsInGroup("enemy"))
+			
+			if (newObject.IsInGroup(Groups.GroupEnemy))
 				(newObject as Enemy).SpawnPosition = newObject.Position;
 			
 			_levelExtra.AddChild(newObject);
+			
+			if (newObject.IsInGroup(Groups.GroupEnemy))
+			{
+				float chance = 1 - Mathf.Log(_global.WorldLevel * 1.15f);
+				if (_random.Randf() > 0)
+					(newObject as Enemy).MakeElite((EliteType)_random.RandiRange(0, 3));
+			}
 		}
 		
 		for (int i = 0; i < data.TileMap.Count; i++)
@@ -323,7 +331,8 @@ public partial class World : Node2D
 				door.FinalizeDoor();
 				continue; 
 			}
-			if (data.TileMap[i].AtlasCoords.Equals(Constants.PIT_TILE))
+			
+			if (data.TileMap[i].AtlasCoords.Equals(Constants.PitTile))
 				_levelSemi.SetCell(0, mapOffset + data.TileMap[i].Offset, data.TileMap[i].TargetId, data.TileMap[i].AtlasCoords);	
 			else 
 				_levelMain.SetCell(0, mapOffset + data.TileMap[i].Offset, data.TileMap[i].TargetId, data.TileMap[i].AtlasCoords);

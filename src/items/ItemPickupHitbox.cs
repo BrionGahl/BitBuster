@@ -28,7 +28,7 @@ public partial class ItemPickupHitbox : Area2D
 			return;
 
 		Item item = (Item)area;
-		
+
 		if (item.ItemType == ItemType.Normal)
 		{
 			StatsComponent.AddItem(item);
@@ -41,14 +41,15 @@ public partial class ItemPickupHitbox : Area2D
 				return;
 			HealthComponent.Heal(item.AddedHealth);
 		}
+		
+		item.OnPickup();
 
 		StatsComponent.BombCount += item.AddedBombs;
 		StatsComponent.CreditCount += item.AddedCredit;
 		StatsComponent.KeyCardCount += item.AddedKeyCard;
 		StatsComponent.Overheal += item.AddedOverheal;
 
-
-		item.OnPickup();
+		StatsComponent.EmitStatChangeSignal();
 	}
 	
 }

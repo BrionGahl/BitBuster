@@ -80,7 +80,7 @@ public partial class Minimap: TextureRect
 		_exploredMapGrid = new int[9, 8];
 		foreach (Node child in _roomsOnFloor.GetChildren())
 		{
-			if (child.IsInGroup("current_position"))
+			if (child.IsInGroup(Groups.GroupCurrentPosition))
 				continue;
 			child.QueueFree();
 		}

@@ -11,7 +11,7 @@ public partial class BulletCounter : Control
 	
 	public override void _Ready()
 	{
-		_playerWeapon = GetTree().GetFirstNodeInGroup("player").GetNode("WeaponComponent") as WeaponComponent;
+		_playerWeapon = GetTree().GetFirstNodeInGroup("player").GetNode<WeaponComponent>("WeaponComponent");
 
 		_counter = GetNode<TextureRect>("Counter");
 		

@@ -10,7 +10,8 @@ namespace BitBuster.entity.enemy;
 
 public partial class Detonator : MovingEnemy
 {
-	
+	private GlobalEvents _globalEvents;
+
 	private AnimatedSprite2D _hull;
 	private GpuParticles2D _explodeEmitter;
 	private Area2D _hitbox;
@@ -21,8 +22,9 @@ public partial class Detonator : MovingEnemy
 	public override void _Ready()
 	{
 		SetPhysicsProcess(false);
-
 		base._Ready();
+		_globalEvents = GetNode<GlobalEvents>("/root/GlobalEvents");
+		
 		_hull = GetNode<AnimatedSprite2D>("Hull");
 		_hitbox = GetNode<Area2D>("Hitbox");
 		_collider = GetNode<CollisionShape2D>("Collider");
@@ -34,8 +36,13 @@ public partial class Detonator : MovingEnemy
 		AgentTimer.Timeout += OnAgentTimeout;
 	}
 
-	public override void SetGunRotationAndPosition(float radian = 0)
+	protected override void SetGunRotationAndPosition(float radian = 0)
 	{
+	}
+	
+	protected override void SetColor(Color color)
+	{
+		_hull.SelfModulate = color;
 	}
 
 	public override void HandleAnimations()
@@ -44,7 +51,7 @@ public partial class Detonator : MovingEnemy
 		_hull.Play();
 	}
 
-	public override void OnHealthIsZero()
+	protected override void OnHealthIsZero()
 	{
 		_collider.SetDeferred("disabled", true);
 		
@@ -54,7 +61,7 @@ public partial class Detonator : MovingEnemy
 		DeathAnimationTimer.Start();
 	}
 
-	public override void OnDeathAnimationTimeout()
+	protected override void OnDeathAnimationTimeout()
 	{
 		QueueFree();
 	}
@@ -93,13 +100,12 @@ public partial class Detonator : MovingEnemy
 			
 			foreach (var body in _hitbox.GetOverlappingBodies())
 			{
-				if (body is BreakableWall)
-				{
-					BreakableWall wall = body as BreakableWall;
-					wall.Break();
-					return;
-				}
+				if (!body.IsInGroup(Groups.GroupBreakable)) 
+					continue;
+				
+				(body as BreakableWall).Break();
 			}
+			_globalEvents.EmitBakeNavigationMeshSignal();
 			
 			_hitbox.Monitoring = false;
 			if (HealthComponent.CurrentHealth > 0)
@@ -124,7 +130,7 @@ public partial class Detonator : MovingEnemy
 		MoveAndSlide();
 	}
 
-	public override void OnAgentTimeout()
+	protected override void OnAgentTimeout()
 	{
 		Agent.TargetPosition = Target == Vector2.Zero ? Player.Position : Target;
 	}

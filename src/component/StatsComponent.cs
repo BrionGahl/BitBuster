@@ -12,6 +12,12 @@ namespace BitBuster.component;
 
 public partial class StatsComponent : Node2D
 {
+	[Signal]
+	public delegate void StatChangeEventHandler();
+	
+	[Signal]
+	public delegate void ItemAddedEventHandler(Item item);
+	
 	// Misc Related Stats
 	[Export]
 	public SourceType Source { get; set; }
@@ -59,7 +65,7 @@ public partial class StatsComponent : Node2D
 	public float ITime { get; set; }
 	[Export]
 	public EffectType TrailEffect { get; set; }
-		
+	
 	public override void _Ready()
 	{
 		// Logic for default stats go here...
@@ -77,6 +83,8 @@ public partial class StatsComponent : Node2D
 
 	public void AddItem(Item item)
 	{
+		EmitSignal(SignalName.ItemAdded, item);
+
 		MaxHealth = MaxHealth + item.MaxHealth < 1
 			? 1
 			: MaxHealth + item.MaxHealth;
@@ -97,5 +105,10 @@ public partial class StatsComponent : Node2D
 		Speed += item.Speed;
 		ITime += item.ITime;
 		TrailEffect = TrailEffect | item.TrailEffect;
+	}
+
+	public void EmitStatChangeSignal()
+	{
+		EmitSignal(SignalName.StatChange);
 	}
 }

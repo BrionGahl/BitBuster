@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://chkhmv0eqskpp"]
+
+[ext_resource type="Script" path="res://src/hud/CreditCounter.cs" id="1_q6nwa"]
+[ext_resource type="Texture2D" uid="uid://w06wy7yx0gef" path="res://assets/projectiles/mine.png" id="2_6qu46"]
+[ext_resource type="Theme" uid="uid://c8qs8rvxfk3jf" path="res://assets/menu/default_theme.tres" id="3_1qtr1"]
+
+[node name="CreditCounter" type="HSplitContainer"]
+script = ExtResource("1_q6nwa")
+
+[node name="CoinImage" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("2_6qu46")
+stretch_mode = 6
+
+[node name="Counter" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_1qtr1")
+theme_override_font_sizes/font_size = 16
+text = "0
+"
