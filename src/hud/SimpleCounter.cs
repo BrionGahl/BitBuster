@@ -10,7 +10,7 @@ public abstract partial class SimpleCounter: HSplitContainer
 	
     public override void _Ready()
     {
-        PlayerStats = GetTree().GetFirstNodeInGroup("player").GetNode("StatsComponent") as StatsComponent;
+        PlayerStats = GetTree().GetFirstNodeInGroup("player").GetNode<StatsComponent>("StatsComponent");
         Counter = GetNode<Label>("Counter");
         
         PlayerStats.StatChange += OnStatChange;

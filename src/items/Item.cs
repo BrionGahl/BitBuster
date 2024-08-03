@@ -11,6 +11,9 @@ public partial class Item: Area2D
 	public string ItemDescription { get; private set; }
 	[Export]
 	public ItemType ItemType { get; private set; }
+	
+	public Texture2D ItemTexture { get; private set; }
+
 
 	public bool IsUnlocked { get; set; } = true;
 	
@@ -64,17 +67,22 @@ public partial class Item: Area2D
 	
 	public override void _Ready()
 	{
+		
 		Sprite = GetNode<Sprite2D>("Sprite2D");
 		AnimationTimer = GetNode<Timer>("Timer");
 		Particles2D = GetNode<GpuParticles2D>("ParticleItemPickupComponent");
+
+		ItemTexture = Sprite.Texture;
 		
 		AnimationTimer.Timeout += OnAnimationTimeout;
 	}
 
 	public void OnPickup()
 	{
+		SetDeferred("monitorable", false);
+		
 		Particles2D.Emitting = true;
-
+		
 		Sprite.Visible = false;
 		
 		AnimationTimer.Start();

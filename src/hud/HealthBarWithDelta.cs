@@ -16,7 +16,7 @@ public partial class HealthBarWithDelta : ProgressBar
 	
 	public override void _Ready()
 	{
-		_playerHealthComponent = GetTree().GetFirstNodeInGroup("player").GetNode("HealthComponent") as HealthComponent;
+		_playerHealthComponent = GetTree().GetFirstNodeInGroup("player").GetNode<HealthComponent>("HealthComponent");
 		_deltaBar = GetNode<ProgressBar>("DeltaBar");
 		_timer = GetNode<Timer>("Timer");
 		_overlay = GetNode<TextureRect>("Overlay");
