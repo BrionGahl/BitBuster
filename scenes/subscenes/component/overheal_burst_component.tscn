@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://c7l0u657l447r"]
+
+[ext_resource type="Script" path="res://src/component/OverhealBurstComponent.cs" id="1_5at8j"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8p5w7"]
+radius = 50.0
+
+[sub_resource type="Gradient" id="Gradient_dq2jw"]
+offsets = PackedFloat32Array(0, 0.398529, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.470588, 1, 1, 0.929412, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_g6p5j"]
+gradient = SubResource("Gradient_dq2jw")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_slvtl"]
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 50.0
+emission_ring_inner_radius = 50.0
+angle_max = 360.0
+angular_velocity_min = 1.0
+angular_velocity_max = 1.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.2
+scale_max = 2.0
+color_ramp = SubResource("GradientTexture1D_g6p5j")
+
+[node name="OverhealBurstComponent" type="Area2D" groups=["bullet_no_pass"]]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_5at8j")
+
+[node name="AreaCollider" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_8p5w7")
+
+[node name="BurstEmitter" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 256
+process_material = SubResource("ParticleProcessMaterial_slvtl")
+lifetime = 0.5
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true

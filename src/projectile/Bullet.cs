@@ -16,7 +16,7 @@ public partial class Bullet : CharacterBody2D
 	private Sprite2D _bulletTexture;
 	private Area2D _hitbox;
 
-	private ExplodingComponent _explodingComponent;
+	private component.ExplodingComponent _explodingComponent;
 	
 	private VisibleOnScreenNotifier2D _screenNotifier;
 
@@ -39,7 +39,7 @@ public partial class Bullet : CharacterBody2D
 		_bulletTexture = GetNode<Sprite2D>("Sprite2D");
 		_hitbox = GetNode<Area2D>("Hitbox");
 
-		_explodingComponent = GetNode<ExplodingComponent>("ExplodingComponent");
+		_explodingComponent = GetNode<component.ExplodingComponent>("ExplodingComponent");
 		
 		_bounceEmitter = GetNode<GpuParticles2D>("ParticleBounce");
 		_explodeEmitter = GetNode<GpuParticles2D>("ParticleExplode");
@@ -79,7 +79,6 @@ public partial class Bullet : CharacterBody2D
 				return;
 			
 			PrepForFree();
-			_deathAnimationTimer.Start();
 		}
 
 	}
@@ -112,7 +111,7 @@ public partial class Bullet : CharacterBody2D
 		Velocity = new Vector2(0, -speed).Rotated(GlobalRotation);
 	}
 
-	private void PrepForFree()
+	public void PrepForFree()
 	{
 		_bulletTexture.Visible = false;
 		
@@ -120,6 +119,7 @@ public partial class Bullet : CharacterBody2D
 		_hitbox.SetDeferred("monitorable", false);
 		
 		_explodeEmitter.Emitting = true;
+		_deathAnimationTimer.Start();
 	}
 
 	private void OnAreaEntered(Area2D area)
@@ -129,8 +129,8 @@ public partial class Bullet : CharacterBody2D
 
 		if (area.IsInGroup(Groups.GroupBulletNoPass))
 		{
+			Logger.Log.Information("HERE");
 			PrepForFree();
-			_deathAnimationTimer.Start();
 			return;
 		}
 		
@@ -156,7 +156,6 @@ public partial class Bullet : CharacterBody2D
 
 			
 		PrepForFree();
-		_deathAnimationTimer.Start();
 	}
 
 	private void OnParentIFrameTimeout()

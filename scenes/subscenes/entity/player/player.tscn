@@ -273,6 +273,7 @@ BombDamage = 1.0
 BombRadius = 30.0
 Speed = 75.0
 ITime = 0.2
+OverhealBurst = true
 
 [node name="TrackTrailComponent" parent="." instance=ExtResource("4_g7sml")]
 

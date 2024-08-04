@@ -1,10 +1,10 @@
-using Godot;
-using System;
-using BitBuster.component;
 using BitBuster.data;
 using BitBuster.tiles;
 using BitBuster.utils;
 using BitBuster.world;
+using Godot;
+
+namespace BitBuster.component;
 
 public partial class ExplodingComponent : Area2D
 {

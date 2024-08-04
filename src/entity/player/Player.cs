@@ -1,5 +1,6 @@
 using BitBuster.component;
 using BitBuster.utils;
+using BitBuster.world;
 using Godot;
 using Serilog;
 
@@ -7,6 +8,8 @@ namespace BitBuster.entity.player;
 
 public partial class Player : CharacterBody2D
 {
+	private GlobalEvents _globalEvents;
+	
 	[Export]
 	private StatsComponent _statsComponent;
 
@@ -43,11 +46,14 @@ public partial class Player : CharacterBody2D
 	public override void _Ready()
 	{
 		Logger.Log.Information("Loading player...");
+	
+		_globalEvents = GetNode<GlobalEvents>("/root/GlobalEvents");
 		
 		_gun = GetNode<Sprite2D>("Gun");
 		_hull = GetNode<AnimatedSprite2D>("Hull");
 		_animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 
+		_globalEvents.IncrementAndGenerateLevel += OnIncrementAndGenerateLevel;
 		_healthComponent.HealthChange += OnHealthChange;
 	}
 	
@@ -134,6 +140,11 @@ public partial class Player : CharacterBody2D
 		}
 		
 		Rotation = Mathf.LerpAngle(rotationVector.Angle(), _rotationGoal, 0.05f);
+	}
+	
+	private void OnIncrementAndGenerateLevel()
+	{
+		_statsComponent.Overheal += _statsComponent.OverhealRegen;
 	}
 	
 	private void OnHealthChange(float value)

@@ -73,6 +73,10 @@ public partial class Item: Area2D
 	// Other Stats
 	[Export]
 	public int Luck { get; private set; }
+	[Export]
+	public bool OverhealBurst { get; private set; }
+	[Export]
+	public float OverhealRegen { get; private set; }
 	
 	// Node Specifics
 	public Sprite2D Sprite { get; private set; }

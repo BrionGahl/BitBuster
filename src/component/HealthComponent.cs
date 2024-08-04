@@ -35,6 +35,7 @@ public partial class HealthComponent : Node2D
 	}
 
 	private Timer _iFrameTimer;
+	private OverhealBurstComponent _overhealBurstComponent;
 	
 	private bool _canBeHit = true;
 	
@@ -42,6 +43,8 @@ public partial class HealthComponent : Node2D
 	{
 		CurrentHealth = MaxHealth;
 		_iFrameTimer = GetNode<Timer>("IFrameTimer");
+		_overhealBurstComponent = GetNode<OverhealBurstComponent>("OverhealBurstComponent");
+		
 		_iFrameTimer.Timeout += OnIFrameTimeout;
 	}
 
@@ -58,6 +61,10 @@ public partial class HealthComponent : Node2D
 			Overheal -= attackData.Damage;
 			if (Overheal < 0)
 				Overheal = 0;
+			if (StatsComponent.OverhealBurst)
+			{
+				_overhealBurstComponent.Burst(75f);
+			}
 		}
 		else 
 			CurrentHealth -= attackData.Damage;

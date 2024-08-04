@@ -19,7 +19,7 @@ public partial class Bomb : StaticBody2D
 	
 	private HitboxComponent _hitboxComponent;
 	private HealthComponent _healthComponent;
-	private ExplodingComponent _explodingComponent;
+	private component.ExplodingComponent _explodingComponent;
 
 	private AttackData _attackData;
 	private float _radius;
@@ -35,7 +35,7 @@ public partial class Bomb : StaticBody2D
 		_bombTexture = GetNode<Sprite2D>("Sprite2D");
 		_deathAnimationTimer = GetNode<Timer>("DeathAnimationTimer");
 		
-		_explodingComponent = GetNode<ExplodingComponent>("ExplodingComponent");
+		_explodingComponent = GetNode<component.ExplodingComponent>("ExplodingComponent");
 		_hitboxComponent = GetNode<Area2D>("HitboxComponent") as HitboxComponent;
 		_healthComponent = GetNode<Node2D>("HealthComponent") as HealthComponent;
 

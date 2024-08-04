@@ -77,6 +77,11 @@ public partial class StatsComponent : Node2D
 	// Other Stats
 	[Export]
 	public int Luck { get; private set; }
+	[Export]
+	public bool OverhealBurst { get; private set; }
+	[Export]
+	public float OverhealRegen { get; private set; }
+
 	
 	private RandomNumberGenerator _random;
 
@@ -133,6 +138,8 @@ public partial class StatsComponent : Node2D
 		TrailEffect |= item.TrailEffect;
 
 		Luck += item.Luck;
+		OverhealBurst = item.OverhealBurst;
+		OverhealRegen += item.OverhealRegen;
 	}
 
 	public void EmitStatChangeSignal()

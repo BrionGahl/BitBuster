@@ -125,6 +125,7 @@ shape = SubResource("RectangleShape2D_u4xfs")
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 16
+monitorable = false
 
 [node name="AreaCollider" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("RectangleShape2D_c7r3b")

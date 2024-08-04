@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://btrxy7t83y8en"]
+[gd_scene load_steps=5 format=3 uid="uid://btrxy7t83y8en"]
 
 [ext_resource type="Shader" path="res://assets/shaders/hit_blink.gdshader" id="1_85t2j"]
 [ext_resource type="Script" path="res://src/component/HealthComponent.cs" id="1_mpy7l"]
+[ext_resource type="PackedScene" uid="uid://c7l0u657l447r" path="res://scenes/subscenes/component/overheal_burst_component.tscn" id="3_3eptg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sg62w"]
 shader = ExtResource("1_85t2j")
@@ -11,6 +12,8 @@ shader_parameter/flash_modifier = 0.0
 [node name="HealthComponent" type="Node2D"]
 material = SubResource("ShaderMaterial_sg62w")
 script = ExtResource("1_mpy7l")
+
+[node name="OverhealBurstComponent" parent="." instance=ExtResource("3_3eptg")]
 
 [node name="IFrameTimer" type="Timer" parent="."]
 one_shot = true
