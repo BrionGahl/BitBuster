@@ -1,12 +1,22 @@
-[gd_scene load_steps=10 format=3 uid="uid://byiejgjanp8tx"]
+[gd_scene load_steps=12 format=3 uid="uid://byiejgjanp8tx"]
 
 [ext_resource type="Texture2D" uid="uid://w06wy7yx0gef" path="res://assets/projectiles/mine.png" id="1_cwqlh"]
+[ext_resource type="Shader" path="res://assets/shaders/bomb_blink.gdshader" id="1_i3rqb"]
 [ext_resource type="Script" path="res://src/projectile/Bomb.cs" id="1_wlod3"]
 [ext_resource type="PackedScene" uid="uid://btrxy7t83y8en" path="res://scenes/subscenes/component/health_component.tscn" id="2_3t1un"]
 [ext_resource type="PackedScene" uid="uid://2m2pbclf1iur" path="res://scenes/subscenes/component/exploding_component.tscn" id="2_15vcr"]
 [ext_resource type="PackedScene" uid="uid://bva4np8rg3g20" path="res://scenes/subscenes/component/stats_component.tscn" id="3_uyvil"]
 [ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="4_0lfle"]
 [ext_resource type="PackedScene" uid="uid://t60grtdiwdu5" path="res://scenes/subscenes/component/particle_crit_component.tscn" id="7_2w8da"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nyra3"]
+shader = ExtResource("1_i3rqb")
+shader_parameter/end_time = 2.5
+shader_parameter/start_freq = 1.0
+shader_parameter/end_freq = 10.0
+shader_parameter/time = 0.0
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/blink_length = 0.5
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xygt3"]
 radius = 6.32456
@@ -16,6 +26,7 @@ radius = 5.38516
 
 [node name="Bomb" type="StaticBody2D"]
 top_level = true
+material = SubResource("ShaderMaterial_nyra3")
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_wlod3")
@@ -43,6 +54,7 @@ disabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
+use_parent_material = true
 texture = ExtResource("1_cwqlh")
 
 [node name="DeathAnimationTimer" type="Timer" parent="."]

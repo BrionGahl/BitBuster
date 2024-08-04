@@ -129,7 +129,6 @@ public partial class Bullet : CharacterBody2D
 
 		if (area.IsInGroup(Groups.GroupBulletNoPass))
 		{
-			Logger.Log.Information("HERE");
 			PrepForFree();
 			return;
 		}

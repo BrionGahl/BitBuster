@@ -15,7 +15,6 @@ script = ExtResource("1_j15wd")
 ItemName = "Shield Generator"
 ItemDescription = "Just like the rollies..."
 AddedOverheal = 2.0
-ITime = 0.2
 Luck = 1
 OverhealBurst = true
 OverhealRegen = 1.0

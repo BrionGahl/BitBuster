@@ -59,12 +59,11 @@ public partial class HealthComponent : Node2D
 		if (Overheal > 0)
 		{
 			Overheal -= attackData.Damage;
+			Overheal = Mathf.Floor(Overheal);
 			if (Overheal < 0)
 				Overheal = 0;
 			if (StatsComponent.OverhealBurst)
-			{
 				_overhealBurstComponent.Burst(75f);
-			}
 		}
 		else 
 			CurrentHealth -= attackData.Damage;
@@ -89,8 +88,11 @@ public partial class HealthComponent : Node2D
 		if (Overheal > 0)
 		{
 			Overheal -= damage;
+			Overheal = Mathf.Floor(Overheal);
 			if (Overheal < 0)
 				Overheal = 0;
+			if (StatsComponent.OverhealBurst)
+				_overhealBurstComponent.Burst(75f);
 		}
 		else 
 			CurrentHealth -= damage;

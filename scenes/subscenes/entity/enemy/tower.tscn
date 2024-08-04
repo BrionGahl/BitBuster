@@ -1,29 +1,16 @@
-[gd_scene load_steps=21 format=3 uid="uid://bhljrlptytonc"]
+[gd_scene load_steps=18 format=3 uid="uid://bhljrlptytonc"]
 
-[ext_resource type="Shader" path="res://assets/shaders/hit_blink.gdshader" id="1_14v67"]
-[ext_resource type="Texture2D" uid="uid://b75exrlheupv8" path="res://assets/enemy/enemy_gun.png" id="1_hcbxy"]
 [ext_resource type="Script" path="res://src/entity/enemy/Tower.cs" id="1_rk63p"]
 [ext_resource type="PackedScene" uid="uid://dpul1hjxi1dkq" path="res://scenes/subscenes/state/state_machine.tscn" id="2_3x707"]
 [ext_resource type="PackedScene" uid="uid://6d0b62fihn27" path="res://scenes/subscenes/component/particle_death_component.tscn" id="2_qma42"]
-[ext_resource type="Texture2D" uid="uid://mmgfgc8178lk" path="res://assets/enemy/enemy_turret.png" id="2_x0tog"]
 [ext_resource type="PackedScene" uid="uid://btrxy7t83y8en" path="res://scenes/subscenes/component/health_component.tscn" id="3_411o0"]
 [ext_resource type="Script" path="res://src/state/Sleep.cs" id="3_u2ue8"]
 [ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="4_6qlwy"]
 [ext_resource type="PackedScene" uid="uid://bva4np8rg3g20" path="res://scenes/subscenes/component/stats_component.tscn" id="5_b0t5c"]
 [ext_resource type="Script" path="res://src/state/idle/Attack.cs" id="5_tybqr"]
+[ext_resource type="Texture2D" uid="uid://caj6yqpf31jq1" path="res://assets/enemy/entity_turret_gun.png" id="6_5fjbr"]
 [ext_resource type="PackedScene" uid="uid://cubpk1i28p0wk" path="res://scenes/subscenes/component/weapon_component.tscn" id="6_ws2ev"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_kl216"]
-resource_local_to_scene = true
-shader = ExtResource("1_14v67")
-shader_parameter/flash_color = Color(1, 0.188235, 0, 1)
-shader_parameter/flash_modifier = 0.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_pl4lo"]
-resource_local_to_scene = true
-shader = ExtResource("1_14v67")
-shader_parameter/flash_color = Color(1, 0.188235, 0, 1)
-shader_parameter/flash_modifier = 0.0
+[ext_resource type="Texture2D" uid="uid://ctq828igxmg68" path="res://assets/enemy/entity_turret.png" id="7_prgoe"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4hc1y"]
 size = Vector2(10, 10)
@@ -36,26 +23,26 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Gun:material:shader_parameter/flash_modifier")
+tracks/0/path = NodePath("Gun:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [Color(1, 1, 1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".:material:shader_parameter/flash_modifier")
+tracks/1/path = NodePath("Body:self_modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_5rh1h"]
@@ -64,26 +51,26 @@ length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Gun:material:shader_parameter/flash_modifier")
+tracks/0/path = NodePath("Gun:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [0.5, 0.0]
+"values": [Color(1, 0.188235, 0, 1), Color(1, 1, 1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".:material:shader_parameter/flash_modifier")
+tracks/1/path = NodePath("Body:self_modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [0.5, 0.0]
+"values": [Color(1, 0.188235, 0, 1), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_u101d"]
@@ -97,7 +84,6 @@ size = Vector2(11, 12)
 
 [node name="Tower" type="CharacterBody2D" groups=["enemy"]]
 z_index = 1
-material = SubResource("ShaderMaterial_kl216")
 collision_layer = 4
 collision_mask = 111
 motion_mode = 1
@@ -118,14 +104,13 @@ script = ExtResource("5_tybqr")
 top_level = true
 z_index = 2
 texture_filter = 1
-material = SubResource("ShaderMaterial_pl4lo")
-texture = ExtResource("1_hcbxy")
+texture = ExtResource("6_5fjbr")
 
 [node name="Body" type="Sprite2D" parent="."]
 z_index = 1
 texture_filter = 1
 use_parent_material = true
-texture = ExtResource("2_x0tog")
+texture = ExtResource("7_prgoe")
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_4hc1y")

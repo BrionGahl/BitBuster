@@ -1,45 +1,39 @@
-[gd_scene load_steps=24 format=3 uid="uid://det6gkgxg57mw"]
+[gd_scene load_steps=23 format=3 uid="uid://det6gkgxg57mw"]
 
 [ext_resource type="Shader" path="res://assets/shaders/hit_blink.gdshader" id="1_3o33y"]
 [ext_resource type="Script" path="res://src/entity/player/Player.cs" id="1_nju6n"]
-[ext_resource type="Texture2D" uid="uid://2ruli1e1oei3" path="res://assets/player/player_tank.png" id="2_wsan7"]
-[ext_resource type="Texture2D" uid="uid://h883uofr64k4" path="res://assets/player/player_tank_gun.png" id="3_cic8t"]
+[ext_resource type="Texture2D" uid="uid://dfdv4u0gfn1h7" path="res://assets/player/entity_player_gun.png" id="3_s6o36"]
 [ext_resource type="PackedScene" uid="uid://btdrka86pvjsd" path="res://scenes/subscenes/component/track_trail_component.tscn" id="4_g7sml"]
+[ext_resource type="Texture2D" uid="uid://rofjocr85wcj" path="res://assets/player/entity_player_1.png" id="4_kbiv1"]
 [ext_resource type="PackedScene" uid="uid://cubpk1i28p0wk" path="res://scenes/subscenes/component/weapon_component.tscn" id="4_mw4jj"]
 [ext_resource type="PackedScene" uid="uid://bva4np8rg3g20" path="res://scenes/subscenes/component/stats_component.tscn" id="5_bmnux"]
 [ext_resource type="PackedScene" uid="uid://btrxy7t83y8en" path="res://scenes/subscenes/component/health_component.tscn" id="5_umbbr"]
 [ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="8_gp6gs"]
 [ext_resource type="Script" path="res://src/items/ItemPickupHitbox.cs" id="9_s5uk3"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_b5w6s"]
-resource_local_to_scene = true
-shader = ExtResource("1_3o33y")
-shader_parameter/flash_color = Color(1, 0.188235, 0, 1)
-shader_parameter/flash_modifier = 0.0
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0451u"]
 resource_local_to_scene = true
 shader = ExtResource("1_3o33y")
-shader_parameter/flash_color = Color(1, 0.188235, 0, 1)
+shader_parameter/flash_color = Color(0.239216, 0.933333, 0, 1)
 shader_parameter/flash_modifier = 0.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2k5yj"]
-atlas = ExtResource("2_wsan7")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_g7578"]
-atlas = ExtResource("2_wsan7")
+[sub_resource type="AtlasTexture" id="AtlasTexture_fcdrj"]
+atlas = ExtResource("4_kbiv1")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3cx1q"]
-atlas = ExtResource("2_wsan7")
+[sub_resource type="AtlasTexture" id="AtlasTexture_1o4cp"]
+atlas = ExtResource("4_kbiv1")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xb7jb"]
+atlas = ExtResource("4_kbiv1")
 region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_udnnf"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_2k5yj")
+"texture": SubResource("AtlasTexture_fcdrj")
 }],
 "loop": true,
 "name": &"default",
@@ -47,10 +41,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_g7578")
+"texture": SubResource("AtlasTexture_1o4cp")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_3cx1q")
+"texture": SubResource("AtlasTexture_xb7jb")
 }],
 "loop": true,
 "name": &"moving",
@@ -71,50 +65,26 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:material:shader_parameter/flash_modifier")
+tracks/0/path = NodePath("Gun:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [Color(1, 1, 1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Gun:material:shader_parameter/flash_modifier")
+tracks/1/path = NodePath("Hull:self_modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Gun:material:shader_parameter/flash_color")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 0.188235, 0, 1)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".:material:shader_parameter/flash_color")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 0.188235, 0, 1)]
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_0o8y6"]
@@ -123,101 +93,54 @@ length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:material:shader_parameter/flash_modifier")
+tracks/0/path = NodePath("Gun:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [0.5, 0.0]
+"values": [Color(1, 0.188235, 0, 1), Color(1, 1, 1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Gun:material:shader_parameter/flash_modifier")
+tracks/1/path = NodePath("Hull:self_modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [0.5, 0.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Gun:material:shader_parameter/flash_color")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 0.188235, 0, 1)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".:material:shader_parameter/flash_color")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 0.188235, 0, 1)]
+"values": [Color(1, 0.188235, 0, 1), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_g4sgd"]
 resource_name = "effect_heal_blink"
+length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Gun:material:shader_parameter/flash_modifier")
+tracks/0/path = NodePath("Gun:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [0.5, 0.0]
+"values": [Color(0.239216, 0.933333, 0, 1), Color(1, 1, 1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Gun:material:shader_parameter/flash_color")
+tracks/1/path = NodePath("Hull:self_modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0.239216, 0.933333, 0, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:material:shader_parameter/flash_modifier")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [0.5, 0.0]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".:material:shader_parameter/flash_color")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0.239216, 0.933333, 0, 1)]
+"values": [Color(0.239216, 0.933333, 0, 1), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pq2ln"]
@@ -229,7 +152,6 @@ _data = {
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_statsComponent", "_weaponComponent", "_healthComponent") groups=["player"]]
 z_index = 1
-material = SubResource("ShaderMaterial_b5w6s")
 collision_layer = 2
 collision_mask = 69
 motion_mode = 1
@@ -243,7 +165,7 @@ top_level = true
 z_index = 2
 texture_filter = 1
 material = SubResource("ShaderMaterial_0451u")
-texture = ExtResource("3_cic8t")
+texture = ExtResource("3_s6o36")
 
 [node name="Hull" type="AnimatedSprite2D" parent="."]
 z_index = 1
@@ -251,6 +173,8 @@ texture_filter = 1
 use_parent_material = true
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_udnnf")
+animation = &"moving"
+frame_progress = 0.174181
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_pjmg8")
@@ -259,6 +183,7 @@ shape = SubResource("CapsuleShape2D_pjmg8")
 StatsComponent = NodePath("../StatsComponent")
 
 [node name="StatsComponent" parent="." instance=ExtResource("5_bmnux")]
+scale = Vector2(1, 1.00902)
 BombCount = 1000
 MaxHealth = 3.0
 CurrentHealth = 3.0
@@ -273,7 +198,6 @@ BombDamage = 1.0
 BombRadius = 30.0
 Speed = 75.0
 ITime = 0.2
-OverhealBurst = true
 
 [node name="TrackTrailComponent" parent="." instance=ExtResource("4_g7sml")]
 

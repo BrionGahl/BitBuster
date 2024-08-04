@@ -16,8 +16,13 @@ public partial class Detonator : MovingEnemy
 	private GpuParticles2D _explodeEmitter;
 	private Area2D _hitbox;
 	private CollisionShape2D _collider;
+	private ExplodingComponent _explodingComponent;
 
-	private float _timer;
+	private float _timeTillExplosion;
+	private bool _hasExploded;
+	
+	private int _movementScalar;
+	private float _rotationGoal;
 	
 	public override void _Ready()
 	{
@@ -30,7 +35,10 @@ public partial class Detonator : MovingEnemy
 		_collider = GetNode<CollisionShape2D>("Collider");
 		_explodeEmitter = GetNode<GpuParticles2D>("ExplodeEmitter");
 
-		_timer = 1.5f;
+		_explodingComponent = GetNode<ExplodingComponent>("ExplodingComponent");
+
+		_timeTillExplosion = 0f;
+		_hull.Material.Set("shader_parameter/time", _timeTillExplosion);
 		
 		NavigationServer2D.MapChanged += OnMapReady;
 		AgentTimer.Timeout += OnAgentTimeout;
@@ -71,50 +79,26 @@ public partial class Detonator : MovingEnemy
 		
 		if (Position.DistanceTo(Player.Position) < 64)
 		{
-			_timer -= (float)delta;
+			_timeTillExplosion += (float)delta;
+			_hull.Material.Set("shader_parameter/time", _timeTillExplosion);
 			StatsComponent.Speed /= 4;
 		}
 		
-		if (_timer <= 0 || HealthComponent.CurrentHealth <= 0)
+		if ((_timeTillExplosion >= 1.5f || HealthComponent.CurrentHealth <= 0) && !_hasExploded)
 		{
+			_hasExploded = true;
+			
 			_hull.Visible = false;
 			StatsComponent.Speed = 0;
+			HealthComponent.Damage(HealthComponent.CurrentHealth);
 
-			_explodeEmitter.Emitting = true;
-			
-			if (!_hitbox.Monitoring)
-				return;
-			
-			foreach (var area in _hitbox.GetOverlappingAreas())
-			{
-				if (area.Equals(HitboxComponent))
-					continue;
-				
-				if (area is HitboxComponent)
-				{
-					Logger.Log.Information("Hitbox hit at " + area.Name);
-					HitboxComponent hitboxComponent = area as HitboxComponent;
-					hitboxComponent.Damage(StatsComponent.GetBombAttackData());
-				}
-			}
-			
-			foreach (var body in _hitbox.GetOverlappingBodies())
-			{
-				if (!body.IsInGroup(Groups.GroupBreakable)) 
-					continue;
-				
-				(body as BreakableWall).Break();
-			}
-			_globalEvents.EmitBakeNavigationMeshSignal();
-			
-			_hitbox.Monitoring = false;
-			if (HealthComponent.CurrentHealth > 0)
-				HealthComponent.Damage(2f);
+			_explodingComponent.Explode(65f, StatsComponent.GetBombAttackData());
 		}
 		
 		if (Position.DistanceTo(Player.Position) >= 64)
 		{
-			_timer = 1.5f;
+			_timeTillExplosion = 0f;
+			_hull.Material.Set("shader_parameter/time", _timeTillExplosion);
 			if (StatsComponent.Speed < 35)
 				StatsComponent.Speed = 35;
 		}
@@ -123,10 +107,29 @@ public partial class Detonator : MovingEnemy
 	public override void MoveAction(double delta)
 	{
 		Vector2 goalVector = (Agent.GetNextPathPosition() - GlobalPosition).Normalized();
-		if (!IsIdle)
-			Rotation = Mathf.LerpAngle(Rotation, (goalVector.Angle() + Constants.HalfPiOffset), RotationSpeed / 60 );
-		Velocity = new Vector2((float)(-Speed * Math.Sin(-Rotation)), (float)(-Speed * Math.Cos(-Rotation)));
 		
+		if (goalVector == Vector2.Zero)
+			return;
+
+		Vector2 rotationVector = Vector2.FromAngle(Rotation).Normalized();
+		if (rotationVector.DistanceTo(-goalVector.Normalized()) < 0.1f)
+		{
+			_movementScalar = 1;
+			_rotationGoal -= 2 * Mathf.Pi;
+		} else if (rotationVector.DistanceTo(goalVector.Normalized()) > 0.6f)
+		{
+			_movementScalar = 0;
+			_rotationGoal = goalVector.Angle();
+		}
+		else
+		{ 
+			_movementScalar = 1;
+			_rotationGoal = goalVector.Angle();
+		}
+		
+		Rotation = Mathf.LerpAngle(rotationVector.Angle(), _rotationGoal, 0.05f);
+		
+		Velocity = goalVector.Normalized() * _movementScalar * Speed;
 		MoveAndSlide();
 	}
 

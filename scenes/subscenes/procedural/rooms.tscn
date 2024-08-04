@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://32elsci7h0v1"]
+[gd_scene load_steps=19 format=3 uid="uid://32elsci7h0v1"]
 
 [ext_resource type="Script" path="res://src/procedural/Rooms.cs" id="1_lawn4"]
 [ext_resource type="PackedScene" uid="uid://det6gkgxg57mw" path="res://scenes/subscenes/entity/player/player.tscn" id="2_pa2gp"]
@@ -12,26 +12,33 @@
 [ext_resource type="PackedScene" uid="uid://c0ej06grjhkpg" path="res://scenes/subscenes/tiles/breakable_wall.tscn" id="7_s2n8b"]
 [ext_resource type="PackedScene" uid="uid://bntwg1ejjo1i3" path="res://scenes/subscenes/tiles/teleporter.tscn" id="9_5q6ux"]
 [ext_resource type="PackedScene" uid="uid://dd3e26ey6r6nv" path="res://scenes/subscenes/items/pickup/healthpack.tscn" id="9_7elik"]
+[ext_resource type="PackedScene" uid="uid://bnh75c1b1t0ty" path="res://scenes/subscenes/entity/enemy/detonator.tscn" id="10_aouoq"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vtbag"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x7rsm"]
 resource_local_to_scene = true
 shader = ExtResource("6_3x3u3")
 shader_parameter/flash_color = Color(1, 0.188235, 0, 1)
 shader_parameter/flash_modifier = 0.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_rayfk"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v0k4s"]
 resource_local_to_scene = true
 shader = ExtResource("6_3x3u3")
 shader_parameter/flash_color = Color(1, 0.188235, 0, 1)
 shader_parameter/flash_modifier = 0.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_i4vnh"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cwv8d"]
 resource_local_to_scene = true
 shader = ExtResource("6_3x3u3")
 shader_parameter/flash_color = Color(1, 0.188235, 0, 1)
 shader_parameter/flash_modifier = 0.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_7arg8"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d0osx"]
+resource_local_to_scene = true
+shader = ExtResource("6_3x3u3")
+shader_parameter/flash_color = Color(1, 0.188235, 0, 1)
+shader_parameter/flash_modifier = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7pibr"]
 resource_local_to_scene = true
 shader = ExtResource("6_3x3u3")
 shader_parameter/flash_color = Color(1, 0.188235, 0, 1)
@@ -108,17 +115,21 @@ position = Vector2(216, 152)
 position = Vector2(248, 152)
 
 [node name="Tower" parent="START/0" instance=ExtResource("6_s61rk")]
-material = SubResource("ShaderMaterial_vtbag")
+material = SubResource("ShaderMaterial_x7rsm")
 position = Vector2(52, 49)
 collision_mask = 15
 
 [node name="Panzer" parent="START/0" instance=ExtResource("4_5etia")]
-material = SubResource("ShaderMaterial_rayfk")
+material = SubResource("ShaderMaterial_v0k4s")
 position = Vector2(56, 104)
 
 [node name="Player" parent="START/0" instance=ExtResource("2_pa2gp")]
-material = SubResource("ShaderMaterial_i4vnh")
+material = SubResource("ShaderMaterial_cwv8d")
 position = Vector2(152, 152)
+
+[node name="Detonator" parent="START/0" instance=ExtResource("10_aouoq")]
+material = SubResource("ShaderMaterial_d0osx")
+position = Vector2(42, 195)
 
 [node name="BreakableWall" parent="START/0" instance=ExtResource("7_s2n8b")]
 position = Vector2(88, 232)
@@ -145,7 +156,7 @@ format = 2
 layer_0/tile_data = PackedInt32Array(0, 196608, 1, 65536, 131072, 1, 131072, 131072, 1, 196608, 131072, 1, 262144, 131072, 1, 327680, 131072, 1, 393216, 131072, 1, 458752, 131072, 1, 524288, 131072, 1, 589824, 131073, 1, 720896, 131072, 1, 786432, 131072, 1, 851968, 131072, 1, 917504, 131072, 1, 983040, 131072, 1, 1048576, 131072, 1, 1114112, 131072, 1, 1179648, 131072, 1, 1245184, 196608, 2, 1, 65536, 2, 1245185, 65536, 0, 2, 65536, 2, 1245186, 65536, 0, 3, 65536, 2, 1245187, 65536, 0, 4, 65536, 2, 1245188, 65536, 0, 5, 65536, 2, 1245189, 65536, 0, 6, 65536, 2, 1245190, 65536, 0, 7, 65536, 2, 1245191, 65536, 0, 8, 65536, 2, 1245192, 65536, 0, 9, 1, 3, 1245193, 1, 0, 11, 65536, 2, 1245195, 65536, 0, 12, 65536, 2, 1245196, 65536, 0, 13, 65536, 2, 1245197, 65536, 0, 14, 65536, 2, 1245198, 65536, 0, 15, 65536, 2, 1245199, 65536, 0, 16, 65536, 2, 1245200, 65536, 0, 17, 65536, 2, 1245201, 65536, 0, 18, 65536, 2, 1245202, 65536, 0, 19, 262144, 1, 65555, 0, 1, 131091, 0, 1, 196627, 0, 1, 262163, 0, 1, 327699, 0, 1, 393235, 0, 1, 458771, 0, 1, 524307, 0, 1, 589843, 1, 1, 720915, 0, 1, 786451, 0, 1, 851987, 0, 1, 917523, 0, 1, 983059, 0, 1, 1048595, 0, 1, 1114131, 0, 1, 1179667, 0, 1, 1245203, 262144, 2)
 
 [node name="Tower" parent="BOSS/0" instance=ExtResource("6_s61rk")]
-material = SubResource("ShaderMaterial_7arg8")
+material = SubResource("ShaderMaterial_7pibr")
 position = Vector2(160, 160)
 
 [node name="EntityDetector" parent="BOSS/0" instance=ExtResource("4_5l8sk")]

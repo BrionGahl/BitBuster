@@ -39,7 +39,9 @@ public partial class Bomb : StaticBody2D
 		_hitboxComponent = GetNode<Area2D>("HitboxComponent") as HitboxComponent;
 		_healthComponent = GetNode<Node2D>("HealthComponent") as HealthComponent;
 
-		_timeTillExplosion = 2.5f;
+		_timeTillExplosion = 0f;
+		Material.Set("shader_parameter/Time", 0f);
+		
 		_healthComponent.HealthIsZero += OnHealthIsZero;
 		_deathAnimationTimer.Timeout += OnDeathAnimationTimeout;
 	}
@@ -51,8 +53,10 @@ public partial class Bomb : StaticBody2D
 
 	public override void _Process(double delta)
 	{
-		_timeTillExplosion -= (float)delta;
-		if ((_timeTillExplosion < 0 || _healthComponent.CurrentHealth <= 0) && !_hasExploded)
+		_timeTillExplosion += (float)delta;
+		Material.Set("shader_parameter/time", _timeTillExplosion);
+
+		if ((_timeTillExplosion >= 2.5f || _healthComponent.CurrentHealth <= 0) && !_hasExploded)
 		{
 			_hasExploded = true;
 

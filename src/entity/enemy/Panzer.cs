@@ -93,11 +93,6 @@ public partial class Panzer : MovingEnemy
 	{
 		Vector2 goalVector = (Agent.GetNextPathPosition() - GlobalPosition).Normalized();
 		
-		// OLD MOVEMENT
-		// if (!IsIdle)
-		// 	Rotation = Mathf.LerpAngle(Rotation, (goalVector.Angle() + Constants.HalfPiOffset), RotationSpeed / 60 );
-		// Velocity = new Vector2((float)(-Speed * Math.Sin(-Rotation)), (float)(-Speed * Math.Cos(-Rotation)));
-		
 		if (goalVector == Vector2.Zero)
 			return;
 

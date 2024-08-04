@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://bnh75c1b1t0ty"]
+[gd_scene load_steps=30 format=3 uid="uid://bnh75c1b1t0ty"]
 
 [ext_resource type="Shader" path="res://assets/shaders/hit_blink.gdshader" id="1_57o7d"]
 [ext_resource type="Script" path="res://src/entity/enemy/Detonator.cs" id="1_hwlg7"]
@@ -9,8 +9,9 @@
 [ext_resource type="Script" path="res://src/state/moveable/Ram.cs" id="4_l5pgs"]
 [ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="5_10edi"]
 [ext_resource type="PackedScene" uid="uid://btdrka86pvjsd" path="res://scenes/subscenes/component/track_trail_component.tscn" id="5_vdkw3"]
-[ext_resource type="Texture2D" uid="uid://b0d7wva4i1ysc" path="res://assets/enemy/enemy_tank_idle.png" id="6_y5uuv"]
-[ext_resource type="Texture2D" uid="uid://b6blw88sbpd8j" path="res://assets/enemy/enemy_tank.png" id="7_7rumx"]
+[ext_resource type="Shader" path="res://assets/shaders/bomb_blink.gdshader" id="6_xmiab"]
+[ext_resource type="Texture2D" uid="uid://bhqm8i2mfndsc" path="res://assets/enemy/entity_detonator.png" id="7_yjcen"]
+[ext_resource type="PackedScene" uid="uid://2m2pbclf1iur" path="res://scenes/subscenes/component/exploding_component.tscn" id="12_c7k57"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_behow"]
 resource_local_to_scene = true
@@ -18,23 +19,32 @@ shader = ExtResource("1_57o7d")
 shader_parameter/flash_color = Color(1, 0.188235, 0, 1)
 shader_parameter/flash_modifier = 0.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_us74s"]
-atlas = ExtResource("6_y5uuv")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c4pxw"]
+shader = ExtResource("6_xmiab")
+shader_parameter/end_time = 1.5
+shader_parameter/start_freq = 1.0
+shader_parameter/end_freq = 10.0
+shader_parameter/time = null
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/blink_length = 0.5
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_284vp"]
+atlas = ExtResource("7_yjcen")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rowgx"]
-atlas = ExtResource("7_7rumx")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tdvtq"]
-atlas = ExtResource("7_7rumx")
+[sub_resource type="AtlasTexture" id="AtlasTexture_uaid7"]
+atlas = ExtResource("7_yjcen")
 region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ir6r8"]
+atlas = ExtResource("7_yjcen")
+region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1jxot"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_us74s")
+"texture": SubResource("AtlasTexture_284vp")
 }],
 "loop": true,
 "name": &"default",
@@ -42,10 +52,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_rowgx")
+"texture": SubResource("AtlasTexture_uaid7")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_tdvtq")
+"texture": SubResource("AtlasTexture_ir6r8")
 }],
 "loop": true,
 "name": &"moving",
@@ -56,8 +66,8 @@ animations = [{
 size = Vector2(16, 16)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qyxbd"]
-radius = 7.0
-height = 14.0
+radius = 6.0
+height = 12.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uv8ha"]
 radius = 86.0523
@@ -94,14 +104,14 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:material:shader_parameter/flash_modifier")
+tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_svvht"]
@@ -110,14 +120,14 @@ length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:material:shader_parameter/flash_modifier")
+tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [0.5, 0.0]
+"values": [Color(1, 0.188235, 0, 1), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gu0m7"]
@@ -144,14 +154,18 @@ script = ExtResource("4_l5pgs")
 [node name="Hull" type="AnimatedSprite2D" parent="."]
 z_index = 1
 texture_filter = 1
-use_parent_material = true
+material = SubResource("ShaderMaterial_c4pxw")
+rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_1jxot")
+animation = &"moving"
+frame_progress = 0.641959
 
 [node name="StatsComponent" parent="." instance=ExtResource("2_7xdjd")]
 Source = 3
 MaxHealth = 2.0
 CurrentHealth = 2.0
 BombDamage = 2.0
+BombRadius = 64.0
 Speed = 10.0
 ITime = 0.2
 
@@ -176,7 +190,8 @@ shape = SubResource("CapsuleShape2D_qyxbd")
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
 [node name="Agent" type="NavigationAgent2D" parent="."]
-debug_enabled = true
+path_desired_distance = 8.0
+target_desired_distance = 16.0
 
 [node name="Timer" type="Timer" parent="Agent"]
 wait_time = 0.3
@@ -200,6 +215,8 @@ amount = 128
 process_material = SubResource("ParticleProcessMaterial_kdmpl")
 one_shot = true
 explosiveness = 1.0
+
+[node name="ExplodingComponent" parent="." instance=ExtResource("12_c7k57")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
