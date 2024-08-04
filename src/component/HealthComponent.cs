@@ -27,6 +27,12 @@ public partial class HealthComponent : Node2D
 		get => StatsComponent.CurrentHealth;
 		set => StatsComponent.CurrentHealth = value; 
 	}
+	
+	public float Overheal
+	{
+		get => StatsComponent.Overheal;
+		set => StatsComponent.Overheal = value; 
+	}
 
 	private Timer _iFrameTimer;
 	
@@ -47,7 +53,14 @@ public partial class HealthComponent : Node2D
 		Logger.Log.Information(GetParent().Name + " taking " + attackData.Damage + " damage.");
 		_canBeHit = false;
 
-		CurrentHealth -= attackData.Damage;
+		if (Overheal > 0)
+		{
+			Overheal -= attackData.Damage;
+			if (Overheal < 0)
+				Overheal = 0;
+		}
+		else 
+			CurrentHealth -= attackData.Damage;
 		
 		if (CurrentHealth <= 0)
 		{
@@ -65,8 +78,16 @@ public partial class HealthComponent : Node2D
 			return;
 		
 		Logger.Log.Information(GetParent().Name + " taking " + damage + " damage.");
-		
-		CurrentHealth -= damage;
+
+		if (Overheal > 0)
+		{
+			Overheal -= damage;
+			if (Overheal < 0)
+				Overheal = 0;
+		}
+		else 
+			CurrentHealth -= damage;
+
 		
 		if (CurrentHealth <= 0)
 		{

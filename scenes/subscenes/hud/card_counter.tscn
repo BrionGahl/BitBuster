@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bc8j74kbh608b"]
 
 [ext_resource type="Script" path="res://src/hud/CardCounter.cs" id="1_6g4ep"]
-[ext_resource type="Texture2D" uid="uid://w06wy7yx0gef" path="res://assets/projectiles/mine.png" id="2_r7lhs"]
+[ext_resource type="Texture2D" uid="uid://24hwebpvo0jk" path="res://assets/items/pickup/pickup_card.png" id="2_8glap"]
 [ext_resource type="Theme" uid="uid://c8qs8rvxfk3jf" path="res://assets/menu/default_theme.tres" id="3_uwdse"]
 
 [node name="CardCounter" type="HSplitContainer"]
@@ -10,8 +10,8 @@ script = ExtResource("1_6g4ep")
 [node name="CardImage" type="TextureRect" parent="."]
 texture_filter = 1
 layout_mode = 2
-texture = ExtResource("2_r7lhs")
-stretch_mode = 6
+texture = ExtResource("2_8glap")
+stretch_mode = 5
 
 [node name="Counter" type="Label" parent="."]
 texture_filter = 1

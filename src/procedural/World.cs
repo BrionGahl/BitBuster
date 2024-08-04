@@ -315,7 +315,7 @@ public partial class World : Node2D
 			if (newObject.IsInGroup(Groups.GroupEnemy))
 			{
 				float chance = 1 - Mathf.Log(_global.WorldLevel * 1.15f);
-				if (_random.Randf() > 0)
+				if (_random.Randf() > chance)
 					(newObject as Enemy).MakeElite((EliteType)_random.RandiRange(0, 3));
 			}
 		}

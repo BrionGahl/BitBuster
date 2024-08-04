@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://cqxc15f3wbnwd"]
+
+[ext_resource type="Script" path="res://src/items/Item.cs" id="1_llyh1"]
+[ext_resource type="Texture2D" uid="uid://baf2fihp37c2p" path="res://assets/items/normal/item_holy_book.png" id="2_wxl3b"]
+[ext_resource type="PackedScene" uid="uid://ddckip0887shk" path="res://scenes/subscenes/component/particle_item_pickup_component.tscn" id="3_fvfeg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k1piv"]
+size = Vector2(16, 16)
+
+[node name="HolyBook" type="Area2D" groups=["item"]]
+z_index = 1
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_llyh1")
+ItemName = "Holy Book"
+ItemDescription = "Someone's watching out for you..."
+AddedOverheal = 2.0
+ITime = 0.2
+Luck = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_k1piv")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_wxl3b")
+
+[node name="ParticleItemPickupComponent" parent="." instance=ExtResource("3_fvfeg")]

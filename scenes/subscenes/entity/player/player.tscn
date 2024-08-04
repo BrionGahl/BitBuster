@@ -262,6 +262,7 @@ StatsComponent = NodePath("../StatsComponent")
 BombCount = 1000
 MaxHealth = 3.0
 CurrentHealth = 3.0
+Overheal = 2.0
 ProjectileDamage = 1.0
 ProjectileCount = 3
 ProjectileCooldown = 0.33
@@ -269,6 +270,7 @@ ProjectileBounces = 1
 ProjectileSpeed = 100.0
 ProjectileSizeScalar = Vector2(1, 1)
 BombDamage = 1.0
+BombRadius = 30.0
 Speed = 75.0
 ITime = 0.2
 

@@ -28,11 +28,9 @@ public partial class BreakableWall : StaticBody2D
 	{
 		if (_isBroken)
 			return;
-
 		_isBroken = true;
-		
+		this.SetCollisionLayerValue((int)BBCollisionLayer.World, false);
 		_sprite.Visible = false;
-		_collisionShape.Disabled = true;
 		
 		_shatterEmitter.Emitting = true;
 		_animationTimer.Start();

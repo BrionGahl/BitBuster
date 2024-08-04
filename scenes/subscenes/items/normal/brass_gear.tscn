@@ -1,13 +1,13 @@
 [gd_scene load_steps=5 format=3 uid="uid://ddw5vt0yxr6r1"]
 
 [ext_resource type="Script" path="res://src/items/Item.cs" id="1_3i3a4"]
-[ext_resource type="Texture2D" uid="uid://dse6kda57lu8d" path="res://assets/items/item_brass_gear.png" id="2_larei"]
+[ext_resource type="Texture2D" uid="uid://dse6kda57lu8d" path="res://assets/items/normal/item_brass_gear.png" id="2_larei"]
 [ext_resource type="PackedScene" uid="uid://ddckip0887shk" path="res://scenes/subscenes/component/particle_item_pickup_component.tscn" id="3_hyjk5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k1piv"]
 size = Vector2(16, 16)
 
-[node name="BrassGear" type="Area2D"]
+[node name="BrassGear" type="Area2D" groups=["item"]]
 z_index = 1
 collision_layer = 8
 collision_mask = 0

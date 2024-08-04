@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://cd0ru68bgians"]
+
+[ext_resource type="Script" path="res://src/items/Item.cs" id="1_gv2ae"]
+[ext_resource type="Texture2D" uid="uid://24hwebpvo0jk" path="res://assets/items/pickup/pickup_card.png" id="2_idyau"]
+[ext_resource type="PackedScene" uid="uid://ddckip0887shk" path="res://scenes/subscenes/component/particle_item_pickup_component.tscn" id="3_6tf6h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5saa8"]
+size = Vector2(16, 16)
+
+[node name="Card" type="Area2D"]
+z_index = 1
+collision_layer = 8
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_gv2ae")
+ItemName = "Health Pack"
+ItemType = 1
+AddedKeyCard = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_5saa8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_idyau")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="ParticleItemPickupComponent" parent="." instance=ExtResource("3_6tf6h")]

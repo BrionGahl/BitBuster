@@ -81,20 +81,6 @@ public partial class WeaponComponent : Node2D
 					ShootTimer.Start(StatsComponent.ProjectileCooldown);
 				}
 				break;
-			case (WeaponType.Tri):
-				if (CanShoot && BulletCount + BaseChildComponents - GetChildCount() > BaseChildComponents)
-				{
-					Logger.Log.Information("Shooting... " + (BulletCount + 2 - GetChildCount()) + "/" + BulletCount + ".");
-			
-					Shoot(rotation + Mathf.Pi / 9);
-					Shoot(rotation);
-					Shoot(rotation - Mathf.Pi / 9);
-
-					StatsComponent.Speed /= 2;
-					CanShoot = false;
-					ShootTimer.Start(StatsComponent.ProjectileCooldown);
-				}
-				break;
 		}
 		
 	}
@@ -102,7 +88,9 @@ public partial class WeaponComponent : Node2D
 	private void Shoot(float rotation)
 	{
 		Bullet bullet = _bullet.Instantiate<CharacterBody2D>() as Bullet;
-		bullet.SetTrajectory(GetParent<Node2D>().GlobalPosition, rotation - Constants.HalfPiOffset, StatsComponent.GetAttackData());
+		bullet.SetTrajectory(GetParent<Node2D>().GlobalPosition, rotation - Constants.HalfPiOffset, 
+			StatsComponent.GetAttackData(), StatsComponent.ProjectileSpeed, StatsComponent.ProjectileBounces, 
+			StatsComponent.ProjectileSizeScalar, StatsComponent.ProjectileBulletType);
 		AddChild(bullet);
 	}
 
@@ -121,13 +109,12 @@ public partial class WeaponComponent : Node2D
 	private void Bomb()
 	{
 		Bomb bomb = _bomb.Instantiate<StaticBody2D>() as Bomb;
-		bomb.SetPosition(GetParent<Node2D>().GlobalPosition, StatsComponent.GetBombAttackData());
+		bomb.SetPositionAndRadius(GetParent<Node2D>().GlobalPosition, StatsComponent.GetBombAttackData(), StatsComponent.BombRadius);
 		
 		BombCount--;
 		StatsComponent.EmitStatChangeSignal();
 		
 		Bombs.AddChild(bomb);
-		bomb.FinalizeBomb();
 	}
 
 	private void OnShootTimeout()

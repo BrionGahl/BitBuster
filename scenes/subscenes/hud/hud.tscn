@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://n3uhl8voulr4"]
+[gd_scene load_steps=14 format=3 uid="uid://n3uhl8voulr4"]
 
 [ext_resource type="PackedScene" uid="uid://c4g61mo4wfsdd" path="res://scenes/subscenes/hud/health_bar_with_delta.tscn" id="1_itswx"]
 [ext_resource type="Script" path="res://src/hud/TitleBar.cs" id="2_dr176"]
 [ext_resource type="PackedScene" uid="uid://bj8lasfvi3jbi" path="res://scenes/subscenes/hud/bullet_counter.tscn" id="2_muu5f"]
 [ext_resource type="PackedScene" uid="uid://kk07ijvac1k2" path="res://scenes/subscenes/hud/bomb_counter.tscn" id="3_d8y6y"]
+[ext_resource type="FontFile" uid="uid://boj4ahk23hdn6" path="res://assets/menu/fonts/Karma Future.otf" id="3_t3m70"]
 [ext_resource type="PackedScene" uid="uid://cdcjttks8vxna" path="res://scenes/subscenes/hud/minimap.tscn" id="3_v42l8"]
 [ext_resource type="Theme" uid="uid://c8qs8rvxfk3jf" path="res://assets/menu/default_theme.tres" id="4_py63n"]
 [ext_resource type="PackedScene" uid="uid://bc8j74kbh608b" path="res://scenes/subscenes/hud/card_counter.tscn" id="4_wu1un"]
@@ -72,6 +73,7 @@ theme_override_constants/margin_bottom = 80
 
 [node name="TitleBar" type="VSplitContainer" parent="RootHud/HudMargins"]
 modulate = Color(1, 1, 1, 0)
+texture_filter = 1
 layout_mode = 2
 size_flags_vertical = 0
 script = ExtResource("2_dr176")
@@ -79,6 +81,7 @@ script = ExtResource("2_dr176")
 [node name="Title" type="Label" parent="RootHud/HudMargins/TitleBar"]
 texture_filter = 1
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_t3m70")
 theme_override_font_sizes/font_size = 32
 text = "Item Name"
 horizontal_alignment = 1
@@ -115,6 +118,7 @@ layout_mode = 2
 size_flags_horizontal = 1
 
 [node name="BombCounter" parent="RootHud/HudMargins/VBoxContainer" instance=ExtResource("3_d8y6y")]
+texture_filter = 1
 layout_mode = 2
 
 [node name="CardCounter" parent="RootHud/HudMargins/VBoxContainer" instance=ExtResource("4_wu1un")]

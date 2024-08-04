@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://cmas5xjbsinkr"]
+
+[ext_resource type="Script" path="res://src/items/Item.cs" id="1_pordr"]
+[ext_resource type="Texture2D" uid="uid://c6pp0robimbfo" path="res://assets/items/normal/item_spotted_shroom.png" id="2_h4yi6"]
+[ext_resource type="PackedScene" uid="uid://ddckip0887shk" path="res://scenes/subscenes/component/particle_item_pickup_component.tscn" id="3_hvp66"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k1piv"]
+size = Vector2(16, 16)
+
+[node name="SpottedShroom" type="Area2D" groups=["item"]]
+z_index = 1
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_pordr")
+ItemName = "Spotted Shroom"
+ItemDescription = "Not for human consumption... +2 Health -1 Speed"
+AddedHealth = 2.0
+MaxHealth = 2.0
+Speed = -25.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_k1piv")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_h4yi6")
+
+[node name="ParticleItemPickupComponent" parent="." instance=ExtResource("3_hvp66")]

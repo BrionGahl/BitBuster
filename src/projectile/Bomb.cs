@@ -14,16 +14,18 @@ public partial class Bomb : StaticBody2D
 	private GlobalEvents _globalEvents;
 	
 	private Sprite2D _bombTexture;
-	private Area2D _hitbox;
-	private GpuParticles2D _explodeEmitter;
+	
 	private Timer _deathAnimationTimer;
 	
 	private HitboxComponent _hitboxComponent;
 	private HealthComponent _healthComponent;
+	private ExplodingComponent _explodingComponent;
 
 	private AttackData _attackData;
+	private float _radius;
 
 	private float _timeTillExplosion;
+	private bool _hasExploded;
 	
 	public override void _Notification(int what)
 	{
@@ -31,11 +33,9 @@ public partial class Bomb : StaticBody2D
 			return;
 		
 		_bombTexture = GetNode<Sprite2D>("Sprite2D");
-		_hitbox = GetNode<Area2D>("Hitbox");
-		_explodeEmitter = GetNode<GpuParticles2D>("ExplodeEmitter");
 		_deathAnimationTimer = GetNode<Timer>("DeathAnimationTimer");
-
 		
+		_explodingComponent = GetNode<ExplodingComponent>("ExplodingComponent");
 		_hitboxComponent = GetNode<Area2D>("HitboxComponent") as HitboxComponent;
 		_healthComponent = GetNode<Node2D>("HealthComponent") as HealthComponent;
 
@@ -44,56 +44,31 @@ public partial class Bomb : StaticBody2D
 		_deathAnimationTimer.Timeout += OnDeathAnimationTimeout;
 	}
 	
-	public void FinalizeBomb()
+	public override void _Ready()
 	{
-		// NOTE: This is needed since we can't grab the GlobalEvents singleton from a non-parented node. 
 		_globalEvents = GetNode<GlobalEvents>("/root/GlobalEvents");
 	}
 
 	public override void _Process(double delta)
 	{
 		_timeTillExplosion -= (float)delta;
-		if (_timeTillExplosion < 0 || _healthComponent.CurrentHealth <= 0)
+		if ((_timeTillExplosion < 0 || _healthComponent.CurrentHealth <= 0) && !_hasExploded)
 		{
+			_hasExploded = true;
+
+			_healthComponent.Damage(_healthComponent.CurrentHealth);
 			_bombTexture.Visible = false;
-			_explodeEmitter.Emitting = true;
-
-			if (!_hitbox.Monitoring)
-				return;
-			
-			foreach (var area in _hitbox.GetOverlappingAreas())
-			{
-				if (area.Equals(_hitboxComponent))
-					continue;
-				
-				if (area is HitboxComponent)
-				{
-					Logger.Log.Information("Hitbox hit at " + area.Name);
-
-					HitboxComponent hitboxComponent = area as HitboxComponent;
-					hitboxComponent.Damage(_attackData);
-				}
-			}
-			
-			foreach (var body in _hitbox.GetOverlappingBodies())
-			{
-				if (!body.IsInGroup(Groups.GroupBreakable)) 
-					continue;
-				
-				(body as BreakableWall).Break();
-			}
-			_globalEvents.EmitBakeNavigationMeshSignal();
-
-			if (_healthComponent.CurrentHealth > 0)
-				_healthComponent.Damage(2f);
-			_hitbox.Monitoring = false;
+			_explodingComponent.Explode(_radius, _attackData);
 		}
 	}
 
-	public void SetPosition(Vector2 position, AttackData attackData)
+	public void SetPositionAndRadius(Vector2 position, AttackData attackData, float radius)
 	{
 		GlobalPosition = position;
 		_attackData = attackData;
+		_radius = radius;
+		
+		GetNode<GpuParticles2D>("ParticleCritComponent").Emitting = _attackData.IsCrit;
 	}
 
 	private void OnHealthIsZero()

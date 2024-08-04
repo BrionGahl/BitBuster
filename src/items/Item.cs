@@ -32,7 +32,7 @@ public partial class Item: Area2D
 	[Export]
 	public float MaxHealth { get; private set; }
 
-	// Weapon Related Stats
+	// Bullet Related Stats
 	[Export]
 	public float ProjectileDamage { get; private set; }
 	[Export]
@@ -50,8 +50,18 @@ public partial class Item: Area2D
 	[Export]
 	public Vector2 ProjectileSizeScalar { get; private set; } 
 	[Export]
-	public float BombDamage { get; private set; }
+	public BulletType ProjectileBulletType { get; set; }
+	[Export]
+	public float ProjectileAccuracy { get; set; }
 	
+	// Bomb Related Stats
+	[Export]
+	public float BombDamage { get; private set; }
+	[Export]
+	public EffectType BombDamageType { get; set; }
+	[Export]
+	public float BombRadius { get; private set; }
+
 	// Control Related Stats
 	[Export]
 	public float Speed { get; private set; }
@@ -60,6 +70,10 @@ public partial class Item: Area2D
 	[Export]
 	public EffectType TrailEffect { get; private set; }
 
+	// Other Stats
+	[Export]
+	public int Luck { get; private set; }
+	
 	// Node Specifics
 	public Sprite2D Sprite { get; private set; }
 	public Timer AnimationTimer { get; private set; }

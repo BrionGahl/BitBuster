@@ -2,6 +2,7 @@ using System;
 using BitBuster.component;
 using BitBuster.data;
 using BitBuster.items;
+using BitBuster.tiles;
 using BitBuster.utils;
 using BitBuster.world;
 using Godot;
@@ -10,8 +11,13 @@ namespace BitBuster.projectile;
 
 public partial class Bullet : CharacterBody2D
 {
+	private GlobalEvents _globalEvents;
+	
 	private Sprite2D _bulletTexture;
 	private Area2D _hitbox;
+
+	private ExplodingComponent _explodingComponent;
+	
 	private VisibleOnScreenNotifier2D _screenNotifier;
 
 	private GpuParticles2D _bounceEmitter;
@@ -23,6 +29,7 @@ public partial class Bullet : CharacterBody2D
 	private AttackData _attackData;
 	private int _remainingBounces;
 	private float _hueShift;
+	private BulletType _bulletType;
 	
 	public override void _Notification(int what)
 	{
@@ -32,6 +39,8 @@ public partial class Bullet : CharacterBody2D
 		_bulletTexture = GetNode<Sprite2D>("Sprite2D");
 		_hitbox = GetNode<Area2D>("Hitbox");
 
+		_explodingComponent = GetNode<ExplodingComponent>("ExplodingComponent");
+		
 		_bounceEmitter = GetNode<GpuParticles2D>("ParticleBounce");
 		_explodeEmitter = GetNode<GpuParticles2D>("ParticleExplode");
 
@@ -46,6 +55,11 @@ public partial class Bullet : CharacterBody2D
 		_deathAnimationTimer.Timeout += OnDeathAnimationTimeout;
 	}
 
+	public override void _Ready()
+	{
+		_globalEvents = GetNode<GlobalEvents>("/root/GlobalEvents");
+	}
+	
 	public override void _PhysicsProcess(double delta)
 	{
 		KinematicCollision2D collision = MoveAndCollide(Velocity * (float)delta);
@@ -70,27 +84,32 @@ public partial class Bullet : CharacterBody2D
 
 	}
 
-	public void SetTrajectory(Vector2 position, float rotation, AttackData attackData)
+	public void SetTrajectory(Vector2 position, float rotation, AttackData attackData, float speed, int bounces, Vector2 size, BulletType bulletType)
 	{
 		GlobalPosition = position;
 		GlobalRotation = rotation;
+
+		_attackData = attackData;
+		_bulletType = bulletType;
 		
-		_remainingBounces = attackData.Bounces;
-		_hueShift = 0.33f / attackData.Bounces;
+		_remainingBounces = bounces;
+		_hueShift = 0.33f / bounces;
 		
 		_bulletTexture.Modulate = Color.FromHsv(_remainingBounces * _hueShift, 1.0f, 1.0f);
 
-		_attackData = attackData;
-		Scale = new Vector2(_attackData.Size.X, _attackData.Size.Y);
-		GetNode<GpuParticles2D>("ParticleTrail").Emitting = true;
-		if (attackData.Speed > 150)
+		Scale = new Vector2(size.X, size.Y);
+		if (speed > 150)
 		{
-			GetNode<GpuParticles2D>("ParticleTrail").Emitting = false;
 			GetNode<GpuParticles2D>("ParticleFastTrail").Emitting = true;
-			
 		}
-			
-		Velocity = new Vector2(0, -attackData.Speed).Rotated(GlobalRotation);
+		else
+		{
+			GetNode<GpuParticles2D>("ParticleTrail").Emitting = true;
+		}
+		
+		GetNode<GpuParticles2D>("ParticleCritComponent").Emitting = _attackData.IsCrit;
+		
+		Velocity = new Vector2(0, -speed).Rotated(GlobalRotation);
 	}
 
 	private void PrepForFree()
@@ -105,8 +124,15 @@ public partial class Bullet : CharacterBody2D
 
 	private void OnAreaEntered(Area2D area)
 	{
-		if (area is Item)
+		if (area.IsInGroup(Groups.GroupItem))
 			return;
+
+		if (area.IsInGroup(Groups.GroupBulletNoPass))
+		{
+			PrepForFree();
+			_deathAnimationTimer.Start();
+			return;
+		}
 		
 		if (area is HitboxComponent)
 		{
@@ -115,7 +141,20 @@ public partial class Bullet : CharacterBody2D
 			HitboxComponent hitboxComponent = area as HitboxComponent;
 			hitboxComponent.Damage(_attackData);
 		}
+
+		if (_bulletType.HasFlag(BulletType.Exploding))
+		{
+			_explodingComponent.Explode(20f, new AttackData(1f, EffectType.Normal, _attackData.SourceType, false));
+		}
+			
 		
+		if (_bulletType.HasFlag(BulletType.Piercing))
+		{
+			_remainingBounces--;
+			return;
+		}
+
+			
 		PrepForFree();
 		_deathAnimationTimer.Start();
 	}
@@ -126,8 +165,6 @@ public partial class Bullet : CharacterBody2D
 		_hitbox.SetCollisionMaskValue((int)BBCollisionLayer.Enemy, true);
 		_hitbox.SetCollisionMaskValue((int)BBCollisionLayer.Projectile, true);
 		_hitbox.SetCollisionMaskValue((int)BBCollisionLayer.Item, true);
-
-		SetCollisionMaskValue((int)BBCollisionLayer.Projectile, true);
 	}
 	
 	private void OnDeathAnimationTimeout()

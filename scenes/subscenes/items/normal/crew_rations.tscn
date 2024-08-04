@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://dhmfxbx2y3cma"]
+
+[ext_resource type="Script" path="res://src/items/Item.cs" id="1_8es44"]
+[ext_resource type="Texture2D" uid="uid://diuaaxk6mdus4" path="res://assets/items/normal/item_crew_rations.png" id="2_s81ia"]
+[ext_resource type="PackedScene" uid="uid://ddckip0887shk" path="res://scenes/subscenes/component/particle_item_pickup_component.tscn" id="3_7ibn8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k1piv"]
+size = Vector2(16, 16)
+
+[node name="CrewRations" type="Area2D" groups=["item"]]
+z_index = 1
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_8es44")
+ItemName = "Crew Rations"
+ItemDescription = "Mmmm... +1 Health, +1 Speed"
+AddedHealth = 1.0
+MaxHealth = 1.0
+ProjectileSpeed = 25.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_k1piv")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_s81ia")
+
+[node name="ParticleItemPickupComponent" parent="." instance=ExtResource("3_7ibn8")]

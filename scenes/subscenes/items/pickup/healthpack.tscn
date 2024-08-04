@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dd3e26ey6r6nv"]
 
-[ext_resource type="Texture2D" uid="uid://dpjose0wt0pe6" path="res://assets/items/pickup_healthpack.png" id="1_3cgxq"]
+[ext_resource type="Texture2D" uid="uid://dpjose0wt0pe6" path="res://assets/items/pickup/pickup_healthpack.png" id="1_3cgxq"]
 [ext_resource type="Script" path="res://src/items/Item.cs" id="1_k8533"]
 [ext_resource type="PackedScene" uid="uid://ddckip0887shk" path="res://scenes/subscenes/component/particle_item_pickup_component.tscn" id="3_ydlpm"]
 
