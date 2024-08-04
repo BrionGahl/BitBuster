@@ -226,3 +226,5 @@ shape = SubResource("RectangleShape2D_r5da5")
 libraries = {
 "": SubResource("AnimationLibrary_pq2ln")
 }
+
+[node name="DoorEnterTimer" type="Timer" parent="."]

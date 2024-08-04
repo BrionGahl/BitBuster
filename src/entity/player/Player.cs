@@ -18,6 +18,8 @@ public partial class Player : CharacterBody2D
 
 	[Export] 
 	private HealthComponent _healthComponent;
+
+	public bool CanEnterDoor { get; set; }
 	
 	private float Speed
 	{
@@ -30,10 +32,7 @@ public partial class Player : CharacterBody2D
 	private Sprite2D _gun;
 	private AnimatedSprite2D _hull;
 	private AnimationPlayer _animationPlayer;
-
-	// OLD MOVEMENT
-	// private Vector2 _movementDirection;
-	// private float _rotationDirection;
+	private Timer _doorEnterTimer;
 	
 	// NEW MOVEMENT
 	private Vector2 _movementDirection;
@@ -52,8 +51,11 @@ public partial class Player : CharacterBody2D
 		_gun = GetNode<Sprite2D>("Gun");
 		_hull = GetNode<AnimatedSprite2D>("Hull");
 		_animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
-
+		_doorEnterTimer = GetNode<Timer>("DoorEnterTimer");
+		CanEnterDoor = true;
+		
 		_globalEvents.IncrementAndGenerateLevel += OnIncrementAndGenerateLevel;
+		_doorEnterTimer.Timeout += OnDoorEnterTimeout;
 		_healthComponent.HealthChange += OnHealthChange;
 	}
 	
@@ -69,32 +71,24 @@ public partial class Player : CharacterBody2D
 			_weaponComponent.AttemptBomb();
 		
 		HandleRotation();
-		
-		// OLD MOVEMENT
-		// if (!IsIdle)
-		// 	Rotation += _rotationDirection * RotationSpeed * (float)delta;
-		
-		
 		HandleAnimations();
 	}
 	
 	public override void _PhysicsProcess(double delta)
 	{
-		// OLD MOVEMENT
-		// Velocity = _movementDirection * Speed;
-		
 		Velocity = _movementDirection.Normalized() * _movementScalar * Speed;
 		
 		MoveAndSlide();
 	}
+
+	public void EnterDoor()
+	{
+		CanEnterDoor = false;
+		_doorEnterTimer.Start();
+	}
 	
 	private void GetInput() 
 	{
-		// OLD MOVEMENT
-		// _rotationDirection = Input.GetAxis("left", "right");
-		// _movementDirection = Transform.X * Input.GetAxis("down", "up");
-
-		// NEW MOVEMENT
 		_movementDirection = new Vector2(
 			Input.GetAxis("left", "right"), 
 			Input.GetAxis("up", "down"));
@@ -115,7 +109,6 @@ public partial class Player : CharacterBody2D
 		_hull.Play();
 	}
 
-	// NEW MOVEMENT
 	private void HandleRotation()
 	{
 		if (_movementDirection == Vector2.Zero)
@@ -153,5 +146,10 @@ public partial class Player : CharacterBody2D
 			_animationPlayer.Play("effect_damage_blink", -1D, _statsComponent.ITime / 0.2f);
 		else
 			_animationPlayer.Play("effect_heal_blink", -1D);
+	}
+
+	private void OnDoorEnterTimeout()
+	{
+		CanEnterDoor = true;
 	}
 }

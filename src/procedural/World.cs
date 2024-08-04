@@ -328,7 +328,6 @@ public partial class World : Node2D
 				Door door = _doorScene.Instantiate<Area2D>() as Door;
 				door.SetDoorInfo(((Vector2)data.TileMap[i].Direction).Angle(), data.TileMap[i].Offset * _rooms.CellSize + worldOffset, data.TileMap[i].Direction * 32);
 				_levelBakeable.AddChild(door);
-				door.FinalizeDoor();
 				continue; 
 			}
 			

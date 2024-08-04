@@ -1,4 +1,5 @@
 using System;
+using BitBuster.entity.player;
 using BitBuster.utils;
 using BitBuster.world;
 using Godot;
@@ -26,6 +27,13 @@ public partial class Door : Area2D
 	private CollisionShape2D _collisionShape;
 	private GpuParticles2D _openDoorEmitter;
 	private Marker2D _destination;
+	
+	public override void _Ready()
+	{
+		// NOTE: This is needed since we can't grab the GlobalEvents singleton from a non-parented node. 
+		_globalEvents = GetNode<GlobalEvents>("/root/GlobalEvents");
+		_globalEvents.ToggleDoors += OnToggleDoors;
+	}
 	
 	public override void _Notification(int what)
 	{
@@ -68,13 +76,6 @@ public partial class Door : Area2D
 		}
 	}
 
-	public void FinalizeDoor()
-	{
-		// NOTE: This is needed since we can't grab the GlobalEvents singleton from a non-parented node. 
-		_globalEvents = GetNode<GlobalEvents>("/root/GlobalEvents");
-		_globalEvents.ToggleDoors += OnToggleDoors;
-	}
-
 	private void OnBodyEntered(Node2D body)
 	{
 		if (!body.IsInGroup(Groups.GroupPlayer))
@@ -82,6 +83,9 @@ public partial class Door : Area2D
 		
 		Logger.Log.Information("body entered: {@type}", Type);
 
+		if (!(body as Player).CanEnterDoor)
+			return;
+		(body as Player).EnterDoor();
 		body.GlobalPosition = _destination.GlobalPosition + Offset;
 	}
 
