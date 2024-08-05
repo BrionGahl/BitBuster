@@ -99,6 +99,7 @@ public abstract partial class Enemy: CharacterBody2D
 				break;
 			case EliteType.Chaotic:
 				StatsComponent.ProjectileWeaponType |= WeaponType.Random;
+				SetColor(Colors.LightBlue);
 				break;
 		}
 	}
