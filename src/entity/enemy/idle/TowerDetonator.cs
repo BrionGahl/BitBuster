@@ -73,7 +73,7 @@ public partial class TowerDetonator : IdleEnemy
 			StatsComponent.Speed = 0;
 			HealthComponent.Damage(HealthComponent.CurrentHealth);
 
-			_explodingComponent.Explode(65f, StatsComponent.GetBombAttackData());
+			_explodingComponent.Explode(StatsComponent.GetBombAttackData());
 		}
 		
 		if (Position.DistanceTo(Player.Position) >= 64)

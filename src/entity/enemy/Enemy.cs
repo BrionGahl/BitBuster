@@ -97,6 +97,9 @@ public abstract partial class Enemy: CharacterBody2D
 			case EliteType.Invisible:
 				SetColor(Colors.Transparent);
 				break;
+			case EliteType.Chaotic:
+				StatsComponent.ProjectileWeaponType |= WeaponType.Random;
+				break;
 		}
 	}
 

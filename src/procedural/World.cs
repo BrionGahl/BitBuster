@@ -316,7 +316,7 @@ public partial class World : Node2D
 			{
 				float chance = 1 - Mathf.Log(_global.WorldLevel * 1.15f);
 				if (_random.Randf() > chance)
-					((Enemy)newObject).MakeElite((EliteType)_random.RandiRange(0, 3));
+					((Enemy)newObject).MakeElite((EliteType)_random.RandiRange(0, 4));
 			}
 		}
 		

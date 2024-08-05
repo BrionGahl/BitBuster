@@ -56,6 +56,8 @@ public partial class StatsComponent : Node2D
 	[Export]
 	public BulletType ProjectileBulletType { get; set; }
 	[Export]
+	public TrajectoryType ProjectileTrajectoryType { get; set; }
+	[Export]
 	public float ProjectileAccuracy { get; set; }
 	
 	// Bomb Related Stats
@@ -125,6 +127,7 @@ public partial class StatsComponent : Node2D
 		ProjectileDamageType |= item.ProjectileDamageType;
 		ProjectileWeaponType |=  item.ProjectileWeaponType;
 		ProjectileBulletType |=  item.ProjectileBulletType;
+		ProjectileTrajectoryType |=  item.ProjectileTrajectoryType;
 		ProjectileAccuracy = ProjectileAccuracy - item.ProjectileAccuracy < 0
 			? 0.0f
 			: ProjectileAccuracy - item.ProjectileAccuracy;

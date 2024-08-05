@@ -63,7 +63,7 @@ public partial class Bomb : StaticBody2D
 
 			_healthComponent.Damage(_healthComponent.CurrentHealth);
 			_bombTexture.Visible = false;
-			_explodingComponent.Explode(_statsComponent.BombRadius, _attackData);
+			_explodingComponent.Explode(_attackData);
 		}
 	}
 

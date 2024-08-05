@@ -7,13 +7,18 @@ using BitBuster.world;
 public partial class OverhealBurstComponent : Area2D
 {
 	private GpuParticles2D _burstEmitter;
+	private CollisionShape2D _areaCollider;
+
 	private CircleShape2D _burst;
 	private Timer _timer;
 	
 	public override void _Ready()
 	{
 		_burstEmitter = GetNode<GpuParticles2D>("BurstEmitter");
-		_burst = GetNode<CollisionShape2D>("AreaCollider").Shape as CircleShape2D;
+		_areaCollider = GetNode<CollisionShape2D>("AreaCollider");
+
+		_areaCollider.Shape = new CircleShape2D();
+		_burst = (CircleShape2D)_areaCollider.Shape;
 		_timer = GetNode<Timer>("Timer");
 
 		_timer.Timeout += OnTimerTimeout;

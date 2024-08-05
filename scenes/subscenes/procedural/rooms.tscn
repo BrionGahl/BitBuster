@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://32elsci7h0v1"]
+[gd_scene load_steps=15 format=3 uid="uid://32elsci7h0v1"]
 
 [ext_resource type="Script" path="res://src/procedural/Rooms.cs" id="1_lawn4"]
 [ext_resource type="PackedScene" uid="uid://det6gkgxg57mw" path="res://scenes/subscenes/entity/player/player.tscn" id="2_pa2gp"]
 [ext_resource type="TileSet" uid="uid://bfaj0cnqhpbw2" path="res://assets/tiles/tilemap-semi.tres" id="2_xldv4"]
+[ext_resource type="PackedScene" uid="uid://brjodfaf528jb" path="res://scenes/subscenes/entity/enemy/idle/tower_cannon.tscn" id="4_1xi07"]
 [ext_resource type="PackedScene" uid="uid://lvawwpbpty0i" path="res://scenes/subscenes/tiles/entity_detector.tscn" id="4_5l8sk"]
 [ext_resource type="Shader" path="res://assets/shaders/hit_blink.gdshader" id="6_3x3u3"]
 [ext_resource type="PackedScene" uid="uid://bhljrlptytonc" path="res://scenes/subscenes/entity/enemy/idle/tower.tscn" id="6_s61rk"]
@@ -17,13 +18,13 @@ shader = ExtResource("6_3x3u3")
 shader_parameter/flash_color = Color(1, 0.188235, 0, 1)
 shader_parameter/flash_modifier = 0.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vg81a"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d34os"]
 resource_local_to_scene = true
 shader = ExtResource("6_3x3u3")
 shader_parameter/flash_color = Color(1, 0.188235, 0, 1)
 shader_parameter/flash_modifier = 0.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ifkqq"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uvoni"]
 resource_local_to_scene = true
 shader = ExtResource("6_3x3u3")
 shader_parameter/flash_color = Color(1, 0.188235, 0, 1)
@@ -101,8 +102,11 @@ position = Vector2(114, 116)
 position = Vector2(120, 37)
 
 [node name="Player" parent="START/0" instance=ExtResource("2_pa2gp")]
-material = SubResource("ShaderMaterial_vg81a")
+material = SubResource("ShaderMaterial_d34os")
 position = Vector2(152, 152)
+
+[node name="TowerCannon" parent="START/0" instance=ExtResource("4_1xi07")]
+position = Vector2(50, 53)
 
 [node name="BreakableWall" parent="START/0" instance=ExtResource("7_s2n8b")]
 position = Vector2(88, 232)
@@ -126,7 +130,7 @@ format = 2
 layer_0/tile_data = PackedInt32Array(0, 196608, 1, 65536, 131072, 1, 131072, 131072, 1, 196608, 131072, 1, 262144, 131072, 1, 327680, 131072, 1, 393216, 131072, 1, 458752, 131072, 1, 524288, 131072, 1, 589824, 131073, 1, 720896, 131072, 1, 786432, 131072, 1, 851968, 131072, 1, 917504, 131072, 1, 983040, 131072, 1, 1048576, 131072, 1, 1114112, 131072, 1, 1179648, 131072, 1, 1245184, 196608, 2, 1, 65536, 2, 1245185, 65536, 0, 2, 65536, 2, 1245186, 65536, 0, 3, 65536, 2, 1245187, 65536, 0, 4, 65536, 2, 1245188, 65536, 0, 5, 65536, 2, 1245189, 65536, 0, 6, 65536, 2, 1245190, 65536, 0, 7, 65536, 2, 1245191, 65536, 0, 8, 65536, 2, 1245192, 65536, 0, 9, 1, 3, 1245193, 1, 0, 11, 65536, 2, 1245195, 65536, 0, 12, 65536, 2, 1245196, 65536, 0, 13, 65536, 2, 1245197, 65536, 0, 14, 65536, 2, 1245198, 65536, 0, 15, 65536, 2, 1245199, 65536, 0, 16, 65536, 2, 1245200, 65536, 0, 17, 65536, 2, 1245201, 65536, 0, 18, 65536, 2, 1245202, 65536, 0, 19, 262144, 1, 65555, 0, 1, 131091, 0, 1, 196627, 0, 1, 262163, 0, 1, 327699, 0, 1, 393235, 0, 1, 458771, 0, 1, 524307, 0, 1, 589843, 1, 1, 720915, 0, 1, 786451, 0, 1, 851987, 0, 1, 917523, 0, 1, 983059, 0, 1, 1048595, 0, 1, 1114131, 0, 1, 1179667, 0, 1, 1245203, 262144, 2)
 
 [node name="Tower" parent="BOSS/0" instance=ExtResource("6_s61rk")]
-material = SubResource("ShaderMaterial_ifkqq")
+material = SubResource("ShaderMaterial_uvoni")
 position = Vector2(160, 160)
 
 [node name="EntityDetector" parent="BOSS/0" instance=ExtResource("4_5l8sk")]

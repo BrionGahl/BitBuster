@@ -146,7 +146,7 @@ public partial class Bullet : CharacterBody2D
 
 		if (_bulletType.HasFlag(BulletType.Exploding))
 		{
-			_explodingComponent.Explode(20f, new AttackData(1f, EffectType.Normal, _attackData.SourceType, false));
+			_explodingComponent.Explode(new AttackData(1f, EffectType.Normal, _attackData.SourceType, false));
 		}
 			
 		

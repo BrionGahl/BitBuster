@@ -63,7 +63,7 @@ public partial class DefaultTower : IdleEnemy
 	{
 		if (_hasDied)
 		{
-			if (WeaponComponent.GetChildCount() <= WeaponComponent.BaseChildComponents && _animationFinished)
+			if (WeaponComponent.BulletsChildren <= 0 && _animationFinished)
 			{
 				Logger.Log.Information(Name + " freed.");
 				QueueFree();
