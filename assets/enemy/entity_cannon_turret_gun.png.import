@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://du4hj32pjteye"
-path="res://.godot/imported/player_tank_1.png-d09e70d548f64bd5bd300212c0e41d2f.ctex"
+uid="uid://biwpeqay18fu3"
+path="res://.godot/imported/entity_cannon_turret_gun.png-e297d755ea938ea404634695a7be7b7a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/player/player_tank_1.png"
-dest_files=["res://.godot/imported/player_tank_1.png-d09e70d548f64bd5bd300212c0e41d2f.ctex"]
+source_file="res://assets/enemy/entity_cannon_turret_gun.png"
+dest_files=["res://.godot/imported/entity_cannon_turret_gun.png-e297d755ea938ea404634695a7be7b7a.ctex"]
 
 [params]
 

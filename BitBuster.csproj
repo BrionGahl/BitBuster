@@ -10,6 +10,9 @@
     <PackageReference Include="Serilog.Sinks.Console" Version="5.1.0-dev-00943" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="src\entity\enemy\boss\" />
+    <Folder Include="src\entity\enemy\idle\" />
+    <Folder Include="src\entity\enemy\moving\" />
     <Folder Include="src\entity\player\" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,63 @@
+[gd_scene load_steps=12 format=3 uid="uid://c5uf74rr7eydj"]
+
+[ext_resource type="Script" path="res://src/procedural/World.cs" id="1_jml8v"]
+[ext_resource type="Script" path="res://src/procedural/Level.cs" id="2_c5biw"]
+[ext_resource type="PackedScene" uid="uid://det6gkgxg57mw" path="res://scenes/subscenes/entity/player/player.tscn" id="3_q3coj"]
+[ext_resource type="Shader" path="res://assets/shaders/hit_blink.gdshader" id="4_7w6o4"]
+[ext_resource type="TileSet" uid="uid://dgja5h4hys5wf" path="res://assets/tiles/tilemap.tres" id="5_tav8v"]
+[ext_resource type="TileSet" uid="uid://bfaj0cnqhpbw2" path="res://assets/tiles/tilemap-semi.tres" id="6_xcpnd"]
+[ext_resource type="Script" path="res://src/world/Camera.cs" id="7_wgc5s"]
+[ext_resource type="Texture2D" uid="uid://bhk5nrlkp2n1n" path="res://assets/etc/camera_border.png" id="8_mn0vs"]
+[ext_resource type="PackedScene" uid="uid://n3uhl8voulr4" path="res://scenes/subscenes/hud/hud.tscn" id="9_hgwba"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b5p3g"]
+resource_local_to_scene = true
+shader = ExtResource("4_7w6o4")
+shader_parameter/flash_color = Color(1, 0.188235, 0, 1)
+shader_parameter/flash_modifier = 0.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_uf5lg"]
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_jml8v")
+
+[node name="Level" type="Node2D" parent="."]
+script = ExtResource("2_c5biw")
+
+[node name="Player" parent="Level" instance=ExtResource("3_q3coj")]
+material = SubResource("ShaderMaterial_b5p3g")
+position = Vector2(1440, 1120)
+
+[node name="NavRegion" type="NavigationRegion2D" parent="Level"]
+navigation_polygon = SubResource("NavigationPolygon_uf5lg")
+
+[node name="TileMapMain" type="TileMap" parent="Level/NavRegion"]
+texture_filter = 1
+tile_set = ExtResource("5_tav8v")
+format = 2
+
+[node name="TileMapSemi" type="TileMap" parent="Level/NavRegion"]
+texture_filter = 1
+tile_set = ExtResource("6_xcpnd")
+format = 2
+
+[node name="Bakeable" type="Node2D" parent="Level/NavRegion"]
+
+[node name="Extra" type="Node2D" parent="Level/NavRegion"]
+
+[node name="Camera" type="Camera2D" parent="Level"]
+position = Vector2(1440, 1120)
+zoom = Vector2(2, 2)
+position_smoothing_enabled = true
+position_smoothing_speed = 8.0
+script = ExtResource("7_wgc5s")
+
+[node name="Border" type="Sprite2D" parent="Level/Camera"]
+z_index = 11
+scale = Vector2(0.500868, 0.501543)
+texture = ExtResource("8_mn0vs")
+
+[node name="Extra" type="Node2D" parent="Level"]
+
+[node name="Hud" parent="Level" instance=ExtResource("9_hgwba")]

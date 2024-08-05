@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b0d7wva4i1ysc"
-path="res://.godot/imported/enemy_tank_idle.png-7df70581db9db20e727474b41c02c87f.ctex"
+uid="uid://ddrop5swplwtq"
+path="res://.godot/imported/entity_cannon.png-4e618eb1a4ee99cf67d6aea55c65181b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemy/enemy_tank_idle.png"
-dest_files=["res://.godot/imported/enemy_tank_idle.png-7df70581db9db20e727474b41c02c87f.ctex"]
+source_file="res://assets/enemy/entity_cannon.png"
+dest_files=["res://.godot/imported/entity_cannon.png-4e618eb1a4ee99cf67d6aea55c65181b.ctex"]
 
 [params]
 

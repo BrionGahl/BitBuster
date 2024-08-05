@@ -31,7 +31,8 @@ collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_wlod3")
 
-[node name="ExplodingComponent" parent="." instance=ExtResource("2_15vcr")]
+[node name="ExplodingComponent" parent="." node_paths=PackedStringArray("StatsComponent") instance=ExtResource("2_15vcr")]
+StatsComponent = NodePath("../StatsComponent")
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("StatsComponent") instance=ExtResource("2_3t1un")]
 StatsComponent = NodePath("../StatsComponent")

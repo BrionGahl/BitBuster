@@ -1,33 +1,27 @@
-using System;
 using BitBuster.utils;
 using Godot;
 
 namespace BitBuster.entity.enemy;
 
-public partial class Panzer : MovingEnemy
+public partial class DefaultTower : IdleEnemy
 {
+	
 	private Sprite2D _gun;
-	private AnimatedSprite2D _hull;
+	private Sprite2D _body;
 	private CollisionShape2D _collider;
 	private GpuParticles2D _particleDeath;
-
+	
 	private bool _hasDied;
 	private bool _animationFinished;
-	private int _movementScalar;
-	private float _rotationGoal;
-	
+
 	public override void _Ready()
 	{
-		SetPhysicsProcess(false);
-
 		base._Ready();
-		_gun = GetNode<Sprite2D>("Gun");
-		_hull = GetNode<AnimatedSprite2D>("Hull");
 		_collider = GetNode<CollisionShape2D>("Collider");
+		_gun = GetNode<Sprite2D>("Gun");
+		_body = GetNode<Sprite2D>("Body");
 		_particleDeath = GetNode<GpuParticles2D>("ParticleDeath");
 		
-		NavigationServer2D.MapChanged += OnMapReady;
-		AgentTimer.Timeout += OnAgentTimeout;
 	}
 
 	protected override void SetGunRotationAndPosition(float radian = 0)
@@ -42,25 +36,18 @@ public partial class Panzer : MovingEnemy
 	protected override void SetColor(Color color)
 	{
 		_gun.SelfModulate = color;
-		_hull.SelfModulate = color;
+		_body.SelfModulate = color;
 	}
-
-	public override void HandleAnimations()
-	{
-		_hull.Animation = IsIdle ? "default" : "moving";
-		_hull.Play();
-	}
-
 	protected override void OnHealthIsZero()
 	{
-		_hull.Visible = false;
 		_gun.Visible = false;
+		_body.Visible = false;
 		_collider.SetDeferred("disabled", true);
-		
-		StatsComponent.Speed = 0;
 		HitboxComponent.SetDeferred("monitorable", false);
 		HitboxComponent.SetDeferred("monitoring", false);
-		
+	
+		CleanAndRebake();
+
 		_particleDeath.Emitting = true;
 		
 		DeathAnimationTimer.Start();
@@ -85,47 +72,12 @@ public partial class Panzer : MovingEnemy
 		}
 		
 		SetGunRotationAndPosition(Mathf.Pi/12);
+		
 		if (CanSeePlayer() && RandomNumberGenerator.Randf() > 0.3f)
 			WeaponComponent.AttemptShoot(Player.Position.AngleToPoint(Position));
 	}
-
-	public override void MoveAction(double delta)
+	
+	public override void HandleAnimations()
 	{
-		Vector2 goalVector = (Agent.GetNextPathPosition() - GlobalPosition).Normalized();
-		
-		if (goalVector == Vector2.Zero)
-			return;
-
-		Vector2 rotationVector = Vector2.FromAngle(Rotation).Normalized();
-		if (rotationVector.DistanceTo(-goalVector.Normalized()) < 0.1f)
-		{
-			_movementScalar = 1;
-			_rotationGoal -= 2 * Mathf.Pi;
-		} else if (rotationVector.DistanceTo(goalVector.Normalized()) > 0.6f)
-		{
-			_movementScalar = 0;
-			_rotationGoal = goalVector.Angle();
-		}
-		else
-		{ 
-			_movementScalar = 1;
-			_rotationGoal = goalVector.Angle();
-		}
-		
-		Rotation = Mathf.LerpAngle(rotationVector.Angle(), _rotationGoal, 0.05f);
-		
-		Velocity = goalVector.Normalized() * _movementScalar * Speed;
-		MoveAndSlide();
-	}
-
-	protected override void OnAgentTimeout()
-	{
-		Agent.TargetPosition = Target == Vector2.Zero ? Player.Position : Target;
-	}
-
-	private void OnMapReady(Rid rid)
-	{
-		SetPhysicsProcess(true);
-		AgentTimer.Start();
 	}
 }

@@ -26,7 +26,7 @@ scale_max = 2.0
 color_ramp = SubResource("GradientTexture1D_knl6g")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8p5w7"]
-radius = 20.0
+radius = 0.01
 
 [node name="ExplodingComponent" type="Area2D"]
 collision_layer = 0

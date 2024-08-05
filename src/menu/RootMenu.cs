@@ -65,7 +65,7 @@ public partial class RootMenu : Control
 		_creditReturnButton = _creditMenu.GetNode<Button>("VBoxContainer/BackButton");
 		_creditReturnButton.Pressed += MoveToMainMenu;
 
-		_mainGamePackedScene = ResourceLoader.Load<PackedScene>("res://scenes/subscenes/world/world.tscn");
+		_mainGamePackedScene = ResourceLoader.Load<PackedScene>("res://scenes/subscenes/procedural/world.tscn");
 		
 		Logger.Log.Information("RootMenu is Ready!");
 	}

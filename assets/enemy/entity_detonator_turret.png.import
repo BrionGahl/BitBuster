@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://mmgfgc8178lk"
-path="res://.godot/imported/enemy_turret.png-d6439586a56a40227ef5d74420d07b4c.ctex"
+uid="uid://b3a1ruwh3anai"
+path="res://.godot/imported/entity_detonator_turret.png-980590240094fe5174f718b0b4acf2a3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemy/enemy_turret.png"
-dest_files=["res://.godot/imported/enemy_turret.png-d6439586a56a40227ef5d74420d07b4c.ctex"]
+source_file="res://assets/enemy/entity_detonator_turret.png"
+dest_files=["res://.godot/imported/entity_detonator_turret.png-980590240094fe5174f718b0b4acf2a3.ctex"]
 
 [params]
 

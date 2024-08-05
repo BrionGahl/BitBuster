@@ -1,44 +1,30 @@
 using System;
-using BitBuster.component;
-using BitBuster.data;
-using BitBuster.tiles;
 using BitBuster.utils;
-using BitBuster.world;
 using Godot;
 
 namespace BitBuster.entity.enemy;
 
-public partial class Detonator : MovingEnemy
+public partial class DefaultTank : MovingEnemy
 {
-	private GlobalEvents _globalEvents;
-
+	private Sprite2D _gun;
 	private AnimatedSprite2D _hull;
-	private GpuParticles2D _explodeEmitter;
-	private Area2D _hitbox;
 	private CollisionShape2D _collider;
-	private ExplodingComponent _explodingComponent;
+	private GpuParticles2D _particleDeath;
 
-	private float _timeTillExplosion;
-	private bool _hasExploded;
-	
+	private bool _hasDied;
+	private bool _animationFinished;
 	private int _movementScalar;
 	private float _rotationGoal;
 	
 	public override void _Ready()
 	{
 		SetPhysicsProcess(false);
+
 		base._Ready();
-		_globalEvents = GetNode<GlobalEvents>("/root/GlobalEvents");
-		
+		_gun = GetNode<Sprite2D>("Gun");
 		_hull = GetNode<AnimatedSprite2D>("Hull");
-		_hitbox = GetNode<Area2D>("Hitbox");
 		_collider = GetNode<CollisionShape2D>("Collider");
-		_explodeEmitter = GetNode<GpuParticles2D>("ExplodeEmitter");
-
-		_explodingComponent = GetNode<ExplodingComponent>("ExplodingComponent");
-
-		_timeTillExplosion = 0f;
-		_hull.Material.Set("shader_parameter/time", _timeTillExplosion);
+		_particleDeath = GetNode<GpuParticles2D>("ParticleDeath");
 		
 		NavigationServer2D.MapChanged += OnMapReady;
 		AgentTimer.Timeout += OnAgentTimeout;
@@ -46,10 +32,16 @@ public partial class Detonator : MovingEnemy
 
 	protected override void SetGunRotationAndPosition(float radian = 0)
 	{
+		if (CanSeePlayer())
+			_gun.Rotation = (float)Mathf.LerpAngle(_gun.Rotation, Player.Position.AngleToPoint(Position) - Constants.HalfPiOffset, 0.5);
+		else
+			_gun.Rotation = (float)Mathf.LerpAngle(_gun.Rotation, _gun.Rotation + radian, 0.1);
+		_gun.Position = Position;
 	}
-	
+
 	protected override void SetColor(Color color)
 	{
+		_gun.SelfModulate = color;
 		_hull.SelfModulate = color;
 	}
 
@@ -61,49 +53,42 @@ public partial class Detonator : MovingEnemy
 
 	protected override void OnHealthIsZero()
 	{
+		_hull.Visible = false;
+		_gun.Visible = false;
 		_collider.SetDeferred("disabled", true);
 		
+		StatsComponent.Speed = 0;
 		HitboxComponent.SetDeferred("monitorable", false);
 		HitboxComponent.SetDeferred("monitoring", false);
 		
+		_particleDeath.Emitting = true;
+		
 		DeathAnimationTimer.Start();
+		_hasDied = true;
 	}
 
 	protected override void OnDeathAnimationTimeout()
 	{
-		QueueFree();
+		_animationFinished = true;
 	}
 
 	public override void AttackAction(double delta)
 	{
-		
-		if (Position.DistanceTo(Player.Position) < 64)
+		if (_hasDied)
 		{
-			_timeTillExplosion += (float)delta;
-			_hull.Material.Set("shader_parameter/time", _timeTillExplosion);
-			StatsComponent.Speed /= 4;
+			if (WeaponComponent.GetChildCount() <= WeaponComponent.BaseChildComponents && _animationFinished)
+			{
+				Logger.Log.Information(Name + " freed.");
+				QueueFree();
+			}
+			return;
 		}
 		
-		if ((_timeTillExplosion >= 1.5f || HealthComponent.CurrentHealth <= 0) && !_hasExploded)
-		{
-			_hasExploded = true;
-			
-			_hull.Visible = false;
-			StatsComponent.Speed = 0;
-			HealthComponent.Damage(HealthComponent.CurrentHealth);
-
-			_explodingComponent.Explode(65f, StatsComponent.GetBombAttackData());
-		}
-		
-		if (Position.DistanceTo(Player.Position) >= 64)
-		{
-			_timeTillExplosion = 0f;
-			_hull.Material.Set("shader_parameter/time", _timeTillExplosion);
-			if (StatsComponent.Speed < 35)
-				StatsComponent.Speed = 35;
-		}
+		SetGunRotationAndPosition(Mathf.Pi/12);
+		if (CanSeePlayer() && RandomNumberGenerator.Randf() > 0.3f)
+			WeaponComponent.AttemptShoot(Player.Position.AngleToPoint(Position));
 	}
-	
+
 	public override void MoveAction(double delta)
 	{
 		Vector2 goalVector = (Agent.GetNextPathPosition() - GlobalPosition).Normalized();

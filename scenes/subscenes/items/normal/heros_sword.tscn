@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://3go1n6g5olgr"]
 
 [ext_resource type="Script" path="res://src/items/Item.cs" id="1_yr5wc"]
-[ext_resource type="Texture2D" uid="uid://yxqho0y0rqm6" path="res://assets/items/normal/item_kunai.png" id="2_1id1q"]
+[ext_resource type="Texture2D" uid="uid://dgkcwb5h3v4pe" path="res://assets/items/normal/item_heros_sword.png" id="2_si3kw"]
 [ext_resource type="PackedScene" uid="uid://ddckip0887shk" path="res://scenes/subscenes/component/particle_item_pickup_component.tscn" id="3_eaxad"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k1piv"]
@@ -24,6 +24,6 @@ one_shot = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-texture = ExtResource("2_1id1q")
+texture = ExtResource("2_si3kw")
 
 [node name="ParticleItemPickupComponent" parent="." instance=ExtResource("3_eaxad")]

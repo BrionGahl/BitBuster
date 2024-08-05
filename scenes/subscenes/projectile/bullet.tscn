@@ -125,7 +125,6 @@ shape = SubResource("RectangleShape2D_u4xfs")
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 16
-monitorable = false
 
 [node name="AreaCollider" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("RectangleShape2D_c7r3b")
@@ -165,7 +164,6 @@ randomness = 0.25
 [node name="ParentIFrameTimer" type="Timer" parent="."]
 wait_time = 0.2
 one_shot = true
-autostart = true
 
 [node name="DeathAnimationTimer" type="Timer" parent="."]
 wait_time = 0.2
@@ -174,3 +172,6 @@ one_shot = true
 [node name="ExplodingComponent" parent="." instance=ExtResource("3_o7313")]
 
 [node name="ParticleCritComponent" parent="." instance=ExtResource("4_jd2qk")]
+
+[node name="SelfIFrameTimer" type="Timer" parent="."]
+wait_time = 1.3

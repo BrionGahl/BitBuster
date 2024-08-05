@@ -1,47 +1,44 @@
+using BitBuster.component;
 using BitBuster.utils;
 using Godot;
 
 namespace BitBuster.entity.enemy;
 
-public partial class Tower : IdleEnemy
+public partial class TowerDetonator : IdleEnemy
 {
 	
-	private Sprite2D _gun;
 	private Sprite2D _body;
 	private CollisionShape2D _collider;
 	private GpuParticles2D _particleDeath;
+	private ExplodingComponent _explodingComponent;
 	
 	private bool _hasDied;
 	private bool _animationFinished;
+	private bool _hasExploded;
+	private float _timeTillExplosion;
 
 	public override void _Ready()
 	{
 		base._Ready();
 		_collider = GetNode<CollisionShape2D>("Collider");
-		_gun = GetNode<Sprite2D>("Gun");
 		_body = GetNode<Sprite2D>("Body");
+		_explodingComponent = GetNode<ExplodingComponent>("ExplodingComponent");
 		_particleDeath = GetNode<GpuParticles2D>("ParticleDeath");
 		
+		_timeTillExplosion = 0f;
 	}
 
 	protected override void SetGunRotationAndPosition(float radian = 0)
 	{
-		if (CanSeePlayer())
-			_gun.Rotation = (float)Mathf.LerpAngle(_gun.Rotation, Player.Position.AngleToPoint(Position) - Constants.HalfPiOffset, 0.5);
-		else
-			_gun.Rotation = (float)Mathf.LerpAngle(_gun.Rotation, _gun.Rotation + radian, 0.1);
-		_gun.Position = Position;
 	}
 
 	protected override void SetColor(Color color)
 	{
-		_gun.SelfModulate = color;
 		_body.SelfModulate = color;
 	}
+	
 	protected override void OnHealthIsZero()
 	{
-		_gun.Visible = false;
-		_body.Visible = false;
 		_collider.SetDeferred("disabled", true);
 		HitboxComponent.SetDeferred("monitorable", false);
 		HitboxComponent.SetDeferred("monitoring", false);
@@ -56,25 +53,36 @@ public partial class Tower : IdleEnemy
 
 	protected override void OnDeathAnimationTimeout()
 	{
-		_animationFinished = true;
+		QueueFree();
 	}
 
 	public override void AttackAction(double delta)
 	{
-		if (_hasDied)
+		if (Position.DistanceTo(Player.Position) < 64)
 		{
-			if (WeaponComponent.GetChildCount() <= WeaponComponent.BaseChildComponents && _animationFinished)
-			{
-				Logger.Log.Information(Name + " freed.");
-				QueueFree();
-			}
-			return;
+			_timeTillExplosion += (float)delta;
+			_body.Material.Set("shader_parameter/time", _timeTillExplosion);
+			StatsComponent.Speed /= 4;
 		}
 		
-		SetGunRotationAndPosition(Mathf.Pi/12);
+		if ((_timeTillExplosion >= 1.5f || HealthComponent.CurrentHealth <= 0) && !_hasExploded)
+		{
+			_hasExploded = true;
+			
+			_body.Visible = false;
+			StatsComponent.Speed = 0;
+			HealthComponent.Damage(HealthComponent.CurrentHealth);
+
+			_explodingComponent.Explode(65f, StatsComponent.GetBombAttackData());
+		}
 		
-		if (CanSeePlayer() && RandomNumberGenerator.Randf() > 0.3f)
-			WeaponComponent.AttemptShoot(Player.Position.AngleToPoint(Position));
+		if (Position.DistanceTo(Player.Position) >= 64)
+		{
+			_timeTillExplosion = 0f;
+			_body.Material.Set("shader_parameter/time", _timeTillExplosion);
+			if (StatsComponent.Speed < 35)
+				StatsComponent.Speed = 35;
+		}
 	}
 	
 	public override void HandleAnimations()

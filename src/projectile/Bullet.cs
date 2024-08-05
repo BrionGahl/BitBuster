@@ -24,6 +24,7 @@ public partial class Bullet : CharacterBody2D
 	private GpuParticles2D _explodeEmitter;
 
 	private Timer _parentIFrameTimer;
+	private Timer _selfIFrameTimer;
 	private Timer _deathAnimationTimer;
 
 	private AttackData _attackData;
@@ -45,6 +46,7 @@ public partial class Bullet : CharacterBody2D
 		_explodeEmitter = GetNode<GpuParticles2D>("ParticleExplode");
 
 		_parentIFrameTimer = GetNode<Timer>("ParentIFrameTimer");
+		_selfIFrameTimer = GetNode<Timer>("SelfIFrameTimer");
 		_deathAnimationTimer = GetNode<Timer>("DeathAnimationTimer");
 		
 		TopLevel = true;
@@ -52,12 +54,14 @@ public partial class Bullet : CharacterBody2D
 		_hitbox.AreaEntered += OnAreaEntered;
 
 		_parentIFrameTimer.Timeout += OnParentIFrameTimeout;
+		_selfIFrameTimer.Timeout += OnSelfIFrameTimeout;
 		_deathAnimationTimer.Timeout += OnDeathAnimationTimeout;
 	}
 
 	public override void _Ready()
 	{
 		_globalEvents = GetNode<GlobalEvents>("/root/GlobalEvents");
+		_parentIFrameTimer.Start();
 	}
 	
 	public override void _PhysicsProcess(double delta)
@@ -133,11 +137,10 @@ public partial class Bullet : CharacterBody2D
 			return;
 		}
 		
-		if (area is HitboxComponent)
+		if (area is HitboxComponent hitboxComponent)
 		{
-			Logger.Log.Information("Hitbox hit at " + area.Name);
+			Logger.Log.Information("Hitbox hit at " + hitboxComponent.Name);
 
-			HitboxComponent hitboxComponent = area as HitboxComponent;
 			hitboxComponent.Damage(_attackData);
 		}
 
@@ -152,17 +155,29 @@ public partial class Bullet : CharacterBody2D
 			_remainingBounces--;
 			return;
 		}
-
 			
 		PrepForFree();
 	}
 
 	private void OnParentIFrameTimeout()
 	{
-		_hitbox.SetCollisionMaskValue((int)BBCollisionLayer.Player, true);
-		_hitbox.SetCollisionMaskValue((int)BBCollisionLayer.Enemy, true);
+
+		if (_attackData.SourceType == SourceType.Enemy)
+			_hitbox.SetCollisionMaskValue((int)BBCollisionLayer.Player, true);
+		else
+			_hitbox.SetCollisionMaskValue((int)BBCollisionLayer.Enemy, true);
 		_hitbox.SetCollisionMaskValue((int)BBCollisionLayer.Projectile, true);
 		_hitbox.SetCollisionMaskValue((int)BBCollisionLayer.Item, true);
+		
+		_selfIFrameTimer.Start();
+	}
+
+	private void OnSelfIFrameTimeout()
+	{
+		if (_attackData.SourceType == SourceType.Enemy)
+			_hitbox.SetCollisionMaskValue((int)BBCollisionLayer.Enemy, true);
+		else
+			_hitbox.SetCollisionMaskValue((int)BBCollisionLayer.Player, true);
 	}
 	
 	private void OnDeathAnimationTimeout()

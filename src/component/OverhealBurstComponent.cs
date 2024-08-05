@@ -22,8 +22,8 @@ public partial class OverhealBurstComponent : Area2D
 	public void Burst(float radius)
 	{
 		_burst.Radius = radius;
-		(_burstEmitter.ProcessMaterial as ParticleProcessMaterial).EmissionRingRadius = radius;
-		(_burstEmitter.ProcessMaterial as ParticleProcessMaterial).EmissionRingInnerRadius = radius;
+		((ParticleProcessMaterial)_burstEmitter.ProcessMaterial).EmissionRingRadius = radius;
+		((ParticleProcessMaterial)_burstEmitter.ProcessMaterial).EmissionRingInnerRadius = radius;
 
 		_burstEmitter.Emitting = true;
 
@@ -31,8 +31,8 @@ public partial class OverhealBurstComponent : Area2D
 		
 		foreach (var body in GetOverlappingBodies())
 			if (body.IsInGroup(Groups.GroupBullet) && !body.GetParent().GetParent().IsInGroup(Groups.GroupPlayer))
-				(body as Bullet).PrepForFree();
-		
+				((Bullet)body).PrepForFree();
+
 		_timer.Start();
 	}
 

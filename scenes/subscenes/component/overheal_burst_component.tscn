@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://src/component/OverhealBurstComponent.cs" id="1_5at8j"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8p5w7"]
-radius = 50.0
+radius = 0.01
 
 [sub_resource type="Gradient" id="Gradient_dq2jw"]
 offsets = PackedFloat32Array(0, 0.398529, 1)
