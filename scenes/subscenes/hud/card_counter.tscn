@@ -5,6 +5,7 @@
 [ext_resource type="Theme" uid="uid://c8qs8rvxfk3jf" path="res://assets/menu/default_theme.tres" id="3_uwdse"]
 
 [node name="CardCounter" type="HSplitContainer"]
+dragger_visibility = 1
 script = ExtResource("1_6g4ep")
 
 [node name="CardImage" type="TextureRect" parent="."]

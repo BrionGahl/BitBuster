@@ -85,10 +85,10 @@ public partial class World : Node2D
 		_levelSemi.Clear();
 		
 		foreach(Node child in _levelBakeable.GetChildren())
-			child.QueueFree();
+			child.Free();
 		
 		foreach (Node child in _levelExtra.GetChildren())
-			child.QueueFree();
+			child.Free();
 	}
 
 	private void OnIncrementAndGenerateLevel()

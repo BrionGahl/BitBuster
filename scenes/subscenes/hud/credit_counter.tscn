@@ -5,6 +5,7 @@
 [ext_resource type="Theme" uid="uid://c8qs8rvxfk3jf" path="res://assets/menu/default_theme.tres" id="3_1qtr1"]
 
 [node name="CreditCounter" type="HSplitContainer"]
+dragger_visibility = 1
 script = ExtResource("1_q6nwa")
 
 [node name="CoinImage" type="TextureRect" parent="."]

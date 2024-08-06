@@ -37,6 +37,11 @@ public partial class Door : Area2D
 	
 	public override void _Notification(int what)
 	{
+		if (what == NotificationPredelete)
+		{
+			_globalEvents.ToggleDoors -= OnToggleDoors;
+		}
+		
 		if (what != NotificationSceneInstantiated) 
 			return;
 		
@@ -83,9 +88,9 @@ public partial class Door : Area2D
 		
 		Logger.Log.Information("body entered: {@type}", Type);
 
-		if (!(body as Player).CanEnterDoor)
+		if (!((Player)body).CanEnterDoor)
 			return;
-		(body as Player).EnterDoor();
+		((Player)body).EnterDoor();
 		body.GlobalPosition = _destination.GlobalPosition + Offset;
 	}
 

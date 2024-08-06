@@ -129,14 +129,14 @@ shape = SubResource("RectangleShape2D_v1r4m")
 
 [node name="StatsComponent" parent="." instance=ExtResource("10_ksvxv")]
 Source = 3
-MaxHealth = 3.0
-CurrentHealth = 3.0
-ProjectileDamage = 2.0
-ProjectileCount = 1
-ProjectileCooldown = 1.5
+MaxHealth = 2.0
+CurrentHealth = 2.0
+ProjectileDamage = 1.0
+ProjectileCount = 3
+ProjectileCooldown = 1.33
 ProjectileBounces = 1
 ProjectileSpeed = 75.0
-ProjectileSizeScalar = Vector2(2, 2)
+ProjectileSizeScalar = Vector2(1, 1)
 ProjectileAccuracy = 0.17
 ITime = 0.2
 

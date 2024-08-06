@@ -184,7 +184,7 @@ StatsComponent = NodePath("../StatsComponent")
 
 [node name="StatsComponent" parent="." instance=ExtResource("5_bmnux")]
 scale = Vector2(1, 1.00902)
-BombCount = 1000
+BombCount = 99
 MaxHealth = 3.0
 CurrentHealth = 3.0
 Overheal = 2.0
@@ -196,7 +196,7 @@ ProjectileSpeed = 100.0
 ProjectileSizeScalar = Vector2(1, 1)
 BombDamage = 1.0
 BombRadius = 30.0
-Speed = 75.0
+Speed = 150.0
 ITime = 0.2
 OverhealBurst = true
 

@@ -108,24 +108,37 @@ size_flags_vertical = 0
 theme_override_constants/separation = 12
 alignment = 1
 
-[node name="HealthBar" parent="RootHud/HudMargins/VBoxContainer" instance=ExtResource("1_itswx")]
+[node name="MarginContainer" type="MarginContainer" parent="RootHud/HudMargins/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 0
+
+[node name="HealthBar" parent="RootHud/HudMargins/VBoxContainer/MarginContainer" instance=ExtResource("1_itswx")]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
+size_flags_horizontal = 0
 size_flags_vertical = 4
 
 [node name="BulletCounter" parent="RootHud/HudMargins/VBoxContainer" instance=ExtResource("2_muu5f")]
 layout_mode = 2
-size_flags_horizontal = 1
 
 [node name="BombCounter" parent="RootHud/HudMargins/VBoxContainer" instance=ExtResource("3_d8y6y")]
 texture_filter = 1
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
 
 [node name="CardCounter" parent="RootHud/HudMargins/VBoxContainer" instance=ExtResource("4_wu1un")]
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
 
 [node name="CreditCounter" parent="RootHud/HudMargins/VBoxContainer" instance=ExtResource("5_xcmwk")]
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="RootHud/HudMargins"]
 layout_mode = 2
