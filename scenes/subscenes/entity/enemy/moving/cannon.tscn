@@ -1,6 +1,7 @@
-[gd_scene load_steps=26 format=3 uid="uid://cx30lc66gc3rv"]
+[gd_scene load_steps=27 format=3 uid="uid://cx30lc66gc3rv"]
 
 [ext_resource type="Script" path="res://src/entity/enemy/moving/DefaultTank.cs" id="1_410vw"]
+[ext_resource type="PackedScene" uid="uid://bppxui41cpc02" path="res://scenes/subscenes/component/sprites_component.tscn" id="2_c4rie"]
 [ext_resource type="PackedScene" uid="uid://6d0b62fihn27" path="res://scenes/subscenes/component/particle_death_component.tscn" id="2_s3f5h"]
 [ext_resource type="PackedScene" uid="uid://dpul1hjxi1dkq" path="res://scenes/subscenes/state/state_machine.tscn" id="3_tkg75"]
 [ext_resource type="Script" path="res://src/state/Sleep.cs" id="4_eu6ps"]
@@ -68,7 +69,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Gun:self_modulate")
+tracks/0/path = NodePath("SpritesComponent/GunSprite/Gun:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -80,7 +81,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Hull:self_modulate")
+tracks/1/path = NodePath("SpritesComponent/BodySprite/Hull:self_modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -96,7 +97,7 @@ length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Gun:self_modulate")
+tracks/0/path = NodePath("SpritesComponent/GunSprite/Gun:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -108,7 +109,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Hull:self_modulate")
+tracks/1/path = NodePath("SpritesComponent/BodySprite/Hull:self_modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -131,6 +132,27 @@ collision_mask = 111
 motion_mode = 1
 script = ExtResource("1_410vw")
 
+[node name="SpritesComponent" parent="." instance=ExtResource("2_c4rie")]
+
+[node name="GunSprite" type="Node2D" parent="SpritesComponent"]
+
+[node name="Gun" type="Sprite2D" parent="SpritesComponent/GunSprite"]
+top_level = true
+z_index = 2
+texture_filter = 1
+material = SubResource("ShaderMaterial_hqeg8")
+use_parent_material = true
+texture = ExtResource("9_hphv8")
+
+[node name="BodySprite" type="Node2D" parent="SpritesComponent"]
+
+[node name="Hull" type="AnimatedSprite2D" parent="SpritesComponent/BodySprite"]
+z_index = 1
+texture_filter = 1
+use_parent_material = true
+rotation = 1.5708
+sprite_frames = SubResource("SpriteFrames_4duss")
+
 [node name="ParticleDeath" parent="." instance=ExtResource("2_s3f5h")]
 
 [node name="StateMachine" parent="." instance=ExtResource("3_tkg75")]
@@ -147,21 +169,6 @@ script = ExtResource("6_xcyh4")
 
 [node name="Pace" type="Node" parent="StateMachine"]
 script = ExtResource("7_r7ih0")
-
-[node name="Gun" type="Sprite2D" parent="."]
-top_level = true
-z_index = 2
-texture_filter = 1
-material = SubResource("ShaderMaterial_hqeg8")
-use_parent_material = true
-texture = ExtResource("9_hphv8")
-
-[node name="Hull" type="AnimatedSprite2D" parent="."]
-z_index = 1
-texture_filter = 1
-use_parent_material = true
-rotation = 1.5708
-sprite_frames = SubResource("SpriteFrames_4duss")
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_gbvby")

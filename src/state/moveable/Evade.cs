@@ -7,6 +7,9 @@ namespace BitBuster.state.moveable;
 
 public partial class Evade: State
 {
+    [Export]
+    public string NextState = "pursue";
+
     private MovingEnemy _parent;
     
     public override void Init()
@@ -43,7 +46,7 @@ public partial class Evade: State
 
         if (_parent.Position.DistanceTo(_parent.Target) < 32)
         {
-            EmitSignal(SignalName.StateTransition, this, "pursue");
+            EmitSignal(SignalName.StateTransition, this, NextState);
         }
 		
         _parent.AttackAction(delta);

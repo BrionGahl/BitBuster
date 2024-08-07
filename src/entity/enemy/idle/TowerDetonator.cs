@@ -1,13 +1,10 @@
 using BitBuster.component;
-using BitBuster.utils;
 using Godot;
 
-namespace BitBuster.entity.enemy;
+namespace BitBuster.entity.enemy.idle;
 
 public partial class TowerDetonator : IdleEnemy
 {
-	
-	private Sprite2D _body;
 	private CollisionShape2D _collider;
 	private GpuParticles2D _particleDeath;
 	private ExplodingComponent _explodingComponent;
@@ -21,21 +18,13 @@ public partial class TowerDetonator : IdleEnemy
 	{
 		base._Ready();
 		_collider = GetNode<CollisionShape2D>("Collider");
-		_body = GetNode<Sprite2D>("Body");
 		_explodingComponent = GetNode<ExplodingComponent>("ExplodingComponent");
 		_particleDeath = GetNode<GpuParticles2D>("ParticleDeath");
 		
 		_timeTillExplosion = 0f;
+		SpritesComponent.SetBodyMaterialProperty("shader_parameter/time", _timeTillExplosion);
 	}
-
-	protected override void SetGunRotationAndPosition(float radian = 0)
-	{
-	}
-
-	protected override void SetColor(Color color)
-	{
-		_body.SelfModulate = color;
-	}
+	
 	
 	protected override void OnHealthIsZero()
 	{
@@ -61,7 +50,7 @@ public partial class TowerDetonator : IdleEnemy
 		if (Position.DistanceTo(Player.Position) < 64)
 		{
 			_timeTillExplosion += (float)delta;
-			_body.Material.Set("shader_parameter/time", _timeTillExplosion);
+			SpritesComponent.SetBodyMaterialProperty("shader_parameter/time", _timeTillExplosion);
 			StatsComponent.Speed /= 4;
 		}
 		
@@ -69,8 +58,7 @@ public partial class TowerDetonator : IdleEnemy
 		{
 			_hasExploded = true;
 			
-			_body.Visible = false;
-			StatsComponent.Speed = 0;
+			SpritesComponent.Visible = false;
 			HealthComponent.Damage(HealthComponent.CurrentHealth);
 
 			_explodingComponent.Explode(StatsComponent.GetBombAttackData());
@@ -79,13 +67,7 @@ public partial class TowerDetonator : IdleEnemy
 		if (Position.DistanceTo(Player.Position) >= 64)
 		{
 			_timeTillExplosion = 0f;
-			_body.Material.Set("shader_parameter/time", _timeTillExplosion);
-			if (StatsComponent.Speed < 35)
-				StatsComponent.Speed = 35;
+			SpritesComponent.SetBodyMaterialProperty("shader_parameter/time", _timeTillExplosion);
 		}
-	}
-	
-	public override void HandleAnimations()
-	{
 	}
 }

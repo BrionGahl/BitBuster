@@ -1,12 +1,8 @@
-using System;
 using BitBuster.component;
-using BitBuster.data;
-using BitBuster.tiles;
-using BitBuster.utils;
 using BitBuster.world;
 using Godot;
 
-namespace BitBuster.entity.enemy;
+namespace BitBuster.entity.enemy.moving;
 
 public partial class Detonator : MovingEnemy
 {
@@ -15,7 +11,7 @@ public partial class Detonator : MovingEnemy
 	private AnimatedSprite2D _hull;
 	private CollisionShape2D _collider;
 	private ExplodingComponent _explodingComponent;
-
+	
 	private float _timeTillExplosion;
 	private bool _hasExploded;
 	
@@ -28,31 +24,15 @@ public partial class Detonator : MovingEnemy
 		base._Ready();
 		_globalEvents = GetNode<GlobalEvents>("/root/GlobalEvents");
 		
-		_hull = GetNode<AnimatedSprite2D>("Hull");
 		_collider = GetNode<CollisionShape2D>("Collider");
 
 		_explodingComponent = GetNode<ExplodingComponent>("ExplodingComponent");
-
+		
 		_timeTillExplosion = 0f;
-		_hull.Material.Set("shader_parameter/time", _timeTillExplosion);
+		SpritesComponent.SetBodyMaterialProperty("shader_parameter/time", _timeTillExplosion);
 		
 		NavigationServer2D.MapChanged += OnMapReady;
 		AgentTimer.Timeout += OnAgentTimeout;
-	}
-
-	protected override void SetGunRotationAndPosition(float radian = 0)
-	{
-	}
-	
-	protected override void SetColor(Color color)
-	{
-		_hull.SelfModulate = color;
-	}
-
-	public override void HandleAnimations()
-	{
-		_hull.Animation = IsIdle ? "default" : "moving";
-		_hull.Play();
 	}
 
 	protected override void OnHealthIsZero()
@@ -76,7 +56,7 @@ public partial class Detonator : MovingEnemy
 		if (Position.DistanceTo(Player.Position) < 64)
 		{
 			_timeTillExplosion += (float)delta;
-			_hull.Material.Set("shader_parameter/time", _timeTillExplosion);
+			SpritesComponent.SetBodyMaterialProperty("shader_parameter/time", _timeTillExplosion);
 			StatsComponent.Speed /= 4;
 		}
 		
@@ -84,7 +64,7 @@ public partial class Detonator : MovingEnemy
 		{
 			_hasExploded = true;
 			
-			_hull.Visible = false;
+			SpritesComponent.Visible = false;
 			StatsComponent.Speed = 0;
 			HealthComponent.Damage(HealthComponent.CurrentHealth);
 
@@ -94,7 +74,7 @@ public partial class Detonator : MovingEnemy
 		if (Position.DistanceTo(Player.Position) >= 64)
 		{
 			_timeTillExplosion = 0f;
-			_hull.Material.Set("shader_parameter/time", _timeTillExplosion);
+			SpritesComponent.SetBodyMaterialProperty("shader_parameter/time", _timeTillExplosion);
 			if (StatsComponent.Speed < 35)
 				StatsComponent.Speed = 35;
 		}

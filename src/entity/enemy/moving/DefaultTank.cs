@@ -1,13 +1,10 @@
-using System;
 using BitBuster.utils;
 using Godot;
 
-namespace BitBuster.entity.enemy;
+namespace BitBuster.entity.enemy.moving;
 
 public partial class DefaultTank : MovingEnemy
 {
-	private Sprite2D _gun;
-	private AnimatedSprite2D _hull;
 	private CollisionShape2D _collider;
 	private GpuParticles2D _particleDeath;
 
@@ -21,8 +18,6 @@ public partial class DefaultTank : MovingEnemy
 		SetPhysicsProcess(false);
 
 		base._Ready();
-		_gun = GetNode<Sprite2D>("Gun");
-		_hull = GetNode<AnimatedSprite2D>("Hull");
 		_collider = GetNode<CollisionShape2D>("Collider");
 		_particleDeath = GetNode<GpuParticles2D>("ParticleDeath");
 		
@@ -30,31 +25,9 @@ public partial class DefaultTank : MovingEnemy
 		AgentTimer.Timeout += OnAgentTimeout;
 	}
 
-	protected override void SetGunRotationAndPosition(float radian = 0)
-	{
-		if (CanSeePlayer())
-			_gun.Rotation = (float)Mathf.LerpAngle(_gun.Rotation, Player.Position.AngleToPoint(Position) - Constants.HalfPiOffset, 0.5);
-		else
-			_gun.Rotation = (float)Mathf.LerpAngle(_gun.Rotation, _gun.Rotation + radian, 0.1);
-		_gun.Position = Position;
-	}
-
-	protected override void SetColor(Color color)
-	{
-		_gun.SelfModulate = color;
-		_hull.SelfModulate = color;
-	}
-
-	public override void HandleAnimations()
-	{
-		_hull.Animation = IsIdle ? "default" : "moving";
-		_hull.Play();
-	}
-
 	protected override void OnHealthIsZero()
 	{
-		_hull.Visible = false;
-		_gun.Visible = false;
+		SpritesComponent.Visible = false;
 		_collider.SetDeferred("disabled", true);
 		
 		StatsComponent.Speed = 0;
@@ -84,7 +57,7 @@ public partial class DefaultTank : MovingEnemy
 			return;
 		}
 		
-		SetGunRotationAndPosition(Mathf.Pi/12);
+		SpritesComponent.SetGunRotationAndPosition(CanSeePlayer(), Player.Position, Mathf.Pi/12);
 		if (CanSeePlayer() && RandomNumberGenerator.Randf() > 0.3f)
 			WeaponComponent.AttemptShoot(Player.Position.AngleToPoint(Position));
 	}

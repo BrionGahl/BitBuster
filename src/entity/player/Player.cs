@@ -34,7 +34,6 @@ public partial class Player : CharacterBody2D
 	private AnimationPlayer _animationPlayer;
 	private Timer _doorEnterTimer;
 	
-	// NEW MOVEMENT
 	private Vector2 _movementDirection;
 	private float _rotationGoal;
 	private int _movementScalar;

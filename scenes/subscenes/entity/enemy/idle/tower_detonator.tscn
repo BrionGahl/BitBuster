@@ -1,7 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://drtmpyo30imm4"]
+[gd_scene load_steps=20 format=3 uid="uid://drtmpyo30imm4"]
 
 [ext_resource type="Script" path="res://src/entity/enemy/idle/TowerDetonator.cs" id="1_yi5a0"]
 [ext_resource type="PackedScene" uid="uid://6d0b62fihn27" path="res://scenes/subscenes/component/particle_death_component.tscn" id="2_mgfbc"]
+[ext_resource type="PackedScene" uid="uid://bppxui41cpc02" path="res://scenes/subscenes/component/sprites_component.tscn" id="2_xiwh0"]
 [ext_resource type="PackedScene" uid="uid://dpul1hjxi1dkq" path="res://scenes/subscenes/state/state_machine.tscn" id="3_bjfsr"]
 [ext_resource type="Script" path="res://src/state/Sleep.cs" id="4_jnsj5"]
 [ext_resource type="Script" path="res://src/state/idle/Attack.cs" id="5_pcvhr"]
@@ -32,7 +33,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Body:self_modulate")
+tracks/0/path = NodePath("SpritesComponent/BodySprite/Body:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -48,7 +49,7 @@ length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Body:self_modulate")
+tracks/0/path = NodePath("SpritesComponent/BodySprite/Body:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -74,6 +75,18 @@ collision_mask = 111
 motion_mode = 1
 script = ExtResource("1_yi5a0")
 
+[node name="SpritesComponent" parent="." instance=ExtResource("2_xiwh0")]
+
+[node name="GunSprite" type="Node2D" parent="SpritesComponent"]
+
+[node name="BodySprite" type="Node2D" parent="SpritesComponent"]
+
+[node name="Body" type="Sprite2D" parent="SpritesComponent/BodySprite"]
+z_index = 1
+texture_filter = 1
+material = SubResource("ShaderMaterial_mkoo3")
+texture = ExtResource("6_mfvmy")
+
 [node name="ParticleDeath" parent="." instance=ExtResource("2_mgfbc")]
 
 [node name="StateMachine" parent="." instance=ExtResource("3_bjfsr")]
@@ -84,12 +97,6 @@ NextState = "attack"
 
 [node name="Attack" type="Node" parent="StateMachine"]
 script = ExtResource("5_pcvhr")
-
-[node name="Body" type="Sprite2D" parent="."]
-z_index = 1
-texture_filter = 1
-material = SubResource("ShaderMaterial_mkoo3")
-texture = ExtResource("6_mfvmy")
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_4hc1y")

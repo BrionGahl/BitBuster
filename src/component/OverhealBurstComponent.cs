@@ -1,12 +1,14 @@
-using Godot;
-using System;
 using BitBuster.projectile;
 using BitBuster.utils;
 using BitBuster.world;
+using Godot;
+
+namespace BitBuster.component;
 
 public partial class OverhealBurstComponent : Area2D
 {
 	private GpuParticles2D _burstEmitter;
+	private GpuParticles2D _burstInsideEmitter;
 	private CollisionShape2D _areaCollider;
 
 	private CircleShape2D _burst;
@@ -15,6 +17,7 @@ public partial class OverhealBurstComponent : Area2D
 	public override void _Ready()
 	{
 		_burstEmitter = GetNode<GpuParticles2D>("BurstEmitter");
+		_burstInsideEmitter = GetNode<GpuParticles2D>("BurstInsideEmitter");
 		_areaCollider = GetNode<CollisionShape2D>("AreaCollider");
 
 		_areaCollider.Shape = new CircleShape2D();
@@ -29,14 +32,12 @@ public partial class OverhealBurstComponent : Area2D
 		_burst.Radius = radius;
 		((ParticleProcessMaterial)_burstEmitter.ProcessMaterial).EmissionRingRadius = radius;
 		((ParticleProcessMaterial)_burstEmitter.ProcessMaterial).EmissionRingInnerRadius = radius;
-
-		_burstEmitter.Emitting = true;
-
-		SetCollisionLayerValue((int)BBCollisionLayer.Projectile, true);
+		((ParticleProcessMaterial)_burstInsideEmitter.ProcessMaterial).EmissionSphereRadius = radius;
 		
-		foreach (var body in GetOverlappingBodies())
-			if (body.IsInGroup(Groups.GroupBullet) && !body.GetParent().GetParent().IsInGroup(Groups.GroupPlayer))
-				((Bullet)body).PrepForFree();
+		_burstEmitter.Emitting = true;
+		_burstInsideEmitter.Emitting = true;
+		
+		SetCollisionLayerValue((int)BBCollisionLayer.Projectile, true);
 
 		_timer.Start();
 	}
@@ -45,5 +46,6 @@ public partial class OverhealBurstComponent : Area2D
 	{
 		SetCollisionLayerValue((int)BBCollisionLayer.Projectile, false);
 		_burstEmitter.Emitting = false;
+		_burstInsideEmitter.Emitting = false;
 	}
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://c7l0u657l447r"]
+[gd_scene load_steps=6 format=3 uid="uid://c7l0u657l447r"]
 
 [ext_resource type="Script" path="res://src/component/OverhealBurstComponent.cs" id="1_5at8j"]
 [ext_resource type="Texture2D" uid="uid://btlru254hlbgl" path="res://assets/particles/shield_gradient.tres" id="2_yj3jw"]
@@ -21,6 +21,18 @@ scale_min = 0.2
 scale_max = 2.0
 color_ramp = ExtResource("2_yj3jw")
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kw1wi"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 50.0
+angle_max = 360.0
+angular_velocity_min = 1.0
+angular_velocity_max = 1.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.2
+scale_max = 2.0
+color_ramp = ExtResource("2_yj3jw")
+
 [node name="OverhealBurstComponent" type="Area2D" groups=["bullet_no_pass"]]
 collision_layer = 0
 collision_mask = 0
@@ -33,6 +45,12 @@ shape = SubResource("CircleShape2D_8p5w7")
 emitting = false
 amount = 256
 process_material = SubResource("ParticleProcessMaterial_slvtl")
+lifetime = 0.5
+
+[node name="BurstInsideEmitter" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 256
+process_material = SubResource("ParticleProcessMaterial_kw1wi")
 lifetime = 0.5
 
 [node name="Timer" type="Timer" parent="."]

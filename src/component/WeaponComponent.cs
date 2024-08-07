@@ -27,6 +27,7 @@ public partial class WeaponComponent : Node2D
 	private Node2D ExtraBullets { get; set; }
 	
 	public int BulletsChildren => Bullets.GetChildCount();
+	public int BombsChildren => Bombs.GetChildCount();
 
 	public int BulletCount
 	{

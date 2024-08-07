@@ -27,6 +27,7 @@ public abstract partial class Enemy: CharacterBody2D
 	protected HealthComponent HealthComponent { get; private set; }
 	protected HitboxComponent HitboxComponent { get; private set; }
 	protected WeaponComponent WeaponComponent { get; private set; }
+	protected SpritesComponent SpritesComponent { get; private set; }
 
 	public VisibleOnScreenNotifier2D Notifier { get; private set; }
 	protected Timer DeathAnimationTimer { get; private set; }
@@ -46,12 +47,14 @@ public abstract partial class Enemy: CharacterBody2D
 		 HitboxComponent = GetNodeOrNull<Node2D>("HitboxComponent") as HitboxComponent;
 		 WeaponComponent = GetNodeOrNull<Node2D>("WeaponComponent") as WeaponComponent;
 		 
+		 SpritesComponent = GetNode<SpritesComponent>("SpritesComponent");
+
 		 HealthComponent.StatsComponent = StatsComponent;
 		 HitboxComponent.HealthComponent = HealthComponent;
 		 
 		 if (WeaponComponent != null)
 			WeaponComponent.StatsComponent = StatsComponent;
-		 
+
 		 Notifier = GetNode<VisibleOnScreenNotifier2D>("VisibleOnScreenNotifier2D");
 		 DeathAnimationTimer = GetNode<Timer>("DeathAnimationTimer");
 		 AnimationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
@@ -104,16 +107,24 @@ public abstract partial class Enemy: CharacterBody2D
 		}
 	}
 
+	public void HandleAnimations()
+	{
+		SpritesComponent.PlayAnimation(IsIdle);
+	}
+	
 	private void OnHealthChange(float value)
 	{
 		AnimationPlayer.Play("effect_damage_blink", -1D, StatsComponent.ITime / 0.2f);
 	}
 
-	protected abstract void SetGunRotationAndPosition(float radian = 0);
-	protected abstract void SetColor(Color color);
+	private void SetColor(Color color)
+	{
+		SpritesComponent.Gun.Modulate = color;
+		SpritesComponent.Body.Modulate = color;
+	}
+	
 	protected abstract void OnHealthIsZero();
 	protected abstract void OnDeathAnimationTimeout();
 	
 	public abstract void AttackAction(double delta);
-	public abstract void HandleAnimations();
 }

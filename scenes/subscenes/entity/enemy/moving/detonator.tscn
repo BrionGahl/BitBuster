@@ -1,6 +1,6 @@
-[gd_scene load_steps=24 format=3 uid="uid://bnh75c1b1t0ty"]
+[gd_scene load_steps=23 format=3 uid="uid://bnh75c1b1t0ty"]
 
-[ext_resource type="Shader" path="res://assets/shaders/hit_blink.gdshader" id="1_lro5s"]
+[ext_resource type="PackedScene" uid="uid://bppxui41cpc02" path="res://scenes/subscenes/component/sprites_component.tscn" id="2_dpq02"]
 [ext_resource type="Script" path="res://src/entity/enemy/moving/Detonator.cs" id="2_rcjrj"]
 [ext_resource type="PackedScene" uid="uid://dpul1hjxi1dkq" path="res://scenes/subscenes/state/state_machine.tscn" id="3_q6oiw"]
 [ext_resource type="Script" path="res://src/state/Sleep.cs" id="4_a81sq"]
@@ -13,11 +13,9 @@
 [ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="11_idnin"]
 [ext_resource type="PackedScene" uid="uid://2m2pbclf1iur" path="res://scenes/subscenes/component/exploding_component.tscn" id="12_pk6fm"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_behow"]
-resource_local_to_scene = true
-shader = ExtResource("1_lro5s")
-shader_parameter/flash_color = Color(1, 0.188235, 0, 1)
-shader_parameter/flash_modifier = 0.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qyxbd"]
+radius = 6.0
+height = 12.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_c4pxw"]
 shader = ExtResource("6_drmaf")
@@ -65,16 +63,12 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8pmvs"]
 size = Vector2(16, 16)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qyxbd"]
-radius = 6.0
-height = 12.0
-
 [sub_resource type="Animation" id="Animation_0cnnw"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
+tracks/0/path = NodePath("SpritesComponent/BodySprite/Hull:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -90,7 +84,7 @@ length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
+tracks/0/path = NodePath("SpritesComponent/BodySprite/Hull:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -107,10 +101,27 @@ _data = {
 }
 
 [node name="Detonator" type="CharacterBody2D" groups=["enemy"]]
-material = SubResource("ShaderMaterial_behow")
 collision_layer = 4
 collision_mask = 111
 script = ExtResource("2_rcjrj")
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_qyxbd")
+
+[node name="SpritesComponent" parent="." instance=ExtResource("2_dpq02")]
+
+[node name="GunSprite" type="Node2D" parent="SpritesComponent"]
+
+[node name="BodySprite" type="Node2D" parent="SpritesComponent"]
+
+[node name="Hull" type="AnimatedSprite2D" parent="SpritesComponent/BodySprite"]
+z_index = 1
+texture_filter = 1
+material = SubResource("ShaderMaterial_c4pxw")
+rotation = 1.5708
+sprite_frames = SubResource("SpriteFrames_1jxot")
+animation = &"moving"
+frame_progress = 0.641959
 
 [node name="StateMachine" parent="." instance=ExtResource("3_q6oiw")]
 
@@ -120,15 +131,6 @@ NextState = "ram"
 
 [node name="Ram" type="Node" parent="StateMachine"]
 script = ExtResource("5_n83au")
-
-[node name="Hull" type="AnimatedSprite2D" parent="."]
-z_index = 1
-texture_filter = 1
-material = SubResource("ShaderMaterial_c4pxw")
-rotation = 1.5708
-sprite_frames = SubResource("SpriteFrames_1jxot")
-animation = &"moving"
-frame_progress = 0.641959
 
 [node name="StatsComponent" parent="." instance=ExtResource("8_1sgj5")]
 Source = 3
@@ -143,7 +145,6 @@ ITime = 0.2
 StatsComponent = NodePath("../StatsComponent")
 
 [node name="TrackTrailComponent" parent="." instance=ExtResource("10_n6rug")]
-rotation = -1.5708
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("HealthComponent") instance=ExtResource("11_idnin")]
 collision_layer = 4
@@ -153,9 +154,6 @@ HealthComponent = NodePath("../HealthComponent")
 [node name="Hitbox" type="CollisionShape2D" parent="HitboxComponent"]
 position = Vector2(2.38419e-07, -1.04216e-14)
 shape = SubResource("RectangleShape2D_8pmvs")
-
-[node name="Collider" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_qyxbd")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
