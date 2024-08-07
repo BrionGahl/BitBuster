@@ -29,7 +29,7 @@ public partial class Player : CharacterBody2D
 	private float RotationSpeed => Speed / 25;
 	private bool IsIdle => Velocity.Equals(Vector2.Zero);
 
-	private Sprite2D _gun;
+	private AnimatedSprite2D _gun;
 	private AnimatedSprite2D _hull;
 	private AnimationPlayer _animationPlayer;
 	private Timer _doorEnterTimer;
@@ -40,6 +40,8 @@ public partial class Player : CharacterBody2D
 	
 	private bool _hasShot;
 	private bool _hasBombed;
+
+	private bool _shot;
 	
 	public override void _Ready()
 	{
@@ -47,7 +49,7 @@ public partial class Player : CharacterBody2D
 	
 		_globalEvents = GetNode<GlobalEvents>("/root/GlobalEvents");
 		
-		_gun = GetNode<Sprite2D>("Gun");
+		_gun = GetNode<AnimatedSprite2D>("Gun");
 		_hull = GetNode<AnimatedSprite2D>("Hull");
 		_animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		_doorEnterTimer = GetNode<Timer>("DoorEnterTimer");
@@ -64,7 +66,7 @@ public partial class Player : CharacterBody2D
 		SetGunRotationAndPosition();
 		
 		if (_hasShot)
-			_weaponComponent.AttemptShoot(GetGlobalMousePosition().AngleToPoint(Position));
+			_shot = _weaponComponent.AttemptShoot(GetGlobalMousePosition().AngleToPoint(Position));
 
 		if (_hasBombed)
 			_weaponComponent.AttemptBomb(Position);
@@ -104,6 +106,8 @@ public partial class Player : CharacterBody2D
 
 	private void HandleAnimations()
 	{
+		_gun.Animation = !_hasShot ? "default" : "shot"; 
+		_gun.Play();
 		_hull.Animation = IsIdle ? "default" : "moving";
 		_hull.Play();
 	}

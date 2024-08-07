@@ -31,7 +31,7 @@ public partial class TowerBurstShield : IdleEnemy
 	{
 		SpritesComponent.Visible = false;
 		_collider.SetDeferred("disabled", true);
-		_overhealBurstComponent.QueueFree();
+		_overhealBurstComponent.Visible = false;
 		HitboxComponent.SetDeferred("monitorable", false);
 		HitboxComponent.SetDeferred("monitoring", false);
 	

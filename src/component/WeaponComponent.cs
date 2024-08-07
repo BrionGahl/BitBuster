@@ -73,10 +73,10 @@ public partial class WeaponComponent : Node2D
 		Bullets.ChildExitingTree += OnBulletRemove;
 	}
 
-	public void AttemptShoot(float rotation)
+	public bool AttemptShoot(float rotation)
 	{
 		if (!CanShoot || BulletCount - Bullets.GetChildCount() <= 0)
-			return;
+			return false;
 		
 		if (StatsComponent.ProjectileWeaponType.HasFlag(WeaponType.Bi))
 		{
@@ -108,6 +108,8 @@ public partial class WeaponComponent : Node2D
 		StatsComponent.Speed /= 2;
 		CanShoot = false;
 		ShootTimer.Start(StatsComponent.ProjectileCooldown);
+
+		return true;
 	}
 
 	private void Shoot(float rotation, Node2D container)
@@ -119,16 +121,18 @@ public partial class WeaponComponent : Node2D
 		container.AddChild(bullet);
 	}
 
-	public void AttemptBomb(Vector2 position)
+	public bool AttemptBomb(Vector2 position)
 	{
-		if (CanBomb && BombCount > 0)
-		{
-			Logger.Log.Information("Bombed...");
-			Bomb(position);
+		if (!CanBomb || BombCount <= 0)
+			return false;
+		
+		Logger.Log.Information("Bombed...");
+		Bomb(position);
 			
-			CanBomb = false;
-			BombTimer.Start();
-		} 
+		CanBomb = false;
+		BombTimer.Start();
+
+		return true;
 	}
 
 	private void Bomb(Vector2 position)
