@@ -1,6 +1,7 @@
-[gd_scene load_steps=21 format=3 uid="uid://det6gkgxg57mw"]
+[gd_scene load_steps=25 format=3 uid="uid://det6gkgxg57mw"]
 
 [ext_resource type="Script" path="res://src/entity/player/Player.cs" id="1_nju6n"]
+[ext_resource type="Texture2D" uid="uid://b6tdh6yi6lxtr" path="res://assets/player/entity_player_gun-sheet.png" id="3_0ptsh"]
 [ext_resource type="Texture2D" uid="uid://dfdv4u0gfn1h7" path="res://assets/player/entity_player_gun.png" id="3_s6o36"]
 [ext_resource type="PackedScene" uid="uid://btdrka86pvjsd" path="res://scenes/subscenes/component/track_trail_component.tscn" id="4_g7sml"]
 [ext_resource type="Texture2D" uid="uid://rofjocr85wcj" path="res://assets/player/entity_player_1.png" id="4_kbiv1"]
@@ -9,6 +10,33 @@
 [ext_resource type="PackedScene" uid="uid://btrxy7t83y8en" path="res://scenes/subscenes/component/health_component.tscn" id="5_umbbr"]
 [ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="8_gp6gs"]
 [ext_resource type="Script" path="res://src/items/ItemPickupHitbox.cs" id="9_s5uk3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vtgkd"]
+atlas = ExtResource("3_0ptsh")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_usr40"]
+atlas = ExtResource("3_0ptsh")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7rbij"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vtgkd")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_usr40")
+}],
+"loop": true,
+"name": &"shot",
+"speed": 5.0
+}]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fcdrj"]
 atlas = ExtResource("4_kbiv1")
@@ -158,6 +186,10 @@ top_level = true
 z_index = 2
 texture_filter = 1
 texture = ExtResource("3_s6o36")
+
+[node name="Gun_Test" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_7rbij")
+animation = &"shot"
 
 [node name="Hull" type="AnimatedSprite2D" parent="."]
 z_index = 1

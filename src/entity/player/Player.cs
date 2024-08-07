@@ -67,7 +67,7 @@ public partial class Player : CharacterBody2D
 			_weaponComponent.AttemptShoot(GetGlobalMousePosition().AngleToPoint(Position));
 
 		if (_hasBombed)
-			_weaponComponent.AttemptBomb();
+			_weaponComponent.AttemptBomb(Position);
 		
 		HandleRotation();
 		HandleAnimations();

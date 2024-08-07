@@ -73,7 +73,7 @@ public partial class Bomber : MovingEnemy
 		
 		if (Position.DistanceTo(Player.Position) < 48 && RandomNumberGenerator.Randf() > 0.3f)
 		{
-			WeaponComponent.AttemptBomb();
+			WeaponComponent.AttemptBomb(Position);
 		}
 	}
 	

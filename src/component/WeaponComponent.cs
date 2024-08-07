@@ -119,22 +119,22 @@ public partial class WeaponComponent : Node2D
 		container.AddChild(bullet);
 	}
 
-	public void AttemptBomb()
+	public void AttemptBomb(Vector2 position)
 	{
 		if (CanBomb && BombCount > 0)
 		{
 			Logger.Log.Information("Bombed...");
-			Bomb();
+			Bomb(position);
 			
 			CanBomb = false;
 			BombTimer.Start();
 		} 
 	}
 
-	private void Bomb()
+	private void Bomb(Vector2 position)
 	{
 		Bomb bomb = _bomb.Instantiate<StaticBody2D>() as Bomb;
-		bomb.SetPositionAndRadius(GetParent<Node2D>().GlobalPosition, StatsComponent.GetBombAttackData(), StatsComponent.BombRadius);
+		bomb.SetPositionAndRadius(position, StatsComponent.GetBombAttackData(), StatsComponent.BombRadius);
 		
 		BombCount--;
 		StatsComponent.EmitStatChangeSignal();
