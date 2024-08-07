@@ -1,0 +1,188 @@
+[gd_scene load_steps=26 format=3 uid="uid://c7ktje7x0hsjm"]
+
+[ext_resource type="Script" path="res://src/entity/enemy/moving/Bomber.cs" id="2_6nyma"]
+[ext_resource type="PackedScene" uid="uid://bppxui41cpc02" path="res://scenes/subscenes/component/sprites_component.tscn" id="2_dbsvb"]
+[ext_resource type="PackedScene" uid="uid://6d0b62fihn27" path="res://scenes/subscenes/component/particle_death_component.tscn" id="2_h3pg2"]
+[ext_resource type="PackedScene" uid="uid://dpul1hjxi1dkq" path="res://scenes/subscenes/state/state_machine.tscn" id="3_ub2ae"]
+[ext_resource type="Script" path="res://src/state/Sleep.cs" id="4_sowtt"]
+[ext_resource type="Script" path="res://src/state/moveable/Ram.cs" id="5_7fpcc"]
+[ext_resource type="Script" path="res://src/state/moveable/Evade.cs" id="6_qxuce"]
+[ext_resource type="Shader" path="res://assets/shaders/bomb_blink.gdshader" id="6_t0ogi"]
+[ext_resource type="Texture2D" uid="uid://co1hjx0ylq3bc" path="res://assets/enemy/entity_bomber.png" id="8_1csdc"]
+[ext_resource type="PackedScene" uid="uid://bva4np8rg3g20" path="res://scenes/subscenes/component/stats_component.tscn" id="11_0c7lb"]
+[ext_resource type="PackedScene" uid="uid://btrxy7t83y8en" path="res://scenes/subscenes/component/health_component.tscn" id="12_rvaqk"]
+[ext_resource type="PackedScene" uid="uid://2m2pbclf1iur" path="res://scenes/subscenes/component/exploding_component.tscn" id="12_v6eig"]
+[ext_resource type="PackedScene" uid="uid://cubpk1i28p0wk" path="res://scenes/subscenes/component/weapon_component.tscn" id="13_jg8j5"]
+[ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="14_lyam4"]
+[ext_resource type="PackedScene" uid="uid://btdrka86pvjsd" path="res://scenes/subscenes/component/track_trail_component.tscn" id="15_6qyqn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c4pxw"]
+shader = ExtResource("6_t0ogi")
+shader_parameter/end_time = 1.5
+shader_parameter/start_freq = 1.0
+shader_parameter/end_freq = 10.0
+shader_parameter/time = null
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/blink_length = 0.5
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pllrs"]
+atlas = ExtResource("8_1csdc")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ae8gn"]
+atlas = ExtResource("8_1csdc")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3s76w"]
+atlas = ExtResource("8_1csdc")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1jxot"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pllrs")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ae8gn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3s76w")
+}],
+"loop": true,
+"name": &"moving",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8pmvs"]
+size = Vector2(16, 16)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qyxbd"]
+radius = 6.0
+height = 12.0
+
+[sub_resource type="Animation" id="Animation_0cnnw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritesComponent/BodySprite/Hull:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_svvht"]
+resource_name = "effect_damage_blink"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritesComponent/BodySprite/Hull:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0.188235, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gu0m7"]
+_data = {
+"RESET": SubResource("Animation_0cnnw"),
+"effect_damage_blink": SubResource("Animation_svvht")
+}
+
+[node name="Bomber" type="CharacterBody2D" groups=["enemy"]]
+collision_layer = 4
+collision_mask = 111
+script = ExtResource("2_6nyma")
+
+[node name="SpritesComponent" parent="." instance=ExtResource("2_dbsvb")]
+
+[node name="GunSprite" type="Node2D" parent="SpritesComponent"]
+
+[node name="BodySprite" type="Node2D" parent="SpritesComponent"]
+
+[node name="Hull" type="AnimatedSprite2D" parent="SpritesComponent/BodySprite"]
+z_index = 1
+texture_filter = 1
+material = SubResource("ShaderMaterial_c4pxw")
+rotation = 1.5708
+sprite_frames = SubResource("SpriteFrames_1jxot")
+
+[node name="StateMachine" parent="." instance=ExtResource("3_ub2ae")]
+
+[node name="Sleep" type="Node" parent="StateMachine"]
+script = ExtResource("4_sowtt")
+NextState = "ram"
+
+[node name="Ram" type="Node" parent="StateMachine"]
+script = ExtResource("5_7fpcc")
+
+[node name="Evade" type="Node" parent="StateMachine"]
+script = ExtResource("6_qxuce")
+NextState = "ram"
+
+[node name="WeaponComponent" parent="." node_paths=PackedStringArray("StatsComponent") instance=ExtResource("13_jg8j5")]
+StatsComponent = NodePath("../StatsComponent")
+
+[node name="StatsComponent" parent="." instance=ExtResource("11_0c7lb")]
+Source = 3
+BombCount = 1000
+MaxHealth = 5.0
+CurrentHealth = 5.0
+BombDamage = 3.0
+BombRadius = 48.0
+Speed = 65.0
+ITime = 0.2
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("StatsComponent") instance=ExtResource("12_rvaqk")]
+StatsComponent = NodePath("../StatsComponent")
+
+[node name="TrackTrailComponent" parent="." instance=ExtResource("15_6qyqn")]
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("HealthComponent") instance=ExtResource("14_lyam4")]
+collision_layer = 4
+collision_mask = 27
+HealthComponent = NodePath("../HealthComponent")
+
+[node name="Hitbox" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(2.38419e-07, -1.04216e-14)
+shape = SubResource("RectangleShape2D_8pmvs")
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_qyxbd")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="Agent" type="NavigationAgent2D" parent="."]
+path_desired_distance = 4.0
+target_desired_distance = 8.0
+debug_enabled = true
+
+[node name="Timer" type="Timer" parent="Agent"]
+wait_time = 0.3
+
+[node name="DeathAnimationTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="ParticleDeath" parent="." instance=ExtResource("2_h3pg2")]
+
+[node name="ExplodingComponent" parent="." node_paths=PackedStringArray("StatsComponent") instance=ExtResource("12_v6eig")]
+StatsComponent = NodePath("../StatsComponent")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_gu0m7")
+}

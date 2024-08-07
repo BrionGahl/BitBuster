@@ -1,0 +1,120 @@
+[gd_scene load_steps=6 format=3 uid="uid://c65a27ik6pf0m"]
+
+[ext_resource type="Texture2D" uid="uid://btlru254hlbgl" path="res://assets/particles/shield_gradient.tres" id="2_33l0k"]
+
+[sub_resource type="CSharpScript" id="CSharpScript_b5hi0"]
+script/source = "using BitBuster.projectile;
+using BitBuster.utils;
+using BitBuster.world;
+using Godot;
+
+namespace BitBuster.component;
+
+public partial class DamageBurstComponent : Area2D
+{
+	private GpuParticles2D _burstEmitter;
+	private GpuParticles2D _burstInsideEmitter;
+	private CollisionShape2D _areaCollider;
+
+	private CircleShape2D _burst;
+	private Timer _timer;
+	
+	public override void _Ready()
+	{
+		_burstEmitter = GetNode<GpuParticles2D>(\"BurstEmitter\");
+		_burstInsideEmitter = GetNode<GpuParticles2D>(\"BurstInsideEmitter\");
+		_areaCollider = GetNode<CollisionShape2D>(\"AreaCollider\");
+
+		_areaCollider.Shape = new CircleShape2D();
+		_burst = (CircleShape2D)_areaCollider.Shape;
+		_timer = GetNode<Timer>(\"Timer\");
+
+		_timer.Timeout += OnTimerTimeout;
+		AreaEntered += OnAreaEntered;
+	}
+
+	public void Burst(float radius)
+	{
+		_burst.Radius = radius;
+		((ParticleProcessMaterial)_burstEmitter.ProcessMaterial).EmissionRingRadius = radius;
+		((ParticleProcessMaterial)_burstEmitter.ProcessMaterial).EmissionRingInnerRadius = radius;
+		((ParticleProcessMaterial)_burstInsideEmitter.ProcessMaterial).EmissionSphereRadius = radius;
+		
+		_burstEmitter.Emitting = true;
+		_burstInsideEmitter.Emitting = true;
+		
+		SetCollisionMaskValue((int)BBCollisionLayer.Player, true);
+
+		_timer.Start();
+	}
+
+	private void OnAreaEntered(Area2D area)
+	{
+		if (area is not HitboxComponent)
+			return;
+		
+		(HitboxComponent)area.Damage()
+		
+	}
+	
+	private void OnTimerTimeout()
+	{
+		SetCollisionMaskValue((int)BBCollisionLayer.Player, false);
+		_burstEmitter.Emitting = false;
+	}
+}
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8p5w7"]
+radius = 0.01
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_slvtl"]
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 50.0
+emission_ring_inner_radius = 50.0
+angle_max = 360.0
+angular_velocity_min = 1.0
+angular_velocity_max = 1.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.2
+scale_max = 2.0
+color_ramp = ExtResource("2_33l0k")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1i5tg"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 50.0
+angle_max = 360.0
+angular_velocity_min = 1.0
+angular_velocity_max = 1.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.2
+scale_max = 2.0
+color_ramp = ExtResource("2_33l0k")
+
+[node name="DamageBurstComponent" type="Area2D" groups=["bullet_no_pass"]]
+collision_layer = 0
+collision_mask = 0
+script = SubResource("CSharpScript_b5hi0")
+
+[node name="AreaCollider" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_8p5w7")
+
+[node name="BurstEmitter" type="GPUParticles2D" parent="."]
+self_modulate = Color(1, 0.172549, 0.164706, 1)
+amount = 256
+process_material = SubResource("ParticleProcessMaterial_slvtl")
+lifetime = 0.5
+
+[node name="BurstInsideEmitter" type="GPUParticles2D" parent="."]
+self_modulate = Color(1, 0.172549, 0.164706, 1)
+amount = 256
+process_material = SubResource("ParticleProcessMaterial_1i5tg")
+lifetime = 0.5
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true

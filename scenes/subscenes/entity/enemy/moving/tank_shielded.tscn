@@ -1,0 +1,230 @@
+[gd_scene load_steps=28 format=3 uid="uid://ban3h382gi0mt"]
+
+[ext_resource type="Script" path="res://src/entity/enemy/moving/DefaultTank.cs" id="1_jiq06"]
+[ext_resource type="PackedScene" uid="uid://bppxui41cpc02" path="res://scenes/subscenes/component/sprites_component.tscn" id="2_bhokl"]
+[ext_resource type="PackedScene" uid="uid://bokgykgjalnrg" path="res://scenes/subscenes/component/shield_component.tscn" id="2_nn4ni"]
+[ext_resource type="PackedScene" uid="uid://6d0b62fihn27" path="res://scenes/subscenes/component/particle_death_component.tscn" id="2_sl7e3"]
+[ext_resource type="PackedScene" uid="uid://dpul1hjxi1dkq" path="res://scenes/subscenes/state/state_machine.tscn" id="3_ge66k"]
+[ext_resource type="Script" path="res://src/state/Sleep.cs" id="4_npi70"]
+[ext_resource type="Script" path="res://src/state/moveable/Pursue.cs" id="5_60026"]
+[ext_resource type="Script" path="res://src/state/moveable/Evade.cs" id="6_7oke4"]
+[ext_resource type="Script" path="res://src/state/moveable/Pace.cs" id="7_01bly"]
+[ext_resource type="Shader" path="res://assets/shaders/hit_blink.gdshader" id="8_ag6cl"]
+[ext_resource type="Texture2D" uid="uid://cu8yd01sov6wk" path="res://assets/enemy/entity_shielded_gun.png" id="9_q2s85"]
+[ext_resource type="Texture2D" uid="uid://c2bvxq5c2vtbu" path="res://assets/enemy/entity_shielded.png" id="11_sbpjt"]
+[ext_resource type="PackedScene" uid="uid://bva4np8rg3g20" path="res://scenes/subscenes/component/stats_component.tscn" id="11_w2v0h"]
+[ext_resource type="PackedScene" uid="uid://btrxy7t83y8en" path="res://scenes/subscenes/component/health_component.tscn" id="12_21hhw"]
+[ext_resource type="PackedScene" uid="uid://cubpk1i28p0wk" path="res://scenes/subscenes/component/weapon_component.tscn" id="13_khyin"]
+[ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="14_t6atn"]
+[ext_resource type="PackedScene" uid="uid://btdrka86pvjsd" path="res://scenes/subscenes/component/track_trail_component.tscn" id="15_rc6xa"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hqeg8"]
+resource_local_to_scene = true
+shader = ExtResource("8_ag6cl")
+shader_parameter/flash_color = Color(1, 0.188235, 0, 1)
+shader_parameter/flash_modifier = 0.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yly43"]
+atlas = ExtResource("11_sbpjt")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qilmw"]
+atlas = ExtResource("11_sbpjt")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l0qkx"]
+atlas = ExtResource("11_sbpjt")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4duss"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yly43")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qilmw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l0qkx")
+}],
+"loop": true,
+"name": &"moving",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gbvby"]
+radius = 6.0
+height = 12.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6yacv"]
+size = Vector2(16, 16)
+
+[sub_resource type="Animation" id="Animation_sgyqk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritesComponent/GunSprite/Gun:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpritesComponent/BodySprite/Hull:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_bpk2u"]
+resource_name = "effect_damage_blink"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritesComponent/GunSprite/Gun:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0.188235, 0, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpritesComponent/BodySprite/Hull:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0.188235, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4jgg4"]
+_data = {
+"RESET": SubResource("Animation_sgyqk"),
+"effect_damage_blink": SubResource("Animation_bpk2u")
+}
+
+[node name="TankShielded" type="CharacterBody2D" groups=["enemy"]]
+z_index = 1
+collision_layer = 4
+collision_mask = 111
+motion_mode = 1
+script = ExtResource("1_jiq06")
+
+[node name="SpritesComponent" parent="." instance=ExtResource("2_bhokl")]
+
+[node name="GunSprite" type="Node2D" parent="SpritesComponent"]
+
+[node name="Gun" type="Sprite2D" parent="SpritesComponent/GunSprite"]
+top_level = true
+z_index = 2
+texture_filter = 1
+material = SubResource("ShaderMaterial_hqeg8")
+use_parent_material = true
+texture = ExtResource("9_q2s85")
+
+[node name="BodySprite" type="Node2D" parent="SpritesComponent"]
+
+[node name="Hull" type="AnimatedSprite2D" parent="SpritesComponent/BodySprite"]
+z_index = 1
+texture_filter = 1
+use_parent_material = true
+rotation = 1.5708
+sprite_frames = SubResource("SpriteFrames_4duss")
+
+[node name="ShieldComponent" parent="." instance=ExtResource("2_nn4ni")]
+
+[node name="ParticleDeath" parent="." instance=ExtResource("2_sl7e3")]
+
+[node name="StateMachine" parent="." instance=ExtResource("3_ge66k")]
+
+[node name="Sleep" type="Node" parent="StateMachine"]
+script = ExtResource("4_npi70")
+NextState = "pursue"
+
+[node name="Pursue" type="Node" parent="StateMachine"]
+script = ExtResource("5_60026")
+
+[node name="Evade" type="Node" parent="StateMachine"]
+script = ExtResource("6_7oke4")
+
+[node name="Pace" type="Node" parent="StateMachine"]
+script = ExtResource("7_01bly")
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_gbvby")
+
+[node name="StatsComponent" parent="." instance=ExtResource("11_w2v0h")]
+Source = 3
+MaxHealth = 3.0
+CurrentHealth = 3.0
+ProjectileDamage = 1.0
+ProjectileCount = 3
+ProjectileCooldown = 1.5
+ProjectileBounces = 1
+ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileAccuracy = 0.17
+Speed = 50.0
+ITime = 0.2
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("StatsComponent") instance=ExtResource("12_21hhw")]
+StatsComponent = NodePath("../StatsComponent")
+
+[node name="WeaponComponent" parent="." node_paths=PackedStringArray("StatsComponent") instance=ExtResource("13_khyin")]
+StatsComponent = NodePath("../StatsComponent")
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("HealthComponent") instance=ExtResource("14_t6atn")]
+collision_layer = 4
+collision_mask = 27
+HealthComponent = NodePath("../HealthComponent")
+
+[node name="Hitbox" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(-1.04216e-14, -2.38419e-07)
+shape = SubResource("RectangleShape2D_6yacv")
+
+[node name="TrackTrailComponent" parent="." instance=ExtResource("15_rc6xa")]
+
+[node name="Agent" type="NavigationAgent2D" parent="."]
+path_desired_distance = 8.0
+target_desired_distance = 16.0
+path_postprocessing = 1
+radius = 8.0
+avoidance_layers = 4
+avoidance_mask = 4
+
+[node name="Timer" type="Timer" parent="Agent"]
+wait_time = 0.3
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="DeathAnimationTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4jgg4")
+}
