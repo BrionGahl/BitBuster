@@ -6,8 +6,6 @@ namespace BitBuster.entity.enemy.moving;
 
 public partial class Detonator : MovingEnemy
 {
-	private GlobalEvents _globalEvents;
-
 	private AnimatedSprite2D _hull;
 	private CollisionShape2D _collider;
 	private ExplodingComponent _explodingComponent;
@@ -22,12 +20,10 @@ public partial class Detonator : MovingEnemy
 	{
 		SetPhysicsProcess(false);
 		base._Ready();
-		_globalEvents = GetNode<GlobalEvents>("/root/GlobalEvents");
-		
 		_collider = GetNode<CollisionShape2D>("Collider");
-
 		_explodingComponent = GetNode<ExplodingComponent>("ExplodingComponent");
-		
+		_explodingComponent.StatsComponent = StatsComponent;
+
 		_timeTillExplosion = 0f;
 		SpritesComponent.SetBodyMaterialProperty("shader_parameter/time", _timeTillExplosion);
 		
