@@ -119,8 +119,10 @@ public abstract partial class Enemy: CharacterBody2D
 
 	private void SetColor(Color color)
 	{
-		SpritesComponent.Gun.Modulate = color;
-		SpritesComponent.Body.Modulate = color;
+		if (SpritesComponent.Gun != null)
+			SpritesComponent.Gun.Modulate = color;
+		if (SpritesComponent.Body != null)
+			SpritesComponent.Body.Modulate = color;
 	}
 	
 	protected abstract void OnHealthIsZero();

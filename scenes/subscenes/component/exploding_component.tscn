@@ -10,6 +10,7 @@ colors = PackedColorArray(1, 1, 0, 1, 0.894118, 0.678431, 0, 1, 0.721569, 0.3843
 gradient = SubResource("Gradient_l5u7r")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_x2clt"]
+resource_local_to_scene = true
 particle_flag_disable_z = true
 emission_shape = 2
 emission_sphere_radius = 20.0

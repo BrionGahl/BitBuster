@@ -10,7 +10,6 @@ public partial class ExplodingComponent : Area2D
 {
 	[Export]
 	public StatsComponent StatsComponent { get; set; }
-
 	
 	private GlobalEvents _globalEvents;
 	private GpuParticles2D _explodingEmitter;

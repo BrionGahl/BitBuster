@@ -18,10 +18,12 @@ public partial class TowerBurstShield : IdleEnemy
 	{
 		base._Ready();
 		_collider = GetNode<CollisionShape2D>("Collider");
-		_overhealBurstComponent = GetNode<component.OverhealBurstComponent>("OverhealBurstComponent");
+		_overhealBurstComponent = GetNode<OverhealBurstComponent>("OverhealBurstComponent");
 		_particleDeath = GetNode<GpuParticles2D>("ParticleDeath");
-		
+
 		_timeTillBurst = 0f;
+		SpritesComponent.SetBodyMaterialProperty("shader_parameter/time", _timeTillBurst);
+
 	}
 	
 	
@@ -47,12 +49,13 @@ public partial class TowerBurstShield : IdleEnemy
 
 	public override void AttackAction(double delta)
 	{
-		if (_timeTillBurst >= 8.0f)
+		if (_timeTillBurst >= 6.0f)
 		{
 			_timeTillBurst = 0f;
 			_overhealBurstComponent.Burst(75f);
 		}
 
 		_timeTillBurst += (float)delta;
+		SpritesComponent.SetBodyMaterialProperty("shader_parameter/time", _timeTillBurst);
 	}
 }

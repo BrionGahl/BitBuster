@@ -17,8 +17,11 @@ public partial class TowerDetonator : IdleEnemy
 	public override void _Ready()
 	{
 		base._Ready();
+		
 		_collider = GetNode<CollisionShape2D>("Collider");
 		_explodingComponent = GetNode<ExplodingComponent>("ExplodingComponent");
+		_explodingComponent.StatsComponent = StatsComponent;
+		
 		_particleDeath = GetNode<GpuParticles2D>("ParticleDeath");
 		
 		_timeTillExplosion = 0f;
