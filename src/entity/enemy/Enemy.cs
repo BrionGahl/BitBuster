@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using BitBuster.component;
 using BitBuster.entity.player;
+using BitBuster.resource;
 using BitBuster.state;
 using BitBuster.utils;
 using BitBuster.world;
@@ -12,14 +13,17 @@ namespace BitBuster.entity.enemy;
 
 public abstract partial class Enemy: CharacterBody2D
 {
+
+	[Export] 
+	public EntityStats EntityStats;
+	
 	public float Speed
 	{
 		get => StatsComponent.Speed;
 		set => StatsComponent.Speed = value;
 	}
 
-	protected float RotationSpeed => Speed / 25;
-	protected bool IsIdle => Velocity.Equals(Vector2.Zero);
+	private bool IsIdle => Velocity.Equals(Vector2.Zero);
 
 	public Player Player;
 
@@ -37,6 +41,8 @@ public abstract partial class Enemy: CharacterBody2D
 	public Vector2 Target { get; set; }
 	
 	protected RandomNumberGenerator RandomNumberGenerator;
+	protected bool _hasDied;
+	protected bool _animationFinished;
 	
 	 public override void _Ready()
 	 {
@@ -115,6 +121,19 @@ public abstract partial class Enemy: CharacterBody2D
 	private void OnHealthChange(float value)
 	{
 		AnimationPlayer.Play("effect_damage_blink", -1D, StatsComponent.ITime / 0.2f);
+	}
+
+	protected bool AttemptToFree()
+	{
+		if (!_hasDied)
+			return false;
+
+		if (WeaponComponent is { BombsChildren: > 0 } || WeaponComponent is { BulletsChildren: > 0 } || !_animationFinished)
+			return false;
+
+		Logger.Log.Information(Name + " freed.");
+		QueueFree();
+		return true;
 	}
 
 	private void SetColor(Color color)

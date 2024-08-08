@@ -1,34 +1,36 @@
 using BitBuster.utils;
 using Godot;
 
-namespace BitBuster.entity.enemy.moving;
+namespace BitBuster.entity.enemy.boss;
 
-public partial class DefaultTank : MovingEnemy
+public partial class Firespitter : IdleEnemy
 {
 	private CollisionShape2D _collider;
 	private GpuParticles2D _particleDeath;
-	
+
+	private float _mechanics;
+	private int _iteration;
+
 	public override void _Ready()
 	{
-		SetPhysicsProcess(false);
-
 		base._Ready();
 		_collider = GetNode<CollisionShape2D>("Collider");
 		_particleDeath = GetNode<GpuParticles2D>("ParticleDeath");
-		
-		NavigationServer2D.MapChanged += OnMapReady;
-		AgentTimer.Timeout += OnAgentTimeout;
-	}
+		SpritesComponent.SetGunRotationAndPosition(CanSeePlayer(), Player.Position, Mathf.Pi/12);
 
+		_mechanics = 0.0f;
+		_iteration = 0;
+	}
+	
 	protected override void OnHealthIsZero()
 	{
 		SpritesComponent.Visible = false;
 		_collider.SetDeferred("disabled", true);
-		
-		StatsComponent.Speed = 0;
 		HitboxComponent.SetDeferred("monitorable", false);
 		HitboxComponent.SetDeferred("monitoring", false);
-		
+	
+		CleanAndRebake();
+
 		_particleDeath.Emitting = true;
 		
 		DeathAnimationTimer.Start();
@@ -46,19 +48,19 @@ public partial class DefaultTank : MovingEnemy
 		if (_hasDied)
 			return;
 
-		SpritesComponent.SetGunRotationAndPosition(CanSeePlayer(), Player.Position, Mathf.Pi/12);
-		if (CanSeePlayer() && RandomNumberGenerator.Randf() > 0.3f)
-			WeaponComponent.AttemptShoot(Player.Position.AngleToPoint(Position));
-	}
+		if (_iteration < 0)
+		{
+			_mechanics = RandomNumberGenerator.Randf();
+			_iteration = WeaponComponent.BulletCount;
+		}
 
-	protected override void OnAgentTimeout()
-	{
-		Agent.TargetPosition = Target == Vector2.Zero ? Player.Position : Target;
-	}
-
-	private void OnMapReady(Rid rid)
-	{
-		SetPhysicsProcess(true);
-		AgentTimer.Start();
+		// Spray
+		if (CanSeePlayer() && _iteration >= 0)
+		{
+			SpritesComponent.SetGunRotationAndPosition(false, Player.Position, _iteration * Mathf.Pi / WeaponComponent.BulletCount);
+			WeaponComponent.AttemptShoot(_iteration * Mathf.Pi / WeaponComponent.BulletCount);
+			_iteration--;
+		}
+			
 	}
 }

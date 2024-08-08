@@ -1,0 +1,7 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://c4dbul4lxuugh"]
+
+[ext_resource type="Script" path="res://src/resource/EntityStats.cs" id="1_r7cg3"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_r7cg3")

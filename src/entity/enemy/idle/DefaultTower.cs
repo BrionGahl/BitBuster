@@ -7,9 +7,6 @@ public partial class DefaultTower : IdleEnemy
 {
 	private CollisionShape2D _collider;
 	private GpuParticles2D _particleDeath;
-	
-	private bool _hasDied;
-	private bool _animationFinished;
 
 	public override void _Ready()
 	{
@@ -40,16 +37,10 @@ public partial class DefaultTower : IdleEnemy
 
 	public override void AttackAction(double delta)
 	{
+		AttemptToFree();
 		if (_hasDied)
-		{
-			if (WeaponComponent.BulletsChildren <= 0 && _animationFinished)
-			{
-				Logger.Log.Information(Name + " freed.");
-				QueueFree();
-			}
 			return;
-		}
-		
+
 		SpritesComponent.SetGunRotationAndPosition(CanSeePlayer(), Player.Position, Mathf.Pi/12);
 		if (CanSeePlayer() && RandomNumberGenerator.Randf() > 0.3f)
 			WeaponComponent.AttemptShoot(Player.Position.AngleToPoint(Position));

@@ -4,17 +4,13 @@ using Godot;
 
 namespace BitBuster.entity.enemy.moving;
 
-public partial class Detonator : MovingEnemy
+public partial class TankDetonator : MovingEnemy
 {
-	private AnimatedSprite2D _hull;
 	private CollisionShape2D _collider;
 	private ExplodingComponent _explodingComponent;
 	
 	private float _timeTillExplosion;
 	private bool _hasExploded;
-	
-	private int _movementScalar;
-	private float _rotationGoal;
 	
 	public override void _Ready()
 	{
@@ -74,35 +70,6 @@ public partial class Detonator : MovingEnemy
 			if (StatsComponent.Speed < 35)
 				StatsComponent.Speed = 35;
 		}
-	}
-	
-	public override void MoveAction(double delta)
-	{
-		Vector2 goalVector = (Agent.GetNextPathPosition() - GlobalPosition).Normalized();
-		
-		if (goalVector == Vector2.Zero)
-			return;
-
-		Vector2 rotationVector = Vector2.FromAngle(Rotation).Normalized();
-		if (rotationVector.DistanceTo(-goalVector.Normalized()) < 0.1f)
-		{
-			_movementScalar = 1;
-			_rotationGoal -= 2 * Mathf.Pi;
-		} else if (rotationVector.DistanceTo(goalVector.Normalized()) > 0.6f)
-		{
-			_movementScalar = 0;
-			_rotationGoal = goalVector.Angle();
-		}
-		else
-		{ 
-			_movementScalar = 1;
-			_rotationGoal = goalVector.Angle();
-		}
-		
-		Rotation = Mathf.LerpAngle(rotationVector.Angle(), _rotationGoal, 0.05f);
-		
-		Velocity = goalVector.Normalized() * _movementScalar * Speed;
-		MoveAndSlide();
 	}
 
 	protected override void OnAgentTimeout()

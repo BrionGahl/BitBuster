@@ -1,4 +1,5 @@
 using BitBuster.component;
+using BitBuster.world;
 using Godot;
 
 namespace BitBuster.entity.enemy.idle;
@@ -9,8 +10,6 @@ public partial class TowerBurstShield : IdleEnemy
 	private GpuParticles2D _particleDeath;
 	private OverhealBurstComponent _overhealBurstComponent;
 	
-	private bool _hasDied;
-	private bool _animationFinished;
 	private bool _hasBurst;
 	private float _timeTillBurst;
 
@@ -31,7 +30,10 @@ public partial class TowerBurstShield : IdleEnemy
 	{
 		SpritesComponent.Visible = false;
 		_collider.SetDeferred("disabled", true);
+		
 		_overhealBurstComponent.Visible = false;
+		_overhealBurstComponent.SetCollisionLayerValue((int)BBCollisionLayer.Projectile, false);
+		
 		HitboxComponent.SetDeferred("monitorable", false);
 		HitboxComponent.SetDeferred("monitoring", false);
 	
@@ -45,11 +47,15 @@ public partial class TowerBurstShield : IdleEnemy
 
 	protected override void OnDeathAnimationTimeout()
 	{
-		QueueFree();
+		_animationFinished = true;
 	}
 
 	public override void AttackAction(double delta)
 	{
+		AttemptToFree();
+		if (_hasDied)
+			return;
+
 		if (_timeTillBurst >= 6.0f)
 		{
 			_timeTillBurst = 0f;

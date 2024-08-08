@@ -1,17 +1,13 @@
-using System;
-using System.Collections.Generic;
 using BitBuster.data;
 using BitBuster.items;
 using BitBuster.world;
 using Godot;
 
-namespace BitBuster.component;
+namespace BitBuster.resource;
 
-// https://docs.godotengine.org/en/stable/tutorials/scripting/c_sharp/c_sharp_exports.html
-// See this for bitwise Enums
-
-public partial class StatsComponent : Node2D
+public partial class EntityStats : Resource
 {
+	
 	[Signal]
 	public delegate void StatChangeEventHandler();
 	
@@ -89,11 +85,12 @@ public partial class StatsComponent : Node2D
 	
 	private RandomNumberGenerator _random;
 
-	public override void _Ready()
+	public EntityStats()
 	{
 		_random = new RandomNumberGenerator();
-	}
 
+	}
+	
 	public AttackData GetAttackData()
 	{
 		float critChance = _random.Randf();

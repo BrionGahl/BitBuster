@@ -5,7 +5,7 @@ using Godot;
 
 namespace BitBuster.entity.enemy.moving;
 
-public partial class Bomber : MovingEnemy
+public partial class TankBomber : MovingEnemy
 {
 	private GlobalEvents _globalEvents;
 
@@ -15,11 +15,6 @@ public partial class Bomber : MovingEnemy
 
 	private float _timeTillExplosion;
 	private bool _hasExploded;
-	
-	private bool _hasDied;
-	private bool _animationFinished;
-	private int _movementScalar;
-	private float _rotationGoal;
 	
 	public override void _Ready()
 	{
@@ -61,49 +56,14 @@ public partial class Bomber : MovingEnemy
 
 	public override void AttackAction(double delta)
 	{
+		AttemptToFree();
 		if (_hasDied)
-		{
-			if (WeaponComponent.BombsChildren <= 0 && _animationFinished)
-			{
-				Logger.Log.Information(Name + " freed.");
-				QueueFree();
-			}
 			return;
-		}
-		
+
 		if (Position.DistanceTo(Player.Position) < 48 && RandomNumberGenerator.Randf() > 0.3f)
 		{
 			WeaponComponent.AttemptBomb(Position);
 		}
-	}
-	
-	public override void MoveAction(double delta)
-	{
-		Vector2 goalVector = (Agent.GetNextPathPosition() - GlobalPosition).Normalized();
-		
-		if (goalVector == Vector2.Zero)
-			return;
-
-		Vector2 rotationVector = Vector2.FromAngle(Rotation).Normalized();
-		if (rotationVector.DistanceTo(-goalVector.Normalized()) < 0.1f)
-		{
-			_movementScalar = 1;
-			_rotationGoal -= 2 * Mathf.Pi;
-		} else if (rotationVector.DistanceTo(goalVector.Normalized()) > 0.6f)
-		{
-			_movementScalar = 0;
-			_rotationGoal = goalVector.Angle();
-		}
-		else
-		{ 
-			_movementScalar = 1;
-			_rotationGoal = goalVector.Angle();
-		}
-		
-		Rotation = Mathf.LerpAngle(rotationVector.Angle(), _rotationGoal, 0.05f);
-		
-		Velocity = goalVector.Normalized() * _movementScalar * Speed;
-		MoveAndSlide();
 	}
 
 	protected override void OnAgentTimeout()

@@ -30,7 +30,9 @@ public partial class Bullet : CharacterBody2D
 	private AttackData _attackData;
 	private int _remainingBounces;
 	private float _hueShift;
+	
 	private BulletType _bulletType;
+	private BounceType _bounceType;
 	
 	public override void _Notification(int what)
 	{
@@ -75,8 +77,11 @@ public partial class Bullet : CharacterBody2D
 			
 			_remainingBounces--;
 			_bulletTexture.Modulate = Color.FromHsv(_remainingBounces * _hueShift, 1.0f, 1.0f);
-
 			_bounceEmitter.Emitting = true;
+
+			if (_bounceType.HasFlag(BounceType.Compounding))
+				_attackData.Damage *= 2;
+			
 		} else if (collision != null && _remainingBounces == 0)
 		{
 			if (_deathAnimationTimer.TimeLeft != 0) 
@@ -87,13 +92,14 @@ public partial class Bullet : CharacterBody2D
 
 	}
 
-	public void SetTrajectory(Vector2 position, float rotation, AttackData attackData, float speed, int bounces, Vector2 size, BulletType bulletType)
+	public void SetTrajectory(Vector2 position, float rotation, AttackData attackData, float speed, int bounces, Vector2 size, BulletType bulletType, BounceType bounceType)
 	{
 		GlobalPosition = position;
 		GlobalRotation = rotation;
 
 		_attackData = attackData;
 		_bulletType = bulletType;
+		_bounceType = bounceType;
 		
 		_remainingBounces = bounces;
 		_hueShift = 0.33f / bounces;
@@ -148,7 +154,6 @@ public partial class Bullet : CharacterBody2D
 		{
 			_explodingComponent.Explode(new AttackData(1f, EffectType.Normal, _attackData.SourceType, false));
 		}
-			
 		
 		if (_bulletType.HasFlag(BulletType.Piercing))
 		{

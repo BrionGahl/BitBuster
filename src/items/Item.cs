@@ -52,6 +52,8 @@ public partial class Item: Area2D
 	[Export]
 	public BulletType ProjectileBulletType { get; set; }
 	[Export]
+	public BounceType ProjectileBounceType { get; set; }
+	[Export]
 	public TrajectoryType ProjectileTrajectoryType { get; set; }
 	[Export]
 	public float ProjectileAccuracy { get; set; }

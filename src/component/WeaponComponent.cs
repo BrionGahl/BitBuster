@@ -117,7 +117,7 @@ public partial class WeaponComponent : Node2D
 		Bullet bullet = _bullet.Instantiate<CharacterBody2D>() as Bullet;
 		bullet.SetTrajectory(GetParent<Node2D>().GlobalPosition, rotation - Constants.HalfPiOffset, 
 			StatsComponent.GetAttackData(), StatsComponent.ProjectileSpeed, StatsComponent.ProjectileBounces, 
-			StatsComponent.ProjectileSizeScalar, StatsComponent.ProjectileBulletType);
+			StatsComponent.ProjectileSizeScalar, StatsComponent.ProjectileBulletType, StatsComponent.ProjectileBounceType);
 		container.AddChild(bullet);
 	}
 

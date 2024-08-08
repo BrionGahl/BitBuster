@@ -1,38 +1,38 @@
 [gd_scene load_steps=27 format=3 uid="uid://cx30lc66gc3rv"]
 
-[ext_resource type="Script" path="res://src/entity/enemy/moving/DefaultTank.cs" id="1_410vw"]
-[ext_resource type="PackedScene" uid="uid://bppxui41cpc02" path="res://scenes/subscenes/component/sprites_component.tscn" id="2_c4rie"]
-[ext_resource type="PackedScene" uid="uid://6d0b62fihn27" path="res://scenes/subscenes/component/particle_death_component.tscn" id="2_s3f5h"]
-[ext_resource type="PackedScene" uid="uid://dpul1hjxi1dkq" path="res://scenes/subscenes/state/state_machine.tscn" id="3_tkg75"]
-[ext_resource type="Script" path="res://src/state/Sleep.cs" id="4_eu6ps"]
-[ext_resource type="Script" path="res://src/state/moveable/Pursue.cs" id="5_du7lw"]
-[ext_resource type="Script" path="res://src/state/moveable/Evade.cs" id="6_xcyh4"]
-[ext_resource type="Script" path="res://src/state/moveable/Pace.cs" id="7_r7ih0"]
-[ext_resource type="Shader" path="res://assets/shaders/hit_blink.gdshader" id="8_dy6wo"]
-[ext_resource type="Texture2D" uid="uid://lwnas8mu8qk4" path="res://assets/enemy/entity_cannon_gun.png" id="9_hphv8"]
-[ext_resource type="Texture2D" uid="uid://ddrop5swplwtq" path="res://assets/enemy/entity_cannon.png" id="10_3ium0"]
-[ext_resource type="PackedScene" uid="uid://bva4np8rg3g20" path="res://scenes/subscenes/component/stats_component.tscn" id="11_st8un"]
-[ext_resource type="PackedScene" uid="uid://btrxy7t83y8en" path="res://scenes/subscenes/component/health_component.tscn" id="12_rjype"]
-[ext_resource type="PackedScene" uid="uid://cubpk1i28p0wk" path="res://scenes/subscenes/component/weapon_component.tscn" id="13_sbgle"]
-[ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="14_gc1no"]
-[ext_resource type="PackedScene" uid="uid://btdrka86pvjsd" path="res://scenes/subscenes/component/track_trail_component.tscn" id="15_ruwik"]
+[ext_resource type="Script" path="res://src/entity/enemy/moving/DefaultTank.cs" id="1_nh7vu"]
+[ext_resource type="PackedScene" uid="uid://bppxui41cpc02" path="res://scenes/subscenes/component/sprites_component.tscn" id="2_pn21h"]
+[ext_resource type="Shader" path="res://assets/shaders/hit_blink.gdshader" id="3_sd7gd"]
+[ext_resource type="Texture2D" uid="uid://lwnas8mu8qk4" path="res://assets/enemy/entity_cannon_gun.png" id="4_gctui"]
+[ext_resource type="Texture2D" uid="uid://ddrop5swplwtq" path="res://assets/enemy/entity_cannon.png" id="5_w427n"]
+[ext_resource type="PackedScene" uid="uid://6d0b62fihn27" path="res://scenes/subscenes/component/particle_death_component.tscn" id="6_v4t21"]
+[ext_resource type="PackedScene" uid="uid://dpul1hjxi1dkq" path="res://scenes/subscenes/state/state_machine.tscn" id="7_augkr"]
+[ext_resource type="Script" path="res://src/state/Sleep.cs" id="8_tbbf6"]
+[ext_resource type="Script" path="res://src/state/moveable/Pursue.cs" id="9_5wecc"]
+[ext_resource type="Script" path="res://src/state/moveable/Evade.cs" id="10_xjtoa"]
+[ext_resource type="Script" path="res://src/state/moveable/Pace.cs" id="11_t3j6e"]
+[ext_resource type="PackedScene" uid="uid://bva4np8rg3g20" path="res://scenes/subscenes/component/stats_component.tscn" id="12_jemc6"]
+[ext_resource type="PackedScene" uid="uid://btrxy7t83y8en" path="res://scenes/subscenes/component/health_component.tscn" id="13_krogp"]
+[ext_resource type="PackedScene" uid="uid://cubpk1i28p0wk" path="res://scenes/subscenes/component/weapon_component.tscn" id="14_gq4yd"]
+[ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="15_pgrbv"]
+[ext_resource type="PackedScene" uid="uid://btdrka86pvjsd" path="res://scenes/subscenes/component/track_trail_component.tscn" id="16_e2htl"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hqeg8"]
 resource_local_to_scene = true
-shader = ExtResource("8_dy6wo")
+shader = ExtResource("3_sd7gd")
 shader_parameter/flash_color = Color(1, 0.188235, 0, 1)
 shader_parameter/flash_modifier = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nsx7k"]
-atlas = ExtResource("10_3ium0")
+atlas = ExtResource("5_w427n")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ef26x"]
-atlas = ExtResource("10_3ium0")
+atlas = ExtResource("5_w427n")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pfuts"]
-atlas = ExtResource("10_3ium0")
+atlas = ExtResource("5_w427n")
 region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4duss"]
@@ -130,9 +130,9 @@ z_index = 1
 collision_layer = 4
 collision_mask = 111
 motion_mode = 1
-script = ExtResource("1_410vw")
+script = ExtResource("1_nh7vu")
 
-[node name="SpritesComponent" parent="." instance=ExtResource("2_c4rie")]
+[node name="SpritesComponent" parent="." instance=ExtResource("2_pn21h")]
 
 [node name="GunSprite" type="Node2D" parent="SpritesComponent"]
 
@@ -142,7 +142,7 @@ z_index = 2
 texture_filter = 1
 material = SubResource("ShaderMaterial_hqeg8")
 use_parent_material = true
-texture = ExtResource("9_hphv8")
+texture = ExtResource("4_gctui")
 
 [node name="BodySprite" type="Node2D" parent="SpritesComponent"]
 
@@ -153,27 +153,27 @@ use_parent_material = true
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_4duss")
 
-[node name="ParticleDeath" parent="." instance=ExtResource("2_s3f5h")]
+[node name="ParticleDeath" parent="." instance=ExtResource("6_v4t21")]
 
-[node name="StateMachine" parent="." instance=ExtResource("3_tkg75")]
+[node name="StateMachine" parent="." instance=ExtResource("7_augkr")]
 
 [node name="Sleep" type="Node" parent="StateMachine"]
-script = ExtResource("4_eu6ps")
+script = ExtResource("8_tbbf6")
 NextState = "pursue"
 
 [node name="Pursue" type="Node" parent="StateMachine"]
-script = ExtResource("5_du7lw")
+script = ExtResource("9_5wecc")
 
 [node name="Evade" type="Node" parent="StateMachine"]
-script = ExtResource("6_xcyh4")
+script = ExtResource("10_xjtoa")
 
 [node name="Pace" type="Node" parent="StateMachine"]
-script = ExtResource("7_r7ih0")
+script = ExtResource("11_t3j6e")
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_gbvby")
 
-[node name="StatsComponent" parent="." instance=ExtResource("11_st8un")]
+[node name="StatsComponent" parent="." instance=ExtResource("12_jemc6")]
 Source = 3
 MaxHealth = 3.0
 CurrentHealth = 3.0
@@ -187,13 +187,13 @@ ProjectileAccuracy = 0.17
 Speed = 50.0
 ITime = 0.2
 
-[node name="HealthComponent" parent="." node_paths=PackedStringArray("StatsComponent") instance=ExtResource("12_rjype")]
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("StatsComponent") instance=ExtResource("13_krogp")]
 StatsComponent = NodePath("../StatsComponent")
 
-[node name="WeaponComponent" parent="." node_paths=PackedStringArray("StatsComponent") instance=ExtResource("13_sbgle")]
+[node name="WeaponComponent" parent="." node_paths=PackedStringArray("StatsComponent") instance=ExtResource("14_gq4yd")]
 StatsComponent = NodePath("../StatsComponent")
 
-[node name="HitboxComponent" parent="." node_paths=PackedStringArray("HealthComponent") instance=ExtResource("14_gc1no")]
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("HealthComponent") instance=ExtResource("15_pgrbv")]
 collision_layer = 4
 collision_mask = 27
 HealthComponent = NodePath("../HealthComponent")
@@ -202,7 +202,7 @@ HealthComponent = NodePath("../HealthComponent")
 position = Vector2(-1.04216e-14, -2.38419e-07)
 shape = SubResource("RectangleShape2D_6yacv")
 
-[node name="TrackTrailComponent" parent="." instance=ExtResource("15_ruwik")]
+[node name="TrackTrailComponent" parent="." instance=ExtResource("16_e2htl")]
 
 [node name="Agent" type="NavigationAgent2D" parent="."]
 path_desired_distance = 8.0

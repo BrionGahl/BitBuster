@@ -1,7 +1,7 @@
 [gd_scene load_steps=23 format=3 uid="uid://bnh75c1b1t0ty"]
 
 [ext_resource type="PackedScene" uid="uid://bppxui41cpc02" path="res://scenes/subscenes/component/sprites_component.tscn" id="2_dpq02"]
-[ext_resource type="Script" path="res://src/entity/enemy/moving/Detonator.cs" id="2_rcjrj"]
+[ext_resource type="Script" path="res://src/entity/enemy/moving/TankDetonator.cs" id="2_rcjrj"]
 [ext_resource type="PackedScene" uid="uid://dpul1hjxi1dkq" path="res://scenes/subscenes/state/state_machine.tscn" id="3_q6oiw"]
 [ext_resource type="Script" path="res://src/state/Sleep.cs" id="4_a81sq"]
 [ext_resource type="Script" path="res://src/state/moveable/Ram.cs" id="5_n83au"]
