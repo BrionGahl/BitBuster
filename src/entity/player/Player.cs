@@ -6,12 +6,9 @@ using Serilog;
 
 namespace BitBuster.entity.player;
 
-public partial class Player : CharacterBody2D
+public partial class Player : Entity
 {
 	private GlobalEvents _globalEvents;
-	
-	[Export]
-	private StatsComponent _statsComponent;
 
 	[Export] 
 	private WeaponComponent _weaponComponent;
@@ -23,8 +20,8 @@ public partial class Player : CharacterBody2D
 	
 	private float Speed
 	{
-		get => _statsComponent.Speed;
-		set => _statsComponent.Speed = value;
+		get => EntityStats.Speed;
+		set => EntityStats.Speed = value;
 	}
 	private float RotationSpeed => Speed / 25;
 	private bool IsIdle => Velocity.Equals(Vector2.Zero);
@@ -140,13 +137,13 @@ public partial class Player : CharacterBody2D
 	
 	private void OnIncrementAndGenerateLevel()
 	{
-		_statsComponent.Overheal += _statsComponent.OverhealRegen;
+		EntityStats.Overheal += EntityStats.OverhealRegen;
 	}
 	
 	private void OnHealthChange(float value)
 	{
 		if (value < 0)
-			_animationPlayer.Play("effect_damage_blink", -1D, _statsComponent.ITime / 0.2f);
+			_animationPlayer.Play("effect_damage_blink", -1D, EntityStats.ITime / 0.2f);
 		else
 			_animationPlayer.Play("effect_heal_blink", -1D);
 	}

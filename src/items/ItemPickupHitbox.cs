@@ -1,4 +1,6 @@
 using BitBuster.component;
+using BitBuster.entity;
+using BitBuster.resource;
 using BitBuster.world;
 using Godot;
 
@@ -6,9 +8,8 @@ namespace BitBuster.items;
 
 public partial class ItemPickupHitbox : Area2D
 {
-	
-	[Export]
-	public StatsComponent StatsComponent { get; set; }
+
+	private EntityStats _entityStats;
 	
 	[Export]
 	public HealthComponent HealthComponent { get; set; }
@@ -18,6 +19,7 @@ public partial class ItemPickupHitbox : Area2D
 	public override void _Ready()
 	{
 		ItemList = GetNode<Node2D>("ItemsList");
+		_entityStats = GetParent<Entity>().EntityStats;
 		
 		AreaEntered += OnAreaEntered;
 	}
@@ -26,12 +28,12 @@ public partial class ItemPickupHitbox : Area2D
 	{
 		if (area is not Item)
 			return;
-
+		
 		Item item = (Item)area;
 
 		if (item.ItemType == ItemType.Normal)
 		{
-			StatsComponent.AddItem(item);
+			_entityStats.AddItem(item);
 			ItemList.CallDeferred("add_child", item.Duplicate());
 		}
 		
@@ -46,16 +48,16 @@ public partial class ItemPickupHitbox : Area2D
 		{
 			if (HealthComponent.Overheal == HealthComponent.MaxHealth)
 				return;
-			StatsComponent.Overheal += item.AddedOverheal;
+			_entityStats.Overheal += item.AddedOverheal;
 		}
 		
 		item.OnPickup();
 
-		StatsComponent.BombCount += item.AddedBombs;
-		StatsComponent.CreditCount += item.AddedCredit;
-		StatsComponent.KeyCardCount += item.AddedKeyCard;
+		_entityStats.BombCount += item.AddedBombs;
+		_entityStats.CreditCount += item.AddedCredit;
+		_entityStats.KeyCardCount += item.AddedKeyCard;
 
-		StatsComponent.EmitStatChangeSignal();
+		_entityStats.EmitStatChangeSignal();
 	}
 	
 }

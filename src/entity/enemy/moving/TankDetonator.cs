@@ -18,7 +18,6 @@ public partial class TankDetonator : MovingEnemy
 		base._Ready();
 		_collider = GetNode<CollisionShape2D>("Collider");
 		_explodingComponent = GetNode<ExplodingComponent>("ExplodingComponent");
-		_explodingComponent.StatsComponent = StatsComponent;
 
 		_timeTillExplosion = 0f;
 		SpritesComponent.SetBodyMaterialProperty("shader_parameter/time", _timeTillExplosion);
@@ -49,7 +48,7 @@ public partial class TankDetonator : MovingEnemy
 		{
 			_timeTillExplosion += (float)delta;
 			SpritesComponent.SetBodyMaterialProperty("shader_parameter/time", _timeTillExplosion);
-			StatsComponent.Speed /= 4;
+			EntityStats.Speed /= 4;
 		}
 		
 		if ((_timeTillExplosion >= 1.5f || HealthComponent.CurrentHealth <= 0) && !_hasExploded)
@@ -57,18 +56,18 @@ public partial class TankDetonator : MovingEnemy
 			_hasExploded = true;
 			
 			SpritesComponent.Visible = false;
-			StatsComponent.Speed = 0;
+			EntityStats.Speed = 0;
 			HealthComponent.Damage(HealthComponent.CurrentHealth);
 
-			_explodingComponent.Explode(StatsComponent.GetBombAttackData());
+			_explodingComponent.Explode(EntityStats.GetBombAttackData());
 		}
 		
 		if (Position.DistanceTo(Player.Position) >= 64)
 		{
 			_timeTillExplosion = 0f;
 			SpritesComponent.SetBodyMaterialProperty("shader_parameter/time", _timeTillExplosion);
-			if (StatsComponent.Speed < 35)
-				StatsComponent.Speed = 35;
+			if (EntityStats.Speed < 35)
+				EntityStats.Speed = 35;
 		}
 	}
 

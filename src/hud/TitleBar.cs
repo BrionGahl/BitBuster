@@ -1,5 +1,8 @@
 using BitBuster.component;
+using BitBuster.entity;
+using BitBuster.entity.player;
 using BitBuster.items;
+using BitBuster.resource;
 using Godot;
 
 namespace BitBuster.hud;
@@ -7,7 +10,7 @@ namespace BitBuster.hud;
 public partial class TitleBar : VSplitContainer
 {
 	private AnimationPlayer _animationPlayer;
-	private StatsComponent _playerStats;
+	private EntityStats _playerStats;
 
 	private Label _title;
 	private Label _subtitle;
@@ -15,7 +18,7 @@ public partial class TitleBar : VSplitContainer
 	public override void _Ready()
 	{
 		_animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
-		_playerStats = GetTree().GetFirstNodeInGroup("player").GetNode<StatsComponent>("StatsComponent");
+		_playerStats = ((Player)GetTree().GetFirstNodeInGroup("player")).EntityStats;
 
 		_title = GetNode<Label>("Title");
 		_subtitle = GetNode<Label>("Subtitle");

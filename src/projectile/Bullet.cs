@@ -1,8 +1,5 @@
-using System;
 using BitBuster.component;
 using BitBuster.data;
-using BitBuster.items;
-using BitBuster.tiles;
 using BitBuster.utils;
 using BitBuster.world;
 using Godot;
@@ -16,10 +13,8 @@ public partial class Bullet : CharacterBody2D
 	private Sprite2D _bulletTexture;
 	private Area2D _hitbox;
 
-	private component.ExplodingComponent _explodingComponent;
+	private ExplodingComponent _explodingComponent;
 	
-	private VisibleOnScreenNotifier2D _screenNotifier;
-
 	private GpuParticles2D _bounceEmitter;
 	private GpuParticles2D _explodeEmitter;
 
@@ -42,7 +37,7 @@ public partial class Bullet : CharacterBody2D
 		_bulletTexture = GetNode<Sprite2D>("Sprite2D");
 		_hitbox = GetNode<Area2D>("Hitbox");
 
-		_explodingComponent = GetNode<component.ExplodingComponent>("ExplodingComponent");
+		_explodingComponent = GetNode<ExplodingComponent>("ExplodingComponent");
 		
 		_bounceEmitter = GetNode<GpuParticles2D>("ParticleBounce");
 		_explodeEmitter = GetNode<GpuParticles2D>("ParticleExplode");
@@ -50,8 +45,6 @@ public partial class Bullet : CharacterBody2D
 		_parentIFrameTimer = GetNode<Timer>("ParentIFrameTimer");
 		_selfIFrameTimer = GetNode<Timer>("SelfIFrameTimer");
 		_deathAnimationTimer = GetNode<Timer>("DeathAnimationTimer");
-		
-		TopLevel = true;
 		
 		_hitbox.AreaEntered += OnAreaEntered;
 
@@ -171,6 +164,7 @@ public partial class Bullet : CharacterBody2D
 			_hitbox.SetCollisionMaskValue((int)BBCollisionLayer.Player, true);
 		else
 			_hitbox.SetCollisionMaskValue((int)BBCollisionLayer.Enemy, true);
+		
 		_hitbox.SetCollisionMaskValue((int)BBCollisionLayer.Projectile, true);
 		_hitbox.SetCollisionMaskValue((int)BBCollisionLayer.Item, true);
 		

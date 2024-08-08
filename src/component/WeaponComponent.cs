@@ -1,8 +1,6 @@
-using System.Collections.Generic;
-using BitBuster.component;
-using BitBuster.data;
-using BitBuster.entity.player;
+using BitBuster.entity;
 using BitBuster.projectile;
+using BitBuster.resource;
 using BitBuster.utils;
 using BitBuster.world;
 using Godot;
@@ -15,8 +13,7 @@ public partial class WeaponComponent : Node2D
 	[Signal]
 	public delegate void BulletCountChangeEventHandler(int count);
 	
-	[Export]
-	public StatsComponent StatsComponent;
+	private EntityStats _entityStats;
 
 	private Node2D Bullets { get; set; }
 	private Timer ShootTimer { get; set; }
@@ -31,14 +28,14 @@ public partial class WeaponComponent : Node2D
 
 	public int BulletCount
 	{
-		get => StatsComponent.ProjectileCount;
-		private set => StatsComponent.ProjectileCount = value; 
+		get => _entityStats.ProjectileCount;
+		private set => _entityStats.ProjectileCount = value; 
 	}
 	
 	public int BombCount
 	{
-		get => StatsComponent.BombCount;
-		set => StatsComponent.BombCount = value; 
+		get => _entityStats.BombCount;
+		set => _entityStats.BombCount = value; 
 	}
 	
 	public bool CanShoot { get; private set; }
@@ -54,6 +51,8 @@ public partial class WeaponComponent : Node2D
 		_bullet = GD.Load<PackedScene>("res://scenes/subscenes/projectile/bullet.tscn");
 		_bomb = GD.Load<PackedScene>("res://scenes/subscenes/projectile/bomb.tscn");
 
+		_entityStats = GetParent<Entity>().EntityStats;
+		
 		Bombs = GetNode<Node2D>("Bombs");
 		Bullets = GetNode<Node2D>("Bullets");
 		ExtraBullets = GetNode<Node2D>("ExtraBullets");
@@ -78,36 +77,36 @@ public partial class WeaponComponent : Node2D
 		if (!CanShoot || BulletCount - Bullets.GetChildCount() <= 0)
 			return false;
 		
-		if (StatsComponent.ProjectileWeaponType.HasFlag(WeaponType.Bi))
+		if (_entityStats.ProjectileWeaponType.HasFlag(WeaponType.Bi))
 		{
-			Shoot(rotation + Mathf.Pi + _random.RandfRange(-StatsComponent.ProjectileAccuracy, StatsComponent.ProjectileAccuracy), ExtraBullets);
+			Shoot(rotation + Mathf.Pi + _random.RandfRange(-_entityStats.ProjectileAccuracy, _entityStats.ProjectileAccuracy), ExtraBullets);
 		}
 
-		if (StatsComponent.ProjectileWeaponType.HasFlag(WeaponType.Tri))
+		if (_entityStats.ProjectileWeaponType.HasFlag(WeaponType.Tri))
 		{
-			Shoot(rotation + Mathf.Pi / 9 + _random.RandfRange(-StatsComponent.ProjectileAccuracy, StatsComponent.ProjectileAccuracy), ExtraBullets);
-			Shoot(rotation - Mathf.Pi / 9 + _random.RandfRange(-StatsComponent.ProjectileAccuracy, StatsComponent.ProjectileAccuracy), ExtraBullets);
+			Shoot(rotation + Mathf.Pi / 9 + _random.RandfRange(-_entityStats.ProjectileAccuracy, _entityStats.ProjectileAccuracy), ExtraBullets);
+			Shoot(rotation - Mathf.Pi / 9 + _random.RandfRange(-_entityStats.ProjectileAccuracy, _entityStats.ProjectileAccuracy), ExtraBullets);
 		}
 
-		if (StatsComponent.ProjectileWeaponType.HasFlag(WeaponType.Quad))
+		if (_entityStats.ProjectileWeaponType.HasFlag(WeaponType.Quad))
 		{
-			Shoot(rotation + Mathf.Pi / 2 + _random.RandfRange(-StatsComponent.ProjectileAccuracy, StatsComponent.ProjectileAccuracy), ExtraBullets);
-			Shoot(rotation - Mathf.Pi / 2 + _random.RandfRange(-StatsComponent.ProjectileAccuracy, StatsComponent.ProjectileAccuracy), ExtraBullets);
+			Shoot(rotation + Mathf.Pi / 2 + _random.RandfRange(-_entityStats.ProjectileAccuracy, _entityStats.ProjectileAccuracy), ExtraBullets);
+			Shoot(rotation - Mathf.Pi / 2 + _random.RandfRange(-_entityStats.ProjectileAccuracy, _entityStats.ProjectileAccuracy), ExtraBullets);
 
 		}
 		
-		if (StatsComponent.ProjectileWeaponType.HasFlag(WeaponType.Random))
+		if (_entityStats.ProjectileWeaponType.HasFlag(WeaponType.Random))
 		{
-			Shoot(rotation + _random.RandfRange(0, 2 * Mathf.Pi) + _random.RandfRange(-StatsComponent.ProjectileAccuracy, StatsComponent.ProjectileAccuracy), ExtraBullets);
+			Shoot(rotation + _random.RandfRange(0, 2 * Mathf.Pi) + _random.RandfRange(-_entityStats.ProjectileAccuracy, _entityStats.ProjectileAccuracy), ExtraBullets);
 		}
 	
 		Logger.Log.Information("Shooting... " + (BulletCount - Bullets.GetChildCount() - 1) + "/" + BulletCount + ".");
 
-		Shoot(rotation + _random.RandfRange(-StatsComponent.ProjectileAccuracy, StatsComponent.ProjectileAccuracy), Bullets);
+		Shoot(rotation + _random.RandfRange(-_entityStats.ProjectileAccuracy, _entityStats.ProjectileAccuracy), Bullets);
 		
-		StatsComponent.Speed /= 2;
+		_entityStats.Speed /= 2;
 		CanShoot = false;
-		ShootTimer.Start(StatsComponent.ProjectileCooldown);
+		ShootTimer.Start(_entityStats.ProjectileCooldown);
 
 		return true;
 	}
@@ -116,8 +115,8 @@ public partial class WeaponComponent : Node2D
 	{
 		Bullet bullet = _bullet.Instantiate<CharacterBody2D>() as Bullet;
 		bullet.SetTrajectory(GetParent<Node2D>().GlobalPosition, rotation - Constants.HalfPiOffset, 
-			StatsComponent.GetAttackData(), StatsComponent.ProjectileSpeed, StatsComponent.ProjectileBounces, 
-			StatsComponent.ProjectileSizeScalar, StatsComponent.ProjectileBulletType, StatsComponent.ProjectileBounceType);
+			_entityStats.GetAttackData(), _entityStats.ProjectileSpeed, _entityStats.ProjectileBounces, 
+			_entityStats.ProjectileSizeScalar, _entityStats.ProjectileBulletType, _entityStats.ProjectileBounceType);
 		container.AddChild(bullet);
 	}
 
@@ -138,10 +137,10 @@ public partial class WeaponComponent : Node2D
 	private void Bomb(Vector2 position)
 	{
 		Bomb bomb = _bomb.Instantiate<StaticBody2D>() as Bomb;
-		bomb.SetPositionAndRadius(position, StatsComponent.GetBombAttackData(), StatsComponent.BombRadius);
+		bomb.SetPositionAndRadius(position, _entityStats.GetBombAttackData(), _entityStats.BombRadius);
 		
 		BombCount--;
-		StatsComponent.EmitStatChangeSignal();
+		_entityStats.EmitStatChangeSignal();
 		
 		Bombs.AddChild(bomb);
 	}
@@ -149,7 +148,7 @@ public partial class WeaponComponent : Node2D
 	private void OnShootTimeout()
 	{
 		CanShoot = true;
-		StatsComponent.Speed *= 2;
+		_entityStats.Speed *= 2;
 	}
 	
 	private void OnBombTimeout()

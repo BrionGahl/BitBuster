@@ -1,14 +1,46 @@
-[gd_scene load_steps=25 format=3 uid="uid://det6gkgxg57mw"]
+[gd_scene load_steps=26 format=3 uid="uid://det6gkgxg57mw"]
 
 [ext_resource type="Script" path="res://src/entity/player/Player.cs" id="1_nju6n"]
+[ext_resource type="Script" path="res://src/resource/EntityStats.cs" id="2_vm8rv"]
 [ext_resource type="Texture2D" uid="uid://b6tdh6yi6lxtr" path="res://assets/player/entity_player_gun-sheet.png" id="3_0ptsh"]
 [ext_resource type="PackedScene" uid="uid://btdrka86pvjsd" path="res://scenes/subscenes/component/track_trail_component.tscn" id="4_g7sml"]
 [ext_resource type="Texture2D" uid="uid://rofjocr85wcj" path="res://assets/player/entity_player_1.png" id="4_kbiv1"]
 [ext_resource type="PackedScene" uid="uid://cubpk1i28p0wk" path="res://scenes/subscenes/component/weapon_component.tscn" id="4_mw4jj"]
-[ext_resource type="PackedScene" uid="uid://bva4np8rg3g20" path="res://scenes/subscenes/component/stats_component.tscn" id="5_bmnux"]
 [ext_resource type="PackedScene" uid="uid://btrxy7t83y8en" path="res://scenes/subscenes/component/health_component.tscn" id="5_umbbr"]
 [ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="8_gp6gs"]
 [ext_resource type="Script" path="res://src/items/ItemPickupHitbox.cs" id="9_s5uk3"]
+
+[sub_resource type="Resource" id="Resource_y3cpr"]
+resource_local_to_scene = true
+script = ExtResource("2_vm8rv")
+Source = 2
+BombCount = 99
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 1.0
+ProjectileDamage = 1.0
+ProjectileCount = 3
+ProjectileCooldown = 0.33
+ProjectileBounces = 1
+ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.0
+BombDamage = 2.0
+BombDamageType = 0
+BombRadius = 30.0
+Speed = 75.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vtgkd"]
 atlas = ExtResource("3_0ptsh")
@@ -101,6 +133,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Gun:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_0o8y6"]
 resource_name = "effect_damage_blink"
@@ -112,6 +156,18 @@ tracks/0/path = NodePath("Hull:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0.188235, 0, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Gun:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
@@ -141,15 +197,15 @@ _data = {
 "effect_heal_blink": SubResource("Animation_g4sgd")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_statsComponent", "_weaponComponent", "_healthComponent") groups=["player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_weaponComponent", "_healthComponent") groups=["player"]]
 z_index = 1
 collision_layer = 2
 collision_mask = 69
 motion_mode = 1
 script = ExtResource("1_nju6n")
-_statsComponent = NodePath("StatsComponent")
 _weaponComponent = NodePath("WeaponComponent")
 _healthComponent = NodePath("HealthComponent")
+EntityStats = SubResource("Resource_y3cpr")
 
 [node name="Gun" type="AnimatedSprite2D" parent="."]
 top_level = true
@@ -171,31 +227,11 @@ frame_progress = 0.174181
 [node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_pjmg8")
 
-[node name="WeaponComponent" parent="." node_paths=PackedStringArray("StatsComponent") instance=ExtResource("4_mw4jj")]
-StatsComponent = NodePath("../StatsComponent")
-
-[node name="StatsComponent" parent="." instance=ExtResource("5_bmnux")]
-scale = Vector2(1, 1.00902)
-BombCount = 99
-MaxHealth = 3.0
-CurrentHealth = 3.0
-Overheal = 2.0
-ProjectileDamage = 1.0
-ProjectileCount = 3
-ProjectileCooldown = 0.33
-ProjectileBounces = 1
-ProjectileSpeed = 100.0
-ProjectileSizeScalar = Vector2(1, 1)
-BombDamage = 1.0
-BombRadius = 30.0
-Speed = 75.0
-ITime = 0.2
-OverhealBurst = true
+[node name="WeaponComponent" parent="." instance=ExtResource("4_mw4jj")]
 
 [node name="TrackTrailComponent" parent="." instance=ExtResource("4_g7sml")]
 
-[node name="HealthComponent" parent="." node_paths=PackedStringArray("StatsComponent") instance=ExtResource("5_umbbr")]
-StatsComponent = NodePath("../StatsComponent")
+[node name="HealthComponent" parent="." instance=ExtResource("5_umbbr")]
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("HealthComponent") instance=ExtResource("8_gp6gs")]
 HealthComponent = NodePath("../HealthComponent")
@@ -203,11 +239,10 @@ HealthComponent = NodePath("../HealthComponent")
 [node name="Hitbox" type="CollisionShape2D" parent="HitboxComponent"]
 shape = SubResource("RectangleShape2D_cfb50")
 
-[node name="ItemPickupHitbox" type="Area2D" parent="." node_paths=PackedStringArray("StatsComponent", "HealthComponent")]
+[node name="ItemPickupHitbox" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent")]
 collision_layer = 0
 collision_mask = 8
 script = ExtResource("9_s5uk3")
-StatsComponent = NodePath("../StatsComponent")
 HealthComponent = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ItemPickupHitbox"]

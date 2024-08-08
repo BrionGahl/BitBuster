@@ -1,24 +1,95 @@
-[gd_scene load_steps=15 format=3 uid="uid://32elsci7h0v1"]
+[gd_scene load_steps=24 format=3 uid="uid://32elsci7h0v1"]
 
 [ext_resource type="Script" path="res://src/procedural/Rooms.cs" id="1_lawn4"]
 [ext_resource type="PackedScene" uid="uid://det6gkgxg57mw" path="res://scenes/subscenes/entity/player/player.tscn" id="2_pa2gp"]
 [ext_resource type="TileSet" uid="uid://bfaj0cnqhpbw2" path="res://assets/tiles/tilemap-semi.tres" id="2_xldv4"]
 [ext_resource type="PackedScene" uid="uid://lvawwpbpty0i" path="res://scenes/subscenes/tiles/entity_detector.tscn" id="4_5l8sk"]
+[ext_resource type="Script" path="res://src/resource/EntityStats.cs" id="6_2n5vs"]
 [ext_resource type="Shader" path="res://assets/shaders/hit_blink.gdshader" id="6_3x3u3"]
+[ext_resource type="PackedScene" uid="uid://bhljrlptytonc" path="res://scenes/subscenes/entity/enemy/idle/tower.tscn" id="6_s61rk"]
 [ext_resource type="PackedScene" uid="uid://dd3e26ey6r6nv" path="res://scenes/subscenes/items/pickup/healthpack.tscn" id="7_q2vsv"]
 [ext_resource type="PackedScene" uid="uid://c0ej06grjhkpg" path="res://scenes/subscenes/tiles/breakable_wall.tscn" id="7_s2n8b"]
+[ext_resource type="PackedScene" uid="uid://c7ktje7x0hsjm" path="res://scenes/subscenes/entity/enemy/moving/tank_bomber.tscn" id="7_w5048"]
+[ext_resource type="PackedScene" uid="uid://b77vqmiv587v8" path="res://scenes/subscenes/entity/enemy/idle/tower_shielded.tscn" id="8_vypst"]
 [ext_resource type="PackedScene" uid="uid://b4k3b0vsfkhrf" path="res://scenes/subscenes/entity/enemy/idle/tower_burst_shield.tscn" id="9_3b673"]
 [ext_resource type="PackedScene" uid="uid://bntwg1ejjo1i3" path="res://scenes/subscenes/tiles/teleporter.tscn" id="9_5q6ux"]
 [ext_resource type="PackedScene" uid="uid://bnh75c1b1t0ty" path="res://scenes/subscenes/entity/enemy/moving/tank_detonator.tscn" id="9_07htp"]
+[ext_resource type="PackedScene" uid="uid://ban3h382gi0mt" path="res://scenes/subscenes/entity/enemy/moving/tank_shielded.tscn" id="9_72c0k"]
+[ext_resource type="PackedScene" uid="uid://brjodfaf528jb" path="res://scenes/subscenes/entity/enemy/idle/tower_cannon.tscn" id="10_b3inl"]
 [ext_resource type="PackedScene" uid="uid://jfv7afsl8mvt" path="res://scenes/subscenes/entity/enemy/moving/tank.tscn" id="11_d6h5w"]
 [ext_resource type="PackedScene" uid="uid://drtmpyo30imm4" path="res://scenes/subscenes/entity/enemy/idle/tower_detonator.tscn" id="11_jkvly"]
 [ext_resource type="PackedScene" uid="uid://e4kggm4cl738" path="res://scenes/subscenes/entity/enemy/boss/firespitter.tscn" id="12_72x11"]
+[ext_resource type="PackedScene" uid="uid://cx30lc66gc3rv" path="res://scenes/subscenes/entity/enemy/moving/tank_cannon.tscn" id="16_0ho67"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6qeeo"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nm8ou"]
 resource_local_to_scene = true
 shader = ExtResource("6_3x3u3")
 shader_parameter/flash_color = Color(1, 0.188235, 0, 1)
 shader_parameter/flash_modifier = 0.0
+
+[sub_resource type="Resource" id="Resource_1igvt"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 2
+BombCount = 99
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 1.0
+ProjectileDamage = 1.0
+ProjectileCount = 3
+ProjectileCooldown = 0.33
+ProjectileBounces = 1
+ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.17
+BombDamage = 2.0
+BombDamageType = 0
+BombRadius = 30.0
+Speed = 75.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_4iydw"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 1.0
+ProjectileCount = 3
+ProjectileCooldown = 0.33
+ProjectileBounces = 1
+ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.17
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 70.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
 
 [node name="Rooms" type="Node2D"]
 script = ExtResource("1_lawn4")
@@ -76,19 +147,33 @@ layer_0/tile_data = PackedInt32Array(262144, 196608, 1, 327680, 131072, 1, 39321
 visible = false
 
 [node name="START" type="Node2D" parent="."]
-visible = false
 
 [node name="0" type="TileMap" parent="START"]
-visible = false
 texture_filter = 1
 tile_set = ExtResource("2_xldv4")
 format = 2
 layer_0/name = "World"
 layer_0/tile_data = PackedInt32Array(0, 196608, 1, 65536, 131072, 1, 131072, 131072, 1, 196608, 131072, 1, 262144, 131072, 1, 327680, 131072, 1, 393216, 131072, 1, 458752, 131072, 1, 524288, 131072, 1, 589824, 131073, 1, 720896, 131072, 1, 786432, 131072, 1, 851968, 131072, 1, 917504, 131072, 1, 983040, 131072, 1, 1048576, 131072, 1, 1114112, 131072, 1, 1179648, 131072, 1, 1245184, 196608, 2, 1, 65536, 2, 1245185, 65536, 0, 2, 65536, 2, 1245186, 65536, 0, 3, 65536, 2, 1245187, 65536, 0, 4, 65536, 2, 1245188, 65536, 0, 5, 65536, 2, 1245189, 65536, 0, 6, 65536, 2, 1245190, 65536, 0, 7, 65536, 2, 1245191, 65536, 0, 8, 65536, 2, 1245192, 65536, 0, 9, 1, 3, 1245193, 1, 0, 11, 65536, 2, 1245195, 65536, 0, 12, 65536, 2, 1245196, 65536, 0, 13, 65536, 2, 1245197, 65536, 0, 14, 65536, 2, 1245198, 65536, 0, 15, 65536, 2, 1245199, 65536, 0, 16, 65536, 2, 1245200, 65536, 0, 17, 65536, 2, 1245201, 65536, 0, 18, 65536, 2, 1245202, 65536, 0, 19, 262144, 1, 65555, 0, 1, 131091, 0, 1, 196627, 0, 1, 262163, 0, 1, 327699, 0, 1, 393235, 0, 1, 458771, 0, 1, 524307, 0, 1, 589843, 1, 1, 720915, 0, 1, 786451, 0, 1, 851987, 0, 1, 917523, 0, 1, 983059, 0, 1, 1048595, 0, 1, 1114131, 0, 1, 1179667, 0, 1, 1245203, 262144, 2, 786437, 196608, 0, 655365, 196608, 0, 589829, 196608, 0, 524293, 196608, 0, 458757, 196608, 0, 393221, 196608, 0, 327685, 196608, 0, 327686, 196608, 0, 327687, 196608, 0, 327688, 196608, 0, 327689, 196608, 0, 327691, 65536, 3, 327692, 65536, 3, 327693, 65536, 3, 327694, 65536, 3, 327695, 65536, 3, 327696, 65536, 3, 327697, 65536, 3, 327698, 65536, 3)
 
+[node name="Tower" parent="START/0" instance=ExtResource("6_s61rk")]
+position = Vector2(58, 48)
+
+[node name="TowerBurstShield" parent="START/0" instance=ExtResource("9_3b673")]
+position = Vector2(146, 48)
+
+[node name="TowerCannon" parent="START/0" instance=ExtResource("10_b3inl")]
+position = Vector2(106, 47)
+
+[node name="TowerDetonator" parent="START/0" instance=ExtResource("11_jkvly")]
+position = Vector2(84, 270)
+
+[node name="TowerShielded" parent="START/0" instance=ExtResource("8_vypst")]
+position = Vector2(48, 78)
+
 [node name="Player" parent="START/0" instance=ExtResource("2_pa2gp")]
-material = SubResource("ShaderMaterial_6qeeo")
+material = SubResource("ShaderMaterial_nm8ou")
 position = Vector2(152, 152)
+EntityStats = SubResource("Resource_1igvt")
 
 [node name="Healthpack" parent="START/0" instance=ExtResource("7_q2vsv")]
 position = Vector2(124, 121)
@@ -102,22 +187,27 @@ visible = false
 [node name="BreakableWall2" parent="START/0" instance=ExtResource("7_s2n8b")]
 position = Vector2(88, 184)
 
-[node name="Detonator" parent="START/0" instance=ExtResource("9_07htp")]
-position = Vector2(46.5, 44)
-
-[node name="TowerDetonator" parent="START/0" instance=ExtResource("11_jkvly")]
-position = Vector2(69, 74)
-
-[node name="TowerBurstShield" parent="START/0" instance=ExtResource("9_3b673")]
-position = Vector2(254, 158)
-
 [node name="Tank" parent="START/0" instance=ExtResource("11_d6h5w")]
 position = Vector2(48, 111)
+EntityStats = SubResource("Resource_4iydw")
+
+[node name="Bomber" parent="START/0" instance=ExtResource("7_w5048")]
+position = Vector2(46, 135)
+
+[node name="Cannon" parent="START/0" instance=ExtResource("16_0ho67")]
+position = Vector2(45, 160)
+
+[node name="Detonator" parent="START/0" instance=ExtResource("9_07htp")]
+position = Vector2(44, 193)
+
+[node name="Shielded" parent="START/0" instance=ExtResource("9_72c0k")]
+position = Vector2(45, 226)
 
 [node name="BreakableWall3" parent="START/0" instance=ExtResource("7_s2n8b")]
 position = Vector2(168, 88)
 
 [node name="BOSS" type="Node2D" parent="."]
+visible = false
 
 [node name="0" type="TileMap" parent="BOSS"]
 texture_filter = 1

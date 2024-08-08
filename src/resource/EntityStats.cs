@@ -30,7 +30,7 @@ public partial class EntityStats : Resource
 	[Export]
 	public float CurrentHealth { get; set; }
 	[Export]
-	public float Overheal { get; set; } // NYI
+	public float Overheal { get; set; }
 
 	// Bullet Related Stats
 	[Export]
@@ -43,8 +43,8 @@ public partial class EntityStats : Resource
 	public int ProjectileBounces { get; set; }
 	[Export]
 	public float ProjectileSpeed { get; set; }
-	[Export]
-	public Vector2 ProjectileSizeScalar { get; set; }
+	[Export] 
+	public Vector2 ProjectileSizeScalar { get; set; } = Vector2.One;
 	[Export]
 	public EffectType ProjectileDamageType { get; set; }
 	[Export]
@@ -69,8 +69,8 @@ public partial class EntityStats : Resource
 	// Control Related Stats
 	[Export]
 	public float Speed { get; set; }
-	[Export]
-	public float ITime { get; set; }
+
+	[Export] public float ITime { get; set; } = 0.2f;
 	[Export]
 	public EffectType TrailEffect { get; set; }
 	
@@ -88,7 +88,6 @@ public partial class EntityStats : Resource
 	public EntityStats()
 	{
 		_random = new RandomNumberGenerator();
-
 	}
 	
 	public AttackData GetAttackData()

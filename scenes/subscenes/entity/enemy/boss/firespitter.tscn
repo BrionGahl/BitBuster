@@ -1,8 +1,8 @@
 [gd_scene load_steps=20 format=3 uid="uid://e4kggm4cl738"]
 
 [ext_resource type="Script" path="res://src/entity/enemy/boss/Firespitter.cs" id="1_583oa"]
+[ext_resource type="Script" path="res://src/resource/EntityStats.cs" id="2_ijrpv"]
 [ext_resource type="PackedScene" uid="uid://bppxui41cpc02" path="res://scenes/subscenes/component/sprites_component.tscn" id="2_otwgv"]
-[ext_resource type="Resource" uid="uid://c4dbul4lxuugh" path="res://scenes/resources/entity_stats.tres" id="2_rtrb5"]
 [ext_resource type="Texture2D" uid="uid://gmorvpd3aqoh" path="res://assets/boss/flamespitter_gun.png" id="3_ny5x5"]
 [ext_resource type="Texture2D" uid="uid://cn3o5t50p4vkl" path="res://assets/boss/flamespitter_body.png" id="4_biov3"]
 [ext_resource type="PackedScene" uid="uid://6d0b62fihn27" path="res://scenes/subscenes/component/particle_death_component.tscn" id="5_xaa5f"]
@@ -11,8 +11,38 @@
 [ext_resource type="Script" path="res://src/state/idle/Attack.cs" id="8_5b51t"]
 [ext_resource type="PackedScene" uid="uid://btrxy7t83y8en" path="res://scenes/subscenes/component/health_component.tscn" id="9_s4rco"]
 [ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="10_caafp"]
-[ext_resource type="PackedScene" uid="uid://bva4np8rg3g20" path="res://scenes/subscenes/component/stats_component.tscn" id="11_esty8"]
 [ext_resource type="PackedScene" uid="uid://cubpk1i28p0wk" path="res://scenes/subscenes/component/weapon_component.tscn" id="12_hcuox"]
+
+[sub_resource type="Resource" id="Resource_bdsrh"]
+script = ExtResource("2_ijrpv")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 30.0
+CurrentHealth = 30.0
+Overheal = 0.0
+ProjectileDamage = 1.0
+ProjectileCount = 15
+ProjectileCooldown = 0.3
+ProjectileBounces = 0
+ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 5
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.0
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 0.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4hc1y"]
 size = Vector2(10, 10)
@@ -90,7 +120,7 @@ collision_layer = 4
 collision_mask = 111
 motion_mode = 1
 script = ExtResource("1_583oa")
-EntityStats = ExtResource("2_rtrb5")
+EntityStats = SubResource("Resource_bdsrh")
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_4hc1y")
@@ -124,8 +154,7 @@ NextState = "attack"
 [node name="Attack" type="Node" parent="StateMachine"]
 script = ExtResource("8_5b51t")
 
-[node name="HealthComponent" parent="." node_paths=PackedStringArray("StatsComponent") instance=ExtResource("9_s4rco")]
-StatsComponent = NodePath("../StatsComponent")
+[node name="HealthComponent" parent="." instance=ExtResource("9_s4rco")]
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("HealthComponent") instance=ExtResource("10_caafp")]
 collision_layer = 4
@@ -135,20 +164,7 @@ HealthComponent = NodePath("../HealthComponent")
 [node name="Hitbox" type="CollisionShape2D" parent="HitboxComponent"]
 shape = SubResource("RectangleShape2D_v1r4m")
 
-[node name="StatsComponent" parent="." instance=ExtResource("11_esty8")]
-Source = 3
-MaxHealth = 30.0
-CurrentHealth = 30.0
-ProjectileDamage = 1.0
-ProjectileCount = 15
-ProjectileCooldown = 0.3
-ProjectileSpeed = 100.0
-ProjectileSizeScalar = Vector2(1, 1)
-ProjectileWeaponType = 5
-ITime = 0.2
-
-[node name="WeaponComponent" parent="." node_paths=PackedStringArray("StatsComponent") instance=ExtResource("12_hcuox")]
-StatsComponent = NodePath("../StatsComponent")
+[node name="WeaponComponent" parent="." instance=ExtResource("12_hcuox")]
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 

@@ -1,4 +1,7 @@
 using BitBuster.data;
+using BitBuster.entity;
+using BitBuster.projectile;
+using BitBuster.resource;
 using BitBuster.tiles;
 using BitBuster.utils;
 using BitBuster.world;
@@ -8,8 +11,8 @@ namespace BitBuster.component;
 
 public partial class ExplodingComponent : Area2D
 {
-	[Export]
-	public StatsComponent StatsComponent { get; set; }
+
+	private EntityStats _entityStats;
 	
 	private GlobalEvents _globalEvents;
 	private GpuParticles2D _explodingEmitter;
@@ -20,6 +23,7 @@ public partial class ExplodingComponent : Area2D
 	public override void _Ready()
 	{
 		_globalEvents = GetNode<GlobalEvents>("/root/GlobalEvents");
+		
 		_explodingEmitter = GetNode<GpuParticles2D>("ExplodeEmitter");
 		_areaCollider = GetNode<CollisionShape2D>("AreaCollider");
 		
@@ -33,8 +37,12 @@ public partial class ExplodingComponent : Area2D
 			return;
 		}
 		
-		_explosion.Radius = StatsComponent.BombRadius;
-		((ParticleProcessMaterial)_explodingEmitter.ProcessMaterial).EmissionSphereRadius = StatsComponent.BombRadius;
+		_entityStats = GetParent() is Bomb 
+			? GetParent<Bomb>().EntityStats 
+			: GetParent<Entity>().EntityStats;
+
+		_explosion.Radius = _entityStats.BombRadius;
+		((ParticleProcessMaterial)_explodingEmitter.ProcessMaterial).EmissionSphereRadius = _entityStats.BombRadius;
 	}
 
 	public void Explode(AttackData attackData)

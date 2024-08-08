@@ -1,6 +1,7 @@
-[gd_scene load_steps=20 format=3 uid="uid://b4k3b0vsfkhrf"]
+[gd_scene load_steps=21 format=3 uid="uid://b4k3b0vsfkhrf"]
 
 [ext_resource type="Script" path="res://src/entity/enemy/idle/TowerBurstShield.cs" id="1_153ys"]
+[ext_resource type="Script" path="res://src/resource/EntityStats.cs" id="2_1f1vg"]
 [ext_resource type="PackedScene" uid="uid://6d0b62fihn27" path="res://scenes/subscenes/component/particle_death_component.tscn" id="2_fs2t5"]
 [ext_resource type="PackedScene" uid="uid://bppxui41cpc02" path="res://scenes/subscenes/component/sprites_component.tscn" id="2_ouqli"]
 [ext_resource type="PackedScene" uid="uid://dpul1hjxi1dkq" path="res://scenes/subscenes/state/state_machine.tscn" id="3_yiiak"]
@@ -10,8 +11,39 @@
 [ext_resource type="Texture2D" uid="uid://d17dkngwvesq5" path="res://assets/enemy/entity_tesla_tower.png" id="7_o52w1"]
 [ext_resource type="PackedScene" uid="uid://btrxy7t83y8en" path="res://scenes/subscenes/component/health_component.tscn" id="8_h2kle"]
 [ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="9_xdigo"]
-[ext_resource type="PackedScene" uid="uid://bva4np8rg3g20" path="res://scenes/subscenes/component/stats_component.tscn" id="10_7jpsa"]
 [ext_resource type="PackedScene" uid="uid://c7l0u657l447r" path="res://scenes/subscenes/component/overheal_burst_component.tscn" id="11_k6wwa"]
+
+[sub_resource type="Resource" id="Resource_sxx2q"]
+resource_local_to_scene = true
+script = ExtResource("2_1f1vg")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 4.0
+CurrentHealth = 4.0
+Overheal = 0.0
+ProjectileDamage = 0.0
+ProjectileCount = 0
+ProjectileCooldown = 0.0
+ProjectileBounces = 0
+ProjectileSpeed = 0.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.0
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 0.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4hc1y"]
 size = Vector2(10, 10)
@@ -74,6 +106,7 @@ collision_layer = 4
 collision_mask = 111
 motion_mode = 1
 script = ExtResource("1_153ys")
+EntityStats = SubResource("Resource_sxx2q")
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_4hc1y")
@@ -101,8 +134,7 @@ NextState = "attack"
 [node name="Attack" type="Node" parent="StateMachine"]
 script = ExtResource("5_ded41")
 
-[node name="HealthComponent" parent="." node_paths=PackedStringArray("StatsComponent") instance=ExtResource("8_h2kle")]
-StatsComponent = NodePath("../StatsComponent")
+[node name="HealthComponent" parent="." instance=ExtResource("8_h2kle")]
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("HealthComponent") instance=ExtResource("9_xdigo")]
 collision_layer = 4
@@ -111,21 +143,6 @@ HealthComponent = NodePath("../HealthComponent")
 
 [node name="Hitbox" type="CollisionShape2D" parent="HitboxComponent"]
 shape = SubResource("RectangleShape2D_v1r4m")
-
-[node name="StatsComponent" parent="." instance=ExtResource("10_7jpsa")]
-Source = 3
-MaxHealth = 3.0
-CurrentHealth = 3.0
-ProjectileDamage = 1.0
-ProjectileCount = 3
-ProjectileCooldown = 1.5
-ProjectileBounces = 1
-ProjectileSpeed = 100.0
-ProjectileSizeScalar = Vector2(1, 1)
-ProjectileAccuracy = 0.17
-BombDamage = 2.0
-BombRadius = 72.0
-ITime = 0.2
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 

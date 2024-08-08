@@ -1,7 +1,8 @@
-[gd_scene load_steps=27 format=3 uid="uid://jfv7afsl8mvt"]
+[gd_scene load_steps=28 format=3 uid="uid://jfv7afsl8mvt"]
 
 [ext_resource type="Script" path="res://src/entity/enemy/moving/DefaultTank.cs" id="1_pjrn6"]
 [ext_resource type="PackedScene" uid="uid://6d0b62fihn27" path="res://scenes/subscenes/component/particle_death_component.tscn" id="2_jjihf"]
+[ext_resource type="Script" path="res://src/resource/EntityStats.cs" id="2_xkk4i"]
 [ext_resource type="PackedScene" uid="uid://dpul1hjxi1dkq" path="res://scenes/subscenes/state/state_machine.tscn" id="3_nd8n1"]
 [ext_resource type="Script" path="res://src/state/Sleep.cs" id="4_iomqq"]
 [ext_resource type="Script" path="res://src/state/moveable/Pursue.cs" id="5_5inii"]
@@ -10,12 +11,43 @@
 [ext_resource type="Shader" path="res://assets/shaders/hit_blink.gdshader" id="8_iv546"]
 [ext_resource type="Texture2D" uid="uid://dqifb8gnrm6b3" path="res://assets/enemy/entity_tank_gun.png" id="9_eo3d1"]
 [ext_resource type="Texture2D" uid="uid://b33fni7tb2yq7" path="res://assets/enemy/entity_tank.png" id="10_jg8o2"]
-[ext_resource type="PackedScene" uid="uid://bva4np8rg3g20" path="res://scenes/subscenes/component/stats_component.tscn" id="11_xrw8i"]
 [ext_resource type="PackedScene" uid="uid://btrxy7t83y8en" path="res://scenes/subscenes/component/health_component.tscn" id="12_p118s"]
 [ext_resource type="PackedScene" uid="uid://cubpk1i28p0wk" path="res://scenes/subscenes/component/weapon_component.tscn" id="13_8rxjh"]
 [ext_resource type="PackedScene" uid="uid://bppxui41cpc02" path="res://scenes/subscenes/component/sprites_component.tscn" id="13_lq0tj"]
 [ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="14_328m5"]
 [ext_resource type="PackedScene" uid="uid://btdrka86pvjsd" path="res://scenes/subscenes/component/track_trail_component.tscn" id="15_3mb1m"]
+
+[sub_resource type="Resource" id="Resource_qt2un"]
+resource_local_to_scene = true
+script = ExtResource("2_xkk4i")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 1.0
+ProjectileCount = 3
+ProjectileCooldown = 0.33
+ProjectileBounces = 1
+ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.17
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 70.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gbvby"]
 radius = 6.0
@@ -131,6 +163,7 @@ collision_layer = 4
 collision_mask = 111
 motion_mode = 1
 script = ExtResource("1_pjrn6")
+EntityStats = SubResource("Resource_qt2un")
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_gbvby")
@@ -174,25 +207,9 @@ script = ExtResource("6_lsrp8")
 [node name="Pace" type="Node" parent="StateMachine"]
 script = ExtResource("7_ljh8w")
 
-[node name="StatsComponent" parent="." instance=ExtResource("11_xrw8i")]
-Source = 3
-MaxHealth = 3.0
-CurrentHealth = 3.0
-ProjectileDamage = 1.0
-ProjectileCount = 3
-ProjectileCooldown = 1.5
-ProjectileBounces = 1
-ProjectileSpeed = 100.0
-ProjectileSizeScalar = Vector2(1, 1)
-ProjectileAccuracy = 0.17
-Speed = 50.0
-ITime = 0.2
+[node name="HealthComponent" parent="." instance=ExtResource("12_p118s")]
 
-[node name="HealthComponent" parent="." node_paths=PackedStringArray("StatsComponent") instance=ExtResource("12_p118s")]
-StatsComponent = NodePath("../StatsComponent")
-
-[node name="WeaponComponent" parent="." node_paths=PackedStringArray("StatsComponent") instance=ExtResource("13_8rxjh")]
-StatsComponent = NodePath("../StatsComponent")
+[node name="WeaponComponent" parent="." instance=ExtResource("13_8rxjh")]
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("HealthComponent") instance=ExtResource("14_328m5")]
 collision_layer = 4

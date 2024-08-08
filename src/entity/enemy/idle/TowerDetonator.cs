@@ -9,8 +9,6 @@ public partial class TowerDetonator : IdleEnemy
 	private GpuParticles2D _particleDeath;
 	private ExplodingComponent _explodingComponent;
 	
-	private bool _hasDied;
-	private bool _animationFinished;
 	private bool _hasExploded;
 	private float _timeTillExplosion;
 
@@ -20,7 +18,6 @@ public partial class TowerDetonator : IdleEnemy
 		
 		_collider = GetNode<CollisionShape2D>("Collider");
 		_explodingComponent = GetNode<ExplodingComponent>("ExplodingComponent");
-		_explodingComponent.StatsComponent = StatsComponent;
 		
 		_particleDeath = GetNode<GpuParticles2D>("ParticleDeath");
 		
@@ -54,7 +51,7 @@ public partial class TowerDetonator : IdleEnemy
 		{
 			_timeTillExplosion += (float)delta;
 			SpritesComponent.SetBodyMaterialProperty("shader_parameter/time", _timeTillExplosion);
-			StatsComponent.Speed /= 4;
+			EntityStats.Speed /= 4;
 		}
 		
 		if ((_timeTillExplosion >= 1.5f || HealthComponent.CurrentHealth <= 0) && !_hasExploded)
@@ -64,7 +61,7 @@ public partial class TowerDetonator : IdleEnemy
 			SpritesComponent.Visible = false;
 			HealthComponent.Damage(HealthComponent.CurrentHealth);
 
-			_explodingComponent.Explode(StatsComponent.GetBombAttackData());
+			_explodingComponent.Explode(EntityStats.GetBombAttackData());
 		}
 		
 		if (Position.DistanceTo(Player.Position) >= 64)

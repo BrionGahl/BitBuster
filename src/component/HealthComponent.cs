@@ -1,5 +1,8 @@
 using BitBuster.component;
 using BitBuster.data;
+using BitBuster.entity;
+using BitBuster.projectile;
+using BitBuster.resource;
 using BitBuster.utils;
 using Godot;
 
@@ -12,26 +15,25 @@ public partial class HealthComponent : Node2D
 
 	[Signal]
 	public delegate void HealthIsZeroEventHandler();
-	
-	[Export]
-	public StatsComponent StatsComponent { get; set; }
+
+	private EntityStats _entityStats;
 	
 	public float MaxHealth
 	{
-		get => StatsComponent.MaxHealth;
-		set => StatsComponent.MaxHealth = value; 
+		get => _entityStats.MaxHealth;
+		set => _entityStats.MaxHealth = value; 
 	}
 	
 	public float CurrentHealth
 	{
-		get => StatsComponent.CurrentHealth;
-		set => StatsComponent.CurrentHealth = value; 
+		get => _entityStats.CurrentHealth;
+		set => _entityStats.CurrentHealth = value; 
 	}
 	
 	public float Overheal
 	{
-		get => StatsComponent.Overheal;
-		set => StatsComponent.Overheal = value; 
+		get => _entityStats.Overheal;
+		set => _entityStats.Overheal = value; 
 	}
 
 	private Timer _iFrameTimer;
@@ -41,7 +43,12 @@ public partial class HealthComponent : Node2D
 	
 	public override void _Ready()
 	{
+		_entityStats = GetParent() is Bomb 
+			? GetParent<Bomb>().EntityStats 
+			: GetParent<Entity>().EntityStats;
+		
 		CurrentHealth = MaxHealth;
+		
 		_iFrameTimer = GetNode<Timer>("IFrameTimer");
 		_overhealBurstComponent = GetNode<OverhealBurstComponent>("OverhealBurstComponent");
 		
@@ -62,7 +69,7 @@ public partial class HealthComponent : Node2D
 			Overheal = Mathf.Floor(Overheal);
 			if (Overheal < 0)
 				Overheal = 0;
-			if (StatsComponent.OverhealBurst)
+			if (_entityStats.OverhealBurst)
 				_overhealBurstComponent.Burst(75f);
 		}
 		else 
@@ -75,7 +82,7 @@ public partial class HealthComponent : Node2D
 		}
 	
 		EmitSignal(SignalName.HealthChange, -attackData.Damage);
-		_iFrameTimer.Start(StatsComponent.ITime);
+		_iFrameTimer.Start(_entityStats.ITime);
 	}
 
 	public void Damage(float damage)
@@ -91,7 +98,7 @@ public partial class HealthComponent : Node2D
 			Overheal = Mathf.Floor(Overheal);
 			if (Overheal < 0)
 				Overheal = 0;
-			if (StatsComponent.OverhealBurst)
+			if (_entityStats.OverhealBurst)
 				_overhealBurstComponent.Burst(75f);
 		}
 		else 

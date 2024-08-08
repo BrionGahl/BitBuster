@@ -1,6 +1,7 @@
-[gd_scene load_steps=20 format=3 uid="uid://drtmpyo30imm4"]
+[gd_scene load_steps=21 format=3 uid="uid://drtmpyo30imm4"]
 
 [ext_resource type="Script" path="res://src/entity/enemy/idle/TowerDetonator.cs" id="1_yi5a0"]
+[ext_resource type="Script" path="res://src/resource/EntityStats.cs" id="2_5pmj7"]
 [ext_resource type="PackedScene" uid="uid://6d0b62fihn27" path="res://scenes/subscenes/component/particle_death_component.tscn" id="2_mgfbc"]
 [ext_resource type="PackedScene" uid="uid://bppxui41cpc02" path="res://scenes/subscenes/component/sprites_component.tscn" id="2_xiwh0"]
 [ext_resource type="PackedScene" uid="uid://dpul1hjxi1dkq" path="res://scenes/subscenes/state/state_machine.tscn" id="3_bjfsr"]
@@ -10,8 +11,39 @@
 [ext_resource type="Texture2D" uid="uid://b3a1ruwh3anai" path="res://assets/enemy/entity_detonator_turret.png" id="6_mfvmy"]
 [ext_resource type="PackedScene" uid="uid://btrxy7t83y8en" path="res://scenes/subscenes/component/health_component.tscn" id="8_67qnp"]
 [ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="9_muq2p"]
-[ext_resource type="PackedScene" uid="uid://bva4np8rg3g20" path="res://scenes/subscenes/component/stats_component.tscn" id="10_q8bxg"]
 [ext_resource type="PackedScene" uid="uid://2m2pbclf1iur" path="res://scenes/subscenes/component/exploding_component.tscn" id="11_h4hrn"]
+
+[sub_resource type="Resource" id="Resource_o04f4"]
+resource_local_to_scene = true
+script = ExtResource("2_5pmj7")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 0.0
+ProjectileCount = 0
+ProjectileCooldown = 0.0
+ProjectileBounces = 0
+ProjectileSpeed = 0.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.0
+BombDamage = 2.0
+BombDamageType = 0
+BombRadius = 48.0
+Speed = 0.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mkoo3"]
 shader = ExtResource("6_kmnk0")
@@ -74,6 +106,7 @@ collision_layer = 4
 collision_mask = 111
 motion_mode = 1
 script = ExtResource("1_yi5a0")
+EntityStats = SubResource("Resource_o04f4")
 
 [node name="SpritesComponent" parent="." instance=ExtResource("2_xiwh0")]
 
@@ -101,8 +134,7 @@ script = ExtResource("5_pcvhr")
 [node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_4hc1y")
 
-[node name="HealthComponent" parent="." node_paths=PackedStringArray("StatsComponent") instance=ExtResource("8_67qnp")]
-StatsComponent = NodePath("../StatsComponent")
+[node name="HealthComponent" parent="." instance=ExtResource("8_67qnp")]
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("HealthComponent") instance=ExtResource("9_muq2p")]
 collision_layer = 4
@@ -111,21 +143,6 @@ HealthComponent = NodePath("../HealthComponent")
 
 [node name="Hitbox" type="CollisionShape2D" parent="HitboxComponent"]
 shape = SubResource("RectangleShape2D_v1r4m")
-
-[node name="StatsComponent" parent="." instance=ExtResource("10_q8bxg")]
-Source = 3
-MaxHealth = 3.0
-CurrentHealth = 3.0
-ProjectileDamage = 1.0
-ProjectileCount = 3
-ProjectileCooldown = 1.5
-ProjectileBounces = 1
-ProjectileSpeed = 100.0
-ProjectileSizeScalar = Vector2(1, 1)
-ProjectileAccuracy = 0.17
-BombDamage = 2.0
-BombRadius = 72.0
-ITime = 0.2
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
@@ -138,8 +155,7 @@ libraries = {
 "": SubResource("AnimationLibrary_u101d")
 }
 
-[node name="ExplodingComponent" parent="." node_paths=PackedStringArray("StatsComponent") instance=ExtResource("11_h4hrn")]
-StatsComponent = NodePath("../StatsComponent")
+[node name="ExplodingComponent" parent="." instance=ExtResource("11_h4hrn")]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 collision_layer = 64

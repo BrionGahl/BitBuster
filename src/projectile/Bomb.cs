@@ -1,11 +1,8 @@
-using System.Collections.Generic;
 using BitBuster.component;
 using BitBuster.data;
-using BitBuster.tiles;
-using BitBuster.utils;
+using BitBuster.resource;
 using BitBuster.world;
 using Godot;
-using Godot.Collections;
 
 namespace BitBuster.projectile;
 
@@ -17,9 +14,11 @@ public partial class Bomb : StaticBody2D
 	
 	private Timer _deathAnimationTimer;
 	
+	[Export]
+	public EntityStats EntityStats;
+	
 	private HitboxComponent _hitboxComponent;
 	private HealthComponent _healthComponent;
-	private StatsComponent _statsComponent;
 	private ExplodingComponent _explodingComponent;
 
 	private AttackData _attackData;
@@ -35,10 +34,9 @@ public partial class Bomb : StaticBody2D
 		_bombTexture = GetNode<Sprite2D>("Sprite2D");
 		_deathAnimationTimer = GetNode<Timer>("DeathAnimationTimer");
 		
-		_explodingComponent = GetNode<component.ExplodingComponent>("ExplodingComponent");
+		_explodingComponent = GetNode<ExplodingComponent>("ExplodingComponent");
 		_hitboxComponent = GetNode<Area2D>("HitboxComponent") as HitboxComponent;
 		_healthComponent = GetNode<Node2D>("HealthComponent") as HealthComponent;
-		_statsComponent = GetNode<Node2D>("StatsComponent") as StatsComponent;
 		
 		_timeTillExplosion = 0f;
 		Material.Set("shader_parameter/Time", 0f);
@@ -71,7 +69,7 @@ public partial class Bomb : StaticBody2D
 	{
 		GlobalPosition = position;
 		_attackData = attackData;
-		_statsComponent.BombRadius = radius;
+		EntityStats.BombRadius = radius;
 		
 		GetNode<GpuParticles2D>("ParticleCritComponent").Emitting = _attackData.IsCrit;
 	}
