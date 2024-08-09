@@ -66,8 +66,9 @@ public partial class Firespitter : IdleEnemy
 		
 		if (_mechanics <= 0.3)
 		{
-			SpritesComponent.SetGunRotationAndPosition(CanSeePlayer(), Player.Position, Mathf.Pi / 4);
-			if (WeaponComponent.AttemptShoot(Player.Position.AngleToPoint(Position)))
+			int r = RandomNumberGenerator.RandiRange(1, 4);
+			SpritesComponent.SetGunRotationAndPosition(false, Player.Position, r * Mathf.Pi / 2);
+			if (WeaponComponent.AttemptShoot(r * Mathf.Pi / 2))
 				_iteration -= 8;
 		}
 		
@@ -89,32 +90,38 @@ public partial class Firespitter : IdleEnemy
 		
 
 	}
-
-
+	
 	private void ChangeMechanic()
 	{
-
 		if (_mechanics <= 0.3)
 		{
-			EntityStats.ProjectileBounces = 1;
+			EntityStats.ProjectileBounces = 4;
 			EntityStats.ProjectileDamage = 2;
-			EntityStats.ProjectileCooldown = 1.5f;
-			EntityStats.ProjectileSizeScalar = new Vector2(1, 1);
-			EntityStats.ProjectileWeaponType = WeaponType.Tri;
+			EntityStats.ProjectileCooldown = 3f;
+			EntityStats.ProjectileSpeed = 50f;
+			EntityStats.ProjectileSizeScalar = new Vector2(120, 1);
+			EntityStats.ProjectileWeaponType = 0;
+			EntityStats.ProjectileBulletType = BulletType.Piercing;
 		} else if (_mechanics > 0.3 && _mechanics <= 0.7)
 		{
 			EntityStats.ProjectileBounces = 0;
 			EntityStats.ProjectileDamage = 3;
 			EntityStats.ProjectileCooldown = 0.2f;
+			EntityStats.ProjectileSpeed = 100f;
 			EntityStats.ProjectileSizeScalar = new Vector2(1, 1);
 			EntityStats.ProjectileWeaponType = WeaponType.Quad;
+			EntityStats.ProjectileBulletType = BulletType.Invulnerable;
 		} else if (_mechanics > 0.7)
 		{
 			EntityStats.ProjectileBounces = 2;
 			EntityStats.ProjectileDamage = 3;
 			EntityStats.ProjectileCooldown = 1.5f;
+			EntityStats.ProjectileSpeed = 100f;
 			EntityStats.ProjectileSizeScalar = new Vector2(4, 4);
 			EntityStats.ProjectileWeaponType = 0;
+			EntityStats.ProjectileBulletType = 0;
+			EntityStats.ProjectileBulletType = BulletType.Invulnerable;
+
 		}
 	}
 	

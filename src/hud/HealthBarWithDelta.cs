@@ -47,6 +47,7 @@ public partial class HealthBarWithDelta : ProgressBar
 		MaxValue = _playerHealthComponent.MaxHealth;
 		Value = _playerHealthComponent.CurrentHealth;
 
+		_overhealBar.MaxValue = _playerHealthComponent.MaxHealth;
 		_overhealBar.Value = _playerHealthComponent.Overheal;
 
 		Size = new Vector2(_playerHealthComponent.MaxHealth * 16, 16);

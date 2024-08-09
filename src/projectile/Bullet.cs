@@ -75,7 +75,7 @@ public partial class Bullet : CharacterBody2D
 			if (_bounceType.HasFlag(BounceType.Compounding))
 				_attackData.Damage *= 2;
 			
-		} else if (collision != null && _remainingBounces == 0)
+		} else if (collision != null && _remainingBounces <= 0)
 		{
 			if (_deathAnimationTimer.TimeLeft != 0) 
 				return;
@@ -147,10 +147,19 @@ public partial class Bullet : CharacterBody2D
 		{
 			_explodingComponent.Explode(new AttackData(1f, EffectType.Normal, _attackData.SourceType, false));
 		}
+
+		if (_bulletType.HasFlag(BulletType.Invulnerable))
+			return;
 		
 		if (_bulletType.HasFlag(BulletType.Piercing))
 		{
 			_remainingBounces--;
+			if (_remainingBounces < 0)
+			{
+				PrepForFree();
+				return;
+			}
+			_bulletTexture.Modulate = Color.FromHsv(_remainingBounces * _hueShift, 1.0f, 1.0f);
 			return;
 		}
 			
