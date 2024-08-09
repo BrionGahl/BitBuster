@@ -302,7 +302,6 @@ public partial class World : Node2D
 			if (newObject.IsInGroup(Groups.GroupPlayer))
 			{
 				_levelPlayer.Position = newObject.Position;
-				Logger.Log.Information(newObject.Position.ToString());
 				newObject.QueueFree();
 				continue;
 			}

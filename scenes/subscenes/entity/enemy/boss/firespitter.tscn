@@ -24,13 +24,13 @@ CurrentHealth = 30.0
 Overheal = 0.0
 ProjectileDamage = 1.0
 ProjectileCount = 15
-ProjectileCooldown = 0.3
+ProjectileCooldown = 0.2
 ProjectileBounces = 0
 ProjectileSpeed = 100.0
 ProjectileSizeScalar = Vector2(1, 1)
 ProjectileDamageType = 0
 ProjectileWeaponType = 5
-ProjectileBulletType = 0
+ProjectileBulletType = 1
 ProjectileBounceType = 0
 ProjectileTrajectoryType = 0
 ProjectileAccuracy = 0.0
@@ -125,6 +125,9 @@ EntityStats = SubResource("Resource_bdsrh")
 [node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_4hc1y")
 
+[node name="MechanicsTimer" type="Timer" parent="."]
+one_shot = true
+
 [node name="SpritesComponent" parent="." instance=ExtResource("2_otwgv")]
 
 [node name="GunSprite" type="Node2D" parent="SpritesComponent"]
@@ -183,5 +186,3 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("RectangleShape2D_5qs8s")
-
-[node name="MechanicsTimer" type="Timer" parent="."]

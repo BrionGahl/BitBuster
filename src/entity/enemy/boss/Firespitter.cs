@@ -1,4 +1,5 @@
 using BitBuster.utils;
+using BitBuster.world;
 using Godot;
 
 namespace BitBuster.entity.enemy.boss;
@@ -6,7 +7,8 @@ namespace BitBuster.entity.enemy.boss;
 public partial class Firespitter : IdleEnemy
 {
 	private GpuParticles2D _particleDeath;
-
+	private Timer _mechanicsTimer;
+	
 	private float _mechanics;
 	private int _iteration;
 
@@ -14,10 +16,14 @@ public partial class Firespitter : IdleEnemy
 	{
 		base._Ready();
 		_particleDeath = GetNode<GpuParticles2D>("ParticleDeath");
+		_mechanicsTimer = GetNode<Timer>("MechanicsTimer");
+		
 		SpritesComponent.SetGunRotationAndPosition(CanSeePlayer(), Player.Position, Mathf.Pi/12);
 
 		_mechanics = 0.0f;
 		_iteration = 0;
+
+		_mechanicsTimer.Timeout += OnMechanicsTimeout;
 	}
 	
 	protected override void OnHealthIsZero()
@@ -46,19 +52,74 @@ public partial class Firespitter : IdleEnemy
 		if (HasDied)
 			return;
 
-		if (_iteration < 0)
+		// Logger.Log.Information("{@A}", _iteration);
+		
+		if (_iteration <= 0)
 		{
 			_mechanics = RandomNumberGenerator.Randf();
-			_iteration = WeaponComponent.BulletCount;
-		}
+			ChangeMechanic();
+			if (_mechanicsTimer.TimeLeft <= 0)
+				_mechanicsTimer.Start();
 
+			return;
+		}
+		
+		if (_mechanics <= 0.3)
+		{
+			SpritesComponent.SetGunRotationAndPosition(CanSeePlayer(), Player.Position, Mathf.Pi / 4);
+			if (WeaponComponent.AttemptShoot(Player.Position.AngleToPoint(Position)))
+				_iteration -= 8;
+		}
+		
 		// Spray
-		if (CanSeePlayer() && _iteration >= 0)
+		if (_mechanics > 0.3 && _mechanics <= 0.7)
 		{
 			SpritesComponent.SetGunRotationAndPosition(false, Player.Position, _iteration * Mathf.Pi / WeaponComponent.BulletCount);
-			WeaponComponent.AttemptShoot(_iteration * Mathf.Pi / WeaponComponent.BulletCount);
-			_iteration--;
+			if (WeaponComponent.AttemptShoot(_iteration * Mathf.Pi / WeaponComponent.BulletCount))
+				_iteration--;
 		}
-			
+
+		// Three Shots
+		if (_mechanics > 0.7)
+		{
+			SpritesComponent.SetGunRotationAndPosition(CanSeePlayer(), Player.Position, Mathf.Pi / 4);
+			if (WeaponComponent.AttemptShoot(Player.Position.AngleToPoint(Position)))
+				_iteration -= 5;
+		}
+		
+
+	}
+
+
+	private void ChangeMechanic()
+	{
+
+		if (_mechanics <= 0.3)
+		{
+			EntityStats.ProjectileBounces = 1;
+			EntityStats.ProjectileDamage = 2;
+			EntityStats.ProjectileCooldown = 1.5f;
+			EntityStats.ProjectileSizeScalar = new Vector2(1, 1);
+			EntityStats.ProjectileWeaponType = WeaponType.Tri;
+		} else if (_mechanics > 0.3 && _mechanics <= 0.7)
+		{
+			EntityStats.ProjectileBounces = 0;
+			EntityStats.ProjectileDamage = 3;
+			EntityStats.ProjectileCooldown = 0.2f;
+			EntityStats.ProjectileSizeScalar = new Vector2(1, 1);
+			EntityStats.ProjectileWeaponType = WeaponType.Quad;
+		} else if (_mechanics > 0.7)
+		{
+			EntityStats.ProjectileBounces = 2;
+			EntityStats.ProjectileDamage = 3;
+			EntityStats.ProjectileCooldown = 1.5f;
+			EntityStats.ProjectileSizeScalar = new Vector2(4, 4);
+			EntityStats.ProjectileWeaponType = 0;
+		}
+	}
+	
+	private void OnMechanicsTimeout()
+	{
+		_iteration = WeaponComponent.BulletCount;
 	}
 }
