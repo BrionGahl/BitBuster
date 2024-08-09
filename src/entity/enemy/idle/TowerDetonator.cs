@@ -5,7 +5,6 @@ namespace BitBuster.entity.enemy.idle;
 
 public partial class TowerDetonator : IdleEnemy
 {
-	private CollisionShape2D _collider;
 	private GpuParticles2D _particleDeath;
 	private ExplodingComponent _explodingComponent;
 	
@@ -16,7 +15,6 @@ public partial class TowerDetonator : IdleEnemy
 	{
 		base._Ready();
 		
-		_collider = GetNode<CollisionShape2D>("Collider");
 		_explodingComponent = GetNode<ExplodingComponent>("ExplodingComponent");
 		
 		_particleDeath = GetNode<GpuParticles2D>("ParticleDeath");
@@ -28,7 +26,7 @@ public partial class TowerDetonator : IdleEnemy
 	
 	protected override void OnHealthIsZero()
 	{
-		_collider.SetDeferred("disabled", true);
+		Collider.SetDeferred("disabled", true);
 		HitboxComponent.SetDeferred("monitorable", false);
 		HitboxComponent.SetDeferred("monitoring", false);
 	
@@ -37,7 +35,7 @@ public partial class TowerDetonator : IdleEnemy
 		_particleDeath.Emitting = true;
 		
 		DeathAnimationTimer.Start();
-		_hasDied = true;
+		HasDied = true;
 	}
 
 	protected override void OnDeathAnimationTimeout()

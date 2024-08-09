@@ -45,10 +45,10 @@ OverhealBurst = false
 OverhealRegen = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4hc1y"]
-size = Vector2(10, 10)
+size = Vector2(24, 24)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v1r4m"]
-size = Vector2(12, 12)
+size = Vector2(26, 26)
 
 [sub_resource type="Animation" id="Animation_vcdr5"]
 length = 0.001
@@ -112,7 +112,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5qs8s"]
-size = Vector2(11, 12)
+size = Vector2(26, 26)
 
 [node name="Firespitter" type="CharacterBody2D" groups=["enemy"]]
 z_index = 1
@@ -182,5 +182,6 @@ collision_layer = 64
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_5qs8s")
+
+[node name="MechanicsTimer" type="Timer" parent="."]

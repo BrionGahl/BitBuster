@@ -9,7 +9,6 @@ public partial class TankBomber : MovingEnemy
 {
 	private GlobalEvents _globalEvents;
 
-	private CollisionShape2D _collider;
 	private ExplodingComponent _explodingComponent;
 	private GpuParticles2D _particleDeath;
 
@@ -22,7 +21,6 @@ public partial class TankBomber : MovingEnemy
 		base._Ready();
 		_globalEvents = GetNode<GlobalEvents>("/root/GlobalEvents");
 		
-		_collider = GetNode<CollisionShape2D>("Collider");
 
 		_explodingComponent = GetNode<ExplodingComponent>("ExplodingComponent");
 		_particleDeath = GetNode<GpuParticles2D>("ParticleDeath");
@@ -36,7 +34,7 @@ public partial class TankBomber : MovingEnemy
 	protected override void OnHealthIsZero()
 	{
 		SpritesComponent.Visible = false;
-		_collider.SetDeferred("disabled", true);
+		Collider.SetDeferred("disabled", true);
 
 		EntityStats.Speed = 0;
 		HitboxComponent.SetDeferred("monitorable", false);
@@ -45,19 +43,19 @@ public partial class TankBomber : MovingEnemy
 		_particleDeath.Emitting = true;
 		
 		DeathAnimationTimer.Start();
-		_hasDied = true;
+		HasDied = true;
 
 	}
 
 	protected override void OnDeathAnimationTimeout()
 	{
-		_animationFinished = true;
+		AnimationFinished = true;
 	}
 
 	public override void AttackAction(double delta)
 	{
 		AttemptToFree();
-		if (_hasDied)
+		if (HasDied)
 			return;
 
 		if (Position.DistanceTo(Player.Position) < 48 && RandomNumberGenerator.Randf() > 0.3f)

@@ -22,7 +22,7 @@ public abstract partial class Enemy: Entity
 	private bool IsIdle => Velocity.Equals(Vector2.Zero);
 
 	public Player Player;
-
+	
 	protected HealthComponent HealthComponent { get; private set; }
 	protected HitboxComponent HitboxComponent { get; private set; }
 	protected WeaponComponent WeaponComponent { get; private set; }
@@ -36,11 +36,13 @@ public abstract partial class Enemy: Entity
 	public Vector2 Target { get; set; }
 	
 	protected RandomNumberGenerator RandomNumberGenerator;
-	protected bool _hasDied;
-	protected bool _animationFinished;
+	protected bool HasDied;
+	protected bool AnimationFinished;
 	
 	 public override void _Ready()
 	 {
+		 base._Ready();
+		 
 		 Player = GetTree().GetFirstNodeInGroup("player") as Player;
 		 
 		 HealthComponent = GetNode<Node2D>("HealthComponent") as HealthComponent;
@@ -62,6 +64,7 @@ public abstract partial class Enemy: Entity
 		 SpawnPosition = Position;
 
 		 DeathAnimationTimer.Timeout += OnDeathAnimationTimeout;
+		 
 		 HealthComponent.HealthIsZero += OnHealthIsZero;
 		 HealthComponent.HealthChange += OnHealthChange;
 	 }
@@ -108,18 +111,13 @@ public abstract partial class Enemy: Entity
 	{
 		SpritesComponent.PlayAnimation(IsIdle);
 	}
-	
-	private void OnHealthChange(float value)
-	{
-		AnimationPlayer.Play("effect_damage_blink", -1D, EntityStats.ITime / 0.2f);
-	}
 
 	protected bool AttemptToFree()
 	{
-		if (!_hasDied)
+		if (!HasDied)
 			return false;
 
-		if (WeaponComponent is { BombsChildren: > 0 } || WeaponComponent is { BulletsChildren: > 0 } || !_animationFinished)
+		if (WeaponComponent is { BombsChildren: > 0 } || WeaponComponent is { BulletsChildren: > 0 } || !AnimationFinished)
 			return false;
 
 		Logger.Log.Information(Name + " freed.");
@@ -135,8 +133,13 @@ public abstract partial class Enemy: Entity
 			SpritesComponent.Body.Modulate = color;
 	}
 	
-	protected abstract void OnHealthIsZero();
 	protected abstract void OnDeathAnimationTimeout();
 	
+	private void OnHealthChange(float value)
+	{
+		AnimationPlayer.Play("effect_damage_blink", -1D, EntityStats.ITime / 0.2f);
+	}
+	
 	public abstract void AttackAction(double delta);
+	protected abstract void OnHealthIsZero();
 }

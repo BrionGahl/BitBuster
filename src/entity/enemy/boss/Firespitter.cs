@@ -5,7 +5,6 @@ namespace BitBuster.entity.enemy.boss;
 
 public partial class Firespitter : IdleEnemy
 {
-	private CollisionShape2D _collider;
 	private GpuParticles2D _particleDeath;
 
 	private float _mechanics;
@@ -14,7 +13,6 @@ public partial class Firespitter : IdleEnemy
 	public override void _Ready()
 	{
 		base._Ready();
-		_collider = GetNode<CollisionShape2D>("Collider");
 		_particleDeath = GetNode<GpuParticles2D>("ParticleDeath");
 		SpritesComponent.SetGunRotationAndPosition(CanSeePlayer(), Player.Position, Mathf.Pi/12);
 
@@ -25,7 +23,7 @@ public partial class Firespitter : IdleEnemy
 	protected override void OnHealthIsZero()
 	{
 		SpritesComponent.Visible = false;
-		_collider.SetDeferred("disabled", true);
+		Collider.SetDeferred("disabled", true);
 		HitboxComponent.SetDeferred("monitorable", false);
 		HitboxComponent.SetDeferred("monitoring", false);
 	
@@ -34,18 +32,18 @@ public partial class Firespitter : IdleEnemy
 		_particleDeath.Emitting = true;
 		
 		DeathAnimationTimer.Start();
-		_hasDied = true;
+		HasDied = true;
 	}
 
 	protected override void OnDeathAnimationTimeout()
 	{
-		_animationFinished = true;
+		AnimationFinished = true;
 	}
 
 	public override void AttackAction(double delta)
 	{
 		AttemptToFree();
-		if (_hasDied)
+		if (HasDied)
 			return;
 
 		if (_iteration < 0)

@@ -15,7 +15,6 @@ script = ExtResource("1_cse2s")
 ItemName = "Rubber Bullets"
 ItemDescription = "Still lethal!"
 ProjectileBounces = 2
-ProjectileSizeScalar = Vector2(2, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_k1piv")

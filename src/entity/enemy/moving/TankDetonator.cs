@@ -6,7 +6,6 @@ namespace BitBuster.entity.enemy.moving;
 
 public partial class TankDetonator : MovingEnemy
 {
-	private CollisionShape2D _collider;
 	private ExplodingComponent _explodingComponent;
 	
 	private float _timeTillExplosion;
@@ -16,7 +15,6 @@ public partial class TankDetonator : MovingEnemy
 	{
 		SetPhysicsProcess(false);
 		base._Ready();
-		_collider = GetNode<CollisionShape2D>("Collider");
 		_explodingComponent = GetNode<ExplodingComponent>("ExplodingComponent");
 
 		_timeTillExplosion = 0f;
@@ -28,7 +26,7 @@ public partial class TankDetonator : MovingEnemy
 
 	protected override void OnHealthIsZero()
 	{
-		_collider.SetDeferred("disabled", true);
+		Collider.SetDeferred("disabled", true);
 		
 		HitboxComponent.SetDeferred("monitorable", false);
 		HitboxComponent.SetDeferred("monitoring", false);

@@ -44,6 +44,8 @@ public partial class Player : Entity
 	{
 		Logger.Log.Information("Loading player...");
 	
+		base._Ready();
+		
 		_globalEvents = GetNode<GlobalEvents>("/root/GlobalEvents");
 		
 		_gun = GetNode<AnimatedSprite2D>("Gun");
@@ -145,7 +147,7 @@ public partial class Player : Entity
 		if (value < 0)
 			_animationPlayer.Play("effect_damage_blink", -1D, EntityStats.ITime / 0.2f);
 		else
-			_animationPlayer.Play("effect_heal_blink", -1D);
+			_animationPlayer.Play("effect_heal_blink");
 	}
 
 	private void OnDoorEnterTimeout()
