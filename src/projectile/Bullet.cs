@@ -1,5 +1,7 @@
 using BitBuster.component;
 using BitBuster.data;
+using BitBuster.entity;
+using BitBuster.entity.enemy;
 using BitBuster.utils;
 using BitBuster.world;
 using Godot;
@@ -139,7 +141,8 @@ public partial class Bullet : CharacterBody2D
 		if (area is HitboxComponent hitboxComponent)
 		{
 			Logger.Log.Information("Hitbox hit at " + hitboxComponent.Name);
-
+			if (hitboxComponent.GetParent<Entity>() is Enemy && _bulletType.HasFlag(BulletType.Invulnerable))
+				return;
 			hitboxComponent.Damage(_attackData);
 		}
 

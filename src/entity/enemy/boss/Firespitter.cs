@@ -10,6 +10,7 @@ public partial class Firespitter : IdleEnemy
 	private Timer _mechanicsTimer;
 	
 	private float _mechanics;
+	private int _mechanicsDir;
 	private int _iteration;
 
 	public override void _Ready()
@@ -66,10 +67,9 @@ public partial class Firespitter : IdleEnemy
 		
 		if (_mechanics <= 0.3)
 		{
-			int r = RandomNumberGenerator.RandiRange(1, 4);
-			SpritesComponent.SetGunRotationAndPosition(false, Player.Position, r * Mathf.Pi / 2);
-			if (WeaponComponent.AttemptShoot(r * Mathf.Pi / 2))
-				_iteration -= 8;
+			SpritesComponent.SetGunRotationAndPosition(false, Player.Position, (_mechanicsDir * 2 * Mathf.Pi ) + Mathf.Pi / 2);
+			if (WeaponComponent.AttemptShoot(_mechanicsDir * Mathf.Pi / 2))
+				_iteration -= 5;
 		}
 		
 		// Spray
@@ -95,11 +95,12 @@ public partial class Firespitter : IdleEnemy
 	{
 		if (_mechanics <= 0.3)
 		{
+			_mechanicsDir = RandomNumberGenerator.RandiRange(0, 1);
 			EntityStats.ProjectileBounces = 4;
 			EntityStats.ProjectileDamage = 2;
 			EntityStats.ProjectileCooldown = 3f;
 			EntityStats.ProjectileSpeed = 50f;
-			EntityStats.ProjectileSizeScalar = new Vector2(120, 1);
+			EntityStats.ProjectileSizeScalar = new Vector2(125, 2);
 			EntityStats.ProjectileWeaponType = 0;
 			EntityStats.ProjectileBulletType = BulletType.Piercing;
 		} else if (_mechanics > 0.3 && _mechanics <= 0.7)
