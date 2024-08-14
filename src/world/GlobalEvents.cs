@@ -1,3 +1,4 @@
+using BitBuster.entity.enemy;
 using Godot;
 
 namespace BitBuster.world;
@@ -15,6 +16,12 @@ public partial class GlobalEvents : Node
 	
 	[Signal]
 	public delegate void BakeNavigationMeshEventHandler();
+
+	[Signal]
+	public delegate void BossRoomEnterEventHandler(Enemy enemy);
+
+	[Signal]
+	public delegate void BossKilledEventHandler();
 	
 	public void EmitRoomEnteredSignal(Vector2 position)
 	{
@@ -34,5 +41,15 @@ public partial class GlobalEvents : Node
 	public void EmitBakeNavigationMeshSignal()
 	{
 		EmitSignal(SignalName.BakeNavigationMesh);
+	}
+
+	public void EmitBossRoomEnterSignal(Enemy enemy)
+	{
+		EmitSignal(SignalName.BossRoomEnter, enemy);
+	}
+	
+	public void EmitBossKilledSignal()
+	{
+		EmitSignal(SignalName.BossKilled);
 	}
 }

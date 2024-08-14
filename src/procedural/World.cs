@@ -311,7 +311,7 @@ public partial class World : Node2D
 			
 			_levelExtra.AddChild(newObject);
 			
-			if (newObject.IsInGroup(Groups.GroupEnemy))
+			if (newObject.IsInGroup(Groups.GroupEnemy) && !newObject.IsInGroup(Groups.GroupBoss))
 			{
 				float chance = 1 - Mathf.Log(_global.WorldLevel * 1.15f);
 				if (_random.Randf() > chance)

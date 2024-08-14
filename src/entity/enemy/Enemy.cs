@@ -23,7 +23,7 @@ public abstract partial class Enemy: Entity
 
 	public Player Player;
 	
-	protected HealthComponent HealthComponent { get; private set; }
+	public HealthComponent HealthComponent { get; private set; }
 	protected HitboxComponent HitboxComponent { get; private set; }
 	protected WeaponComponent WeaponComponent { get; private set; }
 	protected SpritesComponent SpritesComponent { get; private set; }

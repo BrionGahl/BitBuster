@@ -1,0 +1,71 @@
+[gd_scene load_steps=7 format=3 uid="uid://ce2qwbuw2oj8s"]
+
+[ext_resource type="Script" path="res://src/hud/BossHealthBar.cs" id="1_1atat"]
+[ext_resource type="Texture2D" uid="uid://bb70urfajlvvq" path="res://assets/hud/bar_overlay.png" id="2_eugwo"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w446n"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b7wvk"]
+bg_color = Color(0.721569, 0.0862745, 0.0862745, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bgol4"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8vqga"]
+bg_color = Color(0.360784, 0, 0, 1)
+
+[node name="BossHealthBar" type="ProgressBar"]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 16)
+size_flags_vertical = 8
+theme_override_styles/background = SubResource("StyleBoxEmpty_w446n")
+theme_override_styles/fill = SubResource("StyleBoxFlat_b7wvk")
+step = 1.0
+value = 20.0
+show_percentage = false
+script = ExtResource("1_1atat")
+
+[node name="BossName" type="Label" parent="."]
+layout_mode = 2
+offset_top = -32.0
+offset_right = 784.0
+offset_bottom = -4.0
+text = "Name
+"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="DeltaBar" type="ProgressBar" parent="."]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_bgol4")
+theme_override_styles/fill = SubResource("StyleBoxFlat_8vqga")
+value = 60.0
+show_percentage = false
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Overlay" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_eugwo")
+stretch_mode = 1

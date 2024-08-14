@@ -1,0 +1,71 @@
+[gd_scene load_steps=6 format=3 uid="uid://cyehxgn0ifye0"]
+
+[ext_resource type="Script" path="res://src/hud/TitleBar.cs" id="1_fvnyr"]
+[ext_resource type="FontFile" uid="uid://boj4ahk23hdn6" path="res://assets/menu/fonts/Karma Future.otf" id="2_b74q7"]
+
+[sub_resource type="Animation" id="Animation_ak6dl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_6vkil"]
+resource_name = "effect_display"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6, 2.6, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5px2g"]
+_data = {
+"RESET": SubResource("Animation_ak6dl"),
+"effect_display": SubResource("Animation_6vkil")
+}
+
+[node name="TitleBar" type="VSplitContainer"]
+modulate = Color(1, 1, 1, 0)
+texture_filter = 1
+size_flags_vertical = 4
+dragger_visibility = 1
+script = ExtResource("1_fvnyr")
+
+[node name="Title" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_b74q7")
+theme_override_font_sizes/font_size = 32
+text = "Item Name"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="Subtitle" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Item Description
+
+"
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_5px2g")
+}

@@ -6,6 +6,8 @@ namespace BitBuster.entity.enemy.boss;
 
 public partial class Firespitter : IdleEnemy
 {
+	private GlobalEvents _globalEvents;
+	
 	private GpuParticles2D _particleDeath;
 	private Timer _mechanicsTimer;
 	
@@ -16,6 +18,9 @@ public partial class Firespitter : IdleEnemy
 	public override void _Ready()
 	{
 		base._Ready();
+
+		_globalEvents = GetNode<GlobalEvents>("/root/GlobalEvents");
+		
 		_particleDeath = GetNode<GpuParticles2D>("ParticleDeath");
 		_mechanicsTimer = GetNode<Timer>("MechanicsTimer");
 		
@@ -40,6 +45,8 @@ public partial class Firespitter : IdleEnemy
 		
 		DeathAnimationTimer.Start();
 		HasDied = true;
+		
+		_globalEvents.EmitBossKilledSignal();
 	}
 
 	protected override void OnDeathAnimationTimeout()
@@ -52,8 +59,6 @@ public partial class Firespitter : IdleEnemy
 		AttemptToFree();
 		if (HasDied)
 			return;
-
-		// Logger.Log.Information("{@A}", _iteration);
 		
 		if (_iteration <= 0)
 		{
@@ -65,18 +70,21 @@ public partial class Firespitter : IdleEnemy
 			return;
 		}
 		
+		// Beam
 		if (_mechanics <= 0.3)
 		{
-			SpritesComponent.SetGunRotationAndPosition(false, Player.Position, (_mechanicsDir * 2 * Mathf.Pi ) + Mathf.Pi / 2);
+			SpritesComponent.SetGunRotationAndPosition(false, Player.Position, _mechanicsDir * Mathf.Pi / 2);
 			if (WeaponComponent.AttemptShoot(_mechanicsDir * Mathf.Pi / 2))
 				_iteration -= 5;
+			_mechanicsDir = RandomNumberGenerator.RandiRange(1, 4);
 		}
 		
 		// Spray
 		if (_mechanics > 0.3 && _mechanics <= 0.7)
 		{
-			SpritesComponent.SetGunRotationAndPosition(false, Player.Position, _iteration * Mathf.Pi / WeaponComponent.BulletCount);
-			if (WeaponComponent.AttemptShoot(_iteration * Mathf.Pi / WeaponComponent.BulletCount))
+			int dir = _mechanicsDir == 1 ? 1 : -1;
+			SpritesComponent.SetGunRotationAndPosition(false, Player.Position, dir * _iteration * Mathf.Pi / WeaponComponent.BulletCount);
+			if (WeaponComponent.AttemptShoot(dir * _iteration * Mathf.Pi / WeaponComponent.BulletCount))
 				_iteration--;
 		}
 
@@ -87,24 +95,23 @@ public partial class Firespitter : IdleEnemy
 			if (WeaponComponent.AttemptShoot(Player.Position.AngleToPoint(Position)))
 				_iteration -= 5;
 		}
-		
-
 	}
 	
 	private void ChangeMechanic()
 	{
 		if (_mechanics <= 0.3)
 		{
-			_mechanicsDir = RandomNumberGenerator.RandiRange(0, 1);
+			_mechanicsDir = RandomNumberGenerator.RandiRange(1, 4);
 			EntityStats.ProjectileBounces = 4;
 			EntityStats.ProjectileDamage = 2;
 			EntityStats.ProjectileCooldown = 3f;
 			EntityStats.ProjectileSpeed = 50f;
-			EntityStats.ProjectileSizeScalar = new Vector2(125, 2);
+			EntityStats.ProjectileSizeScalar = new Vector2(130, 1);
 			EntityStats.ProjectileWeaponType = 0;
-			EntityStats.ProjectileBulletType = BulletType.Piercing;
+			EntityStats.ProjectileBulletType = BulletType.Piercing | BulletType.Invulnerable;
 		} else if (_mechanics > 0.3 && _mechanics <= 0.7)
 		{
+			_mechanicsDir = RandomNumberGenerator.RandiRange(0, 1);
 			EntityStats.ProjectileBounces = 0;
 			EntityStats.ProjectileDamage = 3;
 			EntityStats.ProjectileCooldown = 0.2f;

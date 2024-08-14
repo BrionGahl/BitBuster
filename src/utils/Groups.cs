@@ -9,4 +9,5 @@ public static class Groups
     public const string GroupCurrentPosition = "current_position";
     public const string GroupBreakable = "breakable";
     public const string GroupBulletNoPass = "bullet_no_pass";
+    public const string GroupBoss = "boss";
 }

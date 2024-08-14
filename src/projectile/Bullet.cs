@@ -141,7 +141,7 @@ public partial class Bullet : CharacterBody2D
 		if (area is HitboxComponent hitboxComponent)
 		{
 			Logger.Log.Information("Hitbox hit at " + hitboxComponent.Name);
-			if (hitboxComponent.GetParent<Entity>() is Enemy && _bulletType.HasFlag(BulletType.Invulnerable))
+			if (hitboxComponent.GetParent() is Enemy && _bulletType.HasFlag(BulletType.Invulnerable))
 				return;
 			hitboxComponent.Damage(_attackData);
 		}
@@ -150,9 +150,6 @@ public partial class Bullet : CharacterBody2D
 		{
 			_explodingComponent.Explode(new AttackData(1f, EffectType.Normal, _attackData.SourceType, false));
 		}
-
-		if (_bulletType.HasFlag(BulletType.Invulnerable))
-			return;
 		
 		if (_bulletType.HasFlag(BulletType.Piercing))
 		{
@@ -165,6 +162,11 @@ public partial class Bullet : CharacterBody2D
 			_bulletTexture.Modulate = Color.FromHsv(_remainingBounces * _hueShift, 1.0f, 1.0f);
 			return;
 		}
+		
+		if (_bulletType.HasFlag(BulletType.Invulnerable))
+			return;
+		
+		
 			
 		PrepForFree();
 	}

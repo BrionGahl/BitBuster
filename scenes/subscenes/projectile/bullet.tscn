@@ -9,7 +9,7 @@
 size = Vector2(2, 4)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c7r3b"]
-size = Vector2(4, 6)
+size = Vector2(2, 4)
 
 [sub_resource type="Gradient" id="Gradient_cjoq7"]
 offsets = PackedFloat32Array(0.0353107, 0.0466102, 0.216102, 0.371469, 0.436441, 0.783898)
@@ -113,7 +113,7 @@ color_ramp = SubResource("GradientTexture1D_oto0t")
 
 [node name="Bullet" type="CharacterBody2D" groups=["bullet"]]
 top_level = true
-z_index = 1
+z_index = 2
 collision_layer = 16
 motion_mode = 1
 script = ExtResource("1_07tvk")

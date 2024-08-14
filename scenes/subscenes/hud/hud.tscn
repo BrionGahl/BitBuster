@@ -1,52 +1,15 @@
-[gd_scene load_steps=14 format=3 uid="uid://n3uhl8voulr4"]
+[gd_scene load_steps=11 format=3 uid="uid://n3uhl8voulr4"]
 
 [ext_resource type="PackedScene" uid="uid://c4g61mo4wfsdd" path="res://scenes/subscenes/hud/health_bar_with_delta.tscn" id="1_itswx"]
-[ext_resource type="Script" path="res://src/hud/TitleBar.cs" id="2_dr176"]
+[ext_resource type="PackedScene" uid="uid://cyehxgn0ifye0" path="res://scenes/subscenes/hud/title_bar.tscn" id="2_4khqt"]
 [ext_resource type="PackedScene" uid="uid://bj8lasfvi3jbi" path="res://scenes/subscenes/hud/bullet_counter.tscn" id="2_muu5f"]
 [ext_resource type="PackedScene" uid="uid://kk07ijvac1k2" path="res://scenes/subscenes/hud/bomb_counter.tscn" id="3_d8y6y"]
-[ext_resource type="FontFile" uid="uid://boj4ahk23hdn6" path="res://assets/menu/fonts/Karma Future.otf" id="3_t3m70"]
 [ext_resource type="PackedScene" uid="uid://cdcjttks8vxna" path="res://scenes/subscenes/hud/minimap.tscn" id="3_v42l8"]
 [ext_resource type="Theme" uid="uid://c8qs8rvxfk3jf" path="res://assets/menu/default_theme.tres" id="4_py63n"]
 [ext_resource type="PackedScene" uid="uid://bc8j74kbh608b" path="res://scenes/subscenes/hud/card_counter.tscn" id="4_wu1un"]
 [ext_resource type="PackedScene" uid="uid://chkhmv0eqskpp" path="res://scenes/subscenes/hud/credit_counter.tscn" id="5_xcmwk"]
 [ext_resource type="Script" path="res://src/hud/ItemsContainer.cs" id="7_feqiq"]
-
-[sub_resource type="Animation" id="Animation_ak6dl"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_6vkil"]
-resource_name = "effect_display"
-length = 3.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.6, 2.6, 3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_5px2g"]
-_data = {
-"RESET": SubResource("Animation_ak6dl"),
-"effect_display": SubResource("Animation_6vkil")
-}
+[ext_resource type="PackedScene" uid="uid://ce2qwbuw2oj8s" path="res://scenes/subscenes/hud/boss_health_bar.tscn" id="10_py63r"]
 
 [node name="Hud" type="CanvasLayer"]
 
@@ -59,7 +22,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_py63n")
 
-[node name="HudMargins" type="MarginContainer" parent="RootHud"]
+[node name="MainHudMargins" type="MarginContainer" parent="RootHud"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -71,85 +34,73 @@ theme_override_constants/margin_top = 80
 theme_override_constants/margin_right = 120
 theme_override_constants/margin_bottom = 80
 
-[node name="TitleBar" type="VSplitContainer" parent="RootHud/HudMargins"]
-modulate = Color(1, 1, 1, 0)
-texture_filter = 1
+[node name="TitleBar" parent="RootHud/MainHudMargins" instance=ExtResource("2_4khqt")]
 layout_mode = 2
-size_flags_vertical = 0
-script = ExtResource("2_dr176")
 
-[node name="Title" type="Label" parent="RootHud/HudMargins/TitleBar"]
-texture_filter = 1
-layout_mode = 2
-theme_override_fonts/font = ExtResource("3_t3m70")
-theme_override_font_sizes/font_size = 32
-text = "Item Name"
-horizontal_alignment = 1
-uppercase = true
-
-[node name="Subtitle" type="Label" parent="RootHud/HudMargins/TitleBar"]
-texture_filter = 1
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "Item Description
-
-"
-horizontal_alignment = 1
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="RootHud/HudMargins/TitleBar"]
-libraries = {
-"": SubResource("AnimationLibrary_5px2g")
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="RootHud/HudMargins"]
+[node name="VBoxContainer" type="VBoxContainer" parent="RootHud/MainHudMargins"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme_override_constants/separation = 12
 alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="RootHud/HudMargins/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="RootHud/MainHudMargins/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 0
 
-[node name="HealthBar" parent="RootHud/HudMargins/VBoxContainer/MarginContainer" instance=ExtResource("1_itswx")]
+[node name="HealthBar" parent="RootHud/MainHudMargins/VBoxContainer/MarginContainer" instance=ExtResource("1_itswx")]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 
-[node name="BulletCounter" parent="RootHud/HudMargins/VBoxContainer" instance=ExtResource("2_muu5f")]
+[node name="BulletCounter" parent="RootHud/MainHudMargins/VBoxContainer" instance=ExtResource("2_muu5f")]
 layout_mode = 2
 
-[node name="BombCounter" parent="RootHud/HudMargins/VBoxContainer" instance=ExtResource("3_d8y6y")]
+[node name="BombCounter" parent="RootHud/MainHudMargins/VBoxContainer" instance=ExtResource("3_d8y6y")]
 texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 
-[node name="CardCounter" parent="RootHud/HudMargins/VBoxContainer" instance=ExtResource("4_wu1un")]
+[node name="CardCounter" parent="RootHud/MainHudMargins/VBoxContainer" instance=ExtResource("4_wu1un")]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 
-[node name="CreditCounter" parent="RootHud/HudMargins/VBoxContainer" instance=ExtResource("5_xcmwk")]
+[node name="CreditCounter" parent="RootHud/MainHudMargins/VBoxContainer" instance=ExtResource("5_xcmwk")]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="RootHud/HudMargins"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="RootHud/MainHudMargins"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 
-[node name="Minimap" parent="RootHud/HudMargins/VBoxContainer2" instance=ExtResource("3_v42l8")]
+[node name="Minimap" parent="RootHud/MainHudMargins/VBoxContainer2" instance=ExtResource("3_v42l8")]
 layout_mode = 2
 
-[node name="ItemsContainer" type="HFlowContainer" parent="RootHud/HudMargins/VBoxContainer2"]
+[node name="ItemsContainer" type="HFlowContainer" parent="RootHud/MainHudMargins/VBoxContainer2"]
 layout_mode = 2
 theme_override_constants/h_separation = -10
 theme_override_constants/v_separation = 0
 script = ExtResource("7_feqiq")
+
+[node name="SecondaryHudMargins" type="MarginContainer" parent="RootHud"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 120
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 120
+theme_override_constants/margin_bottom = 20
+
+[node name="BossHealthBar" parent="RootHud/SecondaryHudMargins" instance=ExtResource("10_py63r")]
+layout_mode = 2

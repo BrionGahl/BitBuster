@@ -114,13 +114,14 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5qs8s"]
 size = Vector2(26, 26)
 
-[node name="Firespitter" type="CharacterBody2D" groups=["enemy"]]
+[node name="Firespitter" type="CharacterBody2D" groups=["boss", "enemy"]]
 z_index = 1
 collision_layer = 4
 collision_mask = 111
 motion_mode = 1
 script = ExtResource("1_583oa")
 EntityStats = SubResource("Resource_bdsrh")
+metadata/BossName = "Firespitter"
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_4hc1y")
