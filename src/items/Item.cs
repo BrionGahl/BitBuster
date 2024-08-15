@@ -3,7 +3,7 @@ using Godot;
 
 namespace BitBuster.items;
 
-public partial class Item: Area2D
+public partial class Item: RigidBody2D
 {
 	[Export]
 	public string ItemName { get; private set; }
@@ -13,8 +13,7 @@ public partial class Item: Area2D
 	public ItemType ItemType { get; private set; }
 	
 	public Texture2D ItemTexture { get; private set; }
-
-
+	
 	public bool IsUnlocked { get; set; } = true;
 	
 	[Export]
@@ -95,6 +94,8 @@ public partial class Item: Area2D
 		Particles2D = GetNode<GpuParticles2D>("ParticleItemPickupComponent");
 
 		ItemTexture = Sprite.Texture;
+
+		SetRandomVelocity();
 		
 		AnimationTimer.Timeout += OnAnimationTimeout;
 	}
@@ -110,6 +111,12 @@ public partial class Item: Area2D
 		AnimationTimer.Start();
 	}
 
+	public void SetRandomVelocity()
+	{
+		RandomNumberGenerator rand = new RandomNumberGenerator();
+		LinearVelocity = new Vector2(rand.RandfRange(-75, 75), rand.RandfRange(-75, 75));
+	}
+	
 	private void OnAnimationTimeout()
 	{
 		QueueFree();

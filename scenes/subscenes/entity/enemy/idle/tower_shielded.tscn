@@ -57,7 +57,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("SpritesComponent/GunSprite/Gun:self_modulate")
+tracks/0/path = NodePath("SpritesComponent/Gun:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -69,7 +69,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("SpritesComponent/BodySprite/Body:self_modulate")
+tracks/1/path = NodePath("SpritesComponent/Body:self_modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -85,7 +85,7 @@ length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("SpritesComponent/GunSprite/Gun:self_modulate")
+tracks/0/path = NodePath("SpritesComponent/Gun:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -97,7 +97,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("SpritesComponent/BodySprite/Body:self_modulate")
+tracks/1/path = NodePath("SpritesComponent/Body:self_modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -126,21 +126,17 @@ EntityStats = SubResource("Resource_2m4ts")
 
 [node name="SpritesComponent" parent="." instance=ExtResource("2_ifr67")]
 
-[node name="GunSprite" type="Node2D" parent="SpritesComponent"]
-
-[node name="Gun" type="Sprite2D" parent="SpritesComponent/GunSprite"]
-top_level = true
-z_index = 2
-texture_filter = 1
-texture = ExtResource("6_khuji")
-
-[node name="BodySprite" type="Node2D" parent="SpritesComponent"]
-
-[node name="Body" type="Sprite2D" parent="SpritesComponent/BodySprite"]
+[node name="Body" type="Sprite2D" parent="SpritesComponent"]
 z_index = 1
 texture_filter = 1
 use_parent_material = true
 texture = ExtResource("7_6rh4l")
+
+[node name="Gun" type="Sprite2D" parent="SpritesComponent"]
+top_level = true
+z_index = 2
+texture_filter = 1
+texture = ExtResource("6_khuji")
 
 [node name="ParticleDeath" parent="." instance=ExtResource("2_84ss7")]
 

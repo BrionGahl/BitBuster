@@ -103,7 +103,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("SpritesComponent/BodySprite/Hull:self_modulate")
+tracks/0/path = NodePath("SpritesComponent/Hull:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -119,7 +119,7 @@ length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("SpritesComponent/BodySprite/Hull:self_modulate")
+tracks/0/path = NodePath("SpritesComponent/Hull:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -143,11 +143,7 @@ EntityStats = SubResource("Resource_2h5cp")
 
 [node name="SpritesComponent" parent="." instance=ExtResource("2_dbsvb")]
 
-[node name="GunSprite" type="Node2D" parent="SpritesComponent"]
-
-[node name="BodySprite" type="Node2D" parent="SpritesComponent"]
-
-[node name="Hull" type="AnimatedSprite2D" parent="SpritesComponent/BodySprite"]
+[node name="Hull" type="AnimatedSprite2D" parent="SpritesComponent"]
 z_index = 1
 texture_filter = 1
 material = SubResource("ShaderMaterial_c4pxw")

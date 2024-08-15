@@ -53,12 +53,6 @@ OverhealRegen = 0.0
 radius = 6.0
 height = 12.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_sukqo"]
-resource_local_to_scene = true
-shader = ExtResource("8_iv546")
-shader_parameter/flash_color = Color(1, 0.188235, 0, 1)
-shader_parameter/flash_modifier = 0.0
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_7cpb8"]
 atlas = ExtResource("10_jg8o2")
 region = Rect2(0, 0, 16, 16)
@@ -93,6 +87,12 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sukqo"]
+resource_local_to_scene = true
+shader = ExtResource("8_iv546")
+shader_parameter/flash_color = Color(1, 0.188235, 0, 1)
+shader_parameter/flash_modifier = 0.0
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6yacv"]
 size = Vector2(16, 16)
 
@@ -101,7 +101,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("SpritesComponent/GunSprite/Gun:self_modulate")
+tracks/0/path = NodePath("SpritesComponent/Gun:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -113,7 +113,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("SpritesComponent/BodySprite/Hull:self_modulate")
+tracks/1/path = NodePath("SpritesComponent/Hull:self_modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -129,7 +129,7 @@ length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("SpritesComponent/GunSprite/Gun:self_modulate")
+tracks/0/path = NodePath("SpritesComponent/Gun:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -141,7 +141,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("SpritesComponent/BodySprite/Hull:self_modulate")
+tracks/1/path = NodePath("SpritesComponent/Hull:self_modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -170,25 +170,21 @@ shape = SubResource("CapsuleShape2D_gbvby")
 
 [node name="SpritesComponent" parent="." instance=ExtResource("13_lq0tj")]
 
-[node name="GunSprite" type="Node2D" parent="SpritesComponent"]
-
-[node name="Gun" type="Sprite2D" parent="SpritesComponent/GunSprite"]
-top_level = true
-z_index = 2
-texture_filter = 1
-material = SubResource("ShaderMaterial_sukqo")
-use_parent_material = true
-texture = ExtResource("9_eo3d1")
-
-[node name="BodySprite" type="Node2D" parent="SpritesComponent"]
-
-[node name="Hull" type="AnimatedSprite2D" parent="SpritesComponent/BodySprite"]
+[node name="Hull" type="AnimatedSprite2D" parent="SpritesComponent"]
 z_index = 1
 texture_filter = 1
 use_parent_material = true
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_pkkcn")
 animation = &"moving"
+
+[node name="Gun" type="Sprite2D" parent="SpritesComponent"]
+top_level = true
+z_index = 2
+texture_filter = 1
+material = SubResource("ShaderMaterial_sukqo")
+use_parent_material = true
+texture = ExtResource("9_eo3d1")
 
 [node name="ParticleDeath" parent="." instance=ExtResource("2_jjihf")]
 

@@ -65,7 +65,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("SpritesComponent/BodySprite/Body:self_modulate")
+tracks/0/path = NodePath("SpritesComponent/Body:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -81,7 +81,7 @@ length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("SpritesComponent/BodySprite/Body:self_modulate")
+tracks/0/path = NodePath("SpritesComponent/Body:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -113,11 +113,7 @@ shape = SubResource("RectangleShape2D_4hc1y")
 
 [node name="SpritesComponent" parent="." instance=ExtResource("2_ouqli")]
 
-[node name="GunSprite" type="Node2D" parent="SpritesComponent"]
-
-[node name="BodySprite" type="Node2D" parent="SpritesComponent"]
-
-[node name="Body" type="Sprite2D" parent="SpritesComponent/BodySprite"]
+[node name="Body" type="Sprite2D" parent="SpritesComponent"]
 z_index = 1
 texture_filter = 1
 material = SubResource("ShaderMaterial_1o0wm")

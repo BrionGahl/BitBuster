@@ -69,8 +69,8 @@ EntityStats = SubResource("Resource_p2dw1")
 [node name="HealthComponent" parent="." instance=ExtResource("2_3t1un")]
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("HealthComponent") instance=ExtResource("4_0lfle")]
-collision_layer = 8
-collision_mask = 151
+collision_layer = 16
+collision_mask = 0
 HealthComponent = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]

@@ -7,10 +7,10 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k1piv"]
 size = Vector2(16, 16)
 
-[node name="Controller" type="Area2D" groups=["item"]]
+[node name="Controller" type="RigidBody2D" groups=["item"]]
 z_index = 1
 collision_layer = 8
-collision_mask = 0
+collision_mask = 9
 script = ExtResource("1_bsi11")
 ItemName = "Controller"
 ItemDescription = "Better than a keyboard?"

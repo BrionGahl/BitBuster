@@ -21,15 +21,15 @@ public partial class ItemPickupHitbox : Area2D
 		ItemList = GetNode<Node2D>("ItemsList");
 		_entityStats = GetParent<Entity>().EntityStats;
 		
-		AreaEntered += OnAreaEntered;
+		BodyEntered += OnBodyEntered;
 	}
 
-	private void OnAreaEntered(Area2D area)
+	private void OnBodyEntered(Node body)
 	{
-		if (area is not Item)
+		if (body is not Item)
 			return;
 		
-		Item item = (Item)area;
+		Item item = (Item)body;
 
 		if (item.ItemType == ItemType.Normal)
 		{

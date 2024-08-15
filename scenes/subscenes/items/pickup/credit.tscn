@@ -7,11 +7,10 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5saa8"]
 size = Vector2(16, 16)
 
-[node name="Credit" type="Area2D" groups=["item"]]
+[node name="Credit" type="RigidBody2D" groups=["item"]]
 z_index = 1
 collision_layer = 8
-collision_mask = 0
-monitoring = false
+collision_mask = 9
 script = ExtResource("1_ridfg")
 ItemName = "Health Pack"
 ItemType = 1

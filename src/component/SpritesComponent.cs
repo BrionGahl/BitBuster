@@ -14,8 +14,8 @@ public partial class SpritesComponent : Node2D
 
 	public override void _Ready()
 	{
-		Gun = GetNode<Node2D>("GunSprite").GetChildOrNull<Node2D>(0);
-		Body = GetNode<Node2D>("BodySprite").GetChildOrNull<Node2D>(0);
+		Body = GetChildOrNull<Node2D>(0);
+		Gun = GetChildOrNull<Node2D>(1);
 	}
 
 	public void SetGunRotationAndPosition(bool canSeePlayer, Vector2 playerPosition, float radian = 0)

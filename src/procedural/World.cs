@@ -284,7 +284,7 @@ public partial class World : Node2D
 		{
 			case (RoomType.TREASURE):
 				int itemToSpawn = _random.RandiRange(0, _availableLootPool.Count - 1);
-				Item item = _availableLootPool[itemToSpawn].Instantiate<Area2D>() as Item; // TODO: Error on levels post item count...
+				Item item = _availableLootPool[itemToSpawn].Instantiate<Node>() as Item; // TODO: Error on levels post item count...
 				_availableLootPool.RemoveAt(itemToSpawn);
 			
 				item.Position += worldOffset + new Vector2I(160, 160);

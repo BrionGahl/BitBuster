@@ -1,10 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://e4kggm4cl738"]
+[gd_scene load_steps=25 format=3 uid="uid://e4kggm4cl738"]
 
 [ext_resource type="Script" path="res://src/entity/enemy/boss/Firespitter.cs" id="1_583oa"]
 [ext_resource type="Script" path="res://src/resource/EntityStats.cs" id="2_ijrpv"]
 [ext_resource type="PackedScene" uid="uid://bppxui41cpc02" path="res://scenes/subscenes/component/sprites_component.tscn" id="2_otwgv"]
 [ext_resource type="Texture2D" uid="uid://gmorvpd3aqoh" path="res://assets/boss/flamespitter_gun.png" id="3_ny5x5"]
-[ext_resource type="Texture2D" uid="uid://cn3o5t50p4vkl" path="res://assets/boss/flamespitter_body.png" id="4_biov3"]
+[ext_resource type="Texture2D" uid="uid://dqgpsmnaet3ym" path="res://assets/boss/flamespitter_body-sheet.png" id="5_u20qk"]
 [ext_resource type="PackedScene" uid="uid://6d0b62fihn27" path="res://scenes/subscenes/component/particle_death_component.tscn" id="5_xaa5f"]
 [ext_resource type="PackedScene" uid="uid://dpul1hjxi1dkq" path="res://scenes/subscenes/state/state_machine.tscn" id="6_2rbk8"]
 [ext_resource type="Script" path="res://src/state/Sleep.cs" id="7_4bmj3"]
@@ -47,6 +47,42 @@ OverhealRegen = 0.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4hc1y"]
 size = Vector2(24, 24)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_qg3us"]
+atlas = ExtResource("5_u20qk")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bpg5o"]
+atlas = ExtResource("5_u20qk")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_36p0r"]
+atlas = ExtResource("5_u20qk")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x5ip4"]
+atlas = ExtResource("5_u20qk")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1h8tp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qg3us")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bpg5o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_36p0r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x5ip4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v1r4m"]
 size = Vector2(26, 26)
 
@@ -55,22 +91,10 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("SpritesComponent/GunSprite/Gun:self_modulate")
+tracks/0/path = NodePath("SpritesComponent/Gun:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("SpritesComponent/BodySprite/Body:self_modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -83,22 +107,10 @@ length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("SpritesComponent/GunSprite/Gun:self_modulate")
+tracks/0/path = NodePath("SpritesComponent/Gun:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 0.188235, 0, 1), Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("SpritesComponent/BodySprite/Body:self_modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
@@ -124,6 +136,7 @@ EntityStats = SubResource("Resource_bdsrh")
 metadata/BossName = "Firespitter"
 
 [node name="Collider" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("RectangleShape2D_4hc1y")
 
 [node name="MechanicsTimer" type="Timer" parent="."]
@@ -131,21 +144,16 @@ one_shot = true
 
 [node name="SpritesComponent" parent="." instance=ExtResource("2_otwgv")]
 
-[node name="GunSprite" type="Node2D" parent="SpritesComponent"]
+[node name="Body" type="AnimatedSprite2D" parent="SpritesComponent"]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_1h8tp")
+frame_progress = 0.229072
 
-[node name="Gun" type="Sprite2D" parent="SpritesComponent/GunSprite"]
+[node name="Gun" type="Sprite2D" parent="SpritesComponent"]
 top_level = true
 z_index = 2
 texture_filter = 1
 texture = ExtResource("3_ny5x5")
-
-[node name="BodySprite" type="Node2D" parent="SpritesComponent"]
-
-[node name="Body" type="Sprite2D" parent="SpritesComponent/BodySprite"]
-z_index = 1
-texture_filter = 1
-use_parent_material = true
-texture = ExtResource("4_biov3")
 
 [node name="ParticleDeath" parent="." instance=ExtResource("5_xaa5f")]
 
@@ -161,6 +169,7 @@ script = ExtResource("8_5b51t")
 [node name="HealthComponent" parent="." instance=ExtResource("9_s4rco")]
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("HealthComponent") instance=ExtResource("10_caafp")]
+visible = false
 collision_layer = 4
 collision_mask = 27
 HealthComponent = NodePath("../HealthComponent")
@@ -182,6 +191,7 @@ libraries = {
 }
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+visible = false
 collision_layer = 64
 collision_mask = 0
 
