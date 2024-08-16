@@ -10,7 +10,7 @@ size = Vector2(16, 16)
 [node name="FuryOfThunder" type="RigidBody2D" groups=["item"]]
 z_index = 1
 collision_layer = 8
-collision_mask = 9
+collision_mask = 73
 script = ExtResource("1_lu237")
 ItemName = "Fury of Thunder"
 ItemDescription = "Did someone say..."

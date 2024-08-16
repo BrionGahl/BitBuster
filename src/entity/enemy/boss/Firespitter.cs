@@ -1,3 +1,5 @@
+using BitBuster.items;
+using BitBuster.resource;
 using BitBuster.utils;
 using BitBuster.world;
 using Godot;
@@ -40,7 +42,14 @@ public partial class Firespitter : IdleEnemy
 		HitboxComponent.SetDeferred("monitoring", false);
 	
 		CleanAndRebake();
-
+		float chance;
+		foreach (Drop drop in DropTable.DropsList)
+		{
+			chance = RandomNumberGenerator.Randf();
+			if (chance < drop.Chance)
+				GlobalEvents.EmitSpawnItemEventHandler(Position, (int)drop.ItemType, drop.ItemIndex);
+		}	
+		
 		_particleDeath.Emitting = true;
 		
 		DeathAnimationTimer.Start();

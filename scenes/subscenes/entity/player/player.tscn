@@ -14,7 +14,7 @@
 resource_local_to_scene = true
 script = ExtResource("2_vm8rv")
 Source = 2
-BombCount = 99
+BombCount = 1
 KeyCardCount = 0
 CreditCount = 0
 MaxHealth = 3.0

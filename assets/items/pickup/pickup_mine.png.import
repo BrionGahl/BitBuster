@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dook5cerbktsc"
-path="res://.godot/imported/Light_Shell.png-97b09c416f9159e36c25627a37e16d68.ctex"
+uid="uid://bvvclls7hgaqd"
+path="res://.godot/imported/pickup_mine.png-e319da04adc4f860145822c36779ad2d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/projectiles/Light_Shell.png"
-dest_files=["res://.godot/imported/Light_Shell.png-97b09c416f9159e36c25627a37e16d68.ctex"]
+source_file="res://assets/items/pickup/pickup_mine.png"
+dest_files=["res://.godot/imported/pickup_mine.png-e319da04adc4f860145822c36779ad2d.ctex"]
 
 [params]
 

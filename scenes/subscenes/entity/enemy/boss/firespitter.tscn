@@ -1,6 +1,8 @@
-[gd_scene load_steps=25 format=3 uid="uid://e4kggm4cl738"]
+[gd_scene load_steps=32 format=3 uid="uid://e4kggm4cl738"]
 
 [ext_resource type="Script" path="res://src/entity/enemy/boss/Firespitter.cs" id="1_583oa"]
+[ext_resource type="Script" path="res://src/resource/Drop.cs" id="2_d62nn"]
+[ext_resource type="Script" path="res://src/resource/DropTable.cs" id="2_er123"]
 [ext_resource type="Script" path="res://src/resource/EntityStats.cs" id="2_ijrpv"]
 [ext_resource type="PackedScene" uid="uid://bppxui41cpc02" path="res://scenes/subscenes/component/sprites_component.tscn" id="2_otwgv"]
 [ext_resource type="Texture2D" uid="uid://gmorvpd3aqoh" path="res://assets/boss/flamespitter_gun.png" id="3_ny5x5"]
@@ -12,6 +14,34 @@
 [ext_resource type="PackedScene" uid="uid://btrxy7t83y8en" path="res://scenes/subscenes/component/health_component.tscn" id="9_s4rco"]
 [ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="10_caafp"]
 [ext_resource type="PackedScene" uid="uid://cubpk1i28p0wk" path="res://scenes/subscenes/component/weapon_component.tscn" id="12_hcuox"]
+
+[sub_resource type="Resource" id="Resource_26qgp"]
+script = ExtResource("2_d62nn")
+ItemType = 1
+ItemIndex = 0
+Chance = 1.0
+
+[sub_resource type="Resource" id="Resource_pci2r"]
+script = ExtResource("2_d62nn")
+ItemType = 1
+ItemIndex = 1
+Chance = 1.0
+
+[sub_resource type="Resource" id="Resource_hvq87"]
+script = ExtResource("2_d62nn")
+ItemType = 1
+ItemIndex = 2
+Chance = 1.0
+
+[sub_resource type="Resource" id="Resource_t4agw"]
+script = ExtResource("2_d62nn")
+ItemType = 1
+ItemIndex = 3
+Chance = 1.0
+
+[sub_resource type="Resource" id="Resource_eiwkv"]
+script = ExtResource("2_er123")
+DropsList = Array[Resource]([SubResource("Resource_26qgp"), SubResource("Resource_pci2r"), SubResource("Resource_hvq87"), SubResource("Resource_t4agw")])
 
 [sub_resource type="Resource" id="Resource_bdsrh"]
 script = ExtResource("2_ijrpv")
@@ -128,10 +158,12 @@ size = Vector2(26, 26)
 
 [node name="Firespitter" type="CharacterBody2D" groups=["boss", "enemy"]]
 z_index = 1
+scale = Vector2(0.999024, 1)
 collision_layer = 4
 collision_mask = 111
 motion_mode = 1
 script = ExtResource("1_583oa")
+DropTable = SubResource("Resource_eiwkv")
 EntityStats = SubResource("Resource_bdsrh")
 metadata/BossName = "Firespitter"
 

@@ -29,8 +29,6 @@ public partial class World : Node2D
 	private Global _global;
 	private GlobalEvents _globalEvents;
 	
-	private List<PackedScene> _availableLootPool;
-	
 	private NavigationRegion2D _levelRegion;
 	private TileMap _levelMain;
 	private TileMap _levelSemi;
@@ -56,15 +54,33 @@ public partial class World : Node2D
 		
 		_levelPlayer = GetNode<CharacterBody2D>("Level/Player") as Player;
 		
-		_availableLootPool = new List<PackedScene>(_global.CompleteItemPoolList);
+		_global.PrepareCurrentRunItemPool();
 		_random = new RandomNumberGenerator();
 		
 		_globalEvents.IncrementAndGenerateLevel += OnIncrementAndGenerateLevel;
 		_globalEvents.BakeNavigationMesh += OnBakeNavigationMesh;
+		_globalEvents.SpawnItem += OnSpawnItem;
 		
 		GenerateLevel();
 	}
 
+	private void OnSpawnItem(Vector2 position, int itemType, int itemIndex)
+	{
+		Item item;
+		if ((ItemType)itemType == ItemType.Normal)
+		{
+			item = _global.CurrentRunItemPoolList[itemIndex].Instantiate<Item>();
+			_global.CurrentRunItemPoolList.RemoveAt(itemIndex);
+		}
+		else if ((ItemType)itemType == ItemType.Pickup)
+			item = _global.CompletePickupPoolList[itemIndex].Instantiate<Item>();
+		else
+			return;
+			
+		item.Position = position;
+		_levelExtra.CallDeferred("add_child", item);
+		item.SetRandomVelocity();
+	}
 
 	private void GenerateLevel()
 	{
@@ -283,9 +299,9 @@ public partial class World : Node2D
 		switch (type)
 		{
 			case (RoomType.TREASURE):
-				int itemToSpawn = _random.RandiRange(0, _availableLootPool.Count - 1);
-				Item item = _availableLootPool[itemToSpawn].Instantiate<Node>() as Item; // TODO: Error on levels post item count...
-				_availableLootPool.RemoveAt(itemToSpawn);
+				int itemToSpawn = _random.RandiRange(0, _global.CurrentRunItemPoolList.Count - 1);
+				Item item = _global.CurrentRunItemPoolList[itemToSpawn].Instantiate<Item>();
+				_global.CurrentRunItemPoolList.RemoveAt(itemToSpawn);
 			
 				item.Position += worldOffset + new Vector2I(160, 160);
 				_levelExtra.AddChild(item);

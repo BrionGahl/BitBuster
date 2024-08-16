@@ -10,7 +10,7 @@ size = Vector2(16, 16)
 [node name="CyclopsEye" type="RigidBody2D" groups=["item"]]
 z_index = 1
 collision_layer = 8
-collision_mask = 9
+collision_mask = 73
 script = ExtResource("1_jt2t1")
 ItemName = "Cyclops' Eye"
 ItemDescription = "I found it in my Mom's Basement... +2 Projectile Size, +1 Damage, -1 Bounces"

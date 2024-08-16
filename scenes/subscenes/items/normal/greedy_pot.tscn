@@ -10,7 +10,7 @@ size = Vector2(16, 16)
 [node name="GreedyPot" type="RigidBody2D" groups=["item"]]
 z_index = 1
 collision_layer = 8
-collision_mask = 9
+collision_mask = 73
 script = ExtResource("1_5m82c")
 ItemName = "Greedy Pot"
 ItemDescription = "On my turn, I summon... +1 Luck, -1 Accuracy"

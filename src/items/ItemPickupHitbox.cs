@@ -30,6 +30,7 @@ public partial class ItemPickupHitbox : Area2D
 			return;
 		
 		Item item = (Item)body;
+		item.SetCollisionLayerValue((int)BBCollisionLayer.Item, false);
 
 		if (item.ItemType == ItemType.Normal)
 		{

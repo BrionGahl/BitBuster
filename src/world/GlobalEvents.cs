@@ -18,6 +18,9 @@ public partial class GlobalEvents : Node
 	public delegate void BakeNavigationMeshEventHandler();
 
 	[Signal]
+	public delegate void SpawnItemEventHandler(Vector2 position, int itemType, int itemIndex);
+	
+	[Signal]
 	public delegate void BossRoomEnterEventHandler(Enemy enemy);
 
 	[Signal]
@@ -43,6 +46,11 @@ public partial class GlobalEvents : Node
 		EmitSignal(SignalName.BakeNavigationMesh);
 	}
 
+	public void EmitSpawnItemEventHandler(Vector2 position, int itemType, int itemIndex)
+	{
+		EmitSignal(SignalName.SpawnItem, position, itemType, itemIndex);
+	}
+	
 	public void EmitBossRoomEnterSignal(Enemy enemy)
 	{
 		EmitSignal(SignalName.BossRoomEnter, enemy);

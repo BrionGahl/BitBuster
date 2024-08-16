@@ -94,16 +94,12 @@ public partial class Item: RigidBody2D
 		Particles2D = GetNode<GpuParticles2D>("ParticleItemPickupComponent");
 
 		ItemTexture = Sprite.Texture;
-
-		SetRandomVelocity();
 		
 		AnimationTimer.Timeout += OnAnimationTimeout;
 	}
-
+	
 	public void OnPickup()
 	{
-		SetDeferred("monitorable", false);
-		
 		Particles2D.Emitting = true;
 		
 		Sprite.Visible = false;

@@ -23,6 +23,12 @@ public abstract partial class Enemy: Entity
 
 	public Player Player;
 	
+	protected Global Global { get; private set; }
+	protected GlobalEvents GlobalEvents { get; private set; }
+
+	[Export]
+	public DropTable DropTable { get; set; }
+	
 	public HealthComponent HealthComponent { get; private set; }
 	protected HitboxComponent HitboxComponent { get; private set; }
 	protected WeaponComponent WeaponComponent { get; private set; }
@@ -44,7 +50,10 @@ public abstract partial class Enemy: Entity
 		 base._Ready();
 		 
 		 Player = GetTree().GetFirstNodeInGroup("player") as Player;
-		 
+
+		 Global = GetNode<Global>("/root/Global");
+		 GlobalEvents = GetNode<GlobalEvents>("/root/GlobalEvents");
+
 		 HealthComponent = GetNode<Node2D>("HealthComponent") as HealthComponent;
 		 HitboxComponent = GetNode<Node2D>("HitboxComponent") as HitboxComponent;
 		 SpritesComponent = GetNode<SpritesComponent>("SpritesComponent");
