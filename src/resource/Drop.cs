@@ -9,7 +9,7 @@ public partial class Drop : Resource
     public ItemType ItemType { get; set; }
     
     [Export]
-    public int ItemIndex { get; set; }
+    public int ItemId { get; set; }
     
     [Export]
     public float Chance { get; set; }

@@ -64,22 +64,25 @@ public partial class World : Node2D
 		GenerateLevel();
 	}
 
-	private void OnSpawnItem(Vector2 position, int itemType, int itemIndex)
+	private void SpawnItem(Vector2 position, int itemType, int itemId, bool isMoving = false, int costMultiplier = 0)
 	{
 		Item item;
 		if ((ItemType)itemType == ItemType.Normal)
 		{
-			item = _global.CurrentRunItemPoolList[itemIndex].Instantiate<Item>();
-			_global.CurrentRunItemPoolList.RemoveAt(itemIndex);
+			item = _global.CurrentRunItemPoolList[itemId].Instantiate<Item>();
 		}
 		else if ((ItemType)itemType == ItemType.Pickup)
-			item = _global.CompletePickupPoolList[itemIndex].Instantiate<Item>();
+			item = _global.CompletePickupPoolList[itemId].Instantiate<Item>();
 		else
 			return;
-			
+		
 		item.Position = position;
+		item.CreditCost *= costMultiplier;
+		
 		_levelExtra.CallDeferred("add_child", item);
-		item.SetRandomVelocity();
+		
+		if (isMoving)
+			item.SetRandomVelocity();
 	}
 
 	private void GenerateLevel()
@@ -119,6 +122,11 @@ public partial class World : Node2D
 	{
 		Logger.Log.Information("Rebakeing...");
 		_levelRegion.BakeNavigationPolygon();
+	}
+	
+	private void OnSpawnItem(Vector2 position, int itemType, int itemId)
+	{
+		SpawnItem(position, itemType, itemId, true);
 	}
 
 	private void GenerateMap()
@@ -299,12 +307,13 @@ public partial class World : Node2D
 		switch (type)
 		{
 			case (RoomType.TREASURE):
-				int itemToSpawn = _random.RandiRange(0, _global.CurrentRunItemPoolList.Count - 1);
-				Item item = _global.CurrentRunItemPoolList[itemToSpawn].Instantiate<Item>();
-				_global.CurrentRunItemPoolList.RemoveAt(itemToSpawn);
+				SpawnItem(worldOffset + new Vector2I(160, 160), (int)ItemType.Normal, _random.RandiRange(0, _global.CurrentRunItemPoolList.Count - 1));
+				break;
 			
-				item.Position += worldOffset + new Vector2I(160, 160);
-				_levelExtra.AddChild(item);
+			case (RoomType.STORE):
+				SpawnItem(worldOffset + new Vector2I(120, 160), (int)ItemType.Pickup, _random.RandiRange(0, _global.CompletePickupPoolList.Count - 1), false, 1 - _levelPlayer.EntityStats.Luck / 10);
+				SpawnItem(worldOffset + new Vector2I(160, 160), (int)ItemType.Normal, _random.RandiRange(0, _global.CurrentRunItemPoolList.Count - 1), false, 1 - _levelPlayer.EntityStats.Luck / 10);
+				SpawnItem(worldOffset + new Vector2I(200, 160), (int)ItemType.Pickup, _random.RandiRange(0, _global.CompletePickupPoolList.Count - 1), false, 1 - _levelPlayer.EntityStats.Luck / 10);
 				break;
 		}
 		

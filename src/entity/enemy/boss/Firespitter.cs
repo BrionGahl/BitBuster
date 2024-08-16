@@ -47,7 +47,7 @@ public partial class Firespitter : IdleEnemy
 		{
 			chance = RandomNumberGenerator.Randf();
 			if (chance < drop.Chance)
-				GlobalEvents.EmitSpawnItemEventHandler(Position, (int)drop.ItemType, drop.ItemIndex);
+				GlobalEvents.EmitSpawnItemEventHandler(Position, (int)drop.ItemType, drop.ItemId);
 		}	
 		
 		_particleDeath.Emitting = true;

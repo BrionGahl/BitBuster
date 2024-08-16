@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://dhmfxbx2y3cma"]
+
+[ext_resource type="Script" path="res://src/items/Item.cs" id="1_8m1t8"]
+[ext_resource type="Texture2D" uid="uid://diuaaxk6mdus4" path="res://assets/items/normal/item_crew_rations.png" id="2_qni0k"]
+[ext_resource type="PackedScene" uid="uid://ddckip0887shk" path="res://scenes/subscenes/component/particle_item_pickup_component.tscn" id="3_d2s70"]
+[ext_resource type="Theme" uid="uid://c8qs8rvxfk3jf" path="res://assets/menu/default_theme.tres" id="4_ggu06"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k1piv"]
+size = Vector2(16, 16)
+
+[node name="CrewRations" type="RigidBody2D" groups=["item"]]
+z_index = 1
+collision_layer = 8
+collision_mask = 73
+script = ExtResource("1_8m1t8")
+ItemId = 4
+ItemName = "Crew Rations"
+ItemDescription = "Mmmm... +1 Health, +1 Speed"
+CreditCost = 12
+AddedHealth = 1.0
+MaxHealth = 1.0
+ProjectileSpeed = 25.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_k1piv")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_qni0k")
+
+[node name="ParticleItemPickupComponent" parent="." instance=ExtResource("3_d2s70")]
+
+[node name="PriceLabel" type="Label" parent="."]
+texture_filter = 1
+offset_left = -7.0
+offset_top = 7.0
+offset_right = 7.0
+offset_bottom = 23.0
+theme = ExtResource("4_ggu06")
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0.262745)
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+vertical_alignment = 1

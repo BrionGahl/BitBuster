@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://djsf2m3jg6ocs"]
+
+[ext_resource type="Script" path="res://src/items/Item.cs" id="1_5vhf1"]
+[ext_resource type="Texture2D" uid="uid://bvvclls7hgaqd" path="res://assets/items/pickup/pickup_mine.png" id="2_goi4i"]
+[ext_resource type="PackedScene" uid="uid://ddckip0887shk" path="res://scenes/subscenes/component/particle_item_pickup_component.tscn" id="3_wkune"]
+[ext_resource type="Theme" uid="uid://c8qs8rvxfk3jf" path="res://assets/menu/default_theme.tres" id="4_wyk8g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5saa8"]
+size = Vector2(16, 16)
+
+[node name="Bomb" type="RigidBody2D" groups=["item"]]
+z_index = 1
+collision_layer = 8
+collision_mask = 73
+script = ExtResource("1_5vhf1")
+ItemName = "Health Pack"
+ItemType = 1
+CreditCost = 3
+AddedBombs = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_5saa8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_goi4i")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="ParticleItemPickupComponent" parent="." instance=ExtResource("3_wkune")]
+
+[node name="PriceLabel" type="Label" parent="."]
+texture_filter = 1
+offset_left = -7.0
+offset_top = 7.0
+offset_right = 7.0
+offset_bottom = 23.0
+theme = ExtResource("4_wyk8g")
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0.262745)
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+vertical_alignment = 1

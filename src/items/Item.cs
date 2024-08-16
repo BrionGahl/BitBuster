@@ -6,16 +6,20 @@ namespace BitBuster.items;
 public partial class Item: RigidBody2D
 {
 	[Export]
+	public int ItemId { get; private set; }
+	[Export]
 	public string ItemName { get; private set; }
 	[Export]
 	public string ItemDescription { get; private set; }
 	[Export]
 	public ItemType ItemType { get; private set; }
 	
+	[Export]
+	public int CreditCost { get; set; }
+	
+	
 	public Texture2D ItemTexture { get; private set; }
-	
-	public bool IsUnlocked { get; set; } = true;
-	
+		
 	[Export]
 	public int AddedBombs { get; private set; }
 	[Export]
@@ -85,15 +89,20 @@ public partial class Item: RigidBody2D
 	public Sprite2D Sprite { get; private set; }
 	public Timer AnimationTimer { get; private set; }
 	public GpuParticles2D Particles2D { get; private set; }
+	public Label Label { get; private set; }
 	
 	public override void _Ready()
 	{
-		
 		Sprite = GetNode<Sprite2D>("Sprite2D");
 		AnimationTimer = GetNode<Timer>("Timer");
 		Particles2D = GetNode<GpuParticles2D>("ParticleItemPickupComponent");
-
+		Label = GetNode<Label>("PriceLabel");
+		
 		ItemTexture = Sprite.Texture;
+		
+		Label.Text = CreditCost <= 0 
+			? "" 
+			: $"${CreditCost}";
 		
 		AnimationTimer.Timeout += OnAnimationTimeout;
 	}
@@ -102,6 +111,7 @@ public partial class Item: RigidBody2D
 	{
 		Particles2D.Emitting = true;
 		
+		Label.Visible = false;
 		Sprite.Visible = false;
 		
 		AnimationTimer.Start();

@@ -10,6 +10,7 @@ public partial class ItemPickupHitbox : Area2D
 {
 
 	private EntityStats _entityStats;
+	private Global _global;
 	
 	[Export]
 	public HealthComponent HealthComponent { get; set; }
@@ -20,6 +21,8 @@ public partial class ItemPickupHitbox : Area2D
 	{
 		ItemList = GetNode<Node2D>("ItemsList");
 		_entityStats = GetParent<Entity>().EntityStats;
+
+		_global = GetNode<Global>("/root/Global");
 		
 		BodyEntered += OnBodyEntered;
 	}
@@ -30,24 +33,30 @@ public partial class ItemPickupHitbox : Area2D
 			return;
 		
 		Item item = (Item)body;
+
+		if (_entityStats.CreditCount < item.CreditCost)
+			return;
+
+		_entityStats.CreditCount -= item.CreditCost;
 		item.SetCollisionLayerValue((int)BBCollisionLayer.Item, false);
 
 		if (item.ItemType == ItemType.Normal)
 		{
 			_entityStats.AddItem(item);
 			ItemList.CallDeferred("add_child", item.Duplicate());
+			_global.RemoveFromCurrentItemPool(item.ItemId);
 		}
 		
 		if (item.AddedHealth > 0)
 		{
-			if (HealthComponent.CurrentHealth == HealthComponent.MaxHealth)
+			if (HealthComponent.CurrentHealth >= HealthComponent.MaxHealth)
 				return;
 			HealthComponent.Heal(item.AddedHealth);
 		}
 
 		if (item.AddedOverheal > 0)
 		{
-			if (HealthComponent.Overheal == HealthComponent.MaxHealth)
+			if (HealthComponent.Overheal >= HealthComponent.MaxHealth)
 				return;
 			_entityStats.Overheal += item.AddedOverheal;
 		}

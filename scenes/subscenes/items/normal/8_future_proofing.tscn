@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://caml2tuk6g3i3"]
+[gd_scene load_steps=6 format=3 uid="uid://caml2tuk6g3i3"]
 
 [ext_resource type="Script" path="res://src/items/Item.cs" id="1_pvit5"]
 [ext_resource type="Texture2D" uid="uid://c41crchuick4e" path="res://assets/items/normal/item_future_proofing.png" id="2_kj2hk"]
 [ext_resource type="PackedScene" uid="uid://ddckip0887shk" path="res://scenes/subscenes/component/particle_item_pickup_component.tscn" id="3_a8dec"]
+[ext_resource type="Theme" uid="uid://c8qs8rvxfk3jf" path="res://assets/menu/default_theme.tres" id="4_skghu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k1piv"]
 size = Vector2(16, 16)
@@ -12,8 +13,10 @@ z_index = 1
 collision_layer = 8
 collision_mask = 73
 script = ExtResource("1_pvit5")
+ItemId = 8
 ItemName = "Future Proofing"
 ItemDescription = "The latest in tank busting technology!"
+CreditCost = 10
 ProjectileCooldown = 0.11
 ProjectileSpeed = 25.0
 ProjectileSizeScalar = Vector2(0, 1)
@@ -29,3 +32,15 @@ texture_filter = 1
 texture = ExtResource("2_kj2hk")
 
 [node name="ParticleItemPickupComponent" parent="." instance=ExtResource("3_a8dec")]
+
+[node name="PriceLabel" type="Label" parent="."]
+texture_filter = 1
+offset_left = -7.0
+offset_top = 7.0
+offset_right = 7.0
+offset_bottom = 23.0
+theme = ExtResource("4_skghu")
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0.262745)
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -12,11 +12,11 @@
 [ext_resource type="PackedScene" uid="uid://brjodfaf528jb" path="res://scenes/subscenes/entity/enemy/idle/tower_cannon.tscn" id="10_b3inl"]
 [ext_resource type="PackedScene" uid="uid://jfv7afsl8mvt" path="res://scenes/subscenes/entity/enemy/moving/tank.tscn" id="11_d6h5w"]
 [ext_resource type="PackedScene" uid="uid://drtmpyo30imm4" path="res://scenes/subscenes/entity/enemy/idle/tower_detonator.tscn" id="11_jkvly"]
-[ext_resource type="PackedScene" uid="uid://dd3e26ey6r6nv" path="res://scenes/subscenes/items/pickup/healthpack.tscn" id="12_3bffl"]
-[ext_resource type="PackedScene" uid="uid://ddl8n8wjl78oi" path="res://scenes/subscenes/items/normal/controller.tscn" id="12_50y00"]
+[ext_resource type="PackedScene" uid="uid://dd3e26ey6r6nv" path="res://scenes/subscenes/items/pickup/3_healthpack.tscn" id="12_3bffl"]
+[ext_resource type="PackedScene" uid="uid://ddl8n8wjl78oi" path="res://scenes/subscenes/items/normal/3_controller.tscn" id="12_50y00"]
 [ext_resource type="PackedScene" uid="uid://e4kggm4cl738" path="res://scenes/subscenes/entity/enemy/boss/firespitter.tscn" id="12_72x11"]
-[ext_resource type="PackedScene" uid="uid://cd0ru68bgians" path="res://scenes/subscenes/items/pickup/card.tscn" id="13_3wfkk"]
-[ext_resource type="PackedScene" uid="uid://ce5kb06mmmqp7" path="res://scenes/subscenes/items/pickup/credit.tscn" id="14_3veug"]
+[ext_resource type="PackedScene" uid="uid://cd0ru68bgians" path="res://scenes/subscenes/items/pickup/1_card.tscn" id="13_3wfkk"]
+[ext_resource type="PackedScene" uid="uid://ce5kb06mmmqp7" path="res://scenes/subscenes/items/pickup/2_credit.tscn" id="14_3veug"]
 
 [sub_resource type="Resource" id="Resource_yvyr2"]
 resource_local_to_scene = true
@@ -626,7 +626,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_u4x70"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cg4x5"]
 resource_local_to_scene = true
 shader = ExtResource("6_3x3u3")
 shader_parameter/flash_color = Color(1, 0.188235, 0, 1)
@@ -825,7 +825,7 @@ layer_0/name = "World"
 layer_0/tile_data = PackedInt32Array(0, 196608, 1, 65536, 131072, 1, 131072, 131072, 1, 196608, 131072, 1, 262144, 131072, 1, 327680, 131072, 1, 393216, 131072, 1, 458752, 131072, 1, 524288, 131072, 1, 589824, 131073, 1, 720896, 131072, 1, 786432, 131072, 1, 851968, 131072, 1, 917504, 131072, 1, 983040, 131072, 1, 1048576, 131072, 1, 1114112, 131072, 1, 1179648, 131072, 1, 1245184, 196608, 2, 1, 65536, 2, 1245185, 65536, 0, 2, 65536, 2, 1245186, 65536, 0, 3, 65536, 2, 1245187, 65536, 0, 4, 65536, 2, 1245188, 65536, 0, 5, 65536, 2, 1245189, 65536, 0, 6, 65536, 2, 1245190, 65536, 0, 7, 65536, 2, 1245191, 65536, 0, 8, 65536, 2, 1245192, 65536, 0, 9, 1, 3, 1245193, 1, 0, 11, 65536, 2, 1245195, 65536, 0, 12, 65536, 2, 1245196, 65536, 0, 13, 65536, 2, 1245197, 65536, 0, 14, 65536, 2, 1245198, 65536, 0, 15, 65536, 2, 1245199, 65536, 0, 16, 65536, 2, 1245200, 65536, 0, 17, 65536, 2, 1245201, 65536, 0, 18, 65536, 2, 1245202, 65536, 0, 19, 262144, 1, 65555, 0, 1, 131091, 0, 1, 196627, 0, 1, 262163, 0, 1, 327699, 0, 1, 393235, 0, 1, 458771, 0, 1, 524307, 0, 1, 589843, 1, 1, 720915, 0, 1, 786451, 0, 1, 851987, 0, 1, 917523, 0, 1, 983059, 0, 1, 1048595, 0, 1, 1114131, 0, 1, 1179667, 0, 1, 1245203, 262144, 2)
 
 [node name="Player" parent="START/0" instance=ExtResource("2_pa2gp")]
-material = SubResource("ShaderMaterial_u4x70")
+material = SubResource("ShaderMaterial_cg4x5")
 position = Vector2(152, 264)
 EntityStats = SubResource("Resource_1igvt")
 
