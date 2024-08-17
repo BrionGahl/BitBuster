@@ -1,10 +1,12 @@
 name: "godot-ci export"
-on: push
+on:
+    workflow_dispatch:
 
+        
 env:
-  GODOT_VERSION: 4.2.1
-  EXPORT_NAME: test-project
-  PROJECT_PATH: test-project
+  GODOT_VERSION: 4.2.2
+  EXPORT_NAME: BitBuster
+  PROJECT_PATH: BitBuster
 
 jobs:
   export-windows:
