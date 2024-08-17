@@ -5,8 +5,8 @@ inputs:
     description: Build root to add to the PATH before building godot
     default: ""
   target:
-    description: The scons target (debug/release_debug/release).
-    default: "debug"
+    description: The scons target (editor/template_release/template_debug).
+    default: "editor"
   tools:
     description: If tools are to be built.
     default: false
