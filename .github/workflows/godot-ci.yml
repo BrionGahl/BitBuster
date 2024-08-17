@@ -1,6 +1,8 @@
 name: "godot-ci export"
 on:
-    workflow_dispatch:
+  push:
+    branches: [main]
+  workflow_dispatch:
 
 
 env:
@@ -36,9 +38,7 @@ jobs:
         with:
           name: windows
           path: build/windows
-      - name: Output artifact URL
-        run:  echo 'Artifact URL is ${{ steps.artifact-upload-step.outputs.artifact-url }}'
-
+    
   export-linux:
     name: Linux Export
     runs-on: ubuntu-20.04
@@ -67,5 +67,3 @@ jobs:
         with:
           name: linux
           path: build/linux
-      - name: Output artifact URL
-        run:  echo 'Artifact URL is ${{ steps.artifact-upload-step.outputs.artifact-url }}'
