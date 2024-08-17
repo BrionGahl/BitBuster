@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://bhk5nrlkp2n1n" path="res://assets/etc/camera_border.png" id="8_mn0vs"]
 [ext_resource type="PackedScene" uid="uid://n3uhl8voulr4" path="res://scenes/subscenes/hud/hud.tscn" id="9_hgwba"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ifjxc"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8p0mf"]
 resource_local_to_scene = true
 shader = ExtResource("4_7w6o4")
 shader_parameter/flash_color = Color(1, 0.188235, 0, 1)
@@ -59,7 +59,7 @@ script = ExtResource("1_jml8v")
 script = ExtResource("2_c5biw")
 
 [node name="Player" parent="Level" instance=ExtResource("3_q3coj")]
-material = SubResource("ShaderMaterial_ifjxc")
+material = SubResource("ShaderMaterial_8p0mf")
 position = Vector2(1440, 1120)
 EntityStats = SubResource("Resource_vjkeo")
 
