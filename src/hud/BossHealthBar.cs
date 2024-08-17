@@ -78,4 +78,10 @@ public partial class BossHealthBar : ProgressBar
 		_bossHealthComponent = null;
 		Visible = false;
 	}
+	
+	public override void _ExitTree()
+	{
+		_globalEvents.BossRoomEnter -= OnBossRoomEnter;
+		_globalEvents.BossKilled -= OnBossKilled;	
+	}
 }

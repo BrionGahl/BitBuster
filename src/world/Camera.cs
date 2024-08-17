@@ -11,7 +11,7 @@ public partial class Camera : Camera2D
 	public override void _Ready()
 	{
 		_globalEvents = GetNode<GlobalEvents>("/root/GlobalEvents");
-		
+
 		_globalEvents.RoomEnter += OnPlayerEnterRoom;
 	}
 
@@ -20,9 +20,9 @@ public partial class Camera : Camera2D
 		Logger.Log.Information("Moving camera to global position: " + position);
 		GlobalPosition = position;
 	}
-	
-	protected override void Dispose(bool disposing) {
+
+	public override void _ExitTree()
+	{
 		_globalEvents.RoomEnter -= OnPlayerEnterRoom;
-		base.Dispose(disposing);
 	}
 }

@@ -420,6 +420,13 @@ public partial class World : Node2D
 			Console.WriteLine("");
 		}
 	}
+	
+	public override void _ExitTree()
+	{
+		_globalEvents.IncrementAndGenerateLevel -= OnIncrementAndGenerateLevel;
+		_globalEvents.BakeNavigationMesh -= OnBakeNavigationMesh;
+		_globalEvents.SpawnItem -= OnSpawnItem;	
+	}
 }
 
 

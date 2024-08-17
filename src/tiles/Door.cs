@@ -37,11 +37,6 @@ public partial class Door : Area2D
 	
 	public override void _Notification(int what)
 	{
-		if (what == NotificationPredelete)
-		{
-			_globalEvents.ToggleDoors -= OnToggleDoors;
-		}
-		
 		if (what != NotificationSceneInstantiated) 
 			return;
 		
@@ -99,5 +94,10 @@ public partial class Door : Area2D
 		_doorClosed.Visible = !isOpen;
 		_openDoorEmitter.Emitting = isOpen;
 		_entityBlockingBody.SetCollisionLayerValue((int)BBCollisionLayer.World, !isOpen);;
+	}
+	
+	public override void _ExitTree()
+	{
+		_globalEvents.ToggleDoors -= OnToggleDoors;
 	}
 }

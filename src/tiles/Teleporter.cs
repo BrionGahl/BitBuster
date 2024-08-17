@@ -45,4 +45,9 @@ public partial class Teleporter : Area2D
 		_teleporterActiveSprite.Visible = isOpen;
 		SetDeferred("monitoring", isOpen);
 	}
+	
+	public override void _ExitTree()
+	{
+		_globalEvents.ToggleDoors -= OnToggleDoors;
+	}
 }

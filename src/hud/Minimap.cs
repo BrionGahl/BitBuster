@@ -86,9 +86,9 @@ public partial class Minimap: TextureRect
 		}
 	} 
 	
-	protected override void Dispose(bool disposing) {
+	public override void _ExitTree()
+	{
 		_globalEvents.RoomEnter -= OnPlayerEnterRoom;
-		_globalEvents.IncrementAndGenerateLevel -= OnIncrementAndGenerateLevel;
-		base.Dispose(disposing);
+		_globalEvents.IncrementAndGenerateLevel -= OnIncrementAndGenerateLevel;	
 	}
 }

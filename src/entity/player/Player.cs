@@ -42,6 +42,7 @@ public partial class Player : Entity
 	private bool _hasBombed;
 
 	private bool _shot;
+
 	
 	public override void _Ready()
 	{
@@ -170,11 +171,18 @@ public partial class Player : Entity
 		_hasBombed = true;
 		Speed = 0;
 		ParticleDeath.Emitting = true;
-		DeathAnimationTimer.Start();
+		
+		if (DeathAnimationTimer.TimeLeft <= 0)
+			DeathAnimationTimer.Start();
 	}
 
 	private void OnDoorEnterTimeout()
 	{
 		CanEnterDoor = true;
+	}
+	
+	public override void _ExitTree()
+	{
+		_globalEvents.IncrementAndGenerateLevel -= OnIncrementAndGenerateLevel;
 	}
 }

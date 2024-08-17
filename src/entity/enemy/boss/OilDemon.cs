@@ -113,7 +113,6 @@ public partial class OilDemon : MovingEnemy
 		EntityStats.ProjectileCount = 40;
 		_mechanicsTimer.WaitTime = 2.5f;
 		EntityStats.Speed = 75f;
-		EntityStats.ProjectileDamage = 2;
 	}
 	
 

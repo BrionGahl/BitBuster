@@ -106,7 +106,7 @@ public partial class Firespitter : IdleEnemy
 		{
 			_mechanicsDir = RandomNumberGenerator.RandiRange(1, 4);
 			EntityStats.ProjectileBounces = 4;
-			EntityStats.ProjectileDamage = 2;
+			EntityStats.ProjectileDamage = 1;
 			EntityStats.ProjectileCooldown = 3f;
 			EntityStats.ProjectileSpeed = 50f;
 			EntityStats.ProjectileSizeScalar = new Vector2(130, 1);
@@ -116,7 +116,7 @@ public partial class Firespitter : IdleEnemy
 		{
 			_mechanicsDir = RandomNumberGenerator.RandiRange(0, 1);
 			EntityStats.ProjectileBounces = 0;
-			EntityStats.ProjectileDamage = 3;
+			EntityStats.ProjectileDamage = 1;
 			EntityStats.ProjectileCooldown = 0.2f;
 			EntityStats.ProjectileSpeed = 100f;
 			EntityStats.ProjectileSizeScalar = new Vector2(1, 1);
@@ -125,7 +125,7 @@ public partial class Firespitter : IdleEnemy
 		} else if (_mechanics > 0.7)
 		{
 			EntityStats.ProjectileBounces = 2;
-			EntityStats.ProjectileDamage = 3;
+			EntityStats.ProjectileDamage = 1;
 			EntityStats.ProjectileCooldown = 1.5f;
 			EntityStats.ProjectileSpeed = 100f;
 			EntityStats.ProjectileSizeScalar = new Vector2(4, 4);

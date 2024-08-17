@@ -17,7 +17,7 @@ ItemId = 9
 ItemName = "Fuzzy Die"
 ItemDescription = "Smells like Cigarettes..."
 CreditCost = 10
-ProjectileDamage = -1.0
+ProjectileDamage = -0.5
 ProjectileCount = 2
 ProjectileBounces = 1
 
