@@ -35,7 +35,6 @@ public abstract partial class Enemy: Entity
 	protected SpritesComponent SpritesComponent { get; private set; }
 
 	public VisibleOnScreenNotifier2D Notifier { get; private set; }
-	protected Timer DeathAnimationTimer { get; private set; }
 	private AnimationPlayer AnimationPlayer { get; set; }
 	
 	public Vector2 SpawnPosition { get; set; }
@@ -64,15 +63,12 @@ public abstract partial class Enemy: Entity
 	
 
 		 Notifier = GetNode<VisibleOnScreenNotifier2D>("VisibleOnScreenNotifier2D");
-		 DeathAnimationTimer = GetNode<Timer>("DeathAnimationTimer");
 		 AnimationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		 
 		 RandomNumberGenerator = new RandomNumberGenerator();
 		 RandomNumberGenerator.Randomize();
 		 
 		 SpawnPosition = Position;
-
-		 DeathAnimationTimer.Timeout += OnDeathAnimationTimeout;
 		 
 		 HealthComponent.HealthIsZero += OnHealthIsZero;
 		 HealthComponent.HealthChange += OnHealthChange;
@@ -157,8 +153,6 @@ public abstract partial class Enemy: Entity
 		if (SpritesComponent.Body != null)
 			SpritesComponent.Body.Modulate = color;
 	}
-	
-	protected abstract void OnDeathAnimationTimeout();
 	
 	private void OnHealthChange(float value)
 	{

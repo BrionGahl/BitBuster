@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bnh75c1b1t0ty"]
+[gd_scene load_steps=25 format=3 uid="uid://bnh75c1b1t0ty"]
 
 [ext_resource type="Resource" uid="uid://bjpwk2vnrlbvh" path="res://scenes/resources/drops/default_drop_table.tres" id="2_b436w"]
 [ext_resource type="PackedScene" uid="uid://bppxui41cpc02" path="res://scenes/subscenes/component/sprites_component.tscn" id="2_dpq02"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://btdrka86pvjsd" path="res://scenes/subscenes/component/track_trail_component.tscn" id="10_n6rug"]
 [ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="11_idnin"]
 [ext_resource type="PackedScene" uid="uid://2m2pbclf1iur" path="res://scenes/subscenes/component/exploding_component.tscn" id="12_pk6fm"]
+[ext_resource type="PackedScene" uid="uid://6d0b62fihn27" path="res://scenes/subscenes/component/particle_death_component.tscn" id="14_2icgf"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qyxbd"]
 radius = 6.0
@@ -162,3 +163,5 @@ one_shot = true
 libraries = {
 "": SubResource("AnimationLibrary_gu0m7")
 }
+
+[node name="ParticleDeath" parent="." instance=ExtResource("14_2icgf")]

@@ -5,6 +5,9 @@ namespace BitBuster.world;
 
 public partial class Global : Node
 {
+	public PackedScene GamePackedScene { get; private set; }
+	public PackedScene MainMenuPackedScene { get; private set; }
+	
 	public Dictionary<int, PackedScene> CompleteItemPoolList { get; private set; }
 	public Dictionary<int, PackedScene> CurrentRunItemPoolList { get; set; }
 	
@@ -18,6 +21,9 @@ public partial class Global : Node
 	
 	public override void _Ready()
 	{
+		GamePackedScene = ResourceLoader.Load<PackedScene>("res://scenes/subscenes/procedural/world.tscn");
+		MainMenuPackedScene = ResourceLoader.Load<PackedScene>("res://scenes/subscenes/menu/root_menu.tscn");
+		
 		CompleteItemPoolList = new Dictionary<int, PackedScene>();
 		_itemNames = DirAccess.Open("res://scenes/subscenes/items/normal").GetFiles();
 		

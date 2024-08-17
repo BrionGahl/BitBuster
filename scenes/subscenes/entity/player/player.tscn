@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://det6gkgxg57mw"]
+[gd_scene load_steps=26 format=3 uid="uid://det6gkgxg57mw"]
 
 [ext_resource type="Script" path="res://src/entity/player/Player.cs" id="1_nju6n"]
 [ext_resource type="Resource" uid="uid://ddoxfug6s6lh" path="res://scenes/resources/entity/player/player_stats.tres" id="2_axdfk"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://btrxy7t83y8en" path="res://scenes/subscenes/component/health_component.tscn" id="5_umbbr"]
 [ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="8_gp6gs"]
 [ext_resource type="Script" path="res://src/items/ItemPickupHitbox.cs" id="9_s5uk3"]
+[ext_resource type="PackedScene" uid="uid://6d0b62fihn27" path="res://scenes/subscenes/component/particle_death_component.tscn" id="10_na6pd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vtgkd"]
 atlas = ExtResource("3_0ptsh")
@@ -218,10 +219,16 @@ shape = SubResource("RectangleShape2D_r5da5")
 
 [node name="ItemsList" type="Node2D" parent="ItemPickupHitbox"]
 
+[node name="ParticleDeath" parent="." instance=ExtResource("10_na6pd")]
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_pq2ln")
 }
 
 [node name="DoorEnterTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="DeathAnimationTimer" type="Timer" parent="."]
+wait_time = 3.0
 one_shot = true
