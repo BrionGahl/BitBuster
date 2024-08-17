@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://32elsci7h0v1"]
+[gd_scene load_steps=71 format=3 uid="uid://32elsci7h0v1"]
 
 [ext_resource type="Script" path="res://src/procedural/Rooms.cs" id="1_lawn4"]
 [ext_resource type="PackedScene" uid="uid://det6gkgxg57mw" path="res://scenes/subscenes/entity/player/player.tscn" id="2_pa2gp"]
@@ -18,7 +18,1063 @@
 [ext_resource type="PackedScene" uid="uid://c0ej06grjhkpg" path="res://scenes/subscenes/tiles/breakable_wall.tscn" id="17_jxgax"]
 [ext_resource type="PackedScene" uid="uid://cx30lc66gc3rv" path="res://scenes/subscenes/entity/enemy/moving/tank_cannon.tscn" id="17_yhbs0"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_t43ua"]
+[sub_resource type="Resource" id="Resource_24fh1"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 1.0
+ProjectileCount = 3
+ProjectileCooldown = 1.33
+ProjectileBounces = 1
+ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.11
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 0.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_n86fq"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 999
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 0.0
+ProjectileCount = 0
+ProjectileCooldown = 0.0
+ProjectileBounces = 0
+ProjectileSpeed = 0.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.0
+BombDamage = 3.0
+BombDamageType = 0
+BombRadius = 30.0
+Speed = 75.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_yrvv2"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 1.0
+ProjectileCount = 3
+ProjectileCooldown = 1.33
+ProjectileBounces = 1
+ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.17
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 70.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_7ox6k"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 1.0
+ProjectileCount = 3
+ProjectileCooldown = 1.33
+ProjectileBounces = 1
+ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.17
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 70.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_aolp1"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 1.0
+ProjectileCount = 3
+ProjectileCooldown = 1.33
+ProjectileBounces = 1
+ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.17
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 70.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_siw27"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 1.0
+ProjectileCount = 3
+ProjectileCooldown = 1.33
+ProjectileBounces = 1
+ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.17
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 70.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_lqgqb"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 2.0
+CurrentHealth = 2.0
+Overheal = 0.0
+ProjectileDamage = 0.0
+ProjectileCount = 0
+ProjectileCooldown = 0.0
+ProjectileBounces = 0
+ProjectileSpeed = 0.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.0
+BombDamage = 2.0
+BombDamageType = 0
+BombRadius = 48.0
+Speed = 55.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_3lwh5"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 1.0
+ProjectileCount = 3
+ProjectileCooldown = 1.33
+ProjectileBounces = 1
+ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.17
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 70.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_qsk1e"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 1.0
+ProjectileCount = 3
+ProjectileCooldown = 1.33
+ProjectileBounces = 1
+ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.17
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 70.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_p4mdc"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 1.0
+ProjectileCount = 3
+ProjectileCooldown = 1.33
+ProjectileBounces = 1
+ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.17
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 70.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_jrj43"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 2.0
+ProjectileCount = 3
+ProjectileCooldown = 1.33
+ProjectileBounces = 1
+ProjectileSpeed = 75.0
+ProjectileSizeScalar = Vector2(2, 2)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.11
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 0.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_11n48"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 1.0
+ProjectileCount = 3
+ProjectileCooldown = 1.33
+ProjectileBounces = 1
+ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.17
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 70.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_1gnm5"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 2.0
+CurrentHealth = 2.0
+Overheal = 0.0
+ProjectileDamage = 0.0
+ProjectileCount = 0
+ProjectileCooldown = 0.0
+ProjectileBounces = 0
+ProjectileSpeed = 0.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.0
+BombDamage = 2.0
+BombDamageType = 0
+BombRadius = 48.0
+Speed = 55.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_bprih"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 1.0
+ProjectileCount = 3
+ProjectileCooldown = 1.33
+ProjectileBounces = 1
+ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.17
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 70.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_y1jx1"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 1.0
+ProjectileCount = 3
+ProjectileCooldown = 1.33
+ProjectileBounces = 1
+ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.11
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 0.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_fxhpm"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 1.0
+ProjectileCount = 3
+ProjectileCooldown = 1.33
+ProjectileBounces = 1
+ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.17
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 70.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_w40gw"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 1.0
+ProjectileCount = 3
+ProjectileCooldown = 1.33
+ProjectileBounces = 1
+ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.11
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 0.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_qjgkc"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 0.0
+ProjectileCount = 0
+ProjectileCooldown = 0.0
+ProjectileBounces = 0
+ProjectileSpeed = 0.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.0
+BombDamage = 2.0
+BombDamageType = 0
+BombRadius = 48.0
+Speed = 0.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_yfhdq"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 2.0
+CurrentHealth = 2.0
+Overheal = 0.0
+ProjectileDamage = 0.0
+ProjectileCount = 0
+ProjectileCooldown = 0.0
+ProjectileBounces = 0
+ProjectileSpeed = 0.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.0
+BombDamage = 2.0
+BombDamageType = 0
+BombRadius = 48.0
+Speed = 55.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_vfi8j"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 2.0
+CurrentHealth = 2.0
+Overheal = 0.0
+ProjectileDamage = 0.0
+ProjectileCount = 0
+ProjectileCooldown = 0.0
+ProjectileBounces = 0
+ProjectileSpeed = 0.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.0
+BombDamage = 2.0
+BombDamageType = 0
+BombRadius = 48.0
+Speed = 55.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_pqryu"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 0.0
+ProjectileCount = 0
+ProjectileCooldown = 0.0
+ProjectileBounces = 0
+ProjectileSpeed = 0.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.0
+BombDamage = 2.0
+BombDamageType = 0
+BombRadius = 48.0
+Speed = 0.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_s5dww"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 2.0
+ProjectileCount = 3
+ProjectileCooldown = 1.33
+ProjectileBounces = 1
+ProjectileSpeed = 75.0
+ProjectileSizeScalar = Vector2(2, 2)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.11
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 0.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_mwqy7"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 2.0
+ProjectileCount = 3
+ProjectileCooldown = 1.33
+ProjectileBounces = 1
+ProjectileSpeed = 75.0
+ProjectileSizeScalar = Vector2(2, 2)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.11
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 0.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_qvgqp"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 1.0
+ProjectileCount = 3
+ProjectileCooldown = 1.33
+ProjectileBounces = 1
+ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.17
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 70.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_vodjt"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 1.0
+ProjectileCount = 3
+ProjectileCooldown = 1.33
+ProjectileBounces = 1
+ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.17
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 70.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_cwow8"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 1.0
+ProjectileCount = 3
+ProjectileCooldown = 1.33
+ProjectileBounces = 1
+ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.11
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 0.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_smxlk"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 1.0
+ProjectileCount = 3
+ProjectileCooldown = 1.33
+ProjectileBounces = 1
+ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.11
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 0.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_a8q8n"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 1.0
+ProjectileCount = 3
+ProjectileCooldown = 1.33
+ProjectileBounces = 1
+ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.11
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 0.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_3mknb"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 1.0
+ProjectileCount = 3
+ProjectileCooldown = 1.33
+ProjectileBounces = 1
+ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.11
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 0.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_liqaf"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 1.0
+ProjectileCount = 3
+ProjectileCooldown = 1.33
+ProjectileBounces = 1
+ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.11
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 0.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_32yfa"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 0.0
+ProjectileCount = 0
+ProjectileCooldown = 0.0
+ProjectileBounces = 0
+ProjectileSpeed = 0.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.0
+BombDamage = 2.0
+BombDamageType = 0
+BombRadius = 48.0
+Speed = 0.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_s1iye"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 1.0
+ProjectileCount = 3
+ProjectileCooldown = 1.33
+ProjectileBounces = 1
+ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.17
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 70.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_48haf"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 1.0
+ProjectileCount = 3
+ProjectileCooldown = 1.33
+ProjectileBounces = 1
+ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.17
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 70.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_emifq"]
 resource_local_to_scene = true
 shader = ExtResource("6_3x3u3")
 shader_parameter/flash_color = Color(1, 0.188235, 0, 1)
@@ -50,6 +1106,38 @@ BombDamage = 2.0
 BombDamageType = 0
 BombRadius = 30.0
 Speed = 75.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_g1ldg"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 30.0
+CurrentHealth = 30.0
+Overheal = 0.0
+ProjectileDamage = 1.0
+ProjectileCount = 15
+ProjectileCooldown = 0.2
+ProjectileBounces = 0
+ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 5
+ProjectileBulletType = 1
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.0
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 0.0
 ITime = 0.2
 TrailEffect = 0
 Luck = 0
@@ -88,6 +1176,518 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
+[sub_resource type="Resource" id="Resource_cy072"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 2.0
+ProjectileCount = 3
+ProjectileCooldown = 1.33
+ProjectileBounces = 1
+ProjectileSpeed = 75.0
+ProjectileSizeScalar = Vector2(2, 2)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.11
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 70.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_gp30o"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 1.0
+ProjectileCount = 3
+ProjectileCooldown = 1.33
+ProjectileBounces = 1
+ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.17
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 70.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_waapp"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 1.0
+ProjectileCount = 3
+ProjectileCooldown = 1.33
+ProjectileBounces = 1
+ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.17
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 70.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_etvru"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 2.0
+ProjectileCount = 3
+ProjectileCooldown = 1.33
+ProjectileBounces = 1
+ProjectileSpeed = 75.0
+ProjectileSizeScalar = Vector2(2, 2)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.11
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 0.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_wald0"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 1.0
+ProjectileCount = 3
+ProjectileCooldown = 1.33
+ProjectileBounces = 1
+ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.17
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 70.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_0h7yc"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 999
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 0.0
+ProjectileCount = 0
+ProjectileCooldown = 0.0
+ProjectileBounces = 0
+ProjectileSpeed = 0.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.0
+BombDamage = 3.0
+BombDamageType = 0
+BombRadius = 30.0
+Speed = 75.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_7k24q"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 1.0
+ProjectileCount = 3
+ProjectileCooldown = 1.33
+ProjectileBounces = 1
+ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.17
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 70.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_y827p"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 1.0
+ProjectileCount = 3
+ProjectileCooldown = 1.33
+ProjectileBounces = 1
+ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.17
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 70.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_1qdev"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 1.0
+ProjectileCount = 3
+ProjectileCooldown = 1.33
+ProjectileBounces = 1
+ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.17
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 70.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_x6exl"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 2.0
+ProjectileCount = 3
+ProjectileCooldown = 1.33
+ProjectileBounces = 1
+ProjectileSpeed = 75.0
+ProjectileSizeScalar = Vector2(2, 2)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.11
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 0.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_syecn"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 1.0
+ProjectileCount = 3
+ProjectileCooldown = 1.33
+ProjectileBounces = 1
+ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.17
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 70.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_vny6v"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 2.0
+CurrentHealth = 2.0
+Overheal = 0.0
+ProjectileDamage = 0.0
+ProjectileCount = 0
+ProjectileCooldown = 0.0
+ProjectileBounces = 0
+ProjectileSpeed = 0.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.0
+BombDamage = 2.0
+BombDamageType = 0
+BombRadius = 48.0
+Speed = 55.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_vfuqv"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 1.0
+ProjectileCount = 3
+ProjectileCooldown = 1.33
+ProjectileBounces = 1
+ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.11
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 0.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_ugrof"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 2.0
+ProjectileCount = 3
+ProjectileCooldown = 1.33
+ProjectileBounces = 1
+ProjectileSpeed = 75.0
+ProjectileSizeScalar = Vector2(2, 2)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.11
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 0.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_64sl5"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 2.0
+ProjectileCount = 3
+ProjectileCooldown = 1.33
+ProjectileBounces = 1
+ProjectileSpeed = 75.0
+ProjectileSizeScalar = Vector2(2, 2)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.11
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 0.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
+[sub_resource type="Resource" id="Resource_bwijp"]
+resource_local_to_scene = true
+script = ExtResource("6_2n5vs")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 1.0
+ProjectileCount = 3
+ProjectileCooldown = 1.33
+ProjectileBounces = 1
+ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.17
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 70.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0
+
 [node name="Rooms" type="Node2D"]
 script = ExtResource("1_lawn4")
 
@@ -106,15 +1706,19 @@ visible = false
 
 [node name="Tower" parent="NORMAL/0" instance=ExtResource("6_s61rk")]
 position = Vector2(104, 216)
+EntityStats = SubResource("Resource_24fh1")
 
 [node name="Bomber" parent="NORMAL/0" instance=ExtResource("6_qjjyq")]
 position = Vector2(176, 160)
+EntityStats = SubResource("Resource_n86fq")
 
 [node name="Tank" parent="NORMAL/0" instance=ExtResource("11_d6h5w")]
 position = Vector2(176, 96)
+EntityStats = SubResource("Resource_yrvv2")
 
 [node name="Tank2" parent="NORMAL/0" instance=ExtResource("11_d6h5w")]
 position = Vector2(80, 176)
+EntityStats = SubResource("Resource_7ox6k")
 
 [node name="BreakableWall" parent="NORMAL/0" instance=ExtResource("17_jxgax")]
 position = Vector2(104, 200)
@@ -179,9 +1783,11 @@ layer_0/tile_data = PackedInt32Array(0, 196608, 1, 65536, 131072, 1, 131072, 131
 
 [node name="Tank" parent="NORMAL/1" instance=ExtResource("11_d6h5w")]
 position = Vector2(160, 104)
+EntityStats = SubResource("Resource_aolp1")
 
 [node name="Tank2" parent="NORMAL/1" instance=ExtResource("11_d6h5w")]
 position = Vector2(160, 216)
+EntityStats = SubResource("Resource_siw27")
 
 [node name="EntityDetector" parent="NORMAL/1" instance=ExtResource("4_5l8sk")]
 visible = false
@@ -195,15 +1801,19 @@ layer_0/tile_data = PackedInt32Array(0, 196608, 1, 65536, 131072, 1, 131072, 131
 
 [node name="Detonator" parent="NORMAL/2" instance=ExtResource("9_07htp")]
 position = Vector2(160, 120)
+EntityStats = SubResource("Resource_lqgqb")
 
 [node name="Tank" parent="NORMAL/2" instance=ExtResource("11_d6h5w")]
 position = Vector2(160, 200)
+EntityStats = SubResource("Resource_3lwh5")
 
 [node name="Tank2" parent="NORMAL/2" instance=ExtResource("11_d6h5w")]
 position = Vector2(120, 160)
+EntityStats = SubResource("Resource_qsk1e")
 
 [node name="Tank3" parent="NORMAL/2" instance=ExtResource("11_d6h5w")]
 position = Vector2(200, 160)
+EntityStats = SubResource("Resource_p4mdc")
 
 [node name="EntityDetector" parent="NORMAL/2" instance=ExtResource("4_5l8sk")]
 
@@ -216,12 +1826,15 @@ layer_0/tile_data = PackedInt32Array(262144, 196608, 1, 327680, 131072, 1, 39321
 
 [node name="TowerCannon" parent="NORMAL/3" instance=ExtResource("10_b3inl")]
 position = Vector2(160, 160)
+EntityStats = SubResource("Resource_jrj43")
 
 [node name="Tank" parent="NORMAL/3" instance=ExtResource("11_d6h5w")]
 position = Vector2(160, 104)
+EntityStats = SubResource("Resource_11n48")
 
 [node name="Detonator" parent="NORMAL/3" instance=ExtResource("9_07htp")]
 position = Vector2(160, 216)
+EntityStats = SubResource("Resource_1gnm5")
 
 [node name="EntityDetector" parent="NORMAL/3" instance=ExtResource("4_5l8sk")]
 visible = false
@@ -259,9 +1872,11 @@ layer_0/tile_data = PackedInt32Array(0, 196608, 1, 65536, 131072, 1, 131072, 131
 
 [node name="Tank" parent="NORMAL/4" instance=ExtResource("11_d6h5w")]
 position = Vector2(48, 40)
+EntityStats = SubResource("Resource_bprih")
 
 [node name="Tower" parent="NORMAL/4" instance=ExtResource("6_s61rk")]
 position = Vector2(112, 32)
+EntityStats = SubResource("Resource_y1jx1")
 
 [node name="EntityDetector" parent="NORMAL/4" instance=ExtResource("4_5l8sk")]
 visible = false
@@ -316,9 +1931,11 @@ position = Vector2(232, 280)
 
 [node name="Tank2" parent="NORMAL/4" instance=ExtResource("11_d6h5w")]
 position = Vector2(272, 280)
+EntityStats = SubResource("Resource_fxhpm")
 
 [node name="Tower2" parent="NORMAL/4" instance=ExtResource("6_s61rk")]
 position = Vector2(208, 288)
+EntityStats = SubResource("Resource_w40gw")
 
 [node name="5" type="TileMap" parent="NORMAL"]
 visible = false
@@ -329,15 +1946,19 @@ layer_0/tile_data = PackedInt32Array(0, 196608, 1, 65536, 131072, 1, 131072, 131
 
 [node name="TowerDetonator" parent="NORMAL/5" instance=ExtResource("11_jkvly")]
 position = Vector2(216, 152)
+EntityStats = SubResource("Resource_qjgkc")
 
 [node name="Detonator" parent="NORMAL/5" instance=ExtResource("9_07htp")]
 position = Vector2(160, 80)
+EntityStats = SubResource("Resource_yfhdq")
 
 [node name="Detonator2" parent="NORMAL/5" instance=ExtResource("9_07htp")]
 position = Vector2(160, 240)
+EntityStats = SubResource("Resource_vfi8j")
 
 [node name="TowerDetonator2" parent="NORMAL/5" instance=ExtResource("11_jkvly")]
 position = Vector2(104, 168)
+EntityStats = SubResource("Resource_pqryu")
 
 [node name="EntityDetector" parent="NORMAL/5" instance=ExtResource("4_5l8sk")]
 visible = false
@@ -369,15 +1990,19 @@ layer_0/tile_data = PackedInt32Array(0, 196608, 1, 65536, 131072, 1, 131072, 131
 
 [node name="TowerCannon" parent="NORMAL/6" instance=ExtResource("10_b3inl")]
 position = Vector2(88, 80)
+EntityStats = SubResource("Resource_s5dww")
 
 [node name="TowerCannon2" parent="NORMAL/6" instance=ExtResource("10_b3inl")]
 position = Vector2(232, 240)
+EntityStats = SubResource("Resource_mwqy7")
 
 [node name="Tank" parent="NORMAL/6" instance=ExtResource("11_d6h5w")]
 position = Vector2(160, 192)
+EntityStats = SubResource("Resource_qvgqp")
 
 [node name="Tank2" parent="NORMAL/6" instance=ExtResource("11_d6h5w")]
 position = Vector2(160, 128)
+EntityStats = SubResource("Resource_vodjt")
 
 [node name="EntityDetector" parent="NORMAL/6" instance=ExtResource("4_5l8sk")]
 visible = false
@@ -409,18 +2034,22 @@ layer_0/tile_data = PackedInt32Array(0, 196608, 1, 65536, 131072, 1, 131072, 131
 
 [node name="Tower" parent="NORMAL/7" instance=ExtResource("6_s61rk")]
 position = Vector2(40, 40)
+EntityStats = SubResource("Resource_cwow8")
 
 [node name="EntityDetector" parent="NORMAL/7" instance=ExtResource("4_5l8sk")]
 visible = false
 
 [node name="Tower2" parent="NORMAL/7" instance=ExtResource("6_s61rk")]
 position = Vector2(280, 280)
+EntityStats = SubResource("Resource_smxlk")
 
 [node name="Tower3" parent="NORMAL/7" instance=ExtResource("6_s61rk")]
 position = Vector2(40, 280)
+EntityStats = SubResource("Resource_a8q8n")
 
 [node name="Tower4" parent="NORMAL/7" instance=ExtResource("6_s61rk")]
 position = Vector2(280, 40)
+EntityStats = SubResource("Resource_3mknb")
 
 [node name="BreakableWall" parent="NORMAL/7" instance=ExtResource("17_jxgax")]
 position = Vector2(24, 120)
@@ -457,15 +2086,19 @@ visible = false
 
 [node name="Tower" parent="NORMAL/8" instance=ExtResource("6_s61rk")]
 position = Vector2(56, 56)
+EntityStats = SubResource("Resource_liqaf")
 
 [node name="TowerDetonator" parent="NORMAL/8" instance=ExtResource("11_jkvly")]
 position = Vector2(200, 120)
+EntityStats = SubResource("Resource_32yfa")
 
 [node name="Tank" parent="NORMAL/8" instance=ExtResource("11_d6h5w")]
 position = Vector2(40, 288)
+EntityStats = SubResource("Resource_s1iye")
 
 [node name="Tank2" parent="NORMAL/8" instance=ExtResource("11_d6h5w")]
 position = Vector2(280, 280)
+EntityStats = SubResource("Resource_48haf")
 
 [node name="BreakableWall" parent="NORMAL/8" instance=ExtResource("17_jxgax")]
 position = Vector2(24, 88)
@@ -549,7 +2182,7 @@ layer_0/name = "World"
 layer_0/tile_data = PackedInt32Array(0, 196608, 1, 65536, 131072, 1, 131072, 131072, 1, 196608, 131072, 1, 262144, 131072, 1, 327680, 131072, 1, 393216, 131072, 1, 458752, 131072, 1, 524288, 131072, 1, 589824, 131073, 1, 720896, 131072, 1, 786432, 131072, 1, 851968, 131072, 1, 917504, 131072, 1, 983040, 131072, 1, 1048576, 131072, 1, 1114112, 131072, 1, 1179648, 131072, 1, 1245184, 196608, 2, 1, 65536, 2, 1245185, 65536, 0, 2, 65536, 2, 1245186, 65536, 0, 3, 65536, 2, 1245187, 65536, 0, 4, 65536, 2, 1245188, 65536, 0, 5, 65536, 2, 1245189, 65536, 0, 6, 65536, 2, 1245190, 65536, 0, 7, 65536, 2, 1245191, 65536, 0, 8, 65536, 2, 1245192, 65536, 0, 9, 1, 3, 1245193, 1, 0, 11, 65536, 2, 1245195, 65536, 0, 12, 65536, 2, 1245196, 65536, 0, 13, 65536, 2, 1245197, 65536, 0, 14, 65536, 2, 1245198, 65536, 0, 15, 65536, 2, 1245199, 65536, 0, 16, 65536, 2, 1245200, 65536, 0, 17, 65536, 2, 1245201, 65536, 0, 18, 65536, 2, 1245202, 65536, 0, 19, 262144, 1, 65555, 0, 1, 131091, 0, 1, 196627, 0, 1, 262163, 0, 1, 327699, 0, 1, 393235, 0, 1, 458771, 0, 1, 524307, 0, 1, 589843, 1, 1, 720915, 0, 1, 786451, 0, 1, 851987, 0, 1, 917523, 0, 1, 983059, 0, 1, 1048595, 0, 1, 1114131, 0, 1, 1179667, 0, 1, 1245203, 262144, 2)
 
 [node name="Player" parent="START/0" instance=ExtResource("2_pa2gp")]
-material = SubResource("ShaderMaterial_t43ua")
+material = SubResource("ShaderMaterial_emifq")
 position = Vector2(160, 160)
 EntityStats = SubResource("Resource_1igvt")
 
@@ -566,6 +2199,7 @@ layer_0/tile_data = PackedInt32Array(0, 196608, 1, 65536, 131072, 1, 131072, 131
 
 [node name="Firespitter" parent="BOSS/0" instance=ExtResource("12_72x11")]
 position = Vector2(160, 160)
+EntityStats = SubResource("Resource_g1ldg")
 
 [node name="EntityDetector" parent="BOSS/0" instance=ExtResource("4_5l8sk")]
 
@@ -647,12 +2281,15 @@ visible = false
 
 [node name="Cannon" parent="LR_NORMAL/0" instance=ExtResource("17_yhbs0")]
 position = Vector2(160, 160)
+EntityStats = SubResource("Resource_cy072")
 
 [node name="Tank" parent="LR_NORMAL/0" instance=ExtResource("11_d6h5w")]
 position = Vector2(160, 208)
+EntityStats = SubResource("Resource_gp30o")
 
 [node name="Tank2" parent="LR_NORMAL/0" instance=ExtResource("11_d6h5w")]
 position = Vector2(160, 112)
+EntityStats = SubResource("Resource_waapp")
 
 [node name="BreakableWall" parent="LR_NORMAL/0" instance=ExtResource("17_jxgax")]
 position = Vector2(104, 136)
@@ -687,9 +2324,11 @@ layer_0/tile_data = PackedInt32Array(262144, 196608, 1, 327680, 131072, 1, 39321
 
 [node name="TowerCannon" parent="LR_NORMAL/1" instance=ExtResource("10_b3inl")]
 position = Vector2(160, 104)
+EntityStats = SubResource("Resource_etvru")
 
 [node name="Tank" parent="LR_NORMAL/1" instance=ExtResource("11_d6h5w")]
 position = Vector2(160, 160)
+EntityStats = SubResource("Resource_wald0")
 
 [node name="EntityDetector" parent="LR_NORMAL/1" instance=ExtResource("4_5l8sk")]
 visible = false
@@ -703,9 +2342,11 @@ layer_0/tile_data = PackedInt32Array(262144, 196608, 1, 327680, 131072, 1, 39321
 
 [node name="Bomber" parent="LR_NORMAL/2" instance=ExtResource("6_qjjyq")]
 position = Vector2(160, 96)
+EntityStats = SubResource("Resource_0h7yc")
 
 [node name="Tank" parent="LR_NORMAL/2" instance=ExtResource("11_d6h5w")]
 position = Vector2(112, 192)
+EntityStats = SubResource("Resource_7k24q")
 
 [node name="EntityDetector" parent="LR_NORMAL/2" instance=ExtResource("4_5l8sk")]
 visible = false
@@ -767,9 +2408,11 @@ layer_0/tile_data = PackedInt32Array(262144, 196608, 1, 327680, 131072, 1, 39321
 
 [node name="Tank" parent="LR_NORMAL/3" instance=ExtResource("11_d6h5w")]
 position = Vector2(120, 120)
+EntityStats = SubResource("Resource_y827p")
 
 [node name="Tank2" parent="LR_NORMAL/3" instance=ExtResource("11_d6h5w")]
 position = Vector2(176, 192)
+EntityStats = SubResource("Resource_1qdev")
 
 [node name="EntityDetector" parent="LR_NORMAL/3" instance=ExtResource("4_5l8sk")]
 visible = false
@@ -785,9 +2428,11 @@ layer_0/tile_data = PackedInt32Array(4, 196608, 1, 65540, 131072, 1, 131076, 131
 
 [node name="TowerCannon" parent="TB_NORMAL/0" instance=ExtResource("10_b3inl")]
 position = Vector2(232, 112)
+EntityStats = SubResource("Resource_x6exl")
 
 [node name="Tank" parent="TB_NORMAL/0" instance=ExtResource("11_d6h5w")]
 position = Vector2(112, 144)
+EntityStats = SubResource("Resource_syecn")
 
 [node name="EntityDetector" parent="TB_NORMAL/0" instance=ExtResource("4_5l8sk")]
 visible = false
@@ -801,9 +2446,11 @@ layer_0/tile_data = PackedInt32Array(4, 196608, 1, 65540, 131072, 1, 131076, 131
 
 [node name="Detonator" parent="TB_NORMAL/1" instance=ExtResource("9_07htp")]
 position = Vector2(128, 208)
+EntityStats = SubResource("Resource_vny6v")
 
 [node name="Tower" parent="TB_NORMAL/1" instance=ExtResource("6_s61rk")]
 position = Vector2(224, 32)
+EntityStats = SubResource("Resource_vfuqv")
 
 [node name="EntityDetector" parent="TB_NORMAL/1" instance=ExtResource("4_5l8sk")]
 visible = false
@@ -844,12 +2491,15 @@ layer_0/tile_data = PackedInt32Array(4, 196608, 1, 65540, 131072, 1, 131076, 131
 
 [node name="TowerCannon" parent="TB_NORMAL/2" instance=ExtResource("10_b3inl")]
 position = Vector2(96, 200)
+EntityStats = SubResource("Resource_ugrof")
 
 [node name="TowerCannon2" parent="TB_NORMAL/2" instance=ExtResource("10_b3inl")]
 position = Vector2(224, 120)
+EntityStats = SubResource("Resource_64sl5")
 
 [node name="Tank" parent="TB_NORMAL/2" instance=ExtResource("11_d6h5w")]
 position = Vector2(160, 160)
+EntityStats = SubResource("Resource_bwijp")
 
 [node name="BreakableWall" parent="TB_NORMAL/2" instance=ExtResource("17_jxgax")]
 position = Vector2(88, 216)

@@ -17,7 +17,6 @@ ItemId = 3
 ItemName = "Controller"
 ItemDescription = "Better than a keyboard?"
 CreditCost = 10
-ProjectileAccuracy = -0.17
 Speed = 25.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
