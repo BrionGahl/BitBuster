@@ -1,10 +1,11 @@
 [gd_scene load_steps=20 format=3 uid="uid://bhljrlptytonc"]
 
 [ext_resource type="Script" path="res://src/entity/enemy/idle/DefaultTower.cs" id="1_rk63p"]
-[ext_resource type="Script" path="res://src/resource/EntityStats.cs" id="2_3h4mo"]
 [ext_resource type="PackedScene" uid="uid://dpul1hjxi1dkq" path="res://scenes/subscenes/state/state_machine.tscn" id="2_3x707"]
+[ext_resource type="Resource" uid="uid://v3pnovhcleld" path="res://scenes/resources/entity/enemy/idle/tower_stats.tres" id="2_4egyg"]
 [ext_resource type="PackedScene" uid="uid://bppxui41cpc02" path="res://scenes/subscenes/component/sprites_component.tscn" id="2_alvos"]
 [ext_resource type="PackedScene" uid="uid://6d0b62fihn27" path="res://scenes/subscenes/component/particle_death_component.tscn" id="2_qma42"]
+[ext_resource type="Resource" uid="uid://bjpwk2vnrlbvh" path="res://scenes/resources/drops/default_drop_table.tres" id="2_rre0u"]
 [ext_resource type="PackedScene" uid="uid://btrxy7t83y8en" path="res://scenes/subscenes/component/health_component.tscn" id="3_411o0"]
 [ext_resource type="Script" path="res://src/state/Sleep.cs" id="3_u2ue8"]
 [ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="4_6qlwy"]
@@ -12,38 +13,6 @@
 [ext_resource type="Texture2D" uid="uid://caj6yqpf31jq1" path="res://assets/enemy/entity_turret_gun.png" id="6_5fjbr"]
 [ext_resource type="PackedScene" uid="uid://cubpk1i28p0wk" path="res://scenes/subscenes/component/weapon_component.tscn" id="6_ws2ev"]
 [ext_resource type="Texture2D" uid="uid://ctq828igxmg68" path="res://assets/enemy/entity_turret.png" id="7_prgoe"]
-
-[sub_resource type="Resource" id="Resource_en160"]
-resource_local_to_scene = true
-script = ExtResource("2_3h4mo")
-Source = 3
-BombCount = 0
-KeyCardCount = 0
-CreditCount = 0
-MaxHealth = 3.0
-CurrentHealth = 3.0
-Overheal = 0.0
-ProjectileDamage = 1.0
-ProjectileCount = 3
-ProjectileCooldown = 0.33
-ProjectileBounces = 1
-ProjectileSpeed = 100.0
-ProjectileSizeScalar = Vector2(1, 1)
-ProjectileDamageType = 0
-ProjectileWeaponType = 0
-ProjectileBulletType = 0
-ProjectileBounceType = 0
-ProjectileTrajectoryType = 0
-ProjectileAccuracy = 0.11
-BombDamage = 0.0
-BombDamageType = 0
-BombRadius = 0.0
-Speed = 0.0
-ITime = 0.2
-TrailEffect = 0
-Luck = 0
-OverhealBurst = false
-OverhealRegen = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4hc1y"]
 size = Vector2(10, 10)
@@ -121,7 +90,8 @@ collision_layer = 4
 collision_mask = 111
 motion_mode = 1
 script = ExtResource("1_rk63p")
-EntityStats = SubResource("Resource_en160")
+DropTable = ExtResource("2_rre0u")
+EntityStats = ExtResource("2_4egyg")
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_4hc1y")

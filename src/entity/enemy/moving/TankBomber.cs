@@ -40,6 +40,8 @@ public partial class TankBomber : MovingEnemy
 		HitboxComponent.SetDeferred("monitorable", false);
 		HitboxComponent.SetDeferred("monitoring", false);
 		
+		HandleDrops();
+		
 		_particleDeath.Emitting = true;
 		
 		DeathAnimationTimer.Start();

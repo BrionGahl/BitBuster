@@ -107,7 +107,7 @@ public abstract partial class Enemy: Entity
 				SetColor(Colors.Red);
 				break;
 			case EliteType.Invisible:
-				SetColor(Colors.Transparent);
+				SetColor(new Color(Colors.White, 0.5f));
 				break;
 			case EliteType.Chaotic:
 				EntityStats.ProjectileWeaponType |= WeaponType.Random;
@@ -132,6 +132,22 @@ public abstract partial class Enemy: Entity
 		Logger.Log.Information(Name + " freed.");
 		QueueFree();
 		return true;
+	}
+
+	protected void HandleDrops()
+	{
+		float chance;
+		int amount;
+		
+		foreach (Drop drop in DropTable.DropsList)
+		{
+			chance = RandomNumberGenerator.Randf();
+			if (chance > drop.Chance)
+				continue;
+			amount = RandomNumberGenerator.RandiRange(1, drop.MaxAmount);
+			for (int i = 0; i < amount; i++)
+				GlobalEvents.EmitSpawnItemEventHandler(Position, (int)drop.ItemType, drop.ItemId);
+		}	
 	}
 
 	private void SetColor(Color color)

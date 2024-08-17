@@ -1,7 +1,7 @@
-[gd_scene load_steps=26 format=3 uid="uid://det6gkgxg57mw"]
+[gd_scene load_steps=25 format=3 uid="uid://det6gkgxg57mw"]
 
 [ext_resource type="Script" path="res://src/entity/player/Player.cs" id="1_nju6n"]
-[ext_resource type="Script" path="res://src/resource/EntityStats.cs" id="2_vm8rv"]
+[ext_resource type="Resource" uid="uid://ddoxfug6s6lh" path="res://scenes/resources/entity/player/player_stats.tres" id="2_axdfk"]
 [ext_resource type="Texture2D" uid="uid://b6tdh6yi6lxtr" path="res://assets/player/entity_player_gun-sheet.png" id="3_0ptsh"]
 [ext_resource type="PackedScene" uid="uid://btdrka86pvjsd" path="res://scenes/subscenes/component/track_trail_component.tscn" id="4_g7sml"]
 [ext_resource type="Texture2D" uid="uid://rofjocr85wcj" path="res://assets/player/entity_player_1.png" id="4_kbiv1"]
@@ -9,38 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://btrxy7t83y8en" path="res://scenes/subscenes/component/health_component.tscn" id="5_umbbr"]
 [ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="8_gp6gs"]
 [ext_resource type="Script" path="res://src/items/ItemPickupHitbox.cs" id="9_s5uk3"]
-
-[sub_resource type="Resource" id="Resource_y3cpr"]
-resource_local_to_scene = true
-script = ExtResource("2_vm8rv")
-Source = 2
-BombCount = 1
-KeyCardCount = 0
-CreditCount = 0
-MaxHealth = 3.0
-CurrentHealth = 3.0
-Overheal = 1.0
-ProjectileDamage = 1.0
-ProjectileCount = 3
-ProjectileCooldown = 0.33
-ProjectileBounces = 1
-ProjectileSpeed = 100.0
-ProjectileSizeScalar = Vector2(1, 1)
-ProjectileDamageType = 0
-ProjectileWeaponType = 0
-ProjectileBulletType = 0
-ProjectileBounceType = 0
-ProjectileTrajectoryType = 0
-ProjectileAccuracy = 0.0
-BombDamage = 2.0
-BombDamageType = 0
-BombRadius = 30.0
-Speed = 75.0
-ITime = 0.2
-TrailEffect = 0
-Luck = 0
-OverhealBurst = false
-OverhealRegen = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vtgkd"]
 atlas = ExtResource("3_0ptsh")
@@ -205,7 +173,7 @@ motion_mode = 1
 script = ExtResource("1_nju6n")
 _weaponComponent = NodePath("WeaponComponent")
 _healthComponent = NodePath("HealthComponent")
-EntityStats = SubResource("Resource_y3cpr")
+EntityStats = ExtResource("2_axdfk")
 
 [node name="Gun" type="AnimatedSprite2D" parent="."]
 top_level = true

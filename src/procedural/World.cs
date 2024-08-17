@@ -69,6 +69,8 @@ public partial class World : Node2D
 		Item item;
 		if ((ItemType)itemType == ItemType.Normal)
 		{
+			if (!_global.CurrentRunItemPoolList.ContainsKey(itemId))
+				return;
 			item = _global.CurrentRunItemPoolList[itemId].Instantiate<Item>();
 		}
 		else if ((ItemType)itemType == ItemType.Pickup)
@@ -311,9 +313,9 @@ public partial class World : Node2D
 				break;
 			
 			case (RoomType.STORE):
-				SpawnItem(worldOffset + new Vector2I(120, 160), (int)ItemType.Pickup, _random.RandiRange(0, _global.CompletePickupPoolList.Count - 1), false, 1 - _levelPlayer.EntityStats.Luck / 10);
+				SpawnItem(worldOffset + new Vector2I(120, 160), (int)ItemType.Pickup, _random.RandiRange(0, _global.CompletePickupPoolList.Count - 2), false, 1 - _levelPlayer.EntityStats.Luck / 10);
 				SpawnItem(worldOffset + new Vector2I(160, 160), (int)ItemType.Normal, _random.RandiRange(0, _global.CurrentRunItemPoolList.Count - 1), false, 1 - _levelPlayer.EntityStats.Luck / 10);
-				SpawnItem(worldOffset + new Vector2I(200, 160), (int)ItemType.Pickup, _random.RandiRange(0, _global.CompletePickupPoolList.Count - 1), false, 1 - _levelPlayer.EntityStats.Luck / 10);
+				SpawnItem(worldOffset + new Vector2I(200, 160), (int)ItemType.Pickup, _random.RandiRange(0, _global.CompletePickupPoolList.Count - 2), false, 1 - _levelPlayer.EntityStats.Luck / 10);
 				break;
 		}
 		

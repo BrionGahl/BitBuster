@@ -1,0 +1,35 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://v3pnovhcleld"]
+
+[ext_resource type="Script" path="res://src/resource/EntityStats.cs" id="1_cmikr"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_cmikr")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 3.0
+CurrentHealth = 3.0
+Overheal = 0.0
+ProjectileDamage = 1.0
+ProjectileCount = 3
+ProjectileCooldown = 0.66
+ProjectileBounces = 1
+ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.11
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 0.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0

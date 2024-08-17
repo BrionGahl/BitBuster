@@ -42,13 +42,7 @@ public partial class Firespitter : IdleEnemy
 		HitboxComponent.SetDeferred("monitoring", false);
 	
 		CleanAndRebake();
-		float chance;
-		foreach (Drop drop in DropTable.DropsList)
-		{
-			chance = RandomNumberGenerator.Randf();
-			if (chance < drop.Chance)
-				GlobalEvents.EmitSpawnItemEventHandler(Position, (int)drop.ItemType, drop.ItemId);
-		}	
+		HandleDrops();
 		
 		_particleDeath.Emitting = true;
 		
@@ -138,7 +132,6 @@ public partial class Firespitter : IdleEnemy
 			EntityStats.ProjectileWeaponType = 0;
 			EntityStats.ProjectileBulletType = 0;
 			EntityStats.ProjectileBulletType = BulletType.Invulnerable;
-
 		}
 	}
 	

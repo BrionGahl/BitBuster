@@ -1,0 +1,35 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://brw1d0rskcswv"]
+
+[ext_resource type="Script" path="res://src/resource/EntityStats.cs" id="1_ttuya"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_ttuya")
+Source = 3
+BombCount = 10000
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 30.0
+CurrentHealth = 30.0
+Overheal = 0.0
+ProjectileDamage = 1.0
+ProjectileCount = 20
+ProjectileCooldown = 0.08
+ProjectileBounces = 0
+ProjectileSpeed = 100.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 4
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.51
+BombDamage = 1.0
+BombDamageType = 0
+BombRadius = 45.0
+Speed = 50.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0

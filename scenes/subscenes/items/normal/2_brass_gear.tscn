@@ -15,7 +15,7 @@ collision_mask = 73
 script = ExtResource("1_3i3a4")
 ItemId = 2
 ItemName = "Brass Gear"
-ItemDescription = "The rotations... +1 Speed"
+ItemDescription = "The rotations... "
 CreditCost = 8
 Speed = 25.0
 

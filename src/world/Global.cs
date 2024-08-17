@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using BitBuster.items;
-using BitBuster.utils;
 using Godot;
 
 namespace BitBuster.world;

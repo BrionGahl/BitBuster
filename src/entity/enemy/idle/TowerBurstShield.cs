@@ -36,7 +36,8 @@ public partial class TowerBurstShield : IdleEnemy
 		HitboxComponent.SetDeferred("monitoring", false);
 	
 		CleanAndRebake();
-
+		HandleDrops();
+		
 		_particleDeath.Emitting = true;
 		
 		DeathAnimationTimer.Start();

@@ -31,6 +31,8 @@ public partial class TankDetonator : MovingEnemy
 		HitboxComponent.SetDeferred("monitorable", false);
 		HitboxComponent.SetDeferred("monitoring", false);
 		
+		HandleDrops();
+		
 		DeathAnimationTimer.Start();
 	}
 

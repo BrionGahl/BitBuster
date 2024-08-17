@@ -13,4 +13,6 @@ public partial class Drop : Resource
     
     [Export]
     public float Chance { get; set; }
+
+    [Export] public int MaxAmount { get; set; } = 1;
 }

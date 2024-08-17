@@ -1,7 +1,8 @@
 [gd_scene load_steps=21 format=3 uid="uid://drtmpyo30imm4"]
 
 [ext_resource type="Script" path="res://src/entity/enemy/idle/TowerDetonator.cs" id="1_yi5a0"]
-[ext_resource type="Script" path="res://src/resource/EntityStats.cs" id="2_5pmj7"]
+[ext_resource type="Resource" uid="uid://dhqcr8njr8ewh" path="res://scenes/resources/entity/enemy/idle/tower_detonator_stats.tres" id="2_7ft0v"]
+[ext_resource type="Resource" uid="uid://bjpwk2vnrlbvh" path="res://scenes/resources/drops/default_drop_table.tres" id="2_avw8t"]
 [ext_resource type="PackedScene" uid="uid://6d0b62fihn27" path="res://scenes/subscenes/component/particle_death_component.tscn" id="2_mgfbc"]
 [ext_resource type="PackedScene" uid="uid://bppxui41cpc02" path="res://scenes/subscenes/component/sprites_component.tscn" id="2_xiwh0"]
 [ext_resource type="PackedScene" uid="uid://dpul1hjxi1dkq" path="res://scenes/subscenes/state/state_machine.tscn" id="3_bjfsr"]
@@ -12,38 +13,6 @@
 [ext_resource type="PackedScene" uid="uid://btrxy7t83y8en" path="res://scenes/subscenes/component/health_component.tscn" id="8_67qnp"]
 [ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="9_muq2p"]
 [ext_resource type="PackedScene" uid="uid://2m2pbclf1iur" path="res://scenes/subscenes/component/exploding_component.tscn" id="11_h4hrn"]
-
-[sub_resource type="Resource" id="Resource_o04f4"]
-resource_local_to_scene = true
-script = ExtResource("2_5pmj7")
-Source = 3
-BombCount = 0
-KeyCardCount = 0
-CreditCount = 0
-MaxHealth = 3.0
-CurrentHealth = 3.0
-Overheal = 0.0
-ProjectileDamage = 0.0
-ProjectileCount = 0
-ProjectileCooldown = 0.0
-ProjectileBounces = 0
-ProjectileSpeed = 0.0
-ProjectileSizeScalar = Vector2(1, 1)
-ProjectileDamageType = 0
-ProjectileWeaponType = 0
-ProjectileBulletType = 0
-ProjectileBounceType = 0
-ProjectileTrajectoryType = 0
-ProjectileAccuracy = 0.0
-BombDamage = 2.0
-BombDamageType = 0
-BombRadius = 48.0
-Speed = 0.0
-ITime = 0.2
-TrailEffect = 0
-Luck = 0
-OverhealBurst = false
-OverhealRegen = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mkoo3"]
 shader = ExtResource("6_kmnk0")
@@ -106,7 +75,8 @@ collision_layer = 4
 collision_mask = 111
 motion_mode = 1
 script = ExtResource("1_yi5a0")
-EntityStats = SubResource("Resource_o04f4")
+DropTable = ExtResource("2_avw8t")
+EntityStats = ExtResource("2_7ft0v")
 
 [node name="SpritesComponent" parent="." instance=ExtResource("2_xiwh0")]
 

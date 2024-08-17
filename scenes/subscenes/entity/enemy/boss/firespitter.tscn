@@ -3,9 +3,9 @@
 [ext_resource type="Script" path="res://src/entity/enemy/boss/Firespitter.cs" id="1_583oa"]
 [ext_resource type="Script" path="res://src/resource/Drop.cs" id="2_d62nn"]
 [ext_resource type="Script" path="res://src/resource/DropTable.cs" id="2_er123"]
-[ext_resource type="Script" path="res://src/resource/EntityStats.cs" id="2_ijrpv"]
 [ext_resource type="PackedScene" uid="uid://bppxui41cpc02" path="res://scenes/subscenes/component/sprites_component.tscn" id="2_otwgv"]
 [ext_resource type="Texture2D" uid="uid://gmorvpd3aqoh" path="res://assets/boss/flamespitter_gun.png" id="3_ny5x5"]
+[ext_resource type="Resource" uid="uid://baltfrap8bbwt" path="res://scenes/resources/entity/enemy/boss/firespitter_stats.tres" id="4_78ryk"]
 [ext_resource type="Texture2D" uid="uid://dqgpsmnaet3ym" path="res://assets/boss/flamespitter_body-sheet.png" id="5_u20qk"]
 [ext_resource type="PackedScene" uid="uid://6d0b62fihn27" path="res://scenes/subscenes/component/particle_death_component.tscn" id="5_xaa5f"]
 [ext_resource type="PackedScene" uid="uid://dpul1hjxi1dkq" path="res://scenes/subscenes/state/state_machine.tscn" id="6_2rbk8"]
@@ -15,64 +15,44 @@
 [ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="10_caafp"]
 [ext_resource type="PackedScene" uid="uid://cubpk1i28p0wk" path="res://scenes/subscenes/component/weapon_component.tscn" id="12_hcuox"]
 
-[sub_resource type="Resource" id="Resource_26qgp"]
+[sub_resource type="Resource" id="Resource_ffxk0"]
 script = ExtResource("2_d62nn")
 ItemType = 1
 ItemId = 0
-Chance = 1.0
+Chance = 0.1
+MaxAmount = 1
 
-[sub_resource type="Resource" id="Resource_pci2r"]
+[sub_resource type="Resource" id="Resource_gjao2"]
 script = ExtResource("2_d62nn")
 ItemType = 1
 ItemId = 1
-Chance = 1.0
+Chance = 0.1
+MaxAmount = 1
 
-[sub_resource type="Resource" id="Resource_hvq87"]
+[sub_resource type="Resource" id="Resource_pyd31"]
 script = ExtResource("2_d62nn")
 ItemType = 1
-ItemId = 2
-Chance = 1.0
+ItemId = 1
+Chance = 0.2
+MaxAmount = 1
 
-[sub_resource type="Resource" id="Resource_t4agw"]
+[sub_resource type="Resource" id="Resource_b47yh"]
 script = ExtResource("2_d62nn")
 ItemType = 1
-ItemId = 3
-Chance = 1.0
+ItemId = 1
+Chance = 0.4
+MaxAmount = 1
 
-[sub_resource type="Resource" id="Resource_eiwkv"]
+[sub_resource type="Resource" id="Resource_bkd7v"]
+script = ExtResource("2_d62nn")
+ItemType = 0
+ItemId = 19
+Chance = 0.5
+MaxAmount = 1
+
+[sub_resource type="Resource" id="Resource_a5cbf"]
 script = ExtResource("2_er123")
-DropsList = Array[Resource]([SubResource("Resource_26qgp"), SubResource("Resource_pci2r"), SubResource("Resource_hvq87"), SubResource("Resource_t4agw")])
-
-[sub_resource type="Resource" id="Resource_bdsrh"]
-script = ExtResource("2_ijrpv")
-Source = 3
-BombCount = 0
-KeyCardCount = 0
-CreditCount = 0
-MaxHealth = 30.0
-CurrentHealth = 30.0
-Overheal = 0.0
-ProjectileDamage = 1.0
-ProjectileCount = 15
-ProjectileCooldown = 0.2
-ProjectileBounces = 0
-ProjectileSpeed = 100.0
-ProjectileSizeScalar = Vector2(1, 1)
-ProjectileDamageType = 0
-ProjectileWeaponType = 5
-ProjectileBulletType = 1
-ProjectileBounceType = 0
-ProjectileTrajectoryType = 0
-ProjectileAccuracy = 0.0
-BombDamage = 0.0
-BombDamageType = 0
-BombRadius = 0.0
-Speed = 0.0
-ITime = 0.2
-TrailEffect = 0
-Luck = 0
-OverhealBurst = false
-OverhealRegen = 0.0
+DropsList = Array[Resource]([SubResource("Resource_ffxk0"), SubResource("Resource_gjao2"), SubResource("Resource_pyd31"), SubResource("Resource_b47yh"), SubResource("Resource_bkd7v")])
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4hc1y"]
 size = Vector2(24, 24)
@@ -163,8 +143,8 @@ collision_layer = 4
 collision_mask = 111
 motion_mode = 1
 script = ExtResource("1_583oa")
-DropTable = SubResource("Resource_eiwkv")
-EntityStats = SubResource("Resource_bdsrh")
+DropTable = SubResource("Resource_a5cbf")
+EntityStats = ExtResource("4_78ryk")
 metadata/BossName = "Firespitter"
 
 [node name="Collider" type="CollisionShape2D" parent="."]

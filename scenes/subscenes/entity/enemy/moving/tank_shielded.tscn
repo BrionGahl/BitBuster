@@ -1,7 +1,8 @@
 [gd_scene load_steps=29 format=3 uid="uid://ban3h382gi0mt"]
 
 [ext_resource type="Script" path="res://src/entity/enemy/moving/DefaultTank.cs" id="1_jiq06"]
-[ext_resource type="Script" path="res://src/resource/EntityStats.cs" id="2_0fxv1"]
+[ext_resource type="Resource" uid="uid://bjpwk2vnrlbvh" path="res://scenes/resources/drops/default_drop_table.tres" id="2_2l4i8"]
+[ext_resource type="Resource" uid="uid://ix85lk6yt7d1" path="res://scenes/resources/entity/enemy/moving/tank_shielded_stats.tres" id="2_3ern7"]
 [ext_resource type="PackedScene" uid="uid://bppxui41cpc02" path="res://scenes/subscenes/component/sprites_component.tscn" id="2_bhokl"]
 [ext_resource type="PackedScene" uid="uid://bokgykgjalnrg" path="res://scenes/subscenes/component/shield_component.tscn" id="2_nn4ni"]
 [ext_resource type="PackedScene" uid="uid://6d0b62fihn27" path="res://scenes/subscenes/component/particle_death_component.tscn" id="2_sl7e3"]
@@ -17,38 +18,6 @@
 [ext_resource type="PackedScene" uid="uid://cubpk1i28p0wk" path="res://scenes/subscenes/component/weapon_component.tscn" id="13_khyin"]
 [ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="14_t6atn"]
 [ext_resource type="PackedScene" uid="uid://btdrka86pvjsd" path="res://scenes/subscenes/component/track_trail_component.tscn" id="15_rc6xa"]
-
-[sub_resource type="Resource" id="Resource_mwmqc"]
-resource_local_to_scene = true
-script = ExtResource("2_0fxv1")
-Source = 3
-BombCount = 0
-KeyCardCount = 0
-CreditCount = 0
-MaxHealth = 3.0
-CurrentHealth = 3.0
-Overheal = 0.0
-ProjectileDamage = 1.0
-ProjectileCount = 3
-ProjectileCooldown = 0.33
-ProjectileBounces = 2
-ProjectileSpeed = 100.0
-ProjectileSizeScalar = Vector2(1, 1)
-ProjectileDamageType = 0
-ProjectileWeaponType = 0
-ProjectileBulletType = 0
-ProjectileBounceType = 0
-ProjectileTrajectoryType = 0
-ProjectileAccuracy = 0.11
-BombDamage = 0.0
-BombDamageType = 0
-BombRadius = 0.0
-Speed = 70.0
-ITime = 0.2
-TrailEffect = 0
-Luck = 0
-OverhealBurst = false
-OverhealRegen = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yly43"]
 atlas = ExtResource("11_sbpjt")
@@ -164,7 +133,8 @@ collision_layer = 4
 collision_mask = 111
 motion_mode = 1
 script = ExtResource("1_jiq06")
-EntityStats = SubResource("Resource_mwmqc")
+DropTable = ExtResource("2_2l4i8")
+EntityStats = ExtResource("2_3ern7")
 
 [node name="SpritesComponent" parent="." instance=ExtResource("2_bhokl")]
 

@@ -33,9 +33,9 @@ public partial class Minimap: TextureRect
 		_globalEvents.IncrementAndGenerateLevel += OnIncrementAndGenerateLevel;
 	}
 
-	private void AddUnknownRoom(Vector2 position)
+	private void AddUnknownRoom(Vector2 position, RoomType room)
 	{
-		TextureRect roomToAdd = _roomChoices.GetChild((int)RoomType.UNKNOWN).Duplicate() as TextureRect;
+		TextureRect roomToAdd = _roomChoices.GetChild((int)room).Duplicate() as TextureRect;
 		roomToAdd.Position = position * 8;
 		_roomsOnFloor.AddChild(roomToAdd);
 	}
@@ -59,19 +59,19 @@ public partial class Minimap: TextureRect
 		
 		if (_global.MapGrid[adjustedPos.X + 1, adjustedPos.Y] != (int)RoomType.NONE && _exploredMapGrid[adjustedPos.X + 1, adjustedPos.Y] == 0)
 		{
-			AddUnknownRoom(new Vector2(adjustedPos.X + 1, adjustedPos.Y));
+			AddUnknownRoom(new Vector2(adjustedPos.X + 1, adjustedPos.Y), (RoomType)_global.MapGrid[adjustedPos.X + 1, adjustedPos.Y]);
 		}
 		if (_global.MapGrid[adjustedPos.X - 1, adjustedPos.Y] != (int)RoomType.NONE && _exploredMapGrid[adjustedPos.X - 1, adjustedPos.Y] == 0)
 		{
-			AddUnknownRoom(new Vector2(adjustedPos.X - 1, adjustedPos.Y));
+			AddUnknownRoom(new Vector2(adjustedPos.X - 1, adjustedPos.Y), (RoomType)_global.MapGrid[adjustedPos.X - 1, adjustedPos.Y]);
 		}
 		if (_global.MapGrid[adjustedPos.X, adjustedPos.Y + 1] != (int)RoomType.NONE && _exploredMapGrid[adjustedPos.X, adjustedPos.Y + 1] == 0)
 		{
-			AddUnknownRoom(new Vector2(adjustedPos.X, adjustedPos.Y + 1));
+			AddUnknownRoom(new Vector2(adjustedPos.X, adjustedPos.Y + 1), (RoomType)_global.MapGrid[adjustedPos.X, adjustedPos.Y + 1]);
 		}
 		if (_global.MapGrid[adjustedPos.X, adjustedPos.Y - 1] != (int)RoomType.NONE && _exploredMapGrid[adjustedPos.X, adjustedPos.Y - 1] == 0)
 		{
-			AddUnknownRoom(new Vector2(adjustedPos.X, adjustedPos.Y - 1));
+			AddUnknownRoom(new Vector2(adjustedPos.X, adjustedPos.Y - 1), (RoomType)_global.MapGrid[adjustedPos.X, adjustedPos.Y - 1]);
 		}
 	}
 

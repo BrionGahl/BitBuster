@@ -1,8 +1,9 @@
 [gd_scene load_steps=24 format=3 uid="uid://bnh75c1b1t0ty"]
 
+[ext_resource type="Resource" uid="uid://bjpwk2vnrlbvh" path="res://scenes/resources/drops/default_drop_table.tres" id="2_b436w"]
 [ext_resource type="PackedScene" uid="uid://bppxui41cpc02" path="res://scenes/subscenes/component/sprites_component.tscn" id="2_dpq02"]
-[ext_resource type="Script" path="res://src/resource/EntityStats.cs" id="2_jrk0g"]
 [ext_resource type="Script" path="res://src/entity/enemy/moving/TankDetonator.cs" id="2_rcjrj"]
+[ext_resource type="Resource" uid="uid://bpn4e5simfvq5" path="res://scenes/resources/entity/enemy/moving/tank_detonator_stats.tres" id="3_4tdxk"]
 [ext_resource type="PackedScene" uid="uid://dpul1hjxi1dkq" path="res://scenes/subscenes/state/state_machine.tscn" id="3_q6oiw"]
 [ext_resource type="Script" path="res://src/state/Sleep.cs" id="4_a81sq"]
 [ext_resource type="Script" path="res://src/state/moveable/Ram.cs" id="5_n83au"]
@@ -12,38 +13,6 @@
 [ext_resource type="PackedScene" uid="uid://btdrka86pvjsd" path="res://scenes/subscenes/component/track_trail_component.tscn" id="10_n6rug"]
 [ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="11_idnin"]
 [ext_resource type="PackedScene" uid="uid://2m2pbclf1iur" path="res://scenes/subscenes/component/exploding_component.tscn" id="12_pk6fm"]
-
-[sub_resource type="Resource" id="Resource_xcs3o"]
-resource_local_to_scene = true
-script = ExtResource("2_jrk0g")
-Source = 3
-BombCount = 0
-KeyCardCount = 0
-CreditCount = 0
-MaxHealth = 2.0
-CurrentHealth = 2.0
-Overheal = 0.0
-ProjectileDamage = 0.0
-ProjectileCount = 0
-ProjectileCooldown = 0.0
-ProjectileBounces = 0
-ProjectileSpeed = 0.0
-ProjectileSizeScalar = Vector2(1, 1)
-ProjectileDamageType = 0
-ProjectileWeaponType = 0
-ProjectileBulletType = 0
-ProjectileBounceType = 0
-ProjectileTrajectoryType = 0
-ProjectileAccuracy = 0.0
-BombDamage = 2.0
-BombDamageType = 0
-BombRadius = 48.0
-Speed = 55.0
-ITime = 0.2
-TrailEffect = 0
-Luck = 0
-OverhealBurst = false
-OverhealRegen = 0.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qyxbd"]
 radius = 6.0
@@ -136,7 +105,8 @@ _data = {
 collision_layer = 4
 collision_mask = 111
 script = ExtResource("2_rcjrj")
-EntityStats = SubResource("Resource_xcs3o")
+DropTable = ExtResource("2_b436w")
+EntityStats = ExtResource("3_4tdxk")
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_qyxbd")

@@ -27,6 +27,8 @@ public partial class DefaultTank : MovingEnemy
 		HitboxComponent.SetDeferred("monitorable", false);
 		HitboxComponent.SetDeferred("monitoring", false);
 		
+		HandleDrops();
+		
 		_particleDeath.Emitting = true;
 		
 		DeathAnimationTimer.Start();

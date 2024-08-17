@@ -59,6 +59,7 @@ public partial class ItemPickupHitbox : Area2D
 			if (HealthComponent.Overheal >= HealthComponent.MaxHealth)
 				return;
 			_entityStats.Overheal += item.AddedOverheal;
+			HealthComponent.Heal(0);
 		}
 		
 		item.OnPickup();
