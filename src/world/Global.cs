@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using BitBuster.items;
 using Godot;
 
 namespace BitBuster.world;
@@ -24,21 +25,9 @@ public partial class Global : Node
 		GamePackedScene = ResourceLoader.Load<PackedScene>("res://scenes/subscenes/procedural/world.tscn");
 		MainMenuPackedScene = ResourceLoader.Load<PackedScene>("res://scenes/subscenes/menu/root_menu.tscn");
 		
-		CompleteItemPoolList = new Dictionary<int, PackedScene>();
-		_itemNames = DirAccess.Open("res://scenes/subscenes/items/normal").GetFiles();
-		
-		CompletePickupPoolList = new Dictionary<int, PackedScene>();
-		_pickupNames = DirAccess.Open("res://scenes/subscenes/items/pickup").GetFiles();
-		
-		for (int i = 0; i < _itemNames.Length; i++)
-		{
-			CompleteItemPoolList.Add(i, GD.Load<PackedScene>("res://scenes/subscenes/items/normal/" + _itemNames[i]));
-		}
+		CompleteItemPoolList = ItemScenes.GetCompleteNormalItemDictionary();
 
-		for (int i = 0; i < _pickupNames.Length; i++)
-		{
-			CompletePickupPoolList.Add(i, GD.Load<PackedScene>("res://scenes/subscenes/items/pickup/" + _pickupNames[i]));
-		}
+		CompletePickupPoolList = ItemScenes.GetCompletePickupItemDictionary();
 	}
 
 	public void PrepareCurrentRunItemPool()
