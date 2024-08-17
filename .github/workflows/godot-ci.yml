@@ -63,31 +63,3 @@ jobs:
         with:
           name: linux
           path: build/linux
-
-  export-mac:
-    name: Mac Export
-    runs-on: ubuntu-20.04
-    container:
-      image: barichello/godot-ci:mono-4.2.2
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          lfs: true
-      - name: .NET installation
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: "6.0.x"
-      - name: Setup
-        run: |
-          mkdir -v -p ~/.local/share/godot/export_templates/
-          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable.mono ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable.mono
-      - name: Mac Build
-        run: |
-          mkdir -v -p build/mac
-          godot --headless --verbose --export-release "Mac OSX" ./build/mac/$EXPORT_NAME.zip
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v1
-        with:
-          name: mac
-          path: build/mac
