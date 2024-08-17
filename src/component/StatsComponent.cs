@@ -34,9 +34,9 @@ public partial class StatsComponent : Node2D
 	[Export]
 	public float CurrentHealth { get; set; }
 	[Export]
-	public float Overheal { get; set; }
+	public float Overheal { get; set; } // NYI
 
-	// Weapon Related Stats
+	// Bullet Related Stats
 	[Export]
 	public float ProjectileDamage { get; set; }
 	[Export]
@@ -54,10 +54,22 @@ public partial class StatsComponent : Node2D
 	[Export]
 	public WeaponType ProjectileWeaponType { get; set; }
 	[Export]
+	public BulletType ProjectileBulletType { get; set; }
+	[Export]
+	public BounceType ProjectileBounceType { get; set; }
+	[Export]
+	public TrajectoryType ProjectileTrajectoryType { get; set; }
+	[Export]
 	public float ProjectileAccuracy { get; set; }
-
+	
+	// Bomb Related Stats
 	[Export]
 	public float BombDamage { get; set; }
+	[Export]
+	public EffectType BombDamageType { get; set; }
+	[Export]
+	public float BombRadius { get; set; }
+	
 	// Control Related Stats
 	[Export]
 	public float Speed { get; set; }
@@ -66,19 +78,36 @@ public partial class StatsComponent : Node2D
 	[Export]
 	public EffectType TrailEffect { get; set; }
 	
+	// Other Stats
+	[Export]
+	public int Luck { get; private set; }
+	[Export]
+	public bool OverhealBurst { get; private set; }
+	[Export]
+	public float OverhealRegen { get; private set; }
+
+	
+	private RandomNumberGenerator _random;
+
 	public override void _Ready()
 	{
-		// Logic for default stats go here...
+		_random = new RandomNumberGenerator();
 	}
 
 	public AttackData GetAttackData()
 	{
-		return new AttackData(ProjectileDamage, ProjectileSpeed, ProjectileBounces, ProjectileSizeScalar, ProjectileDamageType, Source);
+		float critChance = _random.Randf();
+		if (critChance > 1.0f - Luck/10f)
+			return new AttackData(ProjectileDamage * 1.5f, ProjectileDamageType, Source, true);
+		return new AttackData(ProjectileDamage, ProjectileDamageType, Source, false);
 	}
 
 	public AttackData GetBombAttackData()
 	{
-		return new AttackData(BombDamage, 0f, 0, Vector2.Zero, EffectType.Normal, Source);
+		float critChance = _random.Randf();
+		if (critChance > 1.0f - Luck/10f)
+			return new AttackData(BombDamage * 1.5f, BombDamageType, Source, true);
+		return new AttackData(BombDamage, BombDamageType, Source, false);
 	}
 
 	public void AddItem(Item item)
@@ -94,17 +123,29 @@ public partial class StatsComponent : Node2D
 		ProjectileCooldown = ProjectileCooldown - item.ProjectileCooldown < 0.05f
 			? 0.05f
 			: ProjectileCooldown - item.ProjectileCooldown;
-		
 		ProjectileBounces += item.ProjectileBounces;
 		ProjectileSpeed += item.ProjectileSpeed;
 		ProjectileSizeScalar += item.ProjectileSizeScalar;
-		ProjectileDamageType = ProjectileDamageType | item.ProjectileDamageType;
-		ProjectileWeaponType = ProjectileWeaponType | item.ProjectileWeaponType;
-
+		ProjectileDamageType |= item.ProjectileDamageType;
+		ProjectileWeaponType |=  item.ProjectileWeaponType;
+		ProjectileBulletType |=  item.ProjectileBulletType;
+		ProjectileBounceType |= item.ProjectileBounceType;
+		ProjectileTrajectoryType |=  item.ProjectileTrajectoryType;
+		ProjectileAccuracy = ProjectileAccuracy - item.ProjectileAccuracy < 0
+			? 0.0f
+			: ProjectileAccuracy - item.ProjectileAccuracy;
+		
 		BombDamage += item.BombDamage;
+		BombDamageType |= item.BombDamageType;
+		BombRadius += item.BombRadius;
+		
 		Speed += item.Speed;
 		ITime += item.ITime;
-		TrailEffect = TrailEffect | item.TrailEffect;
+		TrailEffect |= item.TrailEffect;
+
+		Luck += item.Luck;
+		OverhealBurst = item.OverhealBurst;
+		OverhealRegen += item.OverhealRegen;
 	}
 
 	public void EmitStatChangeSignal()

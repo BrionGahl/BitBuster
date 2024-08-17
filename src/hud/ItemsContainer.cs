@@ -1,16 +1,18 @@
 using BitBuster.component;
+using BitBuster.entity.player;
 using BitBuster.items;
+using BitBuster.resource;
 using Godot;
 
 namespace BitBuster.hud;
 
 public partial class ItemsContainer : HFlowContainer
 {
-	private StatsComponent _playerStats;
+	private EntityStats _playerStats;
 
 	public override void _Ready()
 	{
-		_playerStats = GetTree().GetFirstNodeInGroup("player").GetNode<StatsComponent>("StatsComponent");
+		_playerStats = ((Player)GetTree().GetFirstNodeInGroup("player")).EntityStats;
 		_playerStats.ItemAdded += OnItemAdded;
 	}
 

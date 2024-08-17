@@ -38,6 +38,11 @@ public partial class Ram : State
 			EmitSignal(SignalName.StateTransition, this, "sleep");
 		}
 		
+		if (_parent.Position.DistanceTo(_parent.Player.Position) < 48 && GetParent().GetChildCount() > 2)
+		{
+			EmitSignal(SignalName.StateTransition, this, "evade");
+		}
+		
 		_parent.AttackAction(delta);
 
 		_parent.MoveAction(delta);

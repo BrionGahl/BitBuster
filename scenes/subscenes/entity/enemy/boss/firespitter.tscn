@@ -1,0 +1,211 @@
+[gd_scene load_steps=32 format=3 uid="uid://e4kggm4cl738"]
+
+[ext_resource type="Script" path="res://src/entity/enemy/boss/Firespitter.cs" id="1_583oa"]
+[ext_resource type="Script" path="res://src/resource/Drop.cs" id="2_d62nn"]
+[ext_resource type="Script" path="res://src/resource/DropTable.cs" id="2_er123"]
+[ext_resource type="PackedScene" uid="uid://bppxui41cpc02" path="res://scenes/subscenes/component/sprites_component.tscn" id="2_otwgv"]
+[ext_resource type="Texture2D" uid="uid://gmorvpd3aqoh" path="res://assets/boss/flamespitter_gun.png" id="3_ny5x5"]
+[ext_resource type="Resource" uid="uid://baltfrap8bbwt" path="res://scenes/resources/entity/enemy/boss/firespitter_stats.tres" id="4_78ryk"]
+[ext_resource type="Texture2D" uid="uid://dqgpsmnaet3ym" path="res://assets/boss/flamespitter_body-sheet.png" id="5_u20qk"]
+[ext_resource type="PackedScene" uid="uid://6d0b62fihn27" path="res://scenes/subscenes/component/particle_death_component.tscn" id="5_xaa5f"]
+[ext_resource type="PackedScene" uid="uid://dpul1hjxi1dkq" path="res://scenes/subscenes/state/state_machine.tscn" id="6_2rbk8"]
+[ext_resource type="Script" path="res://src/state/Sleep.cs" id="7_4bmj3"]
+[ext_resource type="Script" path="res://src/state/idle/Attack.cs" id="8_5b51t"]
+[ext_resource type="PackedScene" uid="uid://btrxy7t83y8en" path="res://scenes/subscenes/component/health_component.tscn" id="9_s4rco"]
+[ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="10_caafp"]
+[ext_resource type="PackedScene" uid="uid://cubpk1i28p0wk" path="res://scenes/subscenes/component/weapon_component.tscn" id="12_hcuox"]
+
+[sub_resource type="Resource" id="Resource_ffxk0"]
+script = ExtResource("2_d62nn")
+ItemType = 1
+ItemId = 0
+Chance = 0.1
+MaxAmount = 1
+
+[sub_resource type="Resource" id="Resource_gjao2"]
+script = ExtResource("2_d62nn")
+ItemType = 1
+ItemId = 1
+Chance = 0.1
+MaxAmount = 1
+
+[sub_resource type="Resource" id="Resource_pyd31"]
+script = ExtResource("2_d62nn")
+ItemType = 1
+ItemId = 1
+Chance = 0.2
+MaxAmount = 1
+
+[sub_resource type="Resource" id="Resource_b47yh"]
+script = ExtResource("2_d62nn")
+ItemType = 1
+ItemId = 1
+Chance = 0.4
+MaxAmount = 1
+
+[sub_resource type="Resource" id="Resource_bkd7v"]
+script = ExtResource("2_d62nn")
+ItemType = 0
+ItemId = 19
+Chance = 0.5
+MaxAmount = 1
+
+[sub_resource type="Resource" id="Resource_a5cbf"]
+script = ExtResource("2_er123")
+DropsList = Array[Resource]([SubResource("Resource_ffxk0"), SubResource("Resource_gjao2"), SubResource("Resource_pyd31"), SubResource("Resource_b47yh"), SubResource("Resource_bkd7v")])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4hc1y"]
+size = Vector2(24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qg3us"]
+atlas = ExtResource("5_u20qk")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bpg5o"]
+atlas = ExtResource("5_u20qk")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_36p0r"]
+atlas = ExtResource("5_u20qk")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x5ip4"]
+atlas = ExtResource("5_u20qk")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1h8tp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qg3us")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bpg5o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_36p0r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x5ip4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v1r4m"]
+size = Vector2(26, 26)
+
+[sub_resource type="Animation" id="Animation_vcdr5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritesComponent/Gun:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_5rh1h"]
+resource_name = "effect_damage_blink"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritesComponent/Gun:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0.188235, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u101d"]
+_data = {
+"RESET": SubResource("Animation_vcdr5"),
+"effect_damage_blink": SubResource("Animation_5rh1h")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5qs8s"]
+size = Vector2(26, 26)
+
+[node name="Firespitter" type="CharacterBody2D" groups=["boss", "enemy"]]
+z_index = 1
+scale = Vector2(0.999024, 1)
+collision_layer = 4
+collision_mask = 111
+motion_mode = 1
+script = ExtResource("1_583oa")
+DropTable = SubResource("Resource_a5cbf")
+EntityStats = ExtResource("4_78ryk")
+metadata/BossName = "Firespitter"
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_4hc1y")
+
+[node name="MechanicsTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="SpritesComponent" parent="." instance=ExtResource("2_otwgv")]
+
+[node name="Body" type="AnimatedSprite2D" parent="SpritesComponent"]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_1h8tp")
+frame_progress = 0.229072
+
+[node name="Gun" type="Sprite2D" parent="SpritesComponent"]
+top_level = true
+z_index = 2
+texture_filter = 1
+texture = ExtResource("3_ny5x5")
+
+[node name="ParticleDeath" parent="." instance=ExtResource("5_xaa5f")]
+
+[node name="StateMachine" parent="." instance=ExtResource("6_2rbk8")]
+
+[node name="Sleep" type="Node" parent="StateMachine"]
+script = ExtResource("7_4bmj3")
+NextState = "attack"
+
+[node name="Attack" type="Node" parent="StateMachine"]
+script = ExtResource("8_5b51t")
+
+[node name="HealthComponent" parent="." instance=ExtResource("9_s4rco")]
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("HealthComponent") instance=ExtResource("10_caafp")]
+visible = false
+collision_layer = 4
+collision_mask = 27
+HealthComponent = NodePath("../HealthComponent")
+
+[node name="Hitbox" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("RectangleShape2D_v1r4m")
+
+[node name="WeaponComponent" parent="." instance=ExtResource("12_hcuox")]
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="DeathAnimationTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_u101d")
+}
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+visible = false
+collision_layer = 64
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_5qs8s")

@@ -1,4 +1,6 @@
 using BitBuster.component;
+using BitBuster.entity;
+using BitBuster.resource;
 using BitBuster.world;
 using Godot;
 
@@ -6,9 +8,9 @@ namespace BitBuster.items;
 
 public partial class ItemPickupHitbox : Area2D
 {
-	
-	[Export]
-	public StatsComponent StatsComponent { get; set; }
+
+	private EntityStats _entityStats;
+	private Global _global;
 	
 	[Export]
 	public HealthComponent HealthComponent { get; set; }
@@ -18,38 +20,55 @@ public partial class ItemPickupHitbox : Area2D
 	public override void _Ready()
 	{
 		ItemList = GetNode<Node2D>("ItemsList");
+		_entityStats = GetParent<Entity>().EntityStats;
+
+		_global = GetNode<Global>("/root/Global");
 		
-		AreaEntered += OnAreaEntered;
+		BodyEntered += OnBodyEntered;
 	}
 
-	private void OnAreaEntered(Area2D area)
+	private void OnBodyEntered(Node body)
 	{
-		if (area is not Item)
+		if (body is not Item)
+			return;
+		
+		Item item = (Item)body;
+
+		if (_entityStats.CreditCount < item.CreditCost)
 			return;
 
-		Item item = (Item)area;
+		_entityStats.CreditCount -= item.CreditCost;
+		item.SetCollisionLayerValue((int)BBCollisionLayer.Item, false);
 
 		if (item.ItemType == ItemType.Normal)
 		{
-			StatsComponent.AddItem(item);
+			_entityStats.AddItem(item);
 			ItemList.CallDeferred("add_child", item.Duplicate());
+			_global.RemoveFromCurrentItemPool(item.ItemId);
 		}
 		
 		if (item.AddedHealth > 0)
 		{
-			if (HealthComponent.CurrentHealth == HealthComponent.MaxHealth)
+			if (HealthComponent.CurrentHealth >= HealthComponent.MaxHealth)
 				return;
 			HealthComponent.Heal(item.AddedHealth);
+		}
+
+		if (item.AddedOverheal > 0)
+		{
+			if (HealthComponent.Overheal >= HealthComponent.MaxHealth)
+				return;
+			_entityStats.Overheal += item.AddedOverheal;
+			HealthComponent.Heal(0);
 		}
 		
 		item.OnPickup();
 
-		StatsComponent.BombCount += item.AddedBombs;
-		StatsComponent.CreditCount += item.AddedCredit;
-		StatsComponent.KeyCardCount += item.AddedKeyCard;
-		StatsComponent.Overheal += item.AddedOverheal;
+		_entityStats.BombCount += item.AddedBombs;
+		_entityStats.CreditCount += item.AddedCredit;
+		_entityStats.KeyCardCount += item.AddedKeyCard;
 
-		StatsComponent.EmitStatChangeSignal();
+		_entityStats.EmitStatChangeSignal();
 	}
 	
 }

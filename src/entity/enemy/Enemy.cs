@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using BitBuster.component;
 using BitBuster.entity.player;
+using BitBuster.resource;
 using BitBuster.state;
 using BitBuster.utils;
 using BitBuster.world;
@@ -10,58 +11,65 @@ using Godot.Collections;
 
 namespace BitBuster.entity.enemy;
 
-public abstract partial class Enemy: CharacterBody2D
+public abstract partial class Enemy: Entity
 {
 	public float Speed
 	{
-		get => StatsComponent.Speed;
-		set => StatsComponent.Speed = value;
+		get => EntityStats.Speed;
+		set => EntityStats.Speed = value;
 	}
 
-	protected float RotationSpeed => Speed / 25;
-	protected bool IsIdle => Velocity.Equals(Vector2.Zero);
+	private bool IsIdle => Velocity.Equals(Vector2.Zero);
 
 	public Player Player;
+	
+	protected Global Global { get; private set; }
+	protected GlobalEvents GlobalEvents { get; private set; }
 
-	protected StatsComponent StatsComponent { get; private set; }
-	protected HealthComponent HealthComponent { get; private set; }
+	[Export]
+	public DropTable DropTable { get; set; }
+	
+	public HealthComponent HealthComponent { get; private set; }
 	protected HitboxComponent HitboxComponent { get; private set; }
 	protected WeaponComponent WeaponComponent { get; private set; }
+	protected SpritesComponent SpritesComponent { get; private set; }
 
 	public VisibleOnScreenNotifier2D Notifier { get; private set; }
-	protected Timer DeathAnimationTimer { get; private set; }
 	private AnimationPlayer AnimationPlayer { get; set; }
 	
 	public Vector2 SpawnPosition { get; set; }
 	public Vector2 Target { get; set; }
 	
 	protected RandomNumberGenerator RandomNumberGenerator;
+	protected bool HasDied;
+	protected bool AnimationFinished;
 	
 	 public override void _Ready()
 	 {
+		 base._Ready();
+		 
 		 Player = GetTree().GetFirstNodeInGroup("player") as Player;
-		 
-		 StatsComponent = GetNodeOrNull<Node2D>("StatsComponent") as StatsComponent;
-		 HealthComponent = GetNodeOrNull<Node2D>("HealthComponent") as HealthComponent;
-		 HitboxComponent = GetNodeOrNull<Node2D>("HitboxComponent") as HitboxComponent;
+
+		 Global = GetNode<Global>("/root/Global");
+		 GlobalEvents = GetNode<GlobalEvents>("/root/GlobalEvents");
+
+		 HealthComponent = GetNode<Node2D>("HealthComponent") as HealthComponent;
+		 HitboxComponent = GetNode<Node2D>("HitboxComponent") as HitboxComponent;
+		 SpritesComponent = GetNode<SpritesComponent>("SpritesComponent");
+
 		 WeaponComponent = GetNodeOrNull<Node2D>("WeaponComponent") as WeaponComponent;
-		 
-		 HealthComponent.StatsComponent = StatsComponent;
+
 		 HitboxComponent.HealthComponent = HealthComponent;
-		 
-		 if (WeaponComponent != null)
-			WeaponComponent.StatsComponent = StatsComponent;
-		 
+	
+
 		 Notifier = GetNode<VisibleOnScreenNotifier2D>("VisibleOnScreenNotifier2D");
-		 DeathAnimationTimer = GetNode<Timer>("DeathAnimationTimer");
 		 AnimationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		 
 		 RandomNumberGenerator = new RandomNumberGenerator();
 		 RandomNumberGenerator.Randomize();
 		 
 		 SpawnPosition = Position;
-
-		 DeathAnimationTimer.Timeout += OnDeathAnimationTimeout;
+		 
 		 HealthComponent.HealthIsZero += OnHealthIsZero;
 		 HealthComponent.HealthChange += OnHealthChange;
 	 }
@@ -83,33 +91,74 @@ public abstract partial class Enemy: CharacterBody2D
 		switch (type)
 		{
 			case EliteType.Tough:
-				StatsComponent.MaxHealth *= 1.5f;
+				EntityStats.MaxHealth *= 1.5f;
 				SetColor(Colors.Orange);
 				break;
 			case EliteType.Quick:
-				StatsComponent.Speed *= 1.25f;
+				EntityStats.Speed *= 1.25f;
 				SetColor(Colors.Yellow);
 				break;
 			case EliteType.Deadly:
-				StatsComponent.ProjectileDamage *= 2f;
+				EntityStats.ProjectileDamage *= 2f;
 				SetColor(Colors.Red);
 				break;
 			case EliteType.Invisible:
-				SetColor(Colors.Transparent);
+				SetColor(new Color(Colors.White, 0.5f));
+				break;
+			case EliteType.Chaotic:
+				EntityStats.ProjectileWeaponType |= WeaponType.Random;
+				SetColor(Colors.LightBlue);
 				break;
 		}
 	}
 
-	private void OnHealthChange(float value)
+	public void HandleAnimations()
 	{
-		AnimationPlayer.Play("effect_damage_blink", -1D, StatsComponent.ITime / 0.2f);
+		SpritesComponent.PlayAnimation(IsIdle);
 	}
 
-	protected abstract void SetGunRotationAndPosition(float radian = 0);
-	protected abstract void SetColor(Color color);
-	protected abstract void OnHealthIsZero();
-	protected abstract void OnDeathAnimationTimeout();
+	protected bool AttemptToFree()
+	{
+		if (!HasDied)
+			return false;
+
+		if (WeaponComponent is { BombsChildren: > 0 } || WeaponComponent is { BulletsChildren: > 0 } || !AnimationFinished)
+			return false;
+
+		Logger.Log.Information(Name + " freed.");
+		QueueFree();
+		return true;
+	}
+
+	protected void HandleDrops()
+	{
+		float chance;
+		int amount;
+		
+		foreach (Drop drop in DropTable.DropsList)
+		{
+			chance = RandomNumberGenerator.Randf();
+			if (chance > drop.Chance)
+				continue;
+			amount = RandomNumberGenerator.RandiRange(1, drop.MaxAmount);
+			for (int i = 0; i < amount; i++)
+				GlobalEvents.EmitSpawnItemEventHandler(Position, (int)drop.ItemType, drop.ItemId);
+		}	
+	}
+
+	private void SetColor(Color color)
+	{
+		if (SpritesComponent.Gun != null)
+			SpritesComponent.Gun.Modulate = color;
+		if (SpritesComponent.Body != null)
+			SpritesComponent.Body.Modulate = color;
+	}
+	
+	private void OnHealthChange(float value)
+	{
+		AnimationPlayer.Play("effect_damage_blink", -1D, EntityStats.ITime / 0.2f);
+	}
 	
 	public abstract void AttackAction(double delta);
-	public abstract void HandleAnimations();
+	protected abstract void OnHealthIsZero();
 }

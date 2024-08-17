@@ -1,4 +1,5 @@
 using BitBuster.utils;
+using BitBuster.world;
 using Godot;
 using Godot.Collections;
 
@@ -6,7 +7,8 @@ namespace BitBuster.menu;
 
 public partial class RootMenu : Control
 {
-
+	private Global _global;	
+	
 	private Vector2 _originPosition;
 	private Vector2 _originSize;
 
@@ -26,11 +28,11 @@ public partial class RootMenu : Control
 	private Button _creditReturnButton;
 	private Button _playReturnButton;
 	private Button _playDeployButton;
-
-	private PackedScene _mainGamePackedScene;
 	
 	public override void _Ready()
 	{
+		_global = GetNode<Global>("/root/Global");
+		
 		_originPosition = Vector2.Zero;
 		_originSize = GetViewportRect().Size;
 		
@@ -64,8 +66,6 @@ public partial class RootMenu : Control
 		// Credit Menu Buttons
 		_creditReturnButton = _creditMenu.GetNode<Button>("VBoxContainer/BackButton");
 		_creditReturnButton.Pressed += MoveToMainMenu;
-
-		_mainGamePackedScene = ResourceLoader.Load<PackedScene>("res://scenes/subscenes/world/world.tscn");
 		
 		Logger.Log.Information("RootMenu is Ready!");
 	}
@@ -73,7 +73,7 @@ public partial class RootMenu : Control
 	private void StartGame()
 	{
 		Logger.Log.Information("Moving to Game and Level Generation...");
-		GetTree().ChangeSceneToPacked(_mainGamePackedScene);
+		GetTree().ChangeSceneToPacked(_global.GamePackedScene);
 	}
 	
 	private void QuitGame()

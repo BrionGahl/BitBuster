@@ -11,9 +11,10 @@ config_version=5
 [application]
 
 config/name="BitBuster"
+config/version="0.0.1"
 run/main_scene="res://scenes/subscenes/menu/root_menu.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://assets/menu/icon.svg"
 
 [autoload]
 
@@ -94,7 +95,7 @@ bomb={
 2d_physics/layer_3="Enemy"
 2d_physics/layer_4="Items"
 2d_physics/layer_5="Projectiles"
-2d_physics/layer_6="EnemyNoPass"
+2d_physics/layer_6="EntityNoSee"
 2d_physics/layer_7="EntityNoPass"
 
 [navigation]
@@ -104,6 +105,7 @@ bomb={
 [physics]
 
 2d/default_gravity=0.0
+2d/default_linear_damp=1.0
 2d/defaults/default_clear_color=Color(0.860369, 0.860369, 0.860369, 1)
 
 [rendering]

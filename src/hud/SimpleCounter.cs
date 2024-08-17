@@ -1,16 +1,18 @@
 using BitBuster.component;
+using BitBuster.entity.player;
+using BitBuster.resource;
 using Godot;
 
 namespace BitBuster.hud;
 
 public abstract partial class SimpleCounter: HSplitContainer
 {
-    protected StatsComponent PlayerStats;
+    protected EntityStats PlayerStats;
     protected Label Counter;
 	
     public override void _Ready()
     {
-        PlayerStats = GetTree().GetFirstNodeInGroup("player").GetNode<StatsComponent>("StatsComponent");
+        PlayerStats = ((Player)GetTree().GetFirstNodeInGroup("player")).EntityStats;
         Counter = GetNode<Label>("Counter");
         
         PlayerStats.StatChange += OnStatChange;

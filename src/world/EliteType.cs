@@ -6,4 +6,5 @@ public enum EliteType
     Quick = 1,
     Deadly = 2,
     Invisible = 3,
+    Chaotic = 4
 }

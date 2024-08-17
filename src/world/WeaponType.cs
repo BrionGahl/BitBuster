@@ -5,8 +5,9 @@ namespace BitBuster.world;
 [Flags]
 public enum WeaponType
 {
-    Normal = 0,
-    Tri = 1,
-    Laser = 2,
-    Bouncing = 4,
+    Bi = 1,
+    Tri = 2,
+    Quad = 4 | 1,
+    Random = 8,
+    
 }

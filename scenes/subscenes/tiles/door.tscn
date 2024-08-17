@@ -39,7 +39,7 @@ shader_parameter/angle = 0.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3seb1"]
 size = Vector2(16, 32)
 
-[node name="Door" type="Area2D"]
+[node name="Door" type="Area2D" groups=["bullet_no_pass"]]
 z_index = 10
 collision_mask = 2
 script = ExtResource("1_fxrn5")

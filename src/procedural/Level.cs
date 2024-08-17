@@ -12,7 +12,7 @@ public partial class Level : Node2D
 	
 	public override void _Ready()
 	{
-		_extra = GetNode<Node2D>("Extra");
+		// _extra = GetNode<Node2D>("Extra");
 		// for (int i = 0; i < Extra.GetChildCount(); i++)
 		// {
 		// 	

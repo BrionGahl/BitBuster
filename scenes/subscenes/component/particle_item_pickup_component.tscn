@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://ddckip0887shk"]
 
 [sub_resource type="Gradient" id="Gradient_rascd"]
-offsets = PackedFloat32Array(0.0301003, 0.588629, 0.876254, 1)
-colors = PackedColorArray(1, 1, 1, 1, 1, 0.980392, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0)
+offsets = PackedFloat32Array(0.0301003, 0.704412, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 0.980392, 0, 1, 0, 0, 0, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_bg820"]
 gradient = SubResource("Gradient_rascd")
@@ -17,8 +17,10 @@ initial_velocity_max = 40.0
 gravity = Vector3(0, 0, 0)
 linear_accel_min = -25.0
 linear_accel_max = -25.0
-damping_max = 10.0
-scale_max = 1.8
+damping_min = 2.0
+damping_max = 12.0
+scale_min = 0.2
+scale_max = 2.0
 color_ramp = SubResource("GradientTexture1D_bg820")
 
 [node name="ParticleItemPickupComponent" type="GPUParticles2D"]

@@ -1,54 +1,66 @@
 using BitBuster.component;
 using BitBuster.utils;
+using BitBuster.world;
 using Godot;
-using Serilog;
 
 namespace BitBuster.entity.player;
 
-public partial class Player : CharacterBody2D
+public partial class Player : Entity
 {
-	[Export]
-	private StatsComponent _statsComponent;
+	[Signal]
+	public delegate void DiedEventHandler();
+	
+	private GlobalEvents _globalEvents;
+	private Global _global;	
 
 	[Export] 
 	private WeaponComponent _weaponComponent;
 
 	[Export] 
 	private HealthComponent _healthComponent;
+
+	public bool CanEnterDoor { get; set; }
 	
 	private float Speed
 	{
-		get => _statsComponent.Speed;
-		set => _statsComponent.Speed = value;
+		get => EntityStats.Speed;
+		set => EntityStats.Speed = value;
 	}
 	private float RotationSpeed => Speed / 25;
 	private bool IsIdle => Velocity.Equals(Vector2.Zero);
 
-	private Sprite2D _gun;
+	private AnimatedSprite2D _gun;
 	private AnimatedSprite2D _hull;
 	private AnimationPlayer _animationPlayer;
+	private Timer _doorEnterTimer;
 
-	// OLD MOVEMENT
-	// private Vector2 _movementDirection;
-	// private float _rotationDirection;
-	
-	// NEW MOVEMENT
 	private Vector2 _movementDirection;
 	private float _rotationGoal;
 	private int _movementScalar;
 	
 	private bool _hasShot;
 	private bool _hasBombed;
+
+	private bool _shot;
 	
 	public override void _Ready()
 	{
 		Logger.Log.Information("Loading player...");
+		base._Ready();
+
+		_global = GetNode<Global>("/root/Global");
+		_globalEvents = GetNode<GlobalEvents>("/root/GlobalEvents");
 		
-		_gun = GetNode<Sprite2D>("Gun");
+		_gun = GetNode<AnimatedSprite2D>("Gun");
 		_hull = GetNode<AnimatedSprite2D>("Hull");
 		_animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
-
+		_doorEnterTimer = GetNode<Timer>("DoorEnterTimer");
+		CanEnterDoor = true;
+		
+		_globalEvents.IncrementAndGenerateLevel += OnIncrementAndGenerateLevel;
+		_doorEnterTimer.Timeout += OnDoorEnterTimeout;
 		_healthComponent.HealthChange += OnHealthChange;
+		_healthComponent.HealthIsZero += OnHealthIsZero;
 	}
 	
 	public override void _Process(double delta)
@@ -57,38 +69,30 @@ public partial class Player : CharacterBody2D
 		SetGunRotationAndPosition();
 		
 		if (_hasShot)
-			_weaponComponent.AttemptShoot(GetGlobalMousePosition().AngleToPoint(Position));
+			_shot = _weaponComponent.AttemptShoot(GetGlobalMousePosition().AngleToPoint(Position));
 
 		if (_hasBombed)
-			_weaponComponent.AttemptBomb();
+			_weaponComponent.AttemptBomb(Position);
 		
 		HandleRotation();
-		
-		// OLD MOVEMENT
-		// if (!IsIdle)
-		// 	Rotation += _rotationDirection * RotationSpeed * (float)delta;
-		
-		
 		HandleAnimations();
 	}
 	
 	public override void _PhysicsProcess(double delta)
 	{
-		// OLD MOVEMENT
-		// Velocity = _movementDirection * Speed;
-		
 		Velocity = _movementDirection.Normalized() * _movementScalar * Speed;
 		
 		MoveAndSlide();
 	}
+
+	public void EnterDoor()
+	{
+		CanEnterDoor = false;
+		_doorEnterTimer.Start();
+	}
 	
 	private void GetInput() 
 	{
-		// OLD MOVEMENT
-		// _rotationDirection = Input.GetAxis("left", "right");
-		// _movementDirection = Transform.X * Input.GetAxis("down", "up");
-
-		// NEW MOVEMENT
 		_movementDirection = new Vector2(
 			Input.GetAxis("left", "right"), 
 			Input.GetAxis("up", "down"));
@@ -105,11 +109,12 @@ public partial class Player : CharacterBody2D
 
 	private void HandleAnimations()
 	{
+		_gun.Animation = !_hasShot ? "default" : "shot"; 
+		_gun.Play();
 		_hull.Animation = IsIdle ? "default" : "moving";
 		_hull.Play();
 	}
 
-	// NEW MOVEMENT
 	private void HandleRotation()
 	{
 		if (_movementDirection == Vector2.Zero)
@@ -136,11 +141,40 @@ public partial class Player : CharacterBody2D
 		Rotation = Mathf.LerpAngle(rotationVector.Angle(), _rotationGoal, 0.05f);
 	}
 	
+	private void OnIncrementAndGenerateLevel()
+	{
+		EntityStats.Overheal += EntityStats.OverhealRegen;
+	}
+	
 	private void OnHealthChange(float value)
 	{
 		if (value < 0)
-			_animationPlayer.Play("effect_damage_blink", -1D, _statsComponent.ITime / 0.2f);
+			_animationPlayer.Play("effect_damage_blink", -1D, EntityStats.ITime / 0.2f);
 		else
-			_animationPlayer.Play("effect_heal_blink", -1D);
+			_animationPlayer.Play("effect_heal_blink");
+	}
+
+	protected override void OnDeathAnimationTimeout()
+	{
+		Logger.Log.Information("Moving to main menu...");
+		GetTree().ChangeSceneToPacked(_global.MainMenuPackedScene);
+	}
+	
+	private void OnHealthIsZero()
+	{
+		EmitSignal(SignalName.Died);
+		_hull.Visible = false;
+		_gun.Visible = false;
+		
+		_hasShot = true;
+		_hasBombed = true;
+		Speed = 0;
+		ParticleDeath.Emitting = true;
+		DeathAnimationTimer.Start();
+	}
+
+	private void OnDoorEnterTimeout()
+	{
+		CanEnterDoor = true;
 	}
 }

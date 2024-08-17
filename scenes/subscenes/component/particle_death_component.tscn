@@ -1,42 +1,36 @@
-[gd_scene load_steps=6 format=3 uid="uid://6d0b62fihn27"]
+[gd_scene load_steps=4 format=3 uid="uid://6d0b62fihn27"]
 
 [sub_resource type="Gradient" id="Gradient_r4e7b"]
-offsets = PackedFloat32Array(0, 0.157767, 0.177184, 0.303398, 0.32767, 0.640777, 0.657767, 1)
-colors = PackedColorArray(0.95, 0.918333, 0, 1, 0.909804, 0.678431, 0, 1, 0.843137, 0.505882, 0, 1, 0.756863, 0.34902, 0, 1, 0.639216, 0.184314, 0, 1, 0.427451, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0)
+offsets = PackedFloat32Array(0, 0.157767, 0.177184, 0.303398, 0.32767, 0.55102, 1)
+colors = PackedColorArray(0.95, 0.918333, 0, 1, 0.909804, 0.678431, 0, 1, 0.843137, 0.505882, 0, 1, 0.756863, 0.34902, 0, 1, 0.639216, 0.184314, 0, 1, 0.427451, 0, 0, 1, 0, 0, 0, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_5xmcu"]
 gradient = SubResource("Gradient_r4e7b")
 
-[sub_resource type="Curve" id="Curve_p0no5"]
-max_value = 1.8
-_data = [Vector2(0, 1.8), 0.0, 0.0, 0, 0, Vector2(0.647727, 1.39863), 0.0, 0.0, 0, 0, Vector2(0.802273, 1.08756), 0.0, 0.0, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 5
-
-[sub_resource type="CurveTexture" id="CurveTexture_dovjb"]
-curve = SubResource("Curve_p0no5")
-
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1bstf"]
 lifetime_randomness = 0.3
 particle_flag_disable_z = true
-emission_shape = 3
-emission_box_extents = Vector3(8, 8, 1)
-angle_min = -15.0
-angle_max = 15.0
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 8.0
+emission_ring_inner_radius = 0.0
+angle_max = 360.0
 direction = Vector3(0, 0, 0)
-spread = 180.0
-initial_velocity_min = 30.0
-initial_velocity_max = 240.0
-angular_velocity_min = 60.0
-angular_velocity_max = 240.0
+initial_velocity_min = 5.0
+initial_velocity_max = 5.0
+radial_velocity_min = 15.0
+radial_velocity_max = 20.0
 gravity = Vector3(0, 0, 0)
-damping_min = 20.0
-damping_max = 120.0
-scale_curve = SubResource("CurveTexture_dovjb")
+damping_min = 2.0
+damping_max = 12.0
+scale_min = 0.2
+scale_max = 2.0
 color_ramp = SubResource("GradientTexture1D_5xmcu")
 
 [node name="ParticleDeath" type="GPUParticles2D"]
 emitting = false
-amount = 64
+amount = 128
 process_material = SubResource("ParticleProcessMaterial_1bstf")
 lifetime = 2.0
 one_shot = true

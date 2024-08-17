@@ -1,0 +1,152 @@
+[gd_scene load_steps=20 format=3 uid="uid://brjodfaf528jb"]
+
+[ext_resource type="Script" path="res://src/entity/enemy/idle/DefaultTower.cs" id="1_o41vq"]
+[ext_resource type="PackedScene" uid="uid://bppxui41cpc02" path="res://scenes/subscenes/component/sprites_component.tscn" id="2_f8vbl"]
+[ext_resource type="Resource" uid="uid://bjpwk2vnrlbvh" path="res://scenes/resources/drops/default_drop_table.tres" id="2_fih6i"]
+[ext_resource type="Resource" uid="uid://4c7nni5rn2jo" path="res://scenes/resources/entity/enemy/idle/tower_cannon_stats.tres" id="2_lch6m"]
+[ext_resource type="PackedScene" uid="uid://6d0b62fihn27" path="res://scenes/subscenes/component/particle_death_component.tscn" id="2_wuqug"]
+[ext_resource type="PackedScene" uid="uid://dpul1hjxi1dkq" path="res://scenes/subscenes/state/state_machine.tscn" id="3_kbd2q"]
+[ext_resource type="Script" path="res://src/state/Sleep.cs" id="4_5vfpi"]
+[ext_resource type="Script" path="res://src/state/idle/Attack.cs" id="5_4xtfs"]
+[ext_resource type="Texture2D" uid="uid://biwpeqay18fu3" path="res://assets/enemy/entity_cannon_turret_gun.png" id="6_hbcnb"]
+[ext_resource type="Texture2D" uid="uid://i1u1ox1lxss6" path="res://assets/enemy/entity_cannon_turret.png" id="7_ld3nw"]
+[ext_resource type="PackedScene" uid="uid://btrxy7t83y8en" path="res://scenes/subscenes/component/health_component.tscn" id="8_olmoe"]
+[ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="9_ohkuo"]
+[ext_resource type="PackedScene" uid="uid://cubpk1i28p0wk" path="res://scenes/subscenes/component/weapon_component.tscn" id="11_xnwib"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4hc1y"]
+size = Vector2(10, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v1r4m"]
+size = Vector2(12, 12)
+
+[sub_resource type="Animation" id="Animation_vcdr5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritesComponent/Gun:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpritesComponent/Body:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_5rh1h"]
+resource_name = "effect_damage_blink"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritesComponent/Gun:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0.188235, 0, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpritesComponent/Body:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0.188235, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u101d"]
+_data = {
+"RESET": SubResource("Animation_vcdr5"),
+"effect_damage_blink": SubResource("Animation_5rh1h")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5qs8s"]
+size = Vector2(12, 12)
+
+[node name="TowerCannon" type="CharacterBody2D" groups=["enemy"]]
+z_index = 1
+collision_layer = 4
+collision_mask = 111
+motion_mode = 1
+script = ExtResource("1_o41vq")
+DropTable = ExtResource("2_fih6i")
+EntityStats = ExtResource("2_lch6m")
+
+[node name="SpritesComponent" parent="." instance=ExtResource("2_f8vbl")]
+
+[node name="Body" type="Sprite2D" parent="SpritesComponent"]
+z_index = 1
+texture_filter = 1
+use_parent_material = true
+texture = ExtResource("7_ld3nw")
+
+[node name="Gun" type="Sprite2D" parent="SpritesComponent"]
+top_level = true
+z_index = 2
+texture_filter = 1
+texture = ExtResource("6_hbcnb")
+
+[node name="ParticleDeath" parent="." instance=ExtResource("2_wuqug")]
+
+[node name="StateMachine" parent="." instance=ExtResource("3_kbd2q")]
+
+[node name="Sleep" type="Node" parent="StateMachine"]
+script = ExtResource("4_5vfpi")
+NextState = "attack"
+
+[node name="Attack" type="Node" parent="StateMachine"]
+script = ExtResource("5_4xtfs")
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_4hc1y")
+
+[node name="HealthComponent" parent="." instance=ExtResource("8_olmoe")]
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("HealthComponent") instance=ExtResource("9_ohkuo")]
+collision_layer = 4
+collision_mask = 27
+HealthComponent = NodePath("../HealthComponent")
+
+[node name="Hitbox" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("RectangleShape2D_v1r4m")
+
+[node name="WeaponComponent" parent="." instance=ExtResource("11_xnwib")]
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="DeathAnimationTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_u101d")
+}
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 64
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_5qs8s")

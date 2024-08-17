@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c4g61mo4wfsdd"]
+[gd_scene load_steps=8 format=3 uid="uid://c4g61mo4wfsdd"]
 
 [ext_resource type="Script" path="res://src/hud/HealthBarWithDelta.cs" id="1_2ysb8"]
 [ext_resource type="Texture2D" uid="uid://bb70urfajlvvq" path="res://assets/hud/bar_overlay.png" id="2_dul06"]
@@ -7,6 +7,9 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_edfnh"]
 bg_color = Color(0.72, 0.0864, 0.0864, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mgw6a"]
+bg_color = Color(0, 0.427451, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_80l05"]
 bg_color = Color(0, 0, 0, 1)
@@ -25,14 +28,25 @@ bg_color = Color(0.36, 0, 0, 1)
 
 [node name="HealthBar" type="ProgressBar"]
 z_index = 3
-offset_right = 48.0
-offset_bottom = 16.0
+offset_right = 1.0
+offset_bottom = 1.0
 theme_override_styles/background = SubResource("StyleBoxEmpty_e27wu")
 theme_override_styles/fill = SubResource("StyleBoxFlat_edfnh")
 step = 1.0
 value = 20.0
 show_percentage = false
 script = ExtResource("1_2ysb8")
+
+[node name="OverhealBar" type="ProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_mgw6a")
+step = 1.0
+show_percentage = false
 
 [node name="DeltaBar" type="ProgressBar" parent="."]
 z_index = -1

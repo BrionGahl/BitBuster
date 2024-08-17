@@ -11,6 +11,8 @@ public partial class HealthBarWithDelta : ProgressBar
 	private HealthComponent _playerHealthComponent;
 
 	private ProgressBar _deltaBar;
+	private ProgressBar _overhealBar;
+	
 	private Timer _timer;
 	private TextureRect _overlay;
 	
@@ -18,6 +20,7 @@ public partial class HealthBarWithDelta : ProgressBar
 	{
 		_playerHealthComponent = GetTree().GetFirstNodeInGroup("player").GetNode<HealthComponent>("HealthComponent");
 		_deltaBar = GetNode<ProgressBar>("DeltaBar");
+		_overhealBar = GetNode<ProgressBar>("OverhealBar");
 		_timer = GetNode<Timer>("Timer");
 		_overlay = GetNode<TextureRect>("Overlay");
 
@@ -28,6 +31,10 @@ public partial class HealthBarWithDelta : ProgressBar
 		_deltaBar.MaxValue = _playerHealthComponent.MaxHealth;
 		_deltaBar.Value = _playerHealthComponent.CurrentHealth;
 		_deltaBar.MinValue = 0;
+
+		_overhealBar.MaxValue = _playerHealthComponent.MaxHealth;
+		_overhealBar.Value = _playerHealthComponent.Overheal;
+		_overhealBar.MinValue = 0;
 		
 		_playerHealthComponent.HealthChange += OnHealthChange;
 		_timer.Timeout += OnDeltaTimeout;
@@ -39,6 +46,9 @@ public partial class HealthBarWithDelta : ProgressBar
 	{
 		MaxValue = _playerHealthComponent.MaxHealth;
 		Value = _playerHealthComponent.CurrentHealth;
+
+		_overhealBar.MaxValue = _playerHealthComponent.MaxHealth;
+		_overhealBar.Value = _playerHealthComponent.Overheal;
 
 		Size = new Vector2(_playerHealthComponent.MaxHealth * 16, 16);
 

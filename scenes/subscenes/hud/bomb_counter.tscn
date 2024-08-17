@@ -5,13 +5,14 @@
 [ext_resource type="Theme" uid="uid://c8qs8rvxfk3jf" path="res://assets/menu/default_theme.tres" id="3_2pdbp"]
 
 [node name="BombCounter" type="HSplitContainer"]
+dragger_visibility = 1
 script = ExtResource("1_rcyvl")
 
 [node name="BombImage" type="TextureRect" parent="."]
 texture_filter = 1
 layout_mode = 2
 texture = ExtResource("2_uyg48")
-stretch_mode = 6
+stretch_mode = 5
 
 [node name="Counter" type="Label" parent="."]
 texture_filter = 1

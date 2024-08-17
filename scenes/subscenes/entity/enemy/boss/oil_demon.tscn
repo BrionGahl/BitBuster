@@ -1,0 +1,269 @@
+[gd_scene load_steps=36 format=3 uid="uid://cinrksr1jrvdf"]
+
+[ext_resource type="Script" path="res://src/entity/enemy/boss/OilDemon.cs" id="1_dnjpi"]
+[ext_resource type="Script" path="res://src/resource/Drop.cs" id="2_3gatg"]
+[ext_resource type="Resource" uid="uid://brw1d0rskcswv" path="res://scenes/resources/entity/enemy/boss/oil_demon_stats.tres" id="2_8wjd4"]
+[ext_resource type="Script" path="res://src/resource/DropTable.cs" id="3_2kp2r"]
+[ext_resource type="PackedScene" uid="uid://bppxui41cpc02" path="res://scenes/subscenes/component/sprites_component.tscn" id="3_javdy"]
+[ext_resource type="Texture2D" uid="uid://c6pqs7wl2ovsx" path="res://assets/boss/oil_demon_body.png" id="4_7lyj3"]
+[ext_resource type="Texture2D" uid="uid://bevpsmu0dkmnr" path="res://assets/boss/oil_demon_gun.png" id="6_d5h6x"]
+[ext_resource type="PackedScene" uid="uid://6d0b62fihn27" path="res://scenes/subscenes/component/particle_death_component.tscn" id="7_w4u8a"]
+[ext_resource type="PackedScene" uid="uid://dpul1hjxi1dkq" path="res://scenes/subscenes/state/state_machine.tscn" id="8_hdf2l"]
+[ext_resource type="Script" path="res://src/state/Sleep.cs" id="9_dwxsi"]
+[ext_resource type="Script" path="res://src/state/moveable/Pursue.cs" id="10_oi5pt"]
+[ext_resource type="Script" path="res://src/state/moveable/Evade.cs" id="11_yt6g2"]
+[ext_resource type="Script" path="res://src/state/moveable/Pace.cs" id="12_1pyun"]
+[ext_resource type="PackedScene" uid="uid://btrxy7t83y8en" path="res://scenes/subscenes/component/health_component.tscn" id="13_juq2q"]
+[ext_resource type="PackedScene" uid="uid://cubpk1i28p0wk" path="res://scenes/subscenes/component/weapon_component.tscn" id="14_4o2w2"]
+[ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="15_m1oyy"]
+[ext_resource type="PackedScene" uid="uid://btdrka86pvjsd" path="res://scenes/subscenes/component/track_trail_component.tscn" id="16_gj2e2"]
+
+[sub_resource type="Resource" id="Resource_ffxk0"]
+script = ExtResource("2_3gatg")
+ItemType = 1
+ItemId = 0
+Chance = 0.1
+MaxAmount = 1
+
+[sub_resource type="Resource" id="Resource_gjao2"]
+script = ExtResource("2_3gatg")
+ItemType = 1
+ItemId = 1
+Chance = 0.1
+MaxAmount = 1
+
+[sub_resource type="Resource" id="Resource_pyd31"]
+script = ExtResource("2_3gatg")
+ItemType = 1
+ItemId = 2
+Chance = 0.2
+MaxAmount = 1
+
+[sub_resource type="Resource" id="Resource_b47yh"]
+script = ExtResource("2_3gatg")
+ItemType = 1
+ItemId = 3
+Chance = 0.4
+MaxAmount = 4
+
+[sub_resource type="Resource" id="Resource_i7628"]
+script = ExtResource("2_3gatg")
+ItemType = 0
+ItemId = 6
+Chance = 0.5
+MaxAmount = 1
+
+[sub_resource type="Resource" id="Resource_ji7bw"]
+script = ExtResource("3_2kp2r")
+DropsList = Array[Resource]([SubResource("Resource_ffxk0"), SubResource("Resource_gjao2"), SubResource("Resource_pyd31"), SubResource("Resource_b47yh"), SubResource("Resource_i7628")])
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gbvby"]
+radius = 15.0
+height = 32.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t75sh"]
+atlas = ExtResource("4_7lyj3")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ur77"]
+atlas = ExtResource("4_7lyj3")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d7ewv"]
+atlas = ExtResource("4_7lyj3")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pkkcn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t75sh")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ur77")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d7ewv")
+}],
+"loop": true,
+"name": &"moving",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lwtah"]
+atlas = ExtResource("6_d5h6x")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ykmg0"]
+atlas = ExtResource("6_d5h6x")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_413qx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lwtah")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ykmg0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6yacv"]
+size = Vector2(30, 30)
+
+[sub_resource type="Animation" id="Animation_sgyqk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritesComponent/Gun:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpritesComponent/Hull:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_bpk2u"]
+resource_name = "effect_damage_blink"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritesComponent/Gun:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0.188235, 0, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpritesComponent/Hull:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0.188235, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4jgg4"]
+_data = {
+"RESET": SubResource("Animation_sgyqk"),
+"effect_damage_blink": SubResource("Animation_bpk2u")
+}
+
+[node name="OilDemon" type="CharacterBody2D" groups=["boss", "enemy"]]
+z_index = 1
+collision_layer = 4
+collision_mask = 111
+motion_mode = 1
+script = ExtResource("1_dnjpi")
+DropTable = SubResource("Resource_ji7bw")
+EntityStats = ExtResource("2_8wjd4")
+metadata/BossName = "Oil Demon"
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_gbvby")
+
+[node name="SpritesComponent" parent="." instance=ExtResource("3_javdy")]
+
+[node name="Hull" type="AnimatedSprite2D" parent="SpritesComponent"]
+z_index = 1
+texture_filter = 1
+use_parent_material = true
+rotation = 1.5708
+sprite_frames = SubResource("SpriteFrames_pkkcn")
+
+[node name="Gun" type="AnimatedSprite2D" parent="SpritesComponent"]
+top_level = true
+z_index = 3
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_413qx")
+autoplay = "default"
+frame_progress = 0.701801
+
+[node name="ParticleDeath" parent="." instance=ExtResource("7_w4u8a")]
+
+[node name="StateMachine" parent="." instance=ExtResource("8_hdf2l")]
+
+[node name="Sleep" type="Node" parent="StateMachine"]
+script = ExtResource("9_dwxsi")
+NextState = "pursue"
+
+[node name="Pursue" type="Node" parent="StateMachine"]
+script = ExtResource("10_oi5pt")
+
+[node name="Evade" type="Node" parent="StateMachine"]
+script = ExtResource("11_yt6g2")
+
+[node name="Pace" type="Node" parent="StateMachine"]
+script = ExtResource("12_1pyun")
+
+[node name="HealthComponent" parent="." instance=ExtResource("13_juq2q")]
+
+[node name="WeaponComponent" parent="." instance=ExtResource("14_4o2w2")]
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("HealthComponent") instance=ExtResource("15_m1oyy")]
+collision_layer = 4
+collision_mask = 27
+HealthComponent = NodePath("../HealthComponent")
+
+[node name="Hitbox" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(0, -2.38419e-07)
+shape = SubResource("RectangleShape2D_6yacv")
+
+[node name="TrackTrailComponent" parent="." instance=ExtResource("16_gj2e2")]
+
+[node name="Agent" type="NavigationAgent2D" parent="."]
+path_desired_distance = 8.0
+target_desired_distance = 16.0
+path_postprocessing = 1
+radius = 8.0
+avoidance_layers = 4
+avoidance_mask = 4
+
+[node name="Timer" type="Timer" parent="Agent"]
+wait_time = 0.3
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="DeathAnimationTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4jgg4")
+}
+
+[node name="MechanicsTimer" type="Timer" parent="."]
+wait_time = 5.0

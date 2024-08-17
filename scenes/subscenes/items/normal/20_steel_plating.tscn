@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://bfjahv86jalt0"]
+
+[ext_resource type="Script" path="res://src/items/Item.cs" id="1_2qyva"]
+[ext_resource type="Texture2D" uid="uid://bfaxbmdo64stn" path="res://assets/items/normal/item_steel_plating.png" id="2_kfexg"]
+[ext_resource type="PackedScene" uid="uid://ddckip0887shk" path="res://scenes/subscenes/component/particle_item_pickup_component.tscn" id="3_vd6do"]
+[ext_resource type="Theme" uid="uid://c8qs8rvxfk3jf" path="res://assets/menu/default_theme.tres" id="4_c0b41"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k1piv"]
+size = Vector2(16, 16)
+
+[node name="SteelPlating" type="RigidBody2D" groups=["item"]]
+z_index = 1
+collision_layer = 8
+collision_mask = 73
+script = ExtResource("1_2qyva")
+ItemId = 20
+ItemName = "Steel Plating"
+ItemDescription = "Real heavy duty stuff... +2 Health"
+CreditCost = 10
+AddedHealth = 2.0
+MaxHealth = 2.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_k1piv")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_kfexg")
+
+[node name="ParticleItemPickupComponent" parent="." instance=ExtResource("3_vd6do")]
+
+[node name="PriceLabel" type="Label" parent="."]
+texture_filter = 1
+offset_left = -7.0
+offset_top = 7.0
+offset_right = 7.0
+offset_bottom = 23.0
+theme = ExtResource("4_c0b41")
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0.262745)
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+vertical_alignment = 1

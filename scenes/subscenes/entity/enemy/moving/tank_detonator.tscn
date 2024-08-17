@@ -1,0 +1,167 @@
+[gd_scene load_steps=25 format=3 uid="uid://bnh75c1b1t0ty"]
+
+[ext_resource type="Resource" uid="uid://bjpwk2vnrlbvh" path="res://scenes/resources/drops/default_drop_table.tres" id="2_b436w"]
+[ext_resource type="PackedScene" uid="uid://bppxui41cpc02" path="res://scenes/subscenes/component/sprites_component.tscn" id="2_dpq02"]
+[ext_resource type="Script" path="res://src/entity/enemy/moving/TankDetonator.cs" id="2_rcjrj"]
+[ext_resource type="Resource" uid="uid://bpn4e5simfvq5" path="res://scenes/resources/entity/enemy/moving/tank_detonator_stats.tres" id="3_4tdxk"]
+[ext_resource type="PackedScene" uid="uid://dpul1hjxi1dkq" path="res://scenes/subscenes/state/state_machine.tscn" id="3_q6oiw"]
+[ext_resource type="Script" path="res://src/state/Sleep.cs" id="4_a81sq"]
+[ext_resource type="Script" path="res://src/state/moveable/Ram.cs" id="5_n83au"]
+[ext_resource type="Shader" path="res://assets/shaders/bomb_blink.gdshader" id="6_drmaf"]
+[ext_resource type="Texture2D" uid="uid://bhqm8i2mfndsc" path="res://assets/enemy/entity_detonator.png" id="7_3l68l"]
+[ext_resource type="PackedScene" uid="uid://btrxy7t83y8en" path="res://scenes/subscenes/component/health_component.tscn" id="9_4twjh"]
+[ext_resource type="PackedScene" uid="uid://btdrka86pvjsd" path="res://scenes/subscenes/component/track_trail_component.tscn" id="10_n6rug"]
+[ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="11_idnin"]
+[ext_resource type="PackedScene" uid="uid://2m2pbclf1iur" path="res://scenes/subscenes/component/exploding_component.tscn" id="12_pk6fm"]
+[ext_resource type="PackedScene" uid="uid://6d0b62fihn27" path="res://scenes/subscenes/component/particle_death_component.tscn" id="14_2icgf"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qyxbd"]
+radius = 6.0
+height = 12.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c4pxw"]
+shader = ExtResource("6_drmaf")
+shader_parameter/end_time = 1.5
+shader_parameter/start_freq = 1.0
+shader_parameter/end_freq = 10.0
+shader_parameter/time = null
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/blink_length = 0.5
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_284vp"]
+atlas = ExtResource("7_3l68l")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uaid7"]
+atlas = ExtResource("7_3l68l")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ir6r8"]
+atlas = ExtResource("7_3l68l")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1jxot"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_284vp")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uaid7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ir6r8")
+}],
+"loop": true,
+"name": &"moving",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8pmvs"]
+size = Vector2(16, 16)
+
+[sub_resource type="Animation" id="Animation_0cnnw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritesComponent/Hull:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_svvht"]
+resource_name = "effect_damage_blink"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritesComponent/Hull:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0.188235, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gu0m7"]
+_data = {
+"RESET": SubResource("Animation_0cnnw"),
+"effect_damage_blink": SubResource("Animation_svvht")
+}
+
+[node name="Detonator" type="CharacterBody2D" groups=["enemy"]]
+collision_layer = 4
+collision_mask = 111
+script = ExtResource("2_rcjrj")
+DropTable = ExtResource("2_b436w")
+EntityStats = ExtResource("3_4tdxk")
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_qyxbd")
+
+[node name="SpritesComponent" parent="." instance=ExtResource("2_dpq02")]
+
+[node name="Hull" type="AnimatedSprite2D" parent="SpritesComponent"]
+z_index = 1
+texture_filter = 1
+material = SubResource("ShaderMaterial_c4pxw")
+rotation = 1.5708
+sprite_frames = SubResource("SpriteFrames_1jxot")
+animation = &"moving"
+frame_progress = 0.641959
+
+[node name="StateMachine" parent="." instance=ExtResource("3_q6oiw")]
+
+[node name="Sleep" type="Node" parent="StateMachine"]
+script = ExtResource("4_a81sq")
+NextState = "ram"
+
+[node name="Ram" type="Node" parent="StateMachine"]
+script = ExtResource("5_n83au")
+
+[node name="HealthComponent" parent="." instance=ExtResource("9_4twjh")]
+
+[node name="TrackTrailComponent" parent="." instance=ExtResource("10_n6rug")]
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("HealthComponent") instance=ExtResource("11_idnin")]
+collision_layer = 4
+collision_mask = 27
+HealthComponent = NodePath("../HealthComponent")
+
+[node name="Hitbox" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(2.38419e-07, -1.04216e-14)
+shape = SubResource("RectangleShape2D_8pmvs")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="Agent" type="NavigationAgent2D" parent="."]
+path_desired_distance = 8.0
+target_desired_distance = 16.0
+
+[node name="Timer" type="Timer" parent="Agent"]
+wait_time = 0.3
+
+[node name="DeathAnimationTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="ExplodingComponent" parent="." instance=ExtResource("12_pk6fm")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_gu0m7")
+}
+
+[node name="ParticleDeath" parent="." instance=ExtResource("14_2icgf")]

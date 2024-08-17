@@ -29,8 +29,6 @@ public partial class World : Node2D
 	private Global _global;
 	private GlobalEvents _globalEvents;
 	
-	private List<PackedScene> _availableLootPool;
-	
 	private NavigationRegion2D _levelRegion;
 	private TileMap _levelMain;
 	private TileMap _levelSemi;
@@ -56,15 +54,38 @@ public partial class World : Node2D
 		
 		_levelPlayer = GetNode<CharacterBody2D>("Level/Player") as Player;
 		
-		_availableLootPool = new List<PackedScene>(_global.CompleteItemPoolList);
+		_global.PrepareCurrentRunItemPool();
 		_random = new RandomNumberGenerator();
 		
 		_globalEvents.IncrementAndGenerateLevel += OnIncrementAndGenerateLevel;
 		_globalEvents.BakeNavigationMesh += OnBakeNavigationMesh;
+		_globalEvents.SpawnItem += OnSpawnItem;
 		
 		GenerateLevel();
 	}
 
+	private void SpawnItem(Vector2 position, int itemType, int itemId, bool isMoving = false, int costMultiplier = 0)
+	{
+		Item item;
+		if ((ItemType)itemType == ItemType.Normal)
+		{
+			if (!_global.CurrentRunItemPoolList.ContainsKey(itemId))
+				return;
+			item = _global.CurrentRunItemPoolList[itemId].Instantiate<Item>();
+		}
+		else if ((ItemType)itemType == ItemType.Pickup)
+			item = _global.CompletePickupPoolList[itemId].Instantiate<Item>();
+		else
+			return;
+		
+		item.Position = position;
+		item.CreditCost *= costMultiplier;
+		
+		_levelExtra.CallDeferred("add_child", item);
+		
+		if (isMoving)
+			item.SetRandomVelocity();
+	}
 
 	private void GenerateLevel()
 	{
@@ -85,10 +106,10 @@ public partial class World : Node2D
 		_levelSemi.Clear();
 		
 		foreach(Node child in _levelBakeable.GetChildren())
-			child.QueueFree();
+			child.Free();
 		
 		foreach (Node child in _levelExtra.GetChildren())
-			child.QueueFree();
+			child.Free();
 	}
 
 	private void OnIncrementAndGenerateLevel()
@@ -103,6 +124,11 @@ public partial class World : Node2D
 	{
 		Logger.Log.Information("Rebakeing...");
 		_levelRegion.BakeNavigationPolygon();
+	}
+	
+	private void OnSpawnItem(Vector2 position, int itemType, int itemId)
+	{
+		SpawnItem(position, itemType, itemId, true);
 	}
 
 	private void GenerateMap()
@@ -283,12 +309,13 @@ public partial class World : Node2D
 		switch (type)
 		{
 			case (RoomType.TREASURE):
-				int itemToSpawn = _random.RandiRange(0, _availableLootPool.Count - 1);
-				Item item = _availableLootPool[itemToSpawn].Instantiate<Area2D>() as Item; // TODO: Error on levels post item count...
-				_availableLootPool.RemoveAt(itemToSpawn);
+				SpawnItem(worldOffset + new Vector2I(160, 160), (int)ItemType.Normal, _random.RandiRange(0, _global.CurrentRunItemPoolList.Count - 1));
+				break;
 			
-				item.Position += worldOffset + new Vector2I(160, 160);
-				_levelExtra.AddChild(item);
+			case (RoomType.STORE):
+				SpawnItem(worldOffset + new Vector2I(120, 160), (int)ItemType.Pickup, _random.RandiRange(0, _global.CompletePickupPoolList.Count - 2), false, 1 - _levelPlayer.EntityStats.Luck / 10);
+				SpawnItem(worldOffset + new Vector2I(160, 160), (int)ItemType.Normal, _random.RandiRange(0, _global.CurrentRunItemPoolList.Count - 1), false, 1 - _levelPlayer.EntityStats.Luck / 10);
+				SpawnItem(worldOffset + new Vector2I(200, 160), (int)ItemType.Pickup, _random.RandiRange(0, _global.CompletePickupPoolList.Count - 2), false, 1 - _levelPlayer.EntityStats.Luck / 10);
 				break;
 		}
 		
@@ -302,21 +329,20 @@ public partial class World : Node2D
 			if (newObject.IsInGroup(Groups.GroupPlayer))
 			{
 				_levelPlayer.Position = newObject.Position;
-				Logger.Log.Information(newObject.Position.ToString());
 				newObject.QueueFree();
 				continue;
 			}
 			
 			if (newObject.IsInGroup(Groups.GroupEnemy))
-				(newObject as Enemy).SpawnPosition = newObject.Position;
+				((Enemy)newObject).SpawnPosition = newObject.Position;
 			
 			_levelExtra.AddChild(newObject);
 			
-			if (newObject.IsInGroup(Groups.GroupEnemy))
+			if (newObject.IsInGroup(Groups.GroupEnemy) && !newObject.IsInGroup(Groups.GroupBoss))
 			{
 				float chance = 1 - Mathf.Log(_global.WorldLevel * 1.15f);
-				if (_random.Randf() > 0)
-					(newObject as Enemy).MakeElite((EliteType)_random.RandiRange(0, 3));
+				if (_random.Randf() > chance)
+					((Enemy)newObject).MakeElite((EliteType)_random.RandiRange(0, 4));
 			}
 		}
 		
@@ -328,7 +354,6 @@ public partial class World : Node2D
 				Door door = _doorScene.Instantiate<Area2D>() as Door;
 				door.SetDoorInfo(((Vector2)data.TileMap[i].Direction).Angle(), data.TileMap[i].Offset * _rooms.CellSize + worldOffset, data.TileMap[i].Direction * 32);
 				_levelBakeable.AddChild(door);
-				door.FinalizeDoor();
 				continue; 
 			}
 			

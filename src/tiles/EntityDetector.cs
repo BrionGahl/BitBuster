@@ -29,6 +29,9 @@ public partial class EntityDetector : Area2D
 		{
 			if (entity.IsInGroup(Groups.GroupEnemy))
 				EnemyCount++;
+
+			if (entity.IsInGroup(Groups.GroupBoss))
+				_globalEvents.EmitBossRoomEnterSignal((Enemy)entity);
 		}
 
 		if (EnemyCount > 0)
