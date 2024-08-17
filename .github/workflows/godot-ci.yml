@@ -31,10 +31,13 @@ jobs:
           mkdir -v -p build/windows
           godot --headless --verbose --export-release "Windows Desktop" ./build/windows/$EXPORT_NAME.exe
       - name: Upload Artifact
+        id: artifact-upload-step
         uses: actions/upload-artifact@v1
         with:
           name: windows
           path: build/windows
+      - name: Output artifact URL
+        run:  echo 'Artifact URL is ${{ steps.artifact-upload-step.outputs.artifact-url }}'
 
   export-linux:
     name: Linux Export
@@ -59,7 +62,10 @@ jobs:
           mkdir -v -p build/linux
           godot --headless --verbose --export-release "Linux/X11" ./build/linux/$EXPORT_NAME.x86_64
       - name: Upload Artifact
+        id: artifact-upload-step
         uses: actions/upload-artifact@v1
         with:
           name: linux
           path: build/linux
+      - name: Output artifact URL
+        run:  echo 'Artifact URL is ${{ steps.artifact-upload-step.outputs.artifact-url }}'
