@@ -85,4 +85,10 @@ public partial class Minimap: TextureRect
 			child.QueueFree();
 		}
 	} 
+	
+	protected override void Dispose(bool disposing) {
+		_globalEvents.RoomEnter -= OnPlayerEnterRoom;
+		_globalEvents.IncrementAndGenerateLevel -= OnIncrementAndGenerateLevel;
+		base.Dispose(disposing);
+	}
 }

@@ -20,4 +20,9 @@ public partial class Camera : Camera2D
 		Logger.Log.Information("Moving camera to global position: " + position);
 		GlobalPosition = position;
 	}
+	
+	protected override void Dispose(bool disposing) {
+		_globalEvents.RoomEnter -= OnPlayerEnterRoom;
+		base.Dispose(disposing);
+	}
 }
