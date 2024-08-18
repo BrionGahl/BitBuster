@@ -90,7 +90,7 @@ collision_layer = 4
 collision_mask = 111
 motion_mode = 1
 script = ExtResource("1_o41vq")
-DropTable = ExtResource("2_fih6i")
+_dropTable = ExtResource("2_fih6i")
 EntityStats = ExtResource("2_lch6m")
 
 [node name="SpritesComponent" parent="." instance=ExtResource("2_f8vbl")]
@@ -134,10 +134,6 @@ shape = SubResource("RectangleShape2D_v1r4m")
 [node name="WeaponComponent" parent="." instance=ExtResource("11_xnwib")]
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-
-[node name="DeathAnimationTimer" type="Timer" parent="."]
-wait_time = 2.0
-one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

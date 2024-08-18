@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bj8lasfvi3jbi"]
 
-[ext_resource type="Texture2D" uid="uid://b06be3cyhn7m8" path="res://assets/projectiles/bullet.png" id="1_fa1ep"]
 [ext_resource type="Script" path="res://src/hud/BulletCounter.cs" id="2_2bs5j"]
+[ext_resource type="Texture2D" uid="uid://b06be3cyhn7m8" path="res://assets/weapon/bullet.png" id="2_6npof"]
 
 [node name="BulletCounter" type="Control"]
 layout_mode = 3
@@ -16,5 +16,5 @@ layout_mode = 0
 offset_right = 4.0
 offset_bottom = 4.0
 scale = Vector2(2, 2)
-texture = ExtResource("1_fa1ep")
+texture = ExtResource("2_6npof")
 stretch_mode = 1

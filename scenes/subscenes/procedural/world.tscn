@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://bhk5nrlkp2n1n" path="res://assets/etc/camera_border.png" id="8_mn0vs"]
 [ext_resource type="PackedScene" uid="uid://n3uhl8voulr4" path="res://scenes/subscenes/hud/hud.tscn" id="9_hgwba"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_b18c4"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_itl0k"]
 resource_local_to_scene = true
 shader = ExtResource("4_7w6o4")
 shader_parameter/flash_color = Color(1, 0.188235, 0, 1)
@@ -42,7 +42,7 @@ ProjectileAccuracy = 0.0
 BombDamage = 2.0
 BombDamageType = 0
 BombRadius = 30.0
-Speed = 75.0
+Speed = 170.0
 ITime = 0.2
 TrailEffect = 0
 Luck = 0
@@ -59,7 +59,7 @@ script = ExtResource("1_jml8v")
 script = ExtResource("2_c5biw")
 
 [node name="Player" parent="Level" instance=ExtResource("3_q3coj")]
-material = SubResource("ShaderMaterial_b18c4")
+material = SubResource("ShaderMaterial_itl0k")
 position = Vector2(1440, 1120)
 EntityStats = SubResource("Resource_3s3yr")
 

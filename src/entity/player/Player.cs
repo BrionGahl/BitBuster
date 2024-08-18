@@ -1,4 +1,5 @@
 using BitBuster.component;
+using BitBuster.item;
 using BitBuster.utils;
 using BitBuster.world;
 using Godot;
@@ -9,6 +10,7 @@ public partial class Player : Entity
 {
 	[Signal]
 	public delegate void DiedEventHandler();
+
 	
 	private GlobalEvents _globalEvents;
 	private Global _global;	
@@ -19,7 +21,7 @@ public partial class Player : Entity
 	[Export] 
 	private HealthComponent _healthComponent;
 
-	public bool CanEnterDoor { get; set; }
+	private ItemPickupHitbox _itemPickupHitbox;
 	
 	private float Speed
 	{
@@ -28,7 +30,7 @@ public partial class Player : Entity
 	}
 	private float RotationSpeed => Speed / 25;
 	private bool IsIdle => Velocity.Equals(Vector2.Zero);
-
+	
 	private AnimatedSprite2D _gun;
 	private AnimatedSprite2D _hull;
 	private AnimationPlayer _animationPlayer;
@@ -41,8 +43,19 @@ public partial class Player : Entity
 	private bool _hasShot;
 	private bool _hasBombed;
 
-	private bool _shot;
-
+	public WeaponComponent WeaponComponent
+	{
+		get => _weaponComponent;
+		private set => _weaponComponent = value;
+	}
+	
+	public HealthComponent HealthComponent
+	{
+		get => _healthComponent;
+		private set => _healthComponent = value;
+	}
+	
+	public bool CanEnterDoor => _doorEnterTimer.TimeLeft <= 0;
 	
 	public override void _Ready()
 	{
@@ -56,10 +69,14 @@ public partial class Player : Entity
 		_hull = GetNode<AnimatedSprite2D>("Hull");
 		_animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		_doorEnterTimer = GetNode<Timer>("DoorEnterTimer");
-		CanEnterDoor = true;
+
+		_itemPickupHitbox = GetNode<ItemPickupHitbox>("ItemPickupHitbox");
+		_itemPickupHitbox.EntityStats = EntityStats;
+		
+		_weaponComponent.EntityStats = EntityStats;
+		_healthComponent.EntityStats = EntityStats;
 		
 		_globalEvents.IncrementAndGenerateLevel += OnIncrementAndGenerateLevel;
-		_doorEnterTimer.Timeout += OnDoorEnterTimeout;
 		_healthComponent.HealthChange += OnHealthChange;
 		_healthComponent.HealthIsZero += OnHealthIsZero;
 	}
@@ -67,10 +84,10 @@ public partial class Player : Entity
 	public override void _Process(double delta)
 	{
 		GetInput();
-		SetGunRotationAndPosition();
+		_gun.Rotation = (float)Mathf.RotateToward(_gun.Rotation, GetGlobalMousePosition().AngleToPoint(Position) - Constants.HalfPiOffset, 0.5);
 		
 		if (_hasShot)
-			_shot = _weaponComponent.AttemptShoot(GetGlobalMousePosition().AngleToPoint(Position));
+			_weaponComponent.AttemptShoot(GetGlobalMousePosition().AngleToPoint(Position));
 
 		if (_hasBombed)
 			_weaponComponent.AttemptBomb(Position);
@@ -88,7 +105,6 @@ public partial class Player : Entity
 
 	public void EnterDoor()
 	{
-		CanEnterDoor = false;
 		_doorEnterTimer.Start();
 	}
 	
@@ -100,12 +116,6 @@ public partial class Player : Entity
 
 		_hasShot = Input.IsActionPressed("shoot");
 		_hasBombed = Input.IsActionJustPressed("bomb");
-	}
-
-	private void SetGunRotationAndPosition()
-	{
-		_gun.Rotation = (float)Mathf.LerpAngle(_gun.Rotation, GetGlobalMousePosition().AngleToPoint(Position) - Constants.HalfPiOffset, 0.5);
-		_gun.Position = Position;
 	}
 
 	private void HandleAnimations()
@@ -139,7 +149,7 @@ public partial class Player : Entity
 			_rotationGoal = _movementDirection.Angle();
 		}
 		
-		Rotation = Mathf.LerpAngle(rotationVector.Angle(), _rotationGoal, 0.05f);
+		Rotation = Mathf.RotateToward(rotationVector.Angle(), _rotationGoal, 0.05f);
 	}
 	
 	private void OnIncrementAndGenerateLevel()
@@ -155,7 +165,7 @@ public partial class Player : Entity
 			_animationPlayer.Play("effect_heal_blink");
 	}
 
-	protected override void OnDeathAnimationTimeout()
+	protected override void OnParticleDeathFinished()
 	{
 		Logger.Log.Information("Moving to main menu...");
 		GetTree().ChangeSceneToPacked(_global.MainMenuPackedScene);
@@ -170,16 +180,11 @@ public partial class Player : Entity
 		_hasShot = true;
 		_hasBombed = true;
 		Speed = 0;
-		ParticleDeath.Emitting = true;
 		
-		if (DeathAnimationTimer.TimeLeft <= 0)
-			DeathAnimationTimer.Start();
+		if (!ParticleDeath.Emitting)
+			ParticleDeath.Emitting = true;
 	}
-
-	private void OnDoorEnterTimeout()
-	{
-		CanEnterDoor = true;
-	}
+	
 	
 	public override void _ExitTree()
 	{

@@ -4,20 +4,20 @@ namespace BitBuster.component;
 
 public partial class LineTrailComponent : Line2D
 {
-	private Node2D _parent;
-	
+	public Node2D Parent { get; set; }
+
 	[Export]
 	public int TrailLength { get; set; }
-	
+
 	public override void _Ready()
 	{
-		_parent = GetParent<Node2D>();
+		Parent = GetParent<Node2D>();
 	}
 
 
 	public override void _Process(double delta)
 	{
-		AddPoint(_parent.GlobalPosition);
+		AddPoint(Parent.GlobalPosition);
 		if (Points.Length > TrailLength)
 			RemovePoint(0);
 	}

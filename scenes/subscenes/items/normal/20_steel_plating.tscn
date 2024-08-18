@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bfjahv86jalt0"]
 
-[ext_resource type="Script" path="res://src/items/Item.cs" id="1_2qyva"]
+[ext_resource type="Script" path="res://src/item/Item.cs" id="1_2qyva"]
 [ext_resource type="Texture2D" uid="uid://bfaxbmdo64stn" path="res://assets/items/normal/item_steel_plating.png" id="2_kfexg"]
 [ext_resource type="PackedScene" uid="uid://ddckip0887shk" path="res://scenes/subscenes/component/particle_item_pickup_component.tscn" id="3_vd6do"]
 [ext_resource type="Theme" uid="uid://c8qs8rvxfk3jf" path="res://assets/menu/default_theme.tres" id="4_c0b41"]
@@ -22,9 +22,6 @@ MaxHealth = 2.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_k1piv")
-
-[node name="Timer" type="Timer" parent="."]
-one_shot = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1

@@ -5,6 +5,7 @@ using BitBuster.entity.player;
 using BitBuster.resource;
 using BitBuster.state;
 using BitBuster.utils;
+using BitBuster.weapon;
 using BitBuster.world;
 using Godot;
 using Godot.Collections;
@@ -13,10 +14,13 @@ namespace BitBuster.entity.enemy;
 
 public abstract partial class Enemy: Entity
 {
-	public float Speed
+	[Export]
+	private DropTable _dropTable;
+
+	protected float Speed
 	{
 		get => EntityStats.Speed;
-		set => EntityStats.Speed = value;
+		private set => EntityStats.Speed = value;
 	}
 
 	private bool IsIdle => Velocity.Equals(Vector2.Zero);
@@ -26,8 +30,7 @@ public abstract partial class Enemy: Entity
 	protected Global Global { get; private set; }
 	protected GlobalEvents GlobalEvents { get; private set; }
 
-	[Export]
-	public DropTable DropTable { get; set; }
+	protected RandomNumberGenerator RandomNumberGenerator { get; private set; }
 	
 	public HealthComponent HealthComponent { get; private set; }
 	protected HitboxComponent HitboxComponent { get; private set; }
@@ -40,7 +43,7 @@ public abstract partial class Enemy: Entity
 	public Vector2 SpawnPosition { get; set; }
 	public Vector2 Target { get; set; }
 	
-	protected RandomNumberGenerator RandomNumberGenerator;
+	
 	protected bool HasDied;
 	protected bool AnimationFinished;
 	
@@ -53,14 +56,16 @@ public abstract partial class Enemy: Entity
 		 Global = GetNode<Global>("/root/Global");
 		 GlobalEvents = GetNode<GlobalEvents>("/root/GlobalEvents");
 
-		 HealthComponent = GetNode<Node2D>("HealthComponent") as HealthComponent;
-		 HitboxComponent = GetNode<Node2D>("HitboxComponent") as HitboxComponent;
-		 SpritesComponent = GetNode<SpritesComponent>("SpritesComponent");
-
-		 WeaponComponent = GetNodeOrNull<Node2D>("WeaponComponent") as WeaponComponent;
-
+		 HealthComponent = GetNode<HealthComponent>("HealthComponent");
+		 HitboxComponent = GetNode<HitboxComponent>("HitboxComponent");
+		 SpritesComponent = GetNode<SpritesComponent>("SpritesComponent"); 
+		 WeaponComponent = GetNodeOrNull<WeaponComponent>("WeaponComponent");
+		 
+		 if (WeaponComponent != null)
+			WeaponComponent.EntityStats = EntityStats;
+		 
+		 HealthComponent.EntityStats = EntityStats; 
 		 HitboxComponent.HealthComponent = HealthComponent;
-	
 
 		 Notifier = GetNode<VisibleOnScreenNotifier2D>("VisibleOnScreenNotifier2D");
 		 AnimationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
@@ -78,7 +83,7 @@ public abstract partial class Enemy: Entity
 	{
 		PhysicsDirectSpaceState2D spaceState = GetWorld2D().DirectSpaceState;
 		PhysicsRayQueryParameters2D query;
-		query = PhysicsRayQueryParameters2D.Create(Position, Player.Position, 47, new Array<Rid> { GetRid() });
+		query = PhysicsRayQueryParameters2D.Create(Position, Player.Position, 0b100111, new Array<Rid> { GetRid() });
 		Dictionary results = spaceState.IntersectRay(query);
 		if (results.Count == 0)
 			return false;
@@ -132,15 +137,13 @@ public abstract partial class Enemy: Entity
 
 	protected void HandleDrops()
 	{
-		float chance;
-		int amount;
-		
-		foreach (Drop drop in DropTable.DropsList)
+		foreach (Drop drop in _dropTable.DropsList)
 		{
-			chance = RandomNumberGenerator.Randf();
+			var chance = RandomNumberGenerator.Randf();
 			if (chance > drop.Chance)
 				continue;
-			amount = RandomNumberGenerator.RandiRange(1, drop.MaxAmount);
+			
+			var amount = RandomNumberGenerator.RandiRange(1, drop.MaxAmount);
 			for (int i = 0; i < amount; i++)
 				GlobalEvents.EmitSpawnItemEventHandler(Position, (int)drop.ItemType, drop.ItemId);
 		}	

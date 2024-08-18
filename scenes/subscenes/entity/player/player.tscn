@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cubpk1i28p0wk" path="res://scenes/subscenes/component/weapon_component.tscn" id="4_mw4jj"]
 [ext_resource type="PackedScene" uid="uid://btrxy7t83y8en" path="res://scenes/subscenes/component/health_component.tscn" id="5_umbbr"]
 [ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="8_gp6gs"]
-[ext_resource type="Script" path="res://src/items/ItemPickupHitbox.cs" id="9_s5uk3"]
+[ext_resource type="Script" path="res://src/item/ItemPickupHitbox.cs" id="9_qalwr"]
 [ext_resource type="PackedScene" uid="uid://6d0b62fihn27" path="res://scenes/subscenes/component/particle_death_component.tscn" id="10_na6pd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vtgkd"]
@@ -193,6 +193,10 @@ sprite_frames = SubResource("SpriteFrames_udnnf")
 animation = &"moving"
 frame_progress = 0.174181
 
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
+remote_path = NodePath("../Gun")
+update_rotation = false
+
 [node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_pjmg8")
 
@@ -211,7 +215,7 @@ shape = SubResource("RectangleShape2D_cfb50")
 [node name="ItemPickupHitbox" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent")]
 collision_layer = 0
 collision_mask = 8
-script = ExtResource("9_s5uk3")
+script = ExtResource("9_qalwr")
 HealthComponent = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ItemPickupHitbox"]
@@ -227,8 +231,4 @@ libraries = {
 }
 
 [node name="DoorEnterTimer" type="Timer" parent="."]
-one_shot = true
-
-[node name="DeathAnimationTimer" type="Timer" parent="."]
-wait_time = 3.0
 one_shot = true

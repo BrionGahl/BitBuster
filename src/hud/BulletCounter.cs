@@ -1,4 +1,5 @@
 using BitBuster.component;
+using BitBuster.entity.player;
 using Godot;
 
 namespace BitBuster.hud;
@@ -11,7 +12,7 @@ public partial class BulletCounter : Control
 	
 	public override void _Ready()
 	{
-		_playerWeapon = GetTree().GetFirstNodeInGroup("player").GetNode<WeaponComponent>("WeaponComponent");
+		_playerWeapon = ((Player)GetTree().GetFirstNodeInGroup("player")).WeaponComponent;
 
 		_counter = GetNode<TextureRect>("Counter");
 		

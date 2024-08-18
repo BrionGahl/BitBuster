@@ -1,7 +1,4 @@
-using BitBuster.component;
 using BitBuster.data;
-using BitBuster.entity;
-using BitBuster.projectile;
 using BitBuster.resource;
 using BitBuster.utils;
 using Godot;
@@ -18,50 +15,52 @@ public partial class HealthComponent : Node2D
 
 	private EntityStats _entityStats;
 	
+	public EntityStats EntityStats
+	{
+		get => _entityStats;
+		set
+		{
+			_entityStats = value;
+			CurrentHealth = MaxHealth;
+		}
+	}
+	
 	public float MaxHealth
 	{
-		get => _entityStats.MaxHealth;
-		set => _entityStats.MaxHealth = value; 
+		get => EntityStats.MaxHealth;
+		private set => EntityStats.MaxHealth = value; 
 	}
 	
 	public float CurrentHealth
 	{
-		get => _entityStats.CurrentHealth;
-		set => _entityStats.CurrentHealth = value; 
+		get => EntityStats.CurrentHealth;
+		private set => EntityStats.CurrentHealth = value; 
 	}
 	
 	public float Overheal
 	{
-		get => _entityStats.Overheal;
-		set => _entityStats.Overheal = value; 
+		get => EntityStats.Overheal;
+		private set => EntityStats.Overheal = value; 
 	}
-
+	
 	private Timer _iFrameTimer;
 	private OverhealBurstComponent _overhealBurstComponent;
 	
-	private bool _canBeHit = true;
+	private bool CanBeHit => _iFrameTimer.TimeLeft <= 0;
+
 	
 	public override void _Ready()
 	{
-		_entityStats = GetParent() is Bomb 
-			? GetParent<Bomb>().EntityStats 
-			: GetParent<Entity>().EntityStats;
-		
-		CurrentHealth = MaxHealth;
-		
 		_iFrameTimer = GetNode<Timer>("IFrameTimer");
 		_overhealBurstComponent = GetNode<OverhealBurstComponent>("OverhealBurstComponent");
-		
-		_iFrameTimer.Timeout += OnIFrameTimeout;
 	}
 
 	public void Damage(AttackData attackData)
 	{
-		if (!_canBeHit)
+		if (!CanBeHit)
 			return;
 		
 		Logger.Log.Information(GetParent().Name + " taking " + attackData.Damage + " damage.");
-		_canBeHit = false;
 
 		if (Overheal > 0)
 		{
@@ -69,7 +68,7 @@ public partial class HealthComponent : Node2D
 			Overheal = Mathf.Floor(Overheal);
 			if (Overheal < 0)
 				Overheal = 0;
-			if (_entityStats.OverhealBurst)
+			if (EntityStats.OverhealBurst)
 				_overhealBurstComponent.Burst(75f);
 		}
 		else 
@@ -82,12 +81,12 @@ public partial class HealthComponent : Node2D
 		}
 	
 		EmitSignal(SignalName.HealthChange, -attackData.Damage);
-		_iFrameTimer.Start(_entityStats.ITime);
+		_iFrameTimer.Start(EntityStats.ITime);
 	}
 
 	public void Damage(float damage)
 	{
-		if (!_canBeHit)
+		if (!CanBeHit)
 			return;
 		
 		Logger.Log.Information(GetParent().Name + " taking " + damage + " damage.");
@@ -98,7 +97,7 @@ public partial class HealthComponent : Node2D
 			Overheal = Mathf.Floor(Overheal);
 			if (Overheal < 0)
 				Overheal = 0;
-			if (_entityStats.OverhealBurst)
+			if (EntityStats.OverhealBurst)
 				_overhealBurstComponent.Burst(75f);
 		}
 		else 
@@ -126,10 +125,5 @@ public partial class HealthComponent : Node2D
 		}
 	
 		EmitSignal(SignalName.HealthChange, heal);
-	}
-
-	private void OnIFrameTimeout()
-	{
-		_canBeHit = true;
 	}
 }

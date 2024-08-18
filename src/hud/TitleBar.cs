@@ -1,7 +1,7 @@
 using BitBuster.component;
 using BitBuster.entity;
 using BitBuster.entity.player;
-using BitBuster.items;
+using BitBuster.item;
 using BitBuster.resource;
 using Godot;
 
@@ -20,8 +20,8 @@ public partial class TitleBar : VSplitContainer
 	public override void _Ready()
 	{
 		_animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
-		_playerStats = ((Player)GetTree().GetFirstNodeInGroup("player")).EntityStats;
 		_player = (Player)GetTree().GetFirstNodeInGroup("player");
+		_playerStats = _player.EntityStats;
 
 		_title = GetNode<Label>("Title");
 		_subtitle = GetNode<Label>("Subtitle");

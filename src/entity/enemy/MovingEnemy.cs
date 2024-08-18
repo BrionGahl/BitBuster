@@ -5,7 +5,7 @@ namespace BitBuster.entity.enemy;
 public abstract partial class MovingEnemy: Enemy
 {
 	public NavigationAgent2D Agent;
-	public Timer AgentTimer;
+	protected Timer AgentTimer;
 	
 	private int _movementScalar;
 	private float _rotationGoal;
@@ -16,7 +16,6 @@ public abstract partial class MovingEnemy: Enemy
 
 		Agent = GetNode<NavigationAgent2D>("Agent");
 		AgentTimer = GetNode<Timer>("Agent/Timer");
-
 	}
 
 	public void MoveAction(double delta)
@@ -42,7 +41,7 @@ public abstract partial class MovingEnemy: Enemy
 			_rotationGoal = goalVector.Angle();
 		}
 		
-		Rotation = Mathf.LerpAngle(rotationVector.Angle(), _rotationGoal, 0.05f);
+		Rotation = Mathf.RotateToward(rotationVector.Angle(), _rotationGoal, 0.05f);
 		
 		Velocity = goalVector.Normalized() * _movementScalar * Speed;
 		MoveAndSlide();

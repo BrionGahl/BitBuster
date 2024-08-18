@@ -5,7 +5,6 @@ namespace BitBuster.entity.enemy.idle;
 
 public partial class TowerDetonator : IdleEnemy
 {
-	private GpuParticles2D _particleDeath;
 	private ExplodingComponent _explodingComponent;
 	
 	private bool _hasExploded;
@@ -16,11 +15,12 @@ public partial class TowerDetonator : IdleEnemy
 		base._Ready();
 		
 		_explodingComponent = GetNode<ExplodingComponent>("ExplodingComponent");
-		
-		_particleDeath = GetNode<GpuParticles2D>("ParticleDeath");
+		_explodingComponent.EntityStats = EntityStats;
 		
 		_timeTillExplosion = 0f;
 		SpritesComponent.SetBodyMaterialProperty("shader_parameter/time", _timeTillExplosion);
+		
+		_explodingComponent.ExplodingEmitter.Finished += OnExplodeFinished;
 	}
 	
 	
@@ -32,14 +32,16 @@ public partial class TowerDetonator : IdleEnemy
 	
 		CleanAndRebake();
 		HandleDrops();
-		
-		_particleDeath.Emitting = true;
-		
-		DeathAnimationTimer.Start();
+
 		HasDied = true;
 	}
 
-	protected override void OnDeathAnimationTimeout()
+	protected override void OnParticleDeathFinished()
+	{
+		QueueFree();
+	}
+
+	private void OnExplodeFinished()
 	{
 		QueueFree();
 	}

@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://djsf2m3jg6ocs"]
 
-[ext_resource type="Script" path="res://src/items/Item.cs" id="1_5vhf1"]
+[ext_resource type="Script" path="res://src/item/Item.cs" id="1_5vhf1"]
 [ext_resource type="Texture2D" uid="uid://bvvclls7hgaqd" path="res://assets/items/pickup/pickup_mine.png" id="2_goi4i"]
 [ext_resource type="PackedScene" uid="uid://ddckip0887shk" path="res://scenes/subscenes/component/particle_item_pickup_component.tscn" id="3_wkune"]
 [ext_resource type="Theme" uid="uid://c8qs8rvxfk3jf" path="res://assets/menu/default_theme.tres" id="4_wyk8g"]
@@ -24,8 +24,6 @@ shape = SubResource("RectangleShape2D_5saa8")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("2_goi4i")
-
-[node name="Timer" type="Timer" parent="."]
 
 [node name="ParticleItemPickupComponent" parent="." instance=ExtResource("3_wkune")]
 

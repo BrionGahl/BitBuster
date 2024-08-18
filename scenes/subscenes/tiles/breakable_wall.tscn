@@ -36,8 +36,6 @@ script = ExtResource("1_02u2m")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_3y3or")
 
-[node name="AnimationTimer" type="Timer" parent="."]
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("2_iq6ly")

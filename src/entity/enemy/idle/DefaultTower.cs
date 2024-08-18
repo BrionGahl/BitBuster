@@ -5,12 +5,9 @@ namespace BitBuster.entity.enemy.idle;
 
 public partial class DefaultTower : IdleEnemy
 {
-	private GpuParticles2D _particleDeath;
-
 	public override void _Ready()
 	{
 		base._Ready();
-		_particleDeath = GetNode<GpuParticles2D>("ParticleDeath");
 	}
 	
 	protected override void OnHealthIsZero()
@@ -23,13 +20,12 @@ public partial class DefaultTower : IdleEnemy
 		CleanAndRebake();
 		HandleDrops();
 		
-		_particleDeath.Emitting = true;
-		
-		DeathAnimationTimer.Start();
 		HasDied = true;
+
+		ParticleDeath.Emitting = true;
 	}
 
-	protected override void OnDeathAnimationTimeout()
+	protected override void OnParticleDeathFinished()
 	{
 		AnimationFinished = true;
 	}
@@ -40,7 +36,7 @@ public partial class DefaultTower : IdleEnemy
 		if (HasDied)
 			return;
 
-		SpritesComponent.SetGunRotationAndPosition(CanSeePlayer(), Player.Position, Mathf.Pi/12);
+		SpritesComponent.SetGunRotation(CanSeePlayer(), Player.Position, Mathf.Pi/12);
 		if (CanSeePlayer() && RandomNumberGenerator.Randf() > 0.3f)
 			WeaponComponent.AttemptShoot(Player.Position.AngleToPoint(Position));
 	}

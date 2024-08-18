@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://c0sr5f3atq4ph"]
 
-[ext_resource type="Script" path="res://src/items/Item.cs" id="1_j2xhi"]
+[ext_resource type="Script" path="res://src/item/Item.cs" id="1_j2xhi"]
 [ext_resource type="Texture2D" uid="uid://eu2a8qmds6kf" path="res://assets/items/normal/item_warhead.png" id="2_fl7ra"]
 [ext_resource type="PackedScene" uid="uid://ddckip0887shk" path="res://scenes/subscenes/component/particle_item_pickup_component.tscn" id="3_bign7"]
 [ext_resource type="Theme" uid="uid://c8qs8rvxfk3jf" path="res://assets/menu/default_theme.tres" id="4_fl4f8"]
@@ -22,9 +22,6 @@ ProjectileSpeed = -50.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_k1piv")
-
-[node name="Timer" type="Timer" parent="."]
-one_shot = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1

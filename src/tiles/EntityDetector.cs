@@ -10,7 +10,7 @@ public partial class EntityDetector : Area2D
 {
 	private GlobalEvents _globalEvents;
 
-	public int EnemyCount { get; set; }
+	private int _enemyCount;
 	
 	public override void _Ready()
 	{
@@ -28,20 +28,20 @@ public partial class EntityDetector : Area2D
 		foreach (var entity in GetOverlappingBodies())
 		{
 			if (entity.IsInGroup(Groups.GroupEnemy))
-				EnemyCount++;
+				_enemyCount++;
 
 			if (entity.IsInGroup(Groups.GroupBoss))
 				_globalEvents.EmitBossRoomEnterSignal((Enemy)entity);
 		}
 
-		if (EnemyCount > 0)
+		if (_enemyCount > 0)
 		{
 			Logger.Log.Information("Closing doors...");
 			_globalEvents.EmitToggleDoorsSignal(false);
 		}
 		
 		Logger.Log.Information("Player entered PlayerDetector in room at {@GlobalPosition}.", GlobalPosition.ToString());
-		Logger.Log.Information("Number of enemies in room: {@EnemyCount}", EnemyCount);
+		Logger.Log.Information("Number of enemies in room: {@EnemyCount}", _enemyCount);
 
 		_globalEvents.EmitRoomEnteredSignal(GlobalPosition);
 	}
@@ -54,9 +54,9 @@ public partial class EntityDetector : Area2D
 		}
 		
 		Logger.Log.Information("Enemy removed from room...");
-		EnemyCount--;
+		_enemyCount--;
 
-		if (EnemyCount <= 0)
+		if (_enemyCount <= 0)
 		{
 			Logger.Log.Information("Opening doors...");
 			_globalEvents.EmitToggleDoorsSignal(true);

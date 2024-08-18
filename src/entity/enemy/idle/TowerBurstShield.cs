@@ -6,7 +6,6 @@ namespace BitBuster.entity.enemy.idle;
 
 public partial class TowerBurstShield : IdleEnemy
 {
-	private GpuParticles2D _particleDeath;
 	private OverhealBurstComponent _overhealBurstComponent;
 	
 	private bool _hasBurst;
@@ -16,7 +15,6 @@ public partial class TowerBurstShield : IdleEnemy
 	{
 		base._Ready();
 		_overhealBurstComponent = GetNode<OverhealBurstComponent>("OverhealBurstComponent");
-		_particleDeath = GetNode<GpuParticles2D>("ParticleDeath");
 
 		_timeTillBurst = 0f;
 		SpritesComponent.SetBodyMaterialProperty("shader_parameter/time", _timeTillBurst);
@@ -37,14 +35,13 @@ public partial class TowerBurstShield : IdleEnemy
 	
 		CleanAndRebake();
 		HandleDrops();
-		
-		_particleDeath.Emitting = true;
-		
-		DeathAnimationTimer.Start();
+
 		HasDied = true;
+		
+		ParticleDeath.Emitting = true;
 	}
 
-	protected override void OnDeathAnimationTimeout()
+	protected override void OnParticleDeathFinished()
 	{
 		AnimationFinished = true;
 	}

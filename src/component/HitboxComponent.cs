@@ -5,7 +5,6 @@ namespace BitBuster.component;
 
 public partial class HitboxComponent: Area2D
 {
-
 	[Export]
 	public HealthComponent HealthComponent { get; set; }
 

@@ -75,7 +75,7 @@ collision_layer = 4
 collision_mask = 111
 motion_mode = 1
 script = ExtResource("1_yi5a0")
-DropTable = ExtResource("2_avw8t")
+_dropTable = ExtResource("2_avw8t")
 EntityStats = ExtResource("2_7ft0v")
 
 [node name="SpritesComponent" parent="." instance=ExtResource("2_xiwh0")]
@@ -111,10 +111,6 @@ HealthComponent = NodePath("../HealthComponent")
 shape = SubResource("RectangleShape2D_v1r4m")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-
-[node name="DeathAnimationTimer" type="Timer" parent="."]
-wait_time = 2.0
-one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

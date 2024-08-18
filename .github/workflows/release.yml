@@ -1,7 +1,6 @@
 name: Release
 on:
-  release:
-    types: [released]
+  workflow_dispatch:
 env:
   IMAGE_NAME: godot-ci
 jobs:

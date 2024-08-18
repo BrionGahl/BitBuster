@@ -1,6 +1,5 @@
-using BitBuster.component;
 using BitBuster.entity.player;
-using BitBuster.items;
+using BitBuster.item;
 using BitBuster.resource;
 using Godot;
 

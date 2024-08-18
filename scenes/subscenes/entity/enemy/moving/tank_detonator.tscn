@@ -106,7 +106,7 @@ _data = {
 collision_layer = 4
 collision_mask = 111
 script = ExtResource("2_rcjrj")
-DropTable = ExtResource("2_b436w")
+_dropTable = ExtResource("2_b436w")
 EntityStats = ExtResource("3_4tdxk")
 
 [node name="Collider" type="CollisionShape2D" parent="."]
@@ -153,9 +153,6 @@ target_desired_distance = 16.0
 
 [node name="Timer" type="Timer" parent="Agent"]
 wait_time = 0.3
-
-[node name="DeathAnimationTimer" type="Timer" parent="."]
-one_shot = true
 
 [node name="ExplodingComponent" parent="." instance=ExtResource("12_pk6fm")]
 

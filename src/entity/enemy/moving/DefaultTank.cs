@@ -5,14 +5,11 @@ namespace BitBuster.entity.enemy.moving;
 
 public partial class DefaultTank : MovingEnemy
 {
-	private GpuParticles2D _particleDeath;
-	
 	public override void _Ready()
 	{
 		SetPhysicsProcess(false);
 
 		base._Ready();
-		_particleDeath = GetNode<GpuParticles2D>("ParticleDeath");
 		
 		NavigationServer2D.MapChanged += OnMapReady;
 		AgentTimer.Timeout += OnAgentTimeout;
@@ -28,14 +25,12 @@ public partial class DefaultTank : MovingEnemy
 		HitboxComponent.SetDeferred("monitoring", false);
 		
 		HandleDrops();
-		
-		_particleDeath.Emitting = true;
-		
-		DeathAnimationTimer.Start();
 		HasDied = true;
+
+		ParticleDeath.Emitting = true;
 	}
 
-	protected override void OnDeathAnimationTimeout()
+	protected override void OnParticleDeathFinished()
 	{
 		AnimationFinished = true;
 	}
@@ -46,7 +41,7 @@ public partial class DefaultTank : MovingEnemy
 		if (HasDied)
 			return;
 
-		SpritesComponent.SetGunRotationAndPosition(CanSeePlayer(), Player.Position, Mathf.Pi/12);
+		SpritesComponent.SetGunRotation(CanSeePlayer(), Player.Position, Mathf.Pi/12);
 		if (CanSeePlayer() && RandomNumberGenerator.Randf() > 0.3f)
 			WeaponComponent.AttemptShoot(Player.Position.AngleToPoint(Position));
 	}
