@@ -16,7 +16,8 @@ public partial class TowerDetonator : IdleEnemy
 		base._Ready();
 		
 		_explodingComponent = GetNode<ExplodingComponent>("ExplodingComponent");
-		
+		_explodingComponent.EntityStats = EntityStats;
+
 		_particleDeath = GetNode<GpuParticles2D>("ParticleDeath");
 		
 		_timeTillExplosion = 0f;

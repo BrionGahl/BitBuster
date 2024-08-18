@@ -1,0 +1,35 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://blijtcsuoamtc"]
+
+[ext_resource type="Script" path="res://src/resource/EntityStats.cs" id="1_ql2mh"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_ql2mh")
+Source = 3
+BombCount = 0
+KeyCardCount = 0
+CreditCount = 0
+MaxHealth = 0.1
+CurrentHealth = 0.1
+Overheal = 0.0
+ProjectileDamage = 0.0
+ProjectileCount = 0
+ProjectileCooldown = 0.0
+ProjectileBounces = 0
+ProjectileSpeed = 0.0
+ProjectileSizeScalar = Vector2(1, 1)
+ProjectileDamageType = 0
+ProjectileWeaponType = 0
+ProjectileBulletType = 0
+ProjectileBounceType = 0
+ProjectileTrajectoryType = 0
+ProjectileAccuracy = 0.0
+BombDamage = 0.0
+BombDamageType = 0
+BombRadius = 0.0
+Speed = 0.0
+ITime = 0.2
+TrailEffect = 0
+Luck = 0
+OverhealBurst = false
+OverhealRegen = 0.0

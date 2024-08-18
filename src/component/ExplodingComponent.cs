@@ -12,13 +12,25 @@ namespace BitBuster.component;
 public partial class ExplodingComponent : Area2D
 {
 
-	private EntityStats _entityStats;
 	
 	private GlobalEvents _globalEvents;
 	private GpuParticles2D _explodingEmitter;
 	private CollisionShape2D _areaCollider;
 	
 	private CircleShape2D _explosion;
+	private EntityStats _entityStats;
+	
+	public EntityStats EntityStats
+	{
+		get => _entityStats;
+		set
+		{
+			_entityStats = value;
+			
+			_explosion.Radius = _entityStats.BombRadius;
+			((ParticleProcessMaterial)_explodingEmitter.ProcessMaterial).EmissionSphereRadius = _entityStats.BombRadius;
+		}
+	}
 	
 	public override void _Ready()
 	{
@@ -34,15 +46,7 @@ public partial class ExplodingComponent : Area2D
 		{
 			_explosion.Radius = 20f;
 			((ParticleProcessMaterial)_explodingEmitter.ProcessMaterial).EmissionSphereRadius = 25f;
-			return;
 		}
-		
-		_entityStats = GetParent() is Bomb 
-			? GetParent<Bomb>().EntityStats 
-			: GetParent<Entity>().EntityStats;
-
-		_explosion.Radius = _entityStats.BombRadius;
-		((ParticleProcessMaterial)_explodingEmitter.ProcessMaterial).EmissionSphereRadius = _entityStats.BombRadius;
 	}
 
 	public void Explode(AttackData attackData)

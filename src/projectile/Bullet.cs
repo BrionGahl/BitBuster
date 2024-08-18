@@ -166,8 +166,6 @@ public partial class Bullet : CharacterBody2D
 		if (_bulletType.HasFlag(BulletType.Invulnerable))
 			return;
 		
-		
-			
 		PrepForFree();
 	}
 

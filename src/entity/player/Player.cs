@@ -19,7 +19,7 @@ public partial class Player : Entity
 	[Export] 
 	private HealthComponent _healthComponent;
 
-	public bool CanEnterDoor { get; set; }
+	public bool CanEnterDoor => _doorEnterTimer.TimeLeft <= 0;
 	
 	private float Speed
 	{
@@ -56,10 +56,11 @@ public partial class Player : Entity
 		_hull = GetNode<AnimatedSprite2D>("Hull");
 		_animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		_doorEnterTimer = GetNode<Timer>("DoorEnterTimer");
-		CanEnterDoor = true;
+		
+		_weaponComponent.EntityStats = EntityStats;
+		_healthComponent.EntityStats = EntityStats;
 		
 		_globalEvents.IncrementAndGenerateLevel += OnIncrementAndGenerateLevel;
-		_doorEnterTimer.Timeout += OnDoorEnterTimeout;
 		_healthComponent.HealthChange += OnHealthChange;
 		_healthComponent.HealthIsZero += OnHealthIsZero;
 	}
@@ -88,7 +89,6 @@ public partial class Player : Entity
 
 	public void EnterDoor()
 	{
-		CanEnterDoor = false;
 		_doorEnterTimer.Start();
 	}
 	
@@ -169,11 +169,7 @@ public partial class Player : Entity
 		// if (DeathAnimationTimer.TimeLeft <= 0)
 		// 	DeathAnimationTimer.Start();
 	}
-
-	private void OnDoorEnterTimeout()
-	{
-		CanEnterDoor = true;
-	}
+	
 	
 	public override void _ExitTree()
 	{

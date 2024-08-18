@@ -9,45 +9,45 @@ namespace BitBuster.projectile;
 public partial class Bomb : StaticBody2D
 {
 	private GlobalEvents _globalEvents;
-	
 	private Sprite2D _bombTexture;
-	
 	private Timer _deathAnimationTimer;
-	
-	[Export]
-	public EntityStats EntityStats;
-	
+	private EntityStats _entityStats;
 	private HitboxComponent _hitboxComponent;
 	private HealthComponent _healthComponent;
 	private ExplodingComponent _explodingComponent;
-
 	private AttackData _attackData;
 
 	private float _timeTillExplosion;
 	private bool _hasExploded;
 	
-	public override void _Notification(int what)
+	[Export] 
+	public EntityStats EntityStats
 	{
-		if (what != NotificationSceneInstantiated)
-			return;
+		get => _entityStats;
+		set => _entityStats = value;
+	}
+	
+	public override void _Ready()
+	{
+		_globalEvents = GetNode<GlobalEvents>("/root/GlobalEvents");
 		
 		_bombTexture = GetNode<Sprite2D>("Sprite2D");
 		_deathAnimationTimer = GetNode<Timer>("DeathAnimationTimer");
 		
 		_explodingComponent = GetNode<ExplodingComponent>("ExplodingComponent");
-		_hitboxComponent = GetNode<Area2D>("HitboxComponent") as HitboxComponent;
-		_healthComponent = GetNode<Node2D>("HealthComponent") as HealthComponent;
+		_explodingComponent.EntityStats = EntityStats;
+		
+		_healthComponent = GetNode<HealthComponent>("HealthComponent");
+		_healthComponent.EntityStats = EntityStats;
+
+		_hitboxComponent = GetNode<HitboxComponent>("HitboxComponent");
+		_hitboxComponent.HealthComponent = _healthComponent;
 		
 		_timeTillExplosion = 0f;
 		Material.Set("shader_parameter/Time", 0f);
 		
 		_healthComponent.HealthIsZero += OnHealthIsZero;
 		_deathAnimationTimer.Timeout += OnDeathAnimationTimeout;
-	}
-	
-	public override void _Ready()
-	{
-		_globalEvents = GetNode<GlobalEvents>("/root/GlobalEvents");
 	}
 
 	public override void _Process(double delta)
@@ -67,7 +67,7 @@ public partial class Bomb : StaticBody2D
 
 	public void SetPositionAndRadius(Vector2 position, AttackData attackData, float radius)
 	{
-		GlobalPosition = position;
+		Position = position;
 		_attackData = attackData;
 		EntityStats.BombRadius = radius;
 		

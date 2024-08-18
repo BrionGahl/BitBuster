@@ -53,14 +53,16 @@ public abstract partial class Enemy: Entity
 		 Global = GetNode<Global>("/root/Global");
 		 GlobalEvents = GetNode<GlobalEvents>("/root/GlobalEvents");
 
-		 HealthComponent = GetNode<Node2D>("HealthComponent") as HealthComponent;
-		 HitboxComponent = GetNode<Node2D>("HitboxComponent") as HitboxComponent;
-		 SpritesComponent = GetNode<SpritesComponent>("SpritesComponent");
-
-		 WeaponComponent = GetNodeOrNull<Node2D>("WeaponComponent") as WeaponComponent;
-
+		 HealthComponent = GetNode<HealthComponent>("HealthComponent");
+		 HitboxComponent = GetNode<HitboxComponent>("HitboxComponent");
+		 SpritesComponent = GetNode<SpritesComponent>("SpritesComponent"); 
+		 WeaponComponent = GetNodeOrNull<WeaponComponent>("WeaponComponent");
+		 
+		 if (WeaponComponent != null)
+			WeaponComponent.EntityStats = EntityStats;
+		 
+		 HealthComponent.EntityStats = EntityStats; 
 		 HitboxComponent.HealthComponent = HealthComponent;
-	
 
 		 Notifier = GetNode<VisibleOnScreenNotifier2D>("VisibleOnScreenNotifier2D");
 		 AnimationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
