@@ -156,6 +156,7 @@ shape = SubResource("CapsuleShape2D_qyxbd")
 [node name="Agent" type="NavigationAgent2D" parent="."]
 path_desired_distance = 4.0
 target_desired_distance = 8.0
+debug_enabled = true
 
 [node name="Timer" type="Timer" parent="Agent"]
 wait_time = 0.3
@@ -168,3 +169,6 @@ wait_time = 0.3
 libraries = {
 "": SubResource("AnimationLibrary_gu0m7")
 }
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

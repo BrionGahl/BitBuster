@@ -6,6 +6,7 @@
 resource_local_to_scene = true
 script = ExtResource("1_u00ar")
 Source = 3
+Name = "Detonator Tower"
 BombCount = 0
 KeyCardCount = 0
 CreditCount = 0

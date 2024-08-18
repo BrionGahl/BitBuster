@@ -1,22 +1,21 @@
-using Godot;
-using System;
+using BitBuster.entity;
 using BitBuster.entity.enemy;
-using BitBuster.state;
 using BitBuster.utils;
+using Godot;
+
+namespace BitBuster.state.idle;
 
 public partial class Attack : State
 {
 	
-	private Enemy _parent;
-	
-	public override void Init()
+	public override void Init(Enemy enemy)
 	{
-		_parent = GetParent().GetParent<CharacterBody2D>() as Enemy;
+		ParentEnemy = enemy;
 	}
 
 	public override void Enter()
 	{
-		Logger.Log.Information(_parent.Name + " entering scan.");
+		Logger.Log.Information(ParentEnemy.Name + " entering scan.");
 	}
 
 	public override void Exit()
@@ -25,16 +24,16 @@ public partial class Attack : State
 
 	public override void StateUpdate(double delta)
 	{
-		_parent.HandleAnimations();
+		ParentEnemy.HandleAnimations();
 	}
 
 	public override void StatePhysicsUpdate(double delta)
 	{
-		if (!_parent.Notifier.IsOnScreen())
+		if (!ParentEnemy.Notifier.IsOnScreen())
 		{
-			EmitSignal(SignalName.StateTransition, this, "sleep");
+			EmitSignal(State.SignalName.StateTransition, this, "sleep");
 		}
 
-		_parent.AttackAction(delta);
+		ParentEnemy.AttackAction(delta);
 	}
 }

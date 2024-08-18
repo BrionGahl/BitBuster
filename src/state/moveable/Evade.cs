@@ -1,4 +1,5 @@
 using System;
+using BitBuster.entity;
 using BitBuster.entity.enemy;
 using BitBuster.utils;
 using Godot;
@@ -9,48 +10,45 @@ public partial class Evade: State
 {
     [Export]
     public string NextState = "pursue";
-
-    private MovingEnemy _parent;
     
-    public override void Init()
+    public override void Init(Enemy enemy)
     {
-        _parent = GetParent().GetParent<CharacterBody2D>() as MovingEnemy;
+        ParentEnemy = enemy;
     }
 
     public override void Enter()
     {
-        Logger.Log.Information(_parent.Name + " entering evade.");
+        Logger.Log.Information(ParentEnemy.EntityStats.Name + " entering evade.");
        
-        int x = (int) Math.Floor(_parent.Position.X / Constants.RoomSize) * Constants.RoomSize;
-        int y = (int) Math.Floor(_parent.Position.Y / Constants.RoomSize) * Constants.RoomSize;
+        int x = (int) Math.Floor(ParentEnemy.Position.X / Constants.RoomSize) * Constants.RoomSize;
+        int y = (int) Math.Floor(ParentEnemy.Position.Y / Constants.RoomSize) * Constants.RoomSize;
         
-        _parent.Target = new Vector2(x + Constants.RoomSize - (_parent.Player.Position.X % Constants.RoomSize), y + Constants.RoomSize - (_parent.Player.Position.Y % Constants.RoomSize));
+        ParentEnemy.Target = new Vector2(x + Constants.RoomSize - (ParentEnemy.Player.Position.X % Constants.RoomSize), y + Constants.RoomSize - (ParentEnemy.Player.Position.Y % Constants.RoomSize));
     }
 
     public override void Exit()
     {
-        _parent.Target = Vector2.Zero;
+        ParentEnemy.Target = Vector2.Zero;
     }
 
     public override void StateUpdate(double delta)
     {
-        _parent.HandleAnimations();
+        ParentEnemy.HandleAnimations();
     }
 
     public override void StatePhysicsUpdate(double delta)
     {
-        if (!_parent.Notifier.IsOnScreen() || !_parent.Agent.IsTargetReachable())
+        if (!ParentEnemy.Notifier.IsOnScreen() || !((MovingEnemy)ParentEnemy).Agent.IsTargetReachable())
         {
-            EmitSignal(SignalName.StateTransition, this, "sleep");
+            EmitSignal(State.SignalName.StateTransition, this, "sleep");
         }
 
-        if (_parent.Position.DistanceTo(_parent.Target) < 32)
+        if (ParentEnemy.Position.DistanceTo(ParentEnemy.Target) < 32)
         {
-            EmitSignal(SignalName.StateTransition, this, NextState);
+            EmitSignal(State.SignalName.StateTransition, this, NextState);
         }
 		
-        _parent.AttackAction(delta);
-
-        _parent.MoveAction(delta);
+        ParentEnemy.AttackAction(delta);
+        ((MovingEnemy)ParentEnemy).MoveAction(delta);
     }
 }

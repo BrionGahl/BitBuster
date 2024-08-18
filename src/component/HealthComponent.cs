@@ -60,7 +60,7 @@ public partial class HealthComponent : Node2D
 		if (!CanBeHit)
 			return;
 		
-		Logger.Log.Information(GetParent().Name + " taking " + attackData.Damage + " damage.");
+		Logger.Log.Information(EntityStats.Name + " taking " + attackData.Damage + " damage.");
 
 		if (Overheal > 0)
 		{
@@ -89,7 +89,7 @@ public partial class HealthComponent : Node2D
 		if (!CanBeHit)
 			return;
 		
-		Logger.Log.Information(GetParent().Name + " taking " + damage + " damage.");
+		Logger.Log.Information(EntityStats.Name + " taking " + damage + " damage.");
 
 		if (Overheal > 0)
 		{

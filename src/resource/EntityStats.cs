@@ -17,7 +17,11 @@ public partial class EntityStats : Resource
 	
 	// Misc Related Stats
 	[Export]
-	public SourceType Source { get; set; }
+	public SourceType Source { get; private set; }
+
+	[Export] 
+	public string Name { get; private  set; }
+	
 	[Export] 
 	public int BombCount { get; set; }
 	[Export]
@@ -77,11 +81,11 @@ public partial class EntityStats : Resource
 	
 	// Other Stats
 	[Export]
-	public int Luck { get; private set; }
+	public int Luck { get; set; }
 	[Export]
-	public bool OverhealBurst { get; private set; }
+	public bool OverhealBurst { get; set; }
 	[Export]
-	public float OverhealRegen { get; private set; }
+	public float OverhealRegen { get; set; }
 
 	
 	private RandomNumberGenerator _random;

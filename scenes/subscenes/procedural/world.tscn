@@ -1,7 +1,6 @@
-[gd_scene load_steps=14 format=3 uid="uid://c5uf74rr7eydj"]
+[gd_scene load_steps=13 format=3 uid="uid://c5uf74rr7eydj"]
 
 [ext_resource type="Script" path="res://src/procedural/World.cs" id="1_jml8v"]
-[ext_resource type="Script" path="res://src/procedural/Level.cs" id="2_c5biw"]
 [ext_resource type="PackedScene" uid="uid://det6gkgxg57mw" path="res://scenes/subscenes/entity/player/player.tscn" id="3_q3coj"]
 [ext_resource type="Shader" path="res://assets/shaders/hit_blink.gdshader" id="4_7w6o4"]
 [ext_resource type="Script" path="res://src/resource/EntityStats.cs" id="5_32a3a"]
@@ -11,16 +10,17 @@
 [ext_resource type="Texture2D" uid="uid://bhk5nrlkp2n1n" path="res://assets/etc/camera_border.png" id="8_mn0vs"]
 [ext_resource type="PackedScene" uid="uid://n3uhl8voulr4" path="res://scenes/subscenes/hud/hud.tscn" id="9_hgwba"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_itl0k"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p812a"]
 resource_local_to_scene = true
 shader = ExtResource("4_7w6o4")
 shader_parameter/flash_color = Color(1, 0.188235, 0, 1)
 shader_parameter/flash_modifier = 0.0
 
-[sub_resource type="Resource" id="Resource_3s3yr"]
+[sub_resource type="Resource" id="Resource_htxhu"]
 resource_local_to_scene = true
 script = ExtResource("5_32a3a")
 Source = 2
+Name = "Player"
 BombCount = 3
 KeyCardCount = 0
 CreditCount = 0
@@ -42,7 +42,7 @@ ProjectileAccuracy = 0.0
 BombDamage = 2.0
 BombDamageType = 0
 BombRadius = 30.0
-Speed = 170.0
+Speed = 75.0
 ITime = 0.2
 TrailEffect = 0
 Luck = 0
@@ -56,12 +56,11 @@ source_geometry_group_name = &"navigation_polygon_source_group"
 script = ExtResource("1_jml8v")
 
 [node name="Level" type="Node2D" parent="."]
-script = ExtResource("2_c5biw")
 
 [node name="Player" parent="Level" instance=ExtResource("3_q3coj")]
-material = SubResource("ShaderMaterial_itl0k")
+material = SubResource("ShaderMaterial_p812a")
 position = Vector2(1440, 1120)
-EntityStats = SubResource("Resource_3s3yr")
+EntityStats = SubResource("Resource_htxhu")
 
 [node name="NavRegion" type="NavigationRegion2D" parent="Level"]
 navigation_polygon = SubResource("NavigationPolygon_uf5lg")
@@ -80,6 +79,8 @@ format = 2
 
 [node name="Extra" type="Node2D" parent="Level/NavRegion"]
 
+[node name="Hud" parent="Level" instance=ExtResource("9_hgwba")]
+
 [node name="Camera" type="Camera2D" parent="Level"]
 position = Vector2(1440, 1120)
 zoom = Vector2(2, 2)
@@ -88,8 +89,7 @@ position_smoothing_speed = 8.0
 script = ExtResource("7_wgc5s")
 
 [node name="Border" type="Sprite2D" parent="Level/Camera"]
+visible = false
 z_index = 11
 scale = Vector2(0.500868, 0.501543)
 texture = ExtResource("8_mn0vs")
-
-[node name="Hud" parent="Level" instance=ExtResource("9_hgwba")]

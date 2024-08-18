@@ -150,6 +150,7 @@ shape = SubResource("RectangleShape2D_8pmvs")
 [node name="Agent" type="NavigationAgent2D" parent="."]
 path_desired_distance = 8.0
 target_desired_distance = 16.0
+debug_enabled = true
 
 [node name="Timer" type="Timer" parent="Agent"]
 wait_time = 0.3
@@ -162,3 +163,6 @@ libraries = {
 }
 
 [node name="ParticleDeath" parent="." instance=ExtResource("14_2icgf")]
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

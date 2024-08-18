@@ -17,14 +17,16 @@ public abstract partial class Enemy: Entity
 	[Export]
 	private DropTable _dropTable;
 
+	private bool IsIdle => Velocity.Equals(Vector2.Zero);
+	private StateMachine _stateMachine;
+	
 	protected float Speed
 	{
 		get => EntityStats.Speed;
 		private set => EntityStats.Speed = value;
 	}
 
-	private bool IsIdle => Velocity.Equals(Vector2.Zero);
-
+	
 	public Player Player;
 	
 	protected Global Global { get; private set; }
@@ -36,7 +38,7 @@ public abstract partial class Enemy: Entity
 	protected HitboxComponent HitboxComponent { get; private set; }
 	protected WeaponComponent WeaponComponent { get; private set; }
 	protected SpritesComponent SpritesComponent { get; private set; }
-
+	
 	public VisibleOnScreenNotifier2D Notifier { get; private set; }
 	private AnimationPlayer AnimationPlayer { get; set; }
 	
@@ -52,7 +54,7 @@ public abstract partial class Enemy: Entity
 		 base._Ready();
 		 
 		 Player = GetTree().GetFirstNodeInGroup("player") as Player;
-
+		 
 		 Global = GetNode<Global>("/root/Global");
 		 GlobalEvents = GetNode<GlobalEvents>("/root/GlobalEvents");
 
@@ -108,7 +110,7 @@ public abstract partial class Enemy: Entity
 				SetColor(Colors.Red);
 				break;
 			case EliteType.Invisible:
-				SetColor(new Color(Colors.White, 0.5f));
+				SetColor(new Color(Colors.White, 0.25f));
 				break;
 			case EliteType.Chaotic:
 				EntityStats.ProjectileWeaponType |= WeaponType.Random;
@@ -160,6 +162,12 @@ public abstract partial class Enemy: Entity
 	private void OnHealthChange(float value)
 	{
 		AnimationPlayer.Play("effect_damage_blink", -1D, EntityStats.ITime / 0.2f);
+	}
+
+	public void Activate()
+	{
+		_stateMachine = GetNode<StateMachine>("StateMachine");
+		_stateMachine.PrepareStateMachine(this);
 	}
 	
 	public abstract void AttackAction(double delta);

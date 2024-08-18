@@ -28,8 +28,11 @@ public partial class EntityDetector : Area2D
 		foreach (var entity in GetOverlappingBodies())
 		{
 			if (entity.IsInGroup(Groups.GroupEnemy))
+			{
 				_enemyCount++;
-
+				((Enemy)entity).Activate();
+			}
+				
 			if (entity.IsInGroup(Groups.GroupBoss))
 				_globalEvents.EmitBossRoomEnterSignal((Enemy)entity);
 		}

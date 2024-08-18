@@ -6,6 +6,7 @@
 resource_local_to_scene = true
 script = ExtResource("1_cmikr")
 Source = 3
+Name = "Tower"
 BombCount = 0
 KeyCardCount = 0
 CreditCount = 0

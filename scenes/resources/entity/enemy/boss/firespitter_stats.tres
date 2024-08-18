@@ -6,6 +6,7 @@
 resource_local_to_scene = true
 script = ExtResource("1_qyc62")
 Source = 3
+Name = "Firespitter"
 BombCount = 0
 KeyCardCount = 0
 CreditCount = 0

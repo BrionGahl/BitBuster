@@ -137,7 +137,7 @@ public partial class Bullet : CharacterBody2D
 		if (area is HitboxComponent hitboxComponent)
 		{
 			Logger.Log.Information("Hitbox hit at " + hitboxComponent.Name);
-			if (hitboxComponent.GetParent() is Enemy && _bulletType.HasFlag(BulletType.Invulnerable))
+			if (hitboxComponent.Source is SourceType.Enemy && _bulletType.HasFlag(BulletType.Invulnerable))
 				return;
 			hitboxComponent.Damage(_attackData);
 		}

@@ -1,4 +1,3 @@
-using BitBuster.component;
 using BitBuster.entity.enemy;
 using BitBuster.entity.player;
 using BitBuster.utils;
@@ -10,38 +9,28 @@ public partial class Sleep: State
 {
 	[Export]
 	public string NextState;
-	
-	private Enemy _parent;
-	
-	private Timer _agentTimer;
-	private NavigationAgent2D _agent;
-	private Player _player;
 
-	public override void Init()
+	public override void Init(Enemy enemy)
 	{
-		_parent = GetParent().GetParent<CharacterBody2D>() as Enemy;
-
-		_agentTimer = GetParent().GetParent().GetNodeOrNull<Timer>("Agent/Timer");
-		_agent = GetParent().GetParent().GetNodeOrNull<NavigationAgent2D>("Agent");
-		_player = GetTree().GetFirstNodeInGroup("player") as Player;
+		ParentEnemy = enemy;
 	}
 	
 	public override void Enter()
 	{
-		Logger.Log.Information(_parent.Name + " entering sleep.");
-		if (_parent is MovingEnemy)
-			_agentTimer.Paused = true;
+		Logger.Log.Information(ParentEnemy.EntityStats.Name + " entering sleep.");
+		
+		if (ParentEnemy is MovingEnemy movingEnemy)
+			movingEnemy.AgentTimer.Paused = true;
 
-		_parent.Position = _parent.SpawnPosition;
+		ParentEnemy.Position = ParentEnemy.SpawnPosition;
 	}
 
 	public override void Exit()
 	{
-		if (_parent is MovingEnemy)
-			_agentTimer.Paused = false;
+		if (ParentEnemy is MovingEnemy movingEnemy)
+			movingEnemy.AgentTimer.Paused = false;
 		
-		_parent.Target = Vector2.Zero;
-
+		ParentEnemy.Target = Vector2.Zero;
 	}
 
 	public override void StateUpdate(double delta)
@@ -51,16 +40,17 @@ public partial class Sleep: State
 	public override void StatePhysicsUpdate(double delta)
 	{
 
-		if (_parent is MovingEnemy)
+		if (!ParentEnemy.Notifier.IsOnScreen())
+			return;
+		
+		if (ParentEnemy is MovingEnemy movingEnemy)
 		{
-			_agent.TargetPosition = _player.GlobalPosition;
-			MovingEnemy movingEnemy = _parent as MovingEnemy;
-			if (movingEnemy.Notifier.IsOnScreen() && _agent.IsTargetReachable()) 
+			movingEnemy.Agent.TargetPosition = ParentEnemy.Player.GlobalPosition;
+			if (movingEnemy.Agent.IsTargetReachable()) 
 				EmitSignal(SignalName.StateTransition, this, NextState);
 			return;
 		}
 		
-		if (_parent.Notifier.IsOnScreen()) 
-			EmitSignal(SignalName.StateTransition, this, NextState);
+		EmitSignal(State.SignalName.StateTransition, this, NextState);
 	}
 }

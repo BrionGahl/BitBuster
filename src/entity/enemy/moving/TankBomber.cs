@@ -25,7 +25,6 @@ public partial class TankBomber : MovingEnemy
 		_timeTillExplosion = 0f;
 		
 		NavigationServer2D.MapChanged += OnMapReady;
-		AgentTimer.Timeout += OnAgentTimeout;
 	}
 	
 	protected override void OnHealthIsZero()
@@ -58,11 +57,6 @@ public partial class TankBomber : MovingEnemy
 		{
 			WeaponComponent.AttemptBomb(Position);
 		}
-	}
-
-	protected override void OnAgentTimeout()
-	{
-		Agent.TargetPosition = Target == Vector2.Zero ? Player.Position : Target;
 	}
 
 	private void OnMapReady(Rid rid)

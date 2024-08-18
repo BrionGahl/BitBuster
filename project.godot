@@ -23,9 +23,11 @@ Global="*res://src/world/Global.cs"
 
 [display]
 
-window/size/viewport_width=1024
-window/size/viewport_height=768
+window/size/viewport_width=640
+window/size/viewport_height=360
 window/stretch/mode="viewport"
+window/stretch/aspect="keep_width"
+window/stretch/scale=0.5
 mouse_cursor/custom_image="res://assets/cursor/cursor.png"
 mouse_cursor/custom_image_hotspot=Vector2(16, 16)
 
@@ -111,5 +113,7 @@ bomb={
 [rendering]
 
 environment/defaults/default_clear_color=Color(0, 0, 0, 1)
+2d/snap/snap_2d_transforms_to_pixel=true
+2d/snap/snap_2d_vertices_to_pixel=true
 environment/stretch/mode="viewport"
 environment/size/transparent=false

@@ -195,6 +195,7 @@ path_postprocessing = 1
 radius = 8.0
 avoidance_layers = 4
 avoidance_mask = 4
+debug_enabled = true
 
 [node name="Timer" type="Timer" parent="Agent"]
 wait_time = 0.3
@@ -205,3 +206,6 @@ wait_time = 0.3
 libraries = {
 "": SubResource("AnimationLibrary_4jgg4")
 }
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

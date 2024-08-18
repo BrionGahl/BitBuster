@@ -6,6 +6,7 @@
 resource_local_to_scene = true
 script = ExtResource("1_ttuya")
 Source = 3
+Name = "Oil Demon"
 BombCount = 10000
 KeyCardCount = 0
 CreditCount = 0

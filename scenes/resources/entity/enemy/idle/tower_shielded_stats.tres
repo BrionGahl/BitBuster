@@ -6,6 +6,7 @@
 resource_local_to_scene = true
 script = ExtResource("1_ix41l")
 Source = 3
+Name = "Shielded Tower"
 BombCount = 0
 KeyCardCount = 0
 CreditCount = 0

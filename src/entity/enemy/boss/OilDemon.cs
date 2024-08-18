@@ -29,7 +29,6 @@ public partial class OilDemon : MovingEnemy
 
 		_mechanicsTimer.Timeout += OnMechanicsTimeout;
 		NavigationServer2D.MapChanged += OnMapReady;
-		AgentTimer.Timeout += OnAgentTimeout;
 	}
 
 	protected override void OnHealthIsZero()
@@ -107,12 +106,6 @@ public partial class OilDemon : MovingEnemy
 		EntityStats.ProjectileCount = 40;
 		_mechanicsTimer.WaitTime = 2.5f;
 		EntityStats.Speed = 75f;
-	}
-	
-
-	protected override void OnAgentTimeout()
-	{
-		Agent.TargetPosition = Target == Vector2.Zero ? Player.Position : Target;
 	}
 
 	private void OnMapReady(Rid rid)

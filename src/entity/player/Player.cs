@@ -173,16 +173,16 @@ public partial class Player : Entity
 	
 	private void OnHealthIsZero()
 	{
-		EmitSignal(SignalName.Died);
-		_hull.Visible = false;
-		_gun.Visible = false;
-		
-		_hasShot = true;
-		_hasBombed = true;
-		Speed = 0;
-		
-		if (!ParticleDeath.Emitting)
-			ParticleDeath.Emitting = true;
+		// EmitSignal(SignalName.Died);
+		// _hull.Visible = false;
+		// _gun.Visible = false;
+		//
+		// _hasShot = true;
+		// _hasBombed = true;
+		// Speed = 0;
+		//
+		// if (!ParticleDeath.Emitting)
+		// 	ParticleDeath.Emitting = true;
 	}
 	
 	

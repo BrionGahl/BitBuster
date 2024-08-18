@@ -1,11 +1,12 @@
+using BitBuster.utils;
 using Godot;
 
 namespace BitBuster.entity.enemy;
 
 public abstract partial class MovingEnemy: Enemy
 {
-	public NavigationAgent2D Agent;
-	protected Timer AgentTimer;
+	public NavigationAgent2D Agent { get; set; }
+	public Timer AgentTimer { get; set; }
 	
 	private int _movementScalar;
 	private float _rotationGoal;
@@ -16,6 +17,8 @@ public abstract partial class MovingEnemy: Enemy
 
 		Agent = GetNode<NavigationAgent2D>("Agent");
 		AgentTimer = GetNode<Timer>("Agent/Timer");
+		
+		AgentTimer.Timeout += OnAgentTimeout;
 	}
 
 	public void MoveAction(double delta)
@@ -46,5 +49,12 @@ public abstract partial class MovingEnemy: Enemy
 		Velocity = goalVector.Normalized() * _movementScalar * Speed;
 		MoveAndSlide();
 	}
-	protected abstract void OnAgentTimeout();
+	
+	private void OnAgentTimeout()
+	{
+		Agent.TargetPosition = Target == Vector2.Zero 
+			? Player.Position 
+			: Target;
+	}
+	
 }

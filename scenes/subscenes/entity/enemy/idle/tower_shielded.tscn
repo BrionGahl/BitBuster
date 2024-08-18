@@ -149,3 +149,6 @@ collision_mask = 0
 shape = SubResource("RectangleShape2D_5qs8s")
 
 [node name="ShieldComponent" parent="." instance=ExtResource("12_xpycs")]
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

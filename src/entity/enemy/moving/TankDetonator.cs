@@ -24,7 +24,6 @@ public partial class TankDetonator : MovingEnemy
 		
 		NavigationServer2D.MapChanged += OnMapReady;
 		_explodingComponent.ExplodingEmitter.Finished += OnExplodeFinished;
-		AgentTimer.Timeout += OnAgentTimeout;
 	}
 
 	protected override void OnHealthIsZero()
@@ -75,11 +74,6 @@ public partial class TankDetonator : MovingEnemy
 			if (EntityStats.Speed < 35)
 				EntityStats.Speed = 35;
 		}
-	}
-
-	protected override void OnAgentTimeout()
-	{
-		Agent.TargetPosition = Target == Vector2.Zero ? Player.Position : Target;
 	}
 
 	private void OnMapReady(Rid rid)

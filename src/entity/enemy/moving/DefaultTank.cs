@@ -12,7 +12,6 @@ public partial class DefaultTank : MovingEnemy
 		base._Ready();
 		
 		NavigationServer2D.MapChanged += OnMapReady;
-		AgentTimer.Timeout += OnAgentTimeout;
 	}
 
 	protected override void OnHealthIsZero()
@@ -44,11 +43,6 @@ public partial class DefaultTank : MovingEnemy
 		SpritesComponent.SetGunRotation(CanSeePlayer(), Player.Position, Mathf.Pi/12);
 		if (CanSeePlayer() && RandomNumberGenerator.Randf() > 0.3f)
 			WeaponComponent.AttemptShoot(Player.Position.AngleToPoint(Position));
-	}
-
-	protected override void OnAgentTimeout()
-	{
-		Agent.TargetPosition = Target == Vector2.Zero ? Player.Position : Target;
 	}
 
 	private void OnMapReady(Rid rid)

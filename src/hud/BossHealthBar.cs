@@ -54,7 +54,7 @@ public partial class BossHealthBar : ProgressBar
 	{
 		Logger.Log.Information("Boss Room Entered...");
 
-		_bossName.Text = (string)enemy.GetMeta("BossName");
+		_bossName.Text = enemy.EntityStats.Name;
 		_bossHealthComponent = enemy.HealthComponent;
 		
 		MaxValue = _bossHealthComponent.MaxHealth;

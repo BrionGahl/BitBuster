@@ -1,4 +1,6 @@
 using System;
+using BitBuster.entity;
+using BitBuster.entity.enemy;
 using Godot;
 using Godot.Collections;
 
@@ -6,7 +8,8 @@ namespace BitBuster.state;
 
 public partial class StateMachine : Node2D
 {
-
+	private Enemy _parent;
+	
 	[Export]
 	public State InitialState { get; set; }
 	
@@ -17,13 +20,17 @@ public partial class StateMachine : Node2D
 	public override void _Ready()
 	{
 		_states = new Dictionary<string, State>();
-		
+	}
+
+	public void PrepareStateMachine(Enemy enemy)
+	{
+		_parent = enemy;
 		foreach (Node child in GetChildren())
 		{
 			if (child is State state)
 			{
 				_states.Add(state.Name.ToString().ToLower(), state);
-				state.Init();
+				state.Init(_parent);
 				state.StateTransition += OnStateTransition;
 			}
 		}
@@ -33,9 +40,8 @@ public partial class StateMachine : Node2D
 			
 		InitialState.Enter();
 		CurrentState = InitialState;
-	
 	}
-
+	
 	public override void _Process(double delta)
 	{
 		if (CurrentState != null)

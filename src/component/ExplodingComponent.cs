@@ -39,11 +39,8 @@ public partial class ExplodingComponent : Area2D
 		_areaCollider.Shape = new CircleShape2D();
 		_explosion = (CircleShape2D)_areaCollider.Shape;
 		
-		if (GetParent().IsInGroup(Groups.GroupBullet))
-		{
-			_explosion.Radius = 20f;
-			((ParticleProcessMaterial)ExplodingEmitter.ProcessMaterial).EmissionSphereRadius = 25f;
-		}
+		_explosion.Radius = 20f;
+		((ParticleProcessMaterial)ExplodingEmitter.ProcessMaterial).EmissionSphereRadius = 25f;
 
 		ExplodingEmitter.Finished += OnExplodeFinished;
 	}
