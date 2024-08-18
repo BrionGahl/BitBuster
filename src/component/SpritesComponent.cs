@@ -27,7 +27,7 @@ public partial class SpritesComponent : Node2D
 			return;
 		
 		if (canSeePlayer)
-			Gun.Rotation = (float)Mathf.RotateToward(Gun.Rotation, playerPosition.AngleToPoint(GetParent<Node2D>().Position) - Constants.HalfPiOffset, 0.5);
+			Gun.Rotation = (float)Mathf.RotateToward(Gun.Rotation, playerPosition.AngleToPoint(Body.GlobalPosition) - Constants.HalfPiOffset, 0.5);
 		else
 			Gun.Rotation = (float)Mathf.RotateToward(Gun.Rotation, Gun.Rotation + radian, 0.1);
 	}

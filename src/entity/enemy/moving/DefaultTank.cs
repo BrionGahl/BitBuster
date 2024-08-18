@@ -42,7 +42,7 @@ public partial class DefaultTank : MovingEnemy
 
 		SpritesComponent.SetGunRotation(CanSeePlayer(), Player.Position, Mathf.Pi/12);
 		if (CanSeePlayer() && RandomNumberGenerator.Randf() > 0.3f)
-			WeaponComponent.AttemptShoot(Player.Position.AngleToPoint(Position));
+			WeaponComponent.AttemptShoot(Position, Player.Position.AngleToPoint(Position));
 	}
 
 	private void OnMapReady(Rid rid)

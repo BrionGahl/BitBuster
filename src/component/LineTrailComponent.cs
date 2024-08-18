@@ -8,13 +8,7 @@ public partial class LineTrailComponent : Line2D
 
 	[Export]
 	public int TrailLength { get; set; }
-
-	public override void _Ready()
-	{
-		Parent = GetParent<Node2D>();
-	}
-
-
+	
 	public override void _Process(double delta)
 	{
 		AddPoint(Parent.GlobalPosition);

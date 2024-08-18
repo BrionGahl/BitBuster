@@ -87,7 +87,7 @@ public partial class Player : Entity
 		_gun.Rotation = (float)Mathf.RotateToward(_gun.Rotation, GetGlobalMousePosition().AngleToPoint(Position) - Constants.HalfPiOffset, 0.5);
 		
 		if (_hasShot)
-			_weaponComponent.AttemptShoot(GetGlobalMousePosition().AngleToPoint(Position));
+			_weaponComponent.AttemptShoot(Position, GetGlobalMousePosition().AngleToPoint(Position));
 
 		if (_hasBombed)
 			_weaponComponent.AttemptBomb(Position);

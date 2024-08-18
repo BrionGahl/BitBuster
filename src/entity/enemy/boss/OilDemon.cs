@@ -75,7 +75,7 @@ public partial class OilDemon : MovingEnemy
 			EntityStats.ProjectileSpeed = 200;
 			EntityStats.ProjectileDamage *= 2;
 			EntityStats.ProjectileCooldown = 1.33f;
-			if (WeaponComponent.AttemptShoot(Player.Position.AngleToPoint(Position)))
+			if (WeaponComponent.AttemptShoot(Position, Player.Position.AngleToPoint(Position)))
 				_iteration -= 10;
 			EntityStats.ProjectileBounces = 0;
 			EntityStats.ProjectileSizeScalar = Vector2.One;
@@ -93,7 +93,7 @@ public partial class OilDemon : MovingEnemy
 
 		if (_mechanics > 0.4)
 		{
-			if (WeaponComponent.AttemptShoot(Player.Position.AngleToPoint(Position)))
+			if (WeaponComponent.AttemptShoot(Position, Player.Position.AngleToPoint(Position)))
 				_iteration--;
 			
 		}
