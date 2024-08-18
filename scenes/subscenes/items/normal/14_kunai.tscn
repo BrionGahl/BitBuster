@@ -22,9 +22,6 @@ ProjectileDamage = 1.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_k1piv")
 
-[node name="Timer" type="Timer" parent="."]
-one_shot = true
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("2_adiuw")

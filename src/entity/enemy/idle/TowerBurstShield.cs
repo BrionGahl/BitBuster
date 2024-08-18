@@ -35,14 +35,13 @@ public partial class TowerBurstShield : IdleEnemy
 	
 		CleanAndRebake();
 		HandleDrops();
+
+		HasDied = true;
 		
 		ParticleDeath.Emitting = true;
-		
-		DeathAnimationTimer.Start();
-		HasDied = true;
 	}
 
-	protected override void OnDeathAnimationTimeout()
+	protected override void OnParticleDeathFinished()
 	{
 		AnimationFinished = true;
 	}

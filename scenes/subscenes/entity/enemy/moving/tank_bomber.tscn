@@ -160,9 +160,6 @@ target_desired_distance = 8.0
 [node name="Timer" type="Timer" parent="Agent"]
 wait_time = 0.3
 
-[node name="DeathAnimationTimer" type="Timer" parent="."]
-one_shot = true
-
 [node name="ParticleDeath" parent="." instance=ExtResource("2_h3pg2")]
 
 [node name="ExplodingComponent" parent="." instance=ExtResource("12_v6eig")]

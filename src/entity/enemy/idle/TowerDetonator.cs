@@ -19,6 +19,8 @@ public partial class TowerDetonator : IdleEnemy
 		
 		_timeTillExplosion = 0f;
 		SpritesComponent.SetBodyMaterialProperty("shader_parameter/time", _timeTillExplosion);
+		
+		_explodingComponent.ExplodingEmitter.Finished += OnExplodeFinished;
 	}
 	
 	
@@ -30,14 +32,16 @@ public partial class TowerDetonator : IdleEnemy
 	
 		CleanAndRebake();
 		HandleDrops();
-		
-		ParticleDeath.Emitting = true;
-		
-		DeathAnimationTimer.Start();
+
 		HasDied = true;
 	}
 
-	protected override void OnDeathAnimationTimeout()
+	protected override void OnParticleDeathFinished()
+	{
+		QueueFree();
+	}
+
+	private void OnExplodeFinished()
 	{
 		QueueFree();
 	}

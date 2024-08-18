@@ -85,7 +85,4 @@ texture_filter = 1
 use_parent_material = true
 texture = ExtResource("7_202n4")
 
-[node name="DeathAnimationTimer" type="Timer" parent="."]
-one_shot = true
-
 [node name="ParticleCritComponent" parent="." instance=ExtResource("8_m473y")]

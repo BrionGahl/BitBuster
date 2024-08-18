@@ -18,10 +18,10 @@ public partial class Bullet : CharacterBody2D
 	
 	private GpuParticles2D _bounceEmitter;
 	private GpuParticles2D _explodeEmitter;
+	private GpuParticles2D _activeTrail;
 
 	private Timer _parentIFrameTimer;
 	private Timer _selfIFrameTimer;
-	private Timer _deathAnimationTimer;
 
 	private AttackData _attackData;
 	private int _remainingBounces;
@@ -45,13 +45,12 @@ public partial class Bullet : CharacterBody2D
 
 		_parentIFrameTimer = GetNode<Timer>("ParentIFrameTimer");
 		_selfIFrameTimer = GetNode<Timer>("SelfIFrameTimer");
-		_deathAnimationTimer = GetNode<Timer>("DeathAnimationTimer");
 		
 		_hitbox.AreaEntered += OnAreaEntered;
 
 		_parentIFrameTimer.Timeout += OnParentIFrameTimeout;
 		_selfIFrameTimer.Timeout += OnSelfIFrameTimeout;
-		_deathAnimationTimer.Timeout += OnDeathAnimationTimeout;
+		_explodeEmitter.Finished += OnExplodeFinished;
 	}
 
 	public override void _Ready()
@@ -78,7 +77,7 @@ public partial class Bullet : CharacterBody2D
 			
 		} else if (collision != null && _remainingBounces <= 0)
 		{
-			if (_deathAnimationTimer.TimeLeft != 0) 
+			if (_explodeEmitter.Emitting) 
 				return;
 			
 			PrepForFree();
@@ -101,29 +100,27 @@ public partial class Bullet : CharacterBody2D
 		_bulletTexture.Modulate = Color.FromHsv(_remainingBounces * _hueShift, 1.0f, 1.0f);
 
 		Scale = new Vector2(size.X, size.Y);
-		if (speed > 150)
-		{
-			GetNode<GpuParticles2D>("ParticleFastTrail").Emitting = true;
-		}
-		else
-		{
-			GetNode<GpuParticles2D>("ParticleTrail").Emitting = true;
-		}
+		
+		_activeTrail = speed > 150
+			? GetNode<GpuParticles2D>("ParticleFastTrail")
+			: GetNode<GpuParticles2D>("ParticleTrail");
+		_activeTrail.Emitting = true;
 		
 		GetNode<GpuParticles2D>("ParticleCritComponent").Emitting = _attackData.IsCrit;
 		
 		Velocity = new Vector2(0, -speed).Rotated(GlobalRotation);
 	}
 
-	public void PrepForFree()
+	private void PrepForFree()
 	{
 		_bulletTexture.Visible = false;
+		_activeTrail.Emitting = false;
+		_bounceEmitter.Visible = false;
 		
 		_hitbox.SetDeferred("monitoring", false);
 		_hitbox.SetDeferred("monitorable", false);
 		
 		_explodeEmitter.Emitting = true;
-		_deathAnimationTimer.Start();
 	}
 
 	private void OnAreaEntered(Area2D area)
@@ -190,7 +187,7 @@ public partial class Bullet : CharacterBody2D
 			_hitbox.SetCollisionMaskValue((int)BBCollisionLayer.Player, true);
 	}
 	
-	private void OnDeathAnimationTimeout()
+	private void OnExplodeFinished()
 	{
 		QueueFree();
 	}

@@ -8,7 +8,6 @@ public partial class Item: RigidBody2D
 {
 	// Node Specifics
 	private Sprite2D _itemTexture;
-	private Timer _animationTimer;
 	private GpuParticles2D _particles;
 	private Label _label;
 	
@@ -97,25 +96,21 @@ public partial class Item: RigidBody2D
 	public override void _Ready()
 	{
 		_itemTexture = GetNode<Sprite2D>("Sprite2D");
-		_animationTimer = GetNode<Timer>("Timer");
 		_particles = GetNode<GpuParticles2D>("ParticleItemPickupComponent");
 		_label = GetNode<Label>("PriceLabel");
 		
 		_label.Text = CreditCost <= 0 
 			? "" 
 			: $"${CreditCost}";
-		
-		_animationTimer.Timeout += OnAnimationTimeout;
+
+		_particles.Finished += OnParticlesFinished;
 	}
 	
 	public void OnPickup()
 	{
-		_particles.Emitting = true;
-		
 		_label.Visible = false;
 		_itemTexture.Visible = false;
-		
-		_animationTimer.Start();
+		_particles.Emitting = true;
 	}
 
 	public void SetRandomVelocity()
@@ -124,7 +119,7 @@ public partial class Item: RigidBody2D
 		LinearVelocity = new Vector2(rand.RandfRange(-75, 75), rand.RandfRange(-75, 75));
 	}
 	
-	private void OnAnimationTimeout()
+	private void OnParticlesFinished()
 	{
 		QueueFree();
 	}

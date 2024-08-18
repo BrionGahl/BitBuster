@@ -154,9 +154,6 @@ target_desired_distance = 16.0
 [node name="Timer" type="Timer" parent="Agent"]
 wait_time = 0.3
 
-[node name="DeathAnimationTimer" type="Timer" parent="."]
-one_shot = true
-
 [node name="ExplodingComponent" parent="." instance=ExtResource("12_pk6fm")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

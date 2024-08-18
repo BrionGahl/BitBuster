@@ -10,7 +10,6 @@ public partial class Bomb : StaticBody2D
 {
 	private GlobalEvents _globalEvents;
 	private Sprite2D _bombTexture;
-	private Timer _deathAnimationTimer;
 	private EntityStats _entityStats;
 	private HitboxComponent _hitboxComponent;
 	private HealthComponent _healthComponent;
@@ -32,7 +31,6 @@ public partial class Bomb : StaticBody2D
 		_globalEvents = GetNode<GlobalEvents>("/root/GlobalEvents");
 		
 		_bombTexture = GetNode<Sprite2D>("Sprite2D");
-		_deathAnimationTimer = GetNode<Timer>("DeathAnimationTimer");
 		
 		_explodingComponent = GetNode<ExplodingComponent>("ExplodingComponent");
 		_explodingComponent.EntityStats = EntityStats;
@@ -47,7 +45,7 @@ public partial class Bomb : StaticBody2D
 		Material.Set("shader_parameter/Time", 0f);
 		
 		_healthComponent.HealthIsZero += OnHealthIsZero;
-		_deathAnimationTimer.Timeout += OnDeathAnimationTimeout;
+		_explodingComponent.ExplodingEmitter.Finished += OnExplodeFinished;
 	}
 
 	public override void _Process(double delta)
@@ -78,11 +76,9 @@ public partial class Bomb : StaticBody2D
 	{
 		_hitboxComponent.SetDeferred("monitorable", false);
 		_hitboxComponent.SetDeferred("monitoring", false);
-		
-		_deathAnimationTimer.Start();
 	}
 
-	private void OnDeathAnimationTimeout()
+	private void OnExplodeFinished()
 	{
 		QueueFree();
 	}

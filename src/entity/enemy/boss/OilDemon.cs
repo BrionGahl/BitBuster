@@ -42,15 +42,13 @@ public partial class OilDemon : MovingEnemy
 		HitboxComponent.SetDeferred("monitoring", false);
 		
 		HandleDrops();
-		ParticleDeath.Emitting = true;
-		
-		DeathAnimationTimer.Start();
 		HasDied = true;
-		
 		_globalEvents.EmitBossKilledSignal();
+		
+		ParticleDeath.Emitting = true;
 	}
 
-	protected override void OnDeathAnimationTimeout()
+	protected override void OnParticleDeathFinished()
 	{
 		AnimationFinished = true;
 	}

@@ -167,10 +167,6 @@ randomness = 0.25
 wait_time = 0.2
 one_shot = true
 
-[node name="DeathAnimationTimer" type="Timer" parent="."]
-wait_time = 0.2
-one_shot = true
-
 [node name="ExplodingComponent" parent="." instance=ExtResource("3_owbfi")]
 
 [node name="ParticleCritComponent" parent="." instance=ExtResource("4_b8uvi")]

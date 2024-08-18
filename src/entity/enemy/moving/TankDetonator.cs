@@ -23,6 +23,7 @@ public partial class TankDetonator : MovingEnemy
 		SpritesComponent.SetBodyMaterialProperty("shader_parameter/time", _timeTillExplosion);
 		
 		NavigationServer2D.MapChanged += OnMapReady;
+		_explodingComponent.ExplodingEmitter.Finished += OnExplodeFinished;
 		AgentTimer.Timeout += OnAgentTimeout;
 	}
 
@@ -34,11 +35,14 @@ public partial class TankDetonator : MovingEnemy
 		HitboxComponent.SetDeferred("monitoring", false);
 		
 		HandleDrops();
-		
-		DeathAnimationTimer.Start();
 	}
 
-	protected override void OnDeathAnimationTimeout()
+	protected override void OnParticleDeathFinished()
+	{
+		QueueFree();
+	}
+
+	private void OnExplodeFinished()
 	{
 		QueueFree();
 	}

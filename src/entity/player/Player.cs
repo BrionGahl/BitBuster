@@ -165,7 +165,7 @@ public partial class Player : Entity
 			_animationPlayer.Play("effect_heal_blink");
 	}
 
-	protected override void OnDeathAnimationTimeout()
+	protected override void OnParticleDeathFinished()
 	{
 		Logger.Log.Information("Moving to main menu...");
 		GetTree().ChangeSceneToPacked(_global.MainMenuPackedScene);
@@ -173,17 +173,16 @@ public partial class Player : Entity
 	
 	private void OnHealthIsZero()
 	{
-		// EmitSignal(SignalName.Died);
-		// _hull.Visible = false;
-		// _gun.Visible = false;
-		//
-		// _hasShot = true;
-		// _hasBombed = true;
-		// Speed = 0;
-		// ParticleDeath.Emitting = true;
-		//
-		// if (DeathAnimationTimer.TimeLeft <= 0)
-		// 	DeathAnimationTimer.Start();
+		EmitSignal(SignalName.Died);
+		_hull.Visible = false;
+		_gun.Visible = false;
+		
+		_hasShot = true;
+		_hasBombed = true;
+		Speed = 0;
+		
+		if (!ParticleDeath.Emitting)
+			ParticleDeath.Emitting = true;
 	}
 	
 	

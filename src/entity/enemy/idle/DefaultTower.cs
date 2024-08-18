@@ -20,13 +20,12 @@ public partial class DefaultTower : IdleEnemy
 		CleanAndRebake();
 		HandleDrops();
 		
-		ParticleDeath.Emitting = true;
-		
-		DeathAnimationTimer.Start();
 		HasDied = true;
+
+		ParticleDeath.Emitting = true;
 	}
 
-	protected override void OnDeathAnimationTimeout()
+	protected override void OnParticleDeathFinished()
 	{
 		AnimationFinished = true;
 	}

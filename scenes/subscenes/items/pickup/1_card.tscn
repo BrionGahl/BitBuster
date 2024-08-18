@@ -26,8 +26,6 @@ shape = SubResource("RectangleShape2D_5saa8")
 texture_filter = 1
 texture = ExtResource("2_idyau")
 
-[node name="Timer" type="Timer" parent="."]
-
 [node name="ParticleItemPickupComponent" parent="." instance=ExtResource("3_6tf6h")]
 
 [node name="PriceLabel" type="Label" parent="."]
