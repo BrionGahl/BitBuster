@@ -26,7 +26,6 @@ public partial class OilDemon : MovingEnemy
 		_particleDeath = GetNode<GpuParticles2D>("ParticleDeath");
 		_mechanicsTimer = GetNode<Timer>("MechanicsTimer");
 
-		SpritesComponent.SetGunRotationAndPosition(CanSeePlayer(), Player.Position, Mathf.Pi/12);
 		_mechanics = 0.0f;
 		_iteration = 0;
 		_isRaging = false;
@@ -64,7 +63,7 @@ public partial class OilDemon : MovingEnemy
 		AttemptToFree();
 		if (HasDied)
 			return;
-		SpritesComponent.SetGunRotationAndPosition(CanSeePlayer(), Player.Position, Mathf.Pi / 4);
+		SpritesComponent.SetGunRotation(CanSeePlayer(), Player.Position, Mathf.Pi / 4);
 
 		if (_iteration <= 0)
 		{

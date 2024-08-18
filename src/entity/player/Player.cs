@@ -67,7 +67,7 @@ public partial class Player : Entity
 	public override void _Process(double delta)
 	{
 		GetInput();
-		SetGunRotationAndPosition();
+		_gun.Rotation = (float)Mathf.RotateToward(_gun.Rotation, GetGlobalMousePosition().AngleToPoint(Position) - Constants.HalfPiOffset, 0.5);
 		
 		if (_hasShot)
 			_shot = _weaponComponent.AttemptShoot(GetGlobalMousePosition().AngleToPoint(Position));
@@ -102,12 +102,6 @@ public partial class Player : Entity
 		_hasBombed = Input.IsActionJustPressed("bomb");
 	}
 
-	private void SetGunRotationAndPosition()
-	{
-		_gun.Rotation = (float)Mathf.LerpAngle(_gun.Rotation, GetGlobalMousePosition().AngleToPoint(Position) - Constants.HalfPiOffset, 0.5);
-		_gun.Position = Position;
-	}
-
 	private void HandleAnimations()
 	{
 		_gun.Animation = !_hasShot ? "default" : "shot"; 
@@ -139,7 +133,7 @@ public partial class Player : Entity
 			_rotationGoal = _movementDirection.Angle();
 		}
 		
-		Rotation = Mathf.LerpAngle(rotationVector.Angle(), _rotationGoal, 0.05f);
+		Rotation = Mathf.RotateToward(rotationVector.Angle(), _rotationGoal, 0.05f);
 	}
 	
 	private void OnIncrementAndGenerateLevel()
@@ -163,17 +157,17 @@ public partial class Player : Entity
 	
 	private void OnHealthIsZero()
 	{
-		EmitSignal(SignalName.Died);
-		_hull.Visible = false;
-		_gun.Visible = false;
-		
-		_hasShot = true;
-		_hasBombed = true;
-		Speed = 0;
-		ParticleDeath.Emitting = true;
-		
-		if (DeathAnimationTimer.TimeLeft <= 0)
-			DeathAnimationTimer.Start();
+		// EmitSignal(SignalName.Died);
+		// _hull.Visible = false;
+		// _gun.Visible = false;
+		//
+		// _hasShot = true;
+		// _hasBombed = true;
+		// Speed = 0;
+		// ParticleDeath.Emitting = true;
+		//
+		// if (DeathAnimationTimer.TimeLeft <= 0)
+		// 	DeathAnimationTimer.Start();
 	}
 
 	private void OnDoorEnterTimeout()

@@ -42,7 +42,7 @@ public abstract partial class MovingEnemy: Enemy
 			_rotationGoal = goalVector.Angle();
 		}
 		
-		Rotation = Mathf.LerpAngle(rotationVector.Angle(), _rotationGoal, 0.05f);
+		Rotation = Mathf.RotateToward(rotationVector.Angle(), _rotationGoal, 0.05f);
 		
 		Velocity = goalVector.Normalized() * _movementScalar * Speed;
 		MoveAndSlide();

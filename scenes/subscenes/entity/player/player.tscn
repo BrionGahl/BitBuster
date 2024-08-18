@@ -193,6 +193,10 @@ sprite_frames = SubResource("SpriteFrames_udnnf")
 animation = &"moving"
 frame_progress = 0.174181
 
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
+remote_path = NodePath("../Gun")
+update_rotation = false
+
 [node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_pjmg8")
 

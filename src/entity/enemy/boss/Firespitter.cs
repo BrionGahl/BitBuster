@@ -26,8 +26,6 @@ public partial class Firespitter : IdleEnemy
 		_particleDeath = GetNode<GpuParticles2D>("ParticleDeath");
 		_mechanicsTimer = GetNode<Timer>("MechanicsTimer");
 		
-		SpritesComponent.SetGunRotationAndPosition(CanSeePlayer(), Player.Position, Mathf.Pi/12);
-
 		_mechanics = 0.0f;
 		_iteration = 0;
 
@@ -76,7 +74,7 @@ public partial class Firespitter : IdleEnemy
 		// Beam
 		if (_mechanics <= 0.3)
 		{
-			SpritesComponent.SetGunRotationAndPosition(false, Player.Position, _mechanicsDir * Mathf.Pi / 2);
+			SpritesComponent.SetGunRotation(false, Player.Position, _mechanicsDir * Mathf.Pi / 2);
 			if (WeaponComponent.AttemptShoot(_mechanicsDir * Mathf.Pi / 2))
 				_iteration -= 5;
 			_mechanicsDir = RandomNumberGenerator.RandiRange(1, 4);
@@ -86,7 +84,7 @@ public partial class Firespitter : IdleEnemy
 		if (_mechanics > 0.3 && _mechanics <= 0.7)
 		{
 			int dir = _mechanicsDir == 1 ? 1 : -1;
-			SpritesComponent.SetGunRotationAndPosition(false, Player.Position, dir * _iteration * Mathf.Pi / WeaponComponent.BulletCount);
+			SpritesComponent.SetGunRotation(false, Player.Position, dir * _iteration * Mathf.Pi / WeaponComponent.BulletCount);
 			if (WeaponComponent.AttemptShoot(dir * _iteration * Mathf.Pi / WeaponComponent.BulletCount))
 				_iteration--;
 		}
@@ -94,7 +92,7 @@ public partial class Firespitter : IdleEnemy
 		// Three Shots
 		if (_mechanics > 0.7)
 		{
-			SpritesComponent.SetGunRotationAndPosition(CanSeePlayer(), Player.Position, Mathf.Pi / 4);
+			SpritesComponent.SetGunRotation(CanSeePlayer(), Player.Position, Mathf.Pi / 4);
 			if (WeaponComponent.AttemptShoot(Player.Position.AngleToPoint(Position)))
 				_iteration -= 5;
 		}
