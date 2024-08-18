@@ -5,15 +5,8 @@ namespace BitBuster.entity;
 
 public abstract partial class Entity: CharacterBody2D
 {
-    private EntityStats _entityStats;
-	
     [Export] 
-    public EntityStats EntityStats
-    {
-        get => _entityStats;
-        set => _entityStats = value;
-    }
-    
+    public EntityStats EntityStats { get; set; }
     protected CollisionShape2D Collider { get; private set; }
     protected GpuParticles2D ParticleDeath { get; private set; }
     protected Timer DeathAnimationTimer { get; private set; }

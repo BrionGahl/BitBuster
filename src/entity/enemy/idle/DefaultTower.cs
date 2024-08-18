@@ -5,12 +5,9 @@ namespace BitBuster.entity.enemy.idle;
 
 public partial class DefaultTower : IdleEnemy
 {
-	private GpuParticles2D _particleDeath;
-
 	public override void _Ready()
 	{
 		base._Ready();
-		_particleDeath = GetNode<GpuParticles2D>("ParticleDeath");
 	}
 	
 	protected override void OnHealthIsZero()
@@ -23,7 +20,7 @@ public partial class DefaultTower : IdleEnemy
 		CleanAndRebake();
 		HandleDrops();
 		
-		_particleDeath.Emitting = true;
+		ParticleDeath.Emitting = true;
 		
 		DeathAnimationTimer.Start();
 		HasDied = true;

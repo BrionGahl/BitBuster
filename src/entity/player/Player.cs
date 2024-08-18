@@ -1,4 +1,5 @@
 using BitBuster.component;
+using BitBuster.item;
 using BitBuster.utils;
 using BitBuster.world;
 using Godot;
@@ -9,6 +10,7 @@ public partial class Player : Entity
 {
 	[Signal]
 	public delegate void DiedEventHandler();
+
 	
 	private GlobalEvents _globalEvents;
 	private Global _global;	
@@ -18,9 +20,9 @@ public partial class Player : Entity
 
 	[Export] 
 	private HealthComponent _healthComponent;
-	
-	public bool CanEnterDoor => _doorEnterTimer.TimeLeft <= 0;
 
+	private ItemPickupHitbox _itemPickupHitbox;
+	
 	private float Speed
 	{
 		get => EntityStats.Speed;
@@ -41,8 +43,19 @@ public partial class Player : Entity
 	private bool _hasShot;
 	private bool _hasBombed;
 
-	private bool _shot;
-
+	public WeaponComponent WeaponComponent
+	{
+		get => _weaponComponent;
+		private set => _weaponComponent = value;
+	}
+	
+	public HealthComponent HealthComponent
+	{
+		get => _healthComponent;
+		private set => _healthComponent = value;
+	}
+	
+	public bool CanEnterDoor => _doorEnterTimer.TimeLeft <= 0;
 	
 	public override void _Ready()
 	{
@@ -56,6 +69,9 @@ public partial class Player : Entity
 		_hull = GetNode<AnimatedSprite2D>("Hull");
 		_animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		_doorEnterTimer = GetNode<Timer>("DoorEnterTimer");
+
+		_itemPickupHitbox = GetNode<ItemPickupHitbox>("ItemPickupHitbox");
+		_itemPickupHitbox.EntityStats = EntityStats;
 		
 		_weaponComponent.EntityStats = EntityStats;
 		_healthComponent.EntityStats = EntityStats;
@@ -71,7 +87,7 @@ public partial class Player : Entity
 		_gun.Rotation = (float)Mathf.RotateToward(_gun.Rotation, GetGlobalMousePosition().AngleToPoint(Position) - Constants.HalfPiOffset, 0.5);
 		
 		if (_hasShot)
-			_shot = _weaponComponent.AttemptShoot(GetGlobalMousePosition().AngleToPoint(Position));
+			_weaponComponent.AttemptShoot(GetGlobalMousePosition().AngleToPoint(Position));
 
 		if (_hasBombed)
 			_weaponComponent.AttemptBomb(Position);

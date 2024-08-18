@@ -1,5 +1,6 @@
 using BitBuster.data;
-using BitBuster.items;
+using BitBuster.item;
+using BitBuster.weapon;
 using BitBuster.world;
 using Godot;
 

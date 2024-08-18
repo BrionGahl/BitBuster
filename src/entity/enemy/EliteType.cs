@@ -1,4 +1,4 @@
-namespace BitBuster.world;
+namespace BitBuster.entity.enemy;
 
 public enum EliteType
 {

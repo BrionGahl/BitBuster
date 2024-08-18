@@ -1,6 +1,6 @@
-using BitBuster.items;
 using BitBuster.resource;
 using BitBuster.utils;
+using BitBuster.weapon;
 using BitBuster.world;
 using Godot;
 
@@ -10,7 +10,6 @@ public partial class Firespitter : IdleEnemy
 {
 	private GlobalEvents _globalEvents;
 	
-	private GpuParticles2D _particleDeath;
 	private Timer _mechanicsTimer;
 	
 	private float _mechanics;
@@ -23,7 +22,6 @@ public partial class Firespitter : IdleEnemy
 
 		_globalEvents = GetNode<GlobalEvents>("/root/GlobalEvents");
 		
-		_particleDeath = GetNode<GpuParticles2D>("ParticleDeath");
 		_mechanicsTimer = GetNode<Timer>("MechanicsTimer");
 		
 		_mechanics = 0.0f;
@@ -42,7 +40,7 @@ public partial class Firespitter : IdleEnemy
 		CleanAndRebake();
 		HandleDrops();
 		
-		_particleDeath.Emitting = true;
+		ParticleDeath.Emitting = true;
 		
 		DeathAnimationTimer.Start();
 		HasDied = true;

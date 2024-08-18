@@ -4,7 +4,7 @@ using BitBuster.resource;
 using BitBuster.world;
 using Godot;
 
-namespace BitBuster.projectile;
+namespace BitBuster.weapon;
 
 public partial class Bomb : StaticBody2D
 {

@@ -5,6 +5,7 @@ using BitBuster.entity.player;
 using BitBuster.resource;
 using BitBuster.state;
 using BitBuster.utils;
+using BitBuster.weapon;
 using BitBuster.world;
 using Godot;
 using Godot.Collections;
@@ -13,10 +14,13 @@ namespace BitBuster.entity.enemy;
 
 public abstract partial class Enemy: Entity
 {
-	public float Speed
+	[Export]
+	private DropTable _dropTable;
+
+	protected float Speed
 	{
 		get => EntityStats.Speed;
-		set => EntityStats.Speed = value;
+		private set => EntityStats.Speed = value;
 	}
 
 	private bool IsIdle => Velocity.Equals(Vector2.Zero);
@@ -26,8 +30,7 @@ public abstract partial class Enemy: Entity
 	protected Global Global { get; private set; }
 	protected GlobalEvents GlobalEvents { get; private set; }
 
-	[Export]
-	public DropTable DropTable { get; set; }
+	protected RandomNumberGenerator RandomNumberGenerator { get; private set; }
 	
 	public HealthComponent HealthComponent { get; private set; }
 	protected HitboxComponent HitboxComponent { get; private set; }
@@ -40,7 +43,7 @@ public abstract partial class Enemy: Entity
 	public Vector2 SpawnPosition { get; set; }
 	public Vector2 Target { get; set; }
 	
-	protected RandomNumberGenerator RandomNumberGenerator;
+	
 	protected bool HasDied;
 	protected bool AnimationFinished;
 	
@@ -134,15 +137,13 @@ public abstract partial class Enemy: Entity
 
 	protected void HandleDrops()
 	{
-		float chance;
-		int amount;
-		
-		foreach (Drop drop in DropTable.DropsList)
+		foreach (Drop drop in _dropTable.DropsList)
 		{
-			chance = RandomNumberGenerator.Randf();
+			var chance = RandomNumberGenerator.Randf();
 			if (chance > drop.Chance)
 				continue;
-			amount = RandomNumberGenerator.RandiRange(1, drop.MaxAmount);
+			
+			var amount = RandomNumberGenerator.RandiRange(1, drop.MaxAmount);
 			for (int i = 0; i < amount; i++)
 				GlobalEvents.EmitSpawnItemEventHandler(Position, (int)drop.ItemType, drop.ItemId);
 		}	

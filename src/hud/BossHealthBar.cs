@@ -1,19 +1,19 @@
-using Godot;
-using System;
 using BitBuster.component;
 using BitBuster.entity.enemy;
 using BitBuster.utils;
 using BitBuster.world;
+using Godot;
+
+namespace BitBuster.hud;
 
 public partial class BossHealthBar : ProgressBar
 {
 	private GlobalEvents _globalEvents;
 
 	private HealthComponent _bossHealthComponent;
-
+	
 	private Label _bossName;
 	private ProgressBar _deltaBar;
-	
 	private Timer _timer;
 	private TextureRect _overlay;
 	

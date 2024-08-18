@@ -6,9 +6,7 @@ namespace BitBuster.entity.enemy.boss;
 public partial class OilDemon : MovingEnemy
 {
 	private GlobalEvents _globalEvents;
-
 	
-	private GpuParticles2D _particleDeath;
 	private Timer _mechanicsTimer;
 
 	private float _mechanics;
@@ -23,7 +21,6 @@ public partial class OilDemon : MovingEnemy
 		
 		_globalEvents = GetNode<GlobalEvents>("/root/GlobalEvents");
 
-		_particleDeath = GetNode<GpuParticles2D>("ParticleDeath");
 		_mechanicsTimer = GetNode<Timer>("MechanicsTimer");
 
 		_mechanics = 0.0f;
@@ -45,7 +42,7 @@ public partial class OilDemon : MovingEnemy
 		HitboxComponent.SetDeferred("monitoring", false);
 		
 		HandleDrops();
-		_particleDeath.Emitting = true;
+		ParticleDeath.Emitting = true;
 		
 		DeathAnimationTimer.Start();
 		HasDied = true;

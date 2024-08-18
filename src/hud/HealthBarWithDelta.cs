@@ -1,4 +1,5 @@
 using BitBuster.component;
+using BitBuster.entity.player;
 using BitBuster.utils;
 using Godot;
 using Serilog;
@@ -18,7 +19,8 @@ public partial class HealthBarWithDelta : ProgressBar
 	
 	public override void _Ready()
 	{
-		_playerHealthComponent = GetTree().GetFirstNodeInGroup("player").GetNode<HealthComponent>("HealthComponent");
+		_playerHealthComponent = ((Player)GetTree().GetFirstNodeInGroup("player")).HealthComponent;
+		
 		_deltaBar = GetNode<ProgressBar>("DeltaBar");
 		_overhealBar = GetNode<ProgressBar>("OverhealBar");
 		_timer = GetNode<Timer>("Timer");

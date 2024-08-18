@@ -1,9 +1,10 @@
-using BitBuster.entity;
-using BitBuster.projectile;
 using BitBuster.resource;
 using BitBuster.utils;
+using BitBuster.weapon;
 using BitBuster.world;
 using Godot;
+using Bomb = BitBuster.weapon.Bomb;
+using Bullet = BitBuster.weapon.Bullet;
 
 namespace BitBuster.component;
 
@@ -12,15 +13,9 @@ public partial class WeaponComponent : Node2D
 
 	[Signal]
 	public delegate void BulletCountChangeEventHandler(int count);
-	
-	private EntityStats _entityStats;
-	
-	public EntityStats EntityStats
-	{
-		get => _entityStats;
-		set => _entityStats = value;
-	}
-	
+
+	public EntityStats EntityStats { get; set; }
+
 	private Node2D Bullets { get; set; }
 	private Timer ShootTimer { get; set; }
 
@@ -54,8 +49,8 @@ public partial class WeaponComponent : Node2D
 	
 	public override void _Ready()
 	{
-		_bullet = GD.Load<PackedScene>("res://scenes/subscenes/projectile/bullet.tscn");
-		_bomb = GD.Load<PackedScene>("res://scenes/subscenes/projectile/bomb.tscn");
+		_bullet = GD.Load<PackedScene>("res://scenes/subscenes/weapon/bullet.tscn");
+		_bomb = GD.Load<PackedScene>("res://scenes/subscenes/weapon/bomb.tscn");
 		
 		Bombs = GetNode<Node2D>("Bombs");
 		Bullets = GetNode<Node2D>("Bullets");

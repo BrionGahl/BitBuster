@@ -1,6 +1,6 @@
 using System;
 
-namespace BitBuster.world;
+namespace BitBuster.weapon;
 
 [Flags]
 public enum TrajectoryType

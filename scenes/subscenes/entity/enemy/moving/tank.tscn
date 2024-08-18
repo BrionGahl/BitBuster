@@ -132,7 +132,7 @@ collision_layer = 4
 collision_mask = 111
 motion_mode = 1
 script = ExtResource("1_pjrn6")
-DropTable = ExtResource("2_48mcr")
+_dropTable = ExtResource("2_48mcr")
 EntityStats = ExtResource("2_ew4kh")
 
 [node name="Collider" type="CollisionShape2D" parent="."]

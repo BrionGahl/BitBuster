@@ -1,9 +1,8 @@
-[gd_scene load_steps=36 format=3 uid="uid://cinrksr1jrvdf"]
+[gd_scene load_steps=29 format=3 uid="uid://cinrksr1jrvdf"]
 
 [ext_resource type="Script" path="res://src/entity/enemy/boss/OilDemon.cs" id="1_dnjpi"]
-[ext_resource type="Script" path="res://src/resource/Drop.cs" id="2_3gatg"]
 [ext_resource type="Resource" uid="uid://brw1d0rskcswv" path="res://scenes/resources/entity/enemy/boss/oil_demon_stats.tres" id="2_8wjd4"]
-[ext_resource type="Script" path="res://src/resource/DropTable.cs" id="3_2kp2r"]
+[ext_resource type="Resource" uid="uid://moyuovfyrwaa" path="res://scenes/resources/drops/oil_demon_drop_table.tres" id="2_n4qy8"]
 [ext_resource type="PackedScene" uid="uid://bppxui41cpc02" path="res://scenes/subscenes/component/sprites_component.tscn" id="3_javdy"]
 [ext_resource type="Texture2D" uid="uid://c6pqs7wl2ovsx" path="res://assets/boss/oil_demon_body.png" id="4_7lyj3"]
 [ext_resource type="Texture2D" uid="uid://bevpsmu0dkmnr" path="res://assets/boss/oil_demon_gun.png" id="6_d5h6x"]
@@ -17,45 +16,6 @@
 [ext_resource type="PackedScene" uid="uid://cubpk1i28p0wk" path="res://scenes/subscenes/component/weapon_component.tscn" id="14_4o2w2"]
 [ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="15_m1oyy"]
 [ext_resource type="PackedScene" uid="uid://btdrka86pvjsd" path="res://scenes/subscenes/component/track_trail_component.tscn" id="16_gj2e2"]
-
-[sub_resource type="Resource" id="Resource_ffxk0"]
-script = ExtResource("2_3gatg")
-ItemType = 1
-ItemId = 0
-Chance = 0.1
-MaxAmount = 1
-
-[sub_resource type="Resource" id="Resource_gjao2"]
-script = ExtResource("2_3gatg")
-ItemType = 1
-ItemId = 1
-Chance = 0.1
-MaxAmount = 1
-
-[sub_resource type="Resource" id="Resource_pyd31"]
-script = ExtResource("2_3gatg")
-ItemType = 1
-ItemId = 2
-Chance = 0.2
-MaxAmount = 1
-
-[sub_resource type="Resource" id="Resource_b47yh"]
-script = ExtResource("2_3gatg")
-ItemType = 1
-ItemId = 3
-Chance = 0.4
-MaxAmount = 4
-
-[sub_resource type="Resource" id="Resource_i7628"]
-script = ExtResource("2_3gatg")
-ItemType = 0
-ItemId = 6
-Chance = 0.5
-MaxAmount = 1
-
-[sub_resource type="Resource" id="Resource_ji7bw"]
-script = ExtResource("3_2kp2r")
-DropsList = Array[Resource]([SubResource("Resource_ffxk0"), SubResource("Resource_gjao2"), SubResource("Resource_pyd31"), SubResource("Resource_b47yh"), SubResource("Resource_i7628")])
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gbvby"]
 radius = 15.0
@@ -187,7 +147,7 @@ collision_layer = 4
 collision_mask = 111
 motion_mode = 1
 script = ExtResource("1_dnjpi")
-DropTable = SubResource("Resource_ji7bw")
+_dropTable = ExtResource("2_n4qy8")
 EntityStats = ExtResource("2_8wjd4")
 metadata/BossName = "Oil Demon"
 

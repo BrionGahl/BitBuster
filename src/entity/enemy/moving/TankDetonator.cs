@@ -15,6 +15,7 @@ public partial class TankDetonator : MovingEnemy
 	{
 		SetPhysicsProcess(false);
 		base._Ready();
+		
 		_explodingComponent = GetNode<ExplodingComponent>("ExplodingComponent");
 		_explodingComponent.EntityStats = EntityStats;
 

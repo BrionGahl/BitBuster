@@ -1,4 +1,4 @@
-namespace BitBuster.world;
+namespace BitBuster.item;
 
 public enum ItemType
 {

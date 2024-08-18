@@ -1,27 +1,22 @@
 using BitBuster.component;
-using BitBuster.entity;
 using BitBuster.resource;
 using BitBuster.world;
 using Godot;
 
-namespace BitBuster.items;
+namespace BitBuster.item;
 
 public partial class ItemPickupHitbox : Area2D
 {
-
-	private EntityStats _entityStats;
 	private Global _global;
 	
 	[Export]
 	public HealthComponent HealthComponent { get; set; }
-	
+	public EntityStats EntityStats { get; set; }
 	public Node2D ItemList { get; private set; }
 	
 	public override void _Ready()
 	{
 		ItemList = GetNode<Node2D>("ItemsList");
-		_entityStats = GetParent<Entity>().EntityStats;
-
 		_global = GetNode<Global>("/root/Global");
 		
 		BodyEntered += OnBodyEntered;
@@ -29,20 +24,20 @@ public partial class ItemPickupHitbox : Area2D
 
 	private void OnBodyEntered(Node body)
 	{
-		if (body is not Item)
+		if (body is not BitBuster.item.Item)
 			return;
 		
-		Item item = (Item)body;
+		item.Item item = (item.Item)body;
 
-		if (_entityStats.CreditCount < item.CreditCost)
+		if (EntityStats.CreditCount < item.CreditCost)
 			return;
 
-		_entityStats.CreditCount -= item.CreditCost;
+		EntityStats.CreditCount -= item.CreditCost;
 		item.SetCollisionLayerValue((int)BBCollisionLayer.Item, false);
 
 		if (item.ItemType == ItemType.Normal)
 		{
-			_entityStats.AddItem(item);
+			EntityStats.AddItem(item);
 			ItemList.CallDeferred("add_child", item.Duplicate());
 			_global.RemoveFromCurrentItemPool(item.ItemId);
 		}
@@ -58,17 +53,17 @@ public partial class ItemPickupHitbox : Area2D
 		{
 			if (HealthComponent.Overheal >= HealthComponent.MaxHealth)
 				return;
-			_entityStats.Overheal += item.AddedOverheal;
+			EntityStats.Overheal += item.AddedOverheal;
 			HealthComponent.Heal(0);
 		}
 		
 		item.OnPickup();
 
-		_entityStats.BombCount += item.AddedBombs;
-		_entityStats.CreditCount += item.AddedCredit;
-		_entityStats.KeyCardCount += item.AddedKeyCard;
+		EntityStats.BombCount += item.AddedBombs;
+		EntityStats.CreditCount += item.AddedCredit;
+		EntityStats.KeyCardCount += item.AddedKeyCard;
 
-		_entityStats.EmitStatChangeSignal();
+		EntityStats.EmitStatChangeSignal();
 	}
 	
 }

@@ -1,6 +1,4 @@
 using BitBuster.data;
-using BitBuster.entity;
-using BitBuster.projectile;
 using BitBuster.resource;
 using BitBuster.tiles;
 using BitBuster.utils;
@@ -11,8 +9,6 @@ namespace BitBuster.component;
 
 public partial class ExplodingComponent : Area2D
 {
-
-	
 	private GlobalEvents _globalEvents;
 	private GpuParticles2D _explodingEmitter;
 	private CollisionShape2D _areaCollider;

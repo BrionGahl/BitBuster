@@ -1,11 +1,10 @@
 using System;
 
-namespace BitBuster.world;
+namespace BitBuster.weapon;
 
 [Flags]
 public enum EffectType
 {
-    Normal = 0,
     Fire = 1,
     Confuse = 2,
     Freeze = 4,

@@ -22,7 +22,7 @@ public partial class Rooms : Node2D
 		_random = new RandomNumberGenerator();
 		_random.Randomize();
 
-		TileMap room = GetChild((int)RoomType.NORMAL - 1).GetChild(0) as TileMap;
+		TileMap room = GetChild((int)RoomType.Normal - 1).GetChild(0) as TileMap;
 		RoomSize = room.GetUsedRect().Size;
 		CellSize = room.TileSet.TileSize;
 	}

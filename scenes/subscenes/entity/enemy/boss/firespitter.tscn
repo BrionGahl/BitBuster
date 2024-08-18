@@ -1,8 +1,7 @@
-[gd_scene load_steps=32 format=3 uid="uid://e4kggm4cl738"]
+[gd_scene load_steps=25 format=3 uid="uid://e4kggm4cl738"]
 
 [ext_resource type="Script" path="res://src/entity/enemy/boss/Firespitter.cs" id="1_583oa"]
-[ext_resource type="Script" path="res://src/resource/Drop.cs" id="2_d62nn"]
-[ext_resource type="Script" path="res://src/resource/DropTable.cs" id="2_er123"]
+[ext_resource type="Resource" uid="uid://moyuovfyrwaa" path="res://scenes/resources/drops/oil_demon_drop_table.tres" id="2_nl5iq"]
 [ext_resource type="PackedScene" uid="uid://bppxui41cpc02" path="res://scenes/subscenes/component/sprites_component.tscn" id="2_otwgv"]
 [ext_resource type="Texture2D" uid="uid://gmorvpd3aqoh" path="res://assets/boss/flamespitter_gun.png" id="3_ny5x5"]
 [ext_resource type="Resource" uid="uid://baltfrap8bbwt" path="res://scenes/resources/entity/enemy/boss/firespitter_stats.tres" id="4_78ryk"]
@@ -14,45 +13,6 @@
 [ext_resource type="PackedScene" uid="uid://btrxy7t83y8en" path="res://scenes/subscenes/component/health_component.tscn" id="9_s4rco"]
 [ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="10_caafp"]
 [ext_resource type="PackedScene" uid="uid://cubpk1i28p0wk" path="res://scenes/subscenes/component/weapon_component.tscn" id="12_hcuox"]
-
-[sub_resource type="Resource" id="Resource_ffxk0"]
-script = ExtResource("2_d62nn")
-ItemType = 1
-ItemId = 0
-Chance = 0.1
-MaxAmount = 1
-
-[sub_resource type="Resource" id="Resource_gjao2"]
-script = ExtResource("2_d62nn")
-ItemType = 1
-ItemId = 1
-Chance = 0.1
-MaxAmount = 1
-
-[sub_resource type="Resource" id="Resource_pyd31"]
-script = ExtResource("2_d62nn")
-ItemType = 1
-ItemId = 1
-Chance = 0.2
-MaxAmount = 1
-
-[sub_resource type="Resource" id="Resource_b47yh"]
-script = ExtResource("2_d62nn")
-ItemType = 1
-ItemId = 1
-Chance = 0.4
-MaxAmount = 1
-
-[sub_resource type="Resource" id="Resource_bkd7v"]
-script = ExtResource("2_d62nn")
-ItemType = 0
-ItemId = 19
-Chance = 0.5
-MaxAmount = 1
-
-[sub_resource type="Resource" id="Resource_a5cbf"]
-script = ExtResource("2_er123")
-DropsList = Array[Resource]([SubResource("Resource_ffxk0"), SubResource("Resource_gjao2"), SubResource("Resource_pyd31"), SubResource("Resource_b47yh"), SubResource("Resource_bkd7v")])
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4hc1y"]
 size = Vector2(24, 24)
@@ -143,7 +103,7 @@ collision_layer = 4
 collision_mask = 111
 motion_mode = 1
 script = ExtResource("1_583oa")
-DropTable = SubResource("Resource_a5cbf")
+_dropTable = ExtResource("2_nl5iq")
 EntityStats = ExtResource("4_78ryk")
 metadata/BossName = "Firespitter"
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using BitBuster.data;
 using BitBuster.entity.enemy;
 using BitBuster.entity.player;
-using BitBuster.items;
+using BitBuster.item;
 using BitBuster.tiles;
 using BitBuster.utils;
 using BitBuster.world;
@@ -141,7 +141,7 @@ public partial class World : Node2D
 		_global.MapGrid = new int[9, 8];
 		_mapGrid = _global.MapGrid;
 
-		_mapGrid[4, 3] = (int)RoomType.START;
+		_mapGrid[4, 3] = (int)RoomType.Start;
 
 		_roomCount = 1;
 		_roomQueue.Enqueue(new Vector2I(4, 3));
@@ -227,7 +227,7 @@ public partial class World : Node2D
 
 				Logger.Log.Information("Adding a room at: " + neighbors[i].X + ", " + neighbors[i].Y);
 				addedNeighbors += 1;
-				_mapGrid[neighbors[i].X, neighbors[i].Y] = (int)RoomType.NORMAL;
+				_mapGrid[neighbors[i].X, neighbors[i].Y] = (int)RoomType.Normal;
 				_roomCount += 1;
 				_roomQueue.Enqueue(neighbors[i]);
 			}
@@ -250,9 +250,9 @@ public partial class World : Node2D
 		
 		// Add end room stuff
 		_endRooms.Reverse();
-		_mapGrid[_endRooms[0].X, _endRooms[0].Y] = (int)RoomType.BOSS;
-		_mapGrid[_endRooms[1].X, _endRooms[1].Y] = (int)RoomType.STORE;
-		_mapGrid[_endRooms[2].X, _endRooms[2].Y] = (int)RoomType.TREASURE;
+		_mapGrid[_endRooms[0].X, _endRooms[0].Y] = (int)RoomType.Boss;
+		_mapGrid[_endRooms[1].X, _endRooms[1].Y] = (int)RoomType.Store;
+		_mapGrid[_endRooms[2].X, _endRooms[2].Y] = (int)RoomType.Treasure;
 		
 		
 		// Quick scan through to see if we can make smaller rooms.
@@ -262,9 +262,9 @@ public partial class World : Node2D
 			{
 				float chance = _random.Randf();
 				if (CheckLrRoom(new Vector2I(x, y)) && chance > 0.65)
-					_mapGrid[x, y] = (int)RoomType.LR_NORMAL;
+					_mapGrid[x, y] = (int)RoomType.LrNormal;
 				if (CheckTbRoom(new Vector2I(x, y)) && chance > 0.65)
-					_mapGrid[x, y] = (int)RoomType.TB_NORMAL;
+					_mapGrid[x, y] = (int)RoomType.TbNormal;
 			}
 		}
 	}
@@ -308,11 +308,11 @@ public partial class World : Node2D
 		
 		switch (type)
 		{
-			case (RoomType.TREASURE):
+			case (RoomType.Treasure):
 				SpawnItem(worldOffset + new Vector2I(160, 160), (int)ItemType.Normal, _random.RandiRange(0, _global.CurrentRunItemPoolList.Count - 1));
 				break;
 			
-			case (RoomType.STORE):
+			case (RoomType.Store):
 				SpawnItem(worldOffset + new Vector2I(120, 160), (int)ItemType.Pickup, _random.RandiRange(0, _global.CompletePickupPoolList.Count - 2), false, 1 - _levelPlayer.EntityStats.Luck / 10);
 				SpawnItem(worldOffset + new Vector2I(160, 160), (int)ItemType.Normal, _random.RandiRange(0, _global.CurrentRunItemPoolList.Count - 1), false, 1 - _levelPlayer.EntityStats.Luck / 10);
 				SpawnItem(worldOffset + new Vector2I(200, 160), (int)ItemType.Pickup, _random.RandiRange(0, _global.CompletePickupPoolList.Count - 2), false, 1 - _levelPlayer.EntityStats.Luck / 10);
@@ -378,11 +378,11 @@ public partial class World : Node2D
 	{
 		if (pos.X - 1 >= 0 && pos.X + 1 < 9 && 
 			pos.Y - 1 >= 0 && pos.Y + 1 < 8 &&
-			_mapGrid[pos.X, pos.Y] == (int)RoomType.NORMAL && 
-			_mapGrid[pos.X - 1, pos.Y] != (int)RoomType.NONE &&
-			_mapGrid[pos.X + 1, pos.Y] != (int)RoomType.NONE &&
-			_mapGrid[pos.X, pos.Y + 1] == (int)RoomType.NONE &&
-			_mapGrid[pos.X, pos.Y - 1] == (int)RoomType.NONE)
+			_mapGrid[pos.X, pos.Y] == (int)RoomType.Normal && 
+			_mapGrid[pos.X - 1, pos.Y] != (int)RoomType.None &&
+			_mapGrid[pos.X + 1, pos.Y] != (int)RoomType.None &&
+			_mapGrid[pos.X, pos.Y + 1] == (int)RoomType.None &&
+			_mapGrid[pos.X, pos.Y - 1] == (int)RoomType.None)
 		{
 			return true;
 		}
@@ -393,11 +393,11 @@ public partial class World : Node2D
 	{
 		if (pos.X - 1 >= 0 && pos.X + 1 < 9 && 
 			pos.Y - 1 >= 0 && pos.Y + 1 < 8 &&
-			_mapGrid[pos.X, pos.Y] == (int)RoomType.NORMAL && 
-			_mapGrid[pos.X, pos.Y + 1] != (int)RoomType.NONE &&
-			_mapGrid[pos.X, pos.Y - 1] != (int)RoomType.NONE &&
-			_mapGrid[pos.X + 1, pos.Y] == (int)RoomType.NONE &&
-			_mapGrid[pos.X - 1, pos.Y] == (int)RoomType.NONE)
+			_mapGrid[pos.X, pos.Y] == (int)RoomType.Normal && 
+			_mapGrid[pos.X, pos.Y + 1] != (int)RoomType.None &&
+			_mapGrid[pos.X, pos.Y - 1] != (int)RoomType.None &&
+			_mapGrid[pos.X + 1, pos.Y] == (int)RoomType.None &&
+			_mapGrid[pos.X - 1, pos.Y] == (int)RoomType.None)
 		{
 			return true;
 		}

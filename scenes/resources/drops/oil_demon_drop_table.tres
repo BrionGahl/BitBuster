@@ -1,0 +1,43 @@
+[gd_resource type="Resource" load_steps=8 format=3 uid="uid://moyuovfyrwaa"]
+
+[ext_resource type="Script" path="res://src/resource/Drop.cs" id="1_q8p1o"]
+[ext_resource type="Script" path="res://src/resource/DropTable.cs" id="2_kdbwt"]
+
+[sub_resource type="Resource" id="Resource_ffxk0"]
+script = ExtResource("1_q8p1o")
+ItemType = 1
+ItemId = 0
+Chance = 0.1
+MaxAmount = 1
+
+[sub_resource type="Resource" id="Resource_gjao2"]
+script = ExtResource("1_q8p1o")
+ItemType = 1
+ItemId = 1
+Chance = 0.1
+MaxAmount = 1
+
+[sub_resource type="Resource" id="Resource_pyd31"]
+script = ExtResource("1_q8p1o")
+ItemType = 1
+ItemId = 1
+Chance = 0.2
+MaxAmount = 1
+
+[sub_resource type="Resource" id="Resource_b47yh"]
+script = ExtResource("1_q8p1o")
+ItemType = 1
+ItemId = 1
+Chance = 0.4
+MaxAmount = 1
+
+[sub_resource type="Resource" id="Resource_xln7a"]
+script = ExtResource("1_q8p1o")
+ItemType = 0
+ItemId = 14
+Chance = 0.5
+MaxAmount = 1
+
+[resource]
+script = ExtResource("2_kdbwt")
+DropsList = Array[Resource]([SubResource("Resource_ffxk0"), SubResource("Resource_gjao2"), SubResource("Resource_pyd31"), SubResource("Resource_b47yh"), SubResource("Resource_xln7a")])

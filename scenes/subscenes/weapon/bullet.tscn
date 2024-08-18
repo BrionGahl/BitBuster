@@ -1,9 +1,9 @@
 [gd_scene load_steps=22 format=3 uid="uid://unevbktxs2h2"]
 
-[ext_resource type="Script" path="res://src/projectile/Bullet.cs" id="1_07tvk"]
-[ext_resource type="Texture2D" uid="uid://dyfa3ea5rcuh" path="res://assets/projectiles/bullet.png" id="2_qlveo"]
-[ext_resource type="PackedScene" uid="uid://2m2pbclf1iur" path="res://scenes/subscenes/component/exploding_component.tscn" id="3_o7313"]
-[ext_resource type="PackedScene" uid="uid://t60grtdiwdu5" path="res://scenes/subscenes/component/particle_crit_component.tscn" id="4_jd2qk"]
+[ext_resource type="Script" path="res://src/weapon/Bullet.cs" id="1_caguc"]
+[ext_resource type="Texture2D" uid="uid://b06be3cyhn7m8" path="res://assets/weapon/bullet.png" id="2_x7le7"]
+[ext_resource type="PackedScene" uid="uid://2m2pbclf1iur" path="res://scenes/subscenes/component/exploding_component.tscn" id="3_owbfi"]
+[ext_resource type="PackedScene" uid="uid://t60grtdiwdu5" path="res://scenes/subscenes/component/particle_crit_component.tscn" id="4_b8uvi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u4xfs"]
 size = Vector2(2, 4)
@@ -116,11 +116,11 @@ top_level = true
 z_index = 2
 collision_layer = 16
 motion_mode = 1
-script = ExtResource("1_07tvk")
+script = ExtResource("1_caguc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-texture = ExtResource("2_qlveo")
+texture = ExtResource("2_x7le7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_u4xfs")
@@ -171,9 +171,9 @@ one_shot = true
 wait_time = 0.2
 one_shot = true
 
-[node name="ExplodingComponent" parent="." instance=ExtResource("3_o7313")]
+[node name="ExplodingComponent" parent="." instance=ExtResource("3_owbfi")]
 
-[node name="ParticleCritComponent" parent="." instance=ExtResource("4_jd2qk")]
+[node name="ParticleCritComponent" parent="." instance=ExtResource("4_b8uvi")]
 
 [node name="SelfIFrameTimer" type="Timer" parent="."]
 wait_time = 1.2

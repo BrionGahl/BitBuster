@@ -1,12 +1,11 @@
 using BitBuster.component;
 using BitBuster.data;
-using BitBuster.entity;
 using BitBuster.entity.enemy;
 using BitBuster.utils;
 using BitBuster.world;
 using Godot;
 
-namespace BitBuster.projectile;
+namespace BitBuster.weapon;
 
 public partial class Bullet : CharacterBody2D
 {
@@ -148,7 +147,7 @@ public partial class Bullet : CharacterBody2D
 
 		if (_bulletType.HasFlag(BulletType.Exploding))
 		{
-			_explodingComponent.Explode(new AttackData(1f, EffectType.Normal, _attackData.SourceType, false));
+			_explodingComponent.Explode(new AttackData(1f, _attackData.Effects, _attackData.SourceType, false));
 		}
 		
 		if (_bulletType.HasFlag(BulletType.Piercing))

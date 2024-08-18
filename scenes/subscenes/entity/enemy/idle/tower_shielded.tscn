@@ -91,7 +91,7 @@ collision_layer = 4
 collision_mask = 111
 motion_mode = 1
 script = ExtResource("1_qxq8w")
-DropTable = ExtResource("2_dm4o8")
+_dropTable = ExtResource("2_dm4o8")
 EntityStats = ExtResource("2_msp63")
 
 [node name="SpritesComponent" parent="." instance=ExtResource("2_ifr67")]

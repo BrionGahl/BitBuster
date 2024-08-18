@@ -1,4 +1,4 @@
-namespace BitBuster.world;
+namespace BitBuster.procedural;
 
 public enum LevelName
 {

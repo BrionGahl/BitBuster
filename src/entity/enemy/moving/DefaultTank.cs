@@ -5,14 +5,11 @@ namespace BitBuster.entity.enemy.moving;
 
 public partial class DefaultTank : MovingEnemy
 {
-	private GpuParticles2D _particleDeath;
-	
 	public override void _Ready()
 	{
 		SetPhysicsProcess(false);
 
 		base._Ready();
-		_particleDeath = GetNode<GpuParticles2D>("ParticleDeath");
 		
 		NavigationServer2D.MapChanged += OnMapReady;
 		AgentTimer.Timeout += OnAgentTimeout;
@@ -29,7 +26,7 @@ public partial class DefaultTank : MovingEnemy
 		
 		HandleDrops();
 		
-		_particleDeath.Emitting = true;
+		ParticleDeath.Emitting = true;
 		
 		DeathAnimationTimer.Start();
 		HasDied = true;

@@ -5,19 +5,8 @@ namespace BitBuster.component;
 
 public partial class SpritesComponent : Node2D
 {
-
-	private Node2D _gun;
-	private Node2D _body;
-	
-	public Node2D Gun { 
-		get => _gun;
-		private set => _gun = value;
-	}
-	
-	public Node2D Body { 
-		get => _body;
-		private set => _body = value;
-	}
+	public Node2D Gun { get; private set; }
+	public Node2D Body { get; private set; }
 
 	private RemoteTransform2D _remoteTransform2D;
 

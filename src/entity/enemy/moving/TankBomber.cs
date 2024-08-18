@@ -10,8 +10,7 @@ public partial class TankBomber : MovingEnemy
 	private GlobalEvents _globalEvents;
 
 	private ExplodingComponent _explodingComponent;
-	private GpuParticles2D _particleDeath;
-
+	
 	private float _timeTillExplosion;
 	private bool _hasExploded;
 	
@@ -21,10 +20,8 @@ public partial class TankBomber : MovingEnemy
 		base._Ready();
 		_globalEvents = GetNode<GlobalEvents>("/root/GlobalEvents");
 		
-
 		_explodingComponent = GetNode<ExplodingComponent>("ExplodingComponent");
-		_particleDeath = GetNode<GpuParticles2D>("ParticleDeath");
-
+		
 		_timeTillExplosion = 0f;
 		
 		NavigationServer2D.MapChanged += OnMapReady;
@@ -42,7 +39,7 @@ public partial class TankBomber : MovingEnemy
 		
 		HandleDrops();
 		
-		_particleDeath.Emitting = true;
+		ParticleDeath.Emitting = true;
 		
 		DeathAnimationTimer.Start();
 		HasDied = true;

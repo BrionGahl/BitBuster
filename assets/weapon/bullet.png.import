@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://w06wy7yx0gef"
-path="res://.godot/imported/mine.png-0081e00d164d9c8cb4b4fca6c1a65b21.ctex"
+uid="uid://b06be3cyhn7m8"
+path="res://.godot/imported/bullet.png-52bee884b5137b1aff1d01919b4f4229.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/projectiles/mine.png"
-dest_files=["res://.godot/imported/mine.png-0081e00d164d9c8cb4b4fca6c1a65b21.ctex"]
+source_file="res://assets/weapon/bullet.png"
+dest_files=["res://.godot/imported/bullet.png-52bee884b5137b1aff1d01919b4f4229.ctex"]
 
 [params]
 

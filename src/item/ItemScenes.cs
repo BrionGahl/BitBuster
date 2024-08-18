@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Godot;
 
-namespace BitBuster.items;
+namespace BitBuster.item;
 
 public static class ItemScenes
 {

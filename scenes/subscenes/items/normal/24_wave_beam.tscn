@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://be7n7dd7nncyc"]
 
-[ext_resource type="Script" path="res://src/items/Item.cs" id="1_m6ssh"]
+[ext_resource type="Script" path="res://src/item/Item.cs" id="1_m6ssh"]
 [ext_resource type="Texture2D" uid="uid://cww7bf1cttdyv" path="res://assets/items/normal/item_wave_beam.png" id="2_tu0si"]
 [ext_resource type="PackedScene" uid="uid://ddckip0887shk" path="res://scenes/subscenes/component/particle_item_pickup_component.tscn" id="3_7vwi2"]
 [ext_resource type="Theme" uid="uid://c8qs8rvxfk3jf" path="res://assets/menu/default_theme.tres" id="4_2h2uu"]

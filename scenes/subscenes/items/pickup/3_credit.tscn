@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://ce5kb06mmmqp7"]
 
-[ext_resource type="Script" path="res://src/items/Item.cs" id="1_d6kbm"]
+[ext_resource type="Script" path="res://src/item/Item.cs" id="1_d6kbm"]
 [ext_resource type="Texture2D" uid="uid://bk6vqlrnsv5oo" path="res://assets/items/pickup/pickup_credit.png" id="2_bww2t"]
 [ext_resource type="PackedScene" uid="uid://ddckip0887shk" path="res://scenes/subscenes/component/particle_item_pickup_component.tscn" id="3_e8j1b"]
 [ext_resource type="Theme" uid="uid://c8qs8rvxfk3jf" path="res://assets/menu/default_theme.tres" id="4_5ydqn"]

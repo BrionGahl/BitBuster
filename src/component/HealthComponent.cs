@@ -1,7 +1,4 @@
-using BitBuster.component;
 using BitBuster.data;
-using BitBuster.entity;
-using BitBuster.projectile;
 using BitBuster.resource;
 using BitBuster.utils;
 using Godot;
@@ -31,19 +28,19 @@ public partial class HealthComponent : Node2D
 	public float MaxHealth
 	{
 		get => EntityStats.MaxHealth;
-		set => EntityStats.MaxHealth = value; 
+		private set => EntityStats.MaxHealth = value; 
 	}
 	
 	public float CurrentHealth
 	{
 		get => EntityStats.CurrentHealth;
-		set => EntityStats.CurrentHealth = value; 
+		private set => EntityStats.CurrentHealth = value; 
 	}
 	
 	public float Overheal
 	{
 		get => EntityStats.Overheal;
-		set => EntityStats.Overheal = value; 
+		private set => EntityStats.Overheal = value; 
 	}
 	
 	private Timer _iFrameTimer;
