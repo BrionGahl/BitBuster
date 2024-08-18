@@ -18,9 +18,9 @@ public partial class Player : Entity
 
 	[Export] 
 	private HealthComponent _healthComponent;
-
-	public bool CanEnterDoor => _doorEnterTimer.TimeLeft <= 0;
 	
+	public bool CanEnterDoor => _doorEnterTimer.TimeLeft <= 0;
+
 	private float Speed
 	{
 		get => EntityStats.Speed;
@@ -28,7 +28,7 @@ public partial class Player : Entity
 	}
 	private float RotationSpeed => Speed / 25;
 	private bool IsIdle => Velocity.Equals(Vector2.Zero);
-
+	
 	private AnimatedSprite2D _gun;
 	private AnimatedSprite2D _hull;
 	private AnimationPlayer _animationPlayer;

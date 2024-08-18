@@ -5,9 +5,18 @@ namespace BitBuster.component;
 public partial class LineTrailComponent : Line2D
 {
 	private Node2D _parent;
+	private int _trailLength;
+
+	public Node2D Parent
+	{
+		get => _parent;
+		set => _parent = value;
+	}
 	
 	[Export]
-	public int TrailLength { get; set; }
+	public int TrailLength { 
+		get => _trailLength;
+		set => _trailLength = value; }
 	
 	public override void _Ready()
 	{
