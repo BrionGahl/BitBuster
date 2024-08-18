@@ -19,13 +19,13 @@ public abstract partial class Enemy: Entity
 
 	private bool IsIdle => Velocity.Equals(Vector2.Zero);
 	private StateMachine _stateMachine;
+	private Timer _timer;
 	
 	protected float Speed
 	{
 		get => EntityStats.Speed;
 		private set => EntityStats.Speed = value;
 	}
-
 	
 	public Player Player;
 	
@@ -44,7 +44,6 @@ public abstract partial class Enemy: Entity
 	
 	public Vector2 SpawnPosition { get; set; }
 	public Vector2 Target { get; set; }
-	
 	
 	protected bool HasDied;
 	protected bool AnimationFinished;
@@ -71,12 +70,15 @@ public abstract partial class Enemy: Entity
 
 		 Notifier = GetNode<VisibleOnScreenNotifier2D>("VisibleOnScreenNotifier2D");
 		 AnimationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+		 _timer = GetNode<Timer>("Timer");
+		 _timer.OneShot = true;
 		 
 		 RandomNumberGenerator = new RandomNumberGenerator();
 		 RandomNumberGenerator.Randomize();
 		 
 		 SpawnPosition = Position;
-		 
+
+		 _timer.Timeout += OnTimerTimeout;
 		 HealthComponent.HealthIsZero += OnHealthIsZero;
 		 HealthComponent.HealthChange += OnHealthChange;
 	 }
@@ -165,6 +167,11 @@ public abstract partial class Enemy: Entity
 	}
 
 	public void Activate()
+	{
+		_timer.Start(1f);
+	}
+
+	private void OnTimerTimeout()
 	{
 		_stateMachine = GetNode<StateMachine>("StateMachine");
 		_stateMachine.PrepareStateMachine(this);
