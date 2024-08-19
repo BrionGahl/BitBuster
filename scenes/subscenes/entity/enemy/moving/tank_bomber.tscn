@@ -168,3 +168,6 @@ wait_time = 0.3
 libraries = {
 "": SubResource("AnimationLibrary_gu0m7")
 }
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

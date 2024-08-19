@@ -6,6 +6,7 @@
 resource_local_to_scene = true
 script = ExtResource("1_1ns8i")
 Source = 3
+Name = "Bomber Tank"
 BombCount = 999
 KeyCardCount = 0
 CreditCount = 0

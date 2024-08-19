@@ -42,6 +42,9 @@ public partial class Player : Entity
 	
 	private bool _hasShot;
 	private bool _hasBombed;
+	
+	// DEV
+	private bool _isGod;
 
 	public WeaponComponent WeaponComponent
 	{
@@ -87,7 +90,7 @@ public partial class Player : Entity
 		_gun.Rotation = (float)Mathf.RotateToward(_gun.Rotation, GetGlobalMousePosition().AngleToPoint(Position) - Constants.HalfPiOffset, 0.5);
 		
 		if (_hasShot)
-			_weaponComponent.AttemptShoot(GetGlobalMousePosition().AngleToPoint(Position));
+			_weaponComponent.AttemptShoot(Position, GetGlobalMousePosition().AngleToPoint(Position));
 
 		if (_hasBombed)
 			_weaponComponent.AttemptBomb(Position);
@@ -116,6 +119,9 @@ public partial class Player : Entity
 
 		_hasShot = Input.IsActionPressed("shoot");
 		_hasBombed = Input.IsActionJustPressed("bomb");
+
+		if (Input.IsActionPressed("dev_toggle_god_mode"))
+			_isGod = !_isGod;
 	}
 
 	private void HandleAnimations()
@@ -173,6 +179,9 @@ public partial class Player : Entity
 	
 	private void OnHealthIsZero()
 	{
+		if (_isGod)
+			return;
+		
 		EmitSignal(SignalName.Died);
 		_hull.Visible = false;
 		_gun.Visible = false;

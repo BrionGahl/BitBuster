@@ -162,3 +162,6 @@ libraries = {
 }
 
 [node name="ParticleDeath" parent="." instance=ExtResource("14_2icgf")]
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

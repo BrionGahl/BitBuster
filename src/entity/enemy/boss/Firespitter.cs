@@ -71,7 +71,7 @@ public partial class Firespitter : IdleEnemy
 		if (_mechanics <= 0.3)
 		{
 			SpritesComponent.SetGunRotation(false, Player.Position, _mechanicsDir * Mathf.Pi / 2);
-			if (WeaponComponent.AttemptShoot(_mechanicsDir * Mathf.Pi / 2))
+			if (WeaponComponent.AttemptShoot(Position, _mechanicsDir * Mathf.Pi / 2))
 				_iteration -= 5;
 			_mechanicsDir = RandomNumberGenerator.RandiRange(1, 4);
 		}
@@ -81,7 +81,7 @@ public partial class Firespitter : IdleEnemy
 		{
 			int dir = _mechanicsDir == 1 ? 1 : -1;
 			SpritesComponent.SetGunRotation(false, Player.Position, dir * _iteration * Mathf.Pi / WeaponComponent.BulletCount);
-			if (WeaponComponent.AttemptShoot(dir * _iteration * Mathf.Pi / WeaponComponent.BulletCount))
+			if (WeaponComponent.AttemptShoot(Position, dir * _iteration * Mathf.Pi / WeaponComponent.BulletCount))
 				_iteration--;
 		}
 
@@ -89,7 +89,7 @@ public partial class Firespitter : IdleEnemy
 		if (_mechanics > 0.7)
 		{
 			SpritesComponent.SetGunRotation(CanSeePlayer(), Player.Position, Mathf.Pi / 4);
-			if (WeaponComponent.AttemptShoot(Player.Position.AngleToPoint(Position)))
+			if (WeaponComponent.AttemptShoot(Position, Player.Position.AngleToPoint(Position)))
 				_iteration -= 5;
 		}
 	}
@@ -99,7 +99,7 @@ public partial class Firespitter : IdleEnemy
 		if (_mechanics <= 0.3)
 		{
 			_mechanicsDir = RandomNumberGenerator.RandiRange(1, 4);
-			EntityStats.ProjectileBounces = 4;
+			EntityStats.ProjectileBounces = 3;
 			EntityStats.ProjectileDamage = 1;
 			EntityStats.ProjectileCooldown = 3f;
 			EntityStats.ProjectileSpeed = 50f;

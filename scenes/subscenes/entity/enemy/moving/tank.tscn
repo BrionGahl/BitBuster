@@ -205,3 +205,6 @@ wait_time = 0.3
 libraries = {
 "": SubResource("AnimationLibrary_4jgg4")
 }
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

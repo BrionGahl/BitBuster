@@ -1,25 +1,21 @@
-using Godot;
-using System;
-using BitBuster.component;
-using BitBuster.data;
 using BitBuster.entity.enemy;
-using BitBuster.state;
+using BitBuster.entity.enemy.moving;
 using BitBuster.utils;
+using Godot;
+
+namespace BitBuster.state.moveable;
 
 public partial class Ram : State
 {
 	
-	private MovingEnemy _parent;
-	
-	
-	public override void Init()
+	public override void Init(Enemy enemy)
 	{
-		_parent = GetParent().GetParent<CharacterBody2D>() as MovingEnemy;
+		ParentEnemy = enemy;
 	}
 
 	public override void Enter()
 	{
-		Logger.Log.Information(_parent.Name + " entering ram.");
+		Logger.Log.Information(ParentEnemy.EntityStats.Name + " entering ram.");
 	}
 
 	public override void Exit()
@@ -28,23 +24,22 @@ public partial class Ram : State
 
 	public override void StateUpdate(double delta)
 	{
-		_parent.HandleAnimations();
+		ParentEnemy.HandleAnimations();
 	}
 
 	public override void StatePhysicsUpdate(double delta)
 	{
-		if (!_parent.Notifier.IsOnScreen() || !_parent.Agent.IsTargetReachable())
+		if (!ParentEnemy.Notifier.IsOnScreen() || !((MovingEnemy)ParentEnemy).Agent.IsTargetReachable())
 		{
-			EmitSignal(SignalName.StateTransition, this, "sleep");
+			EmitSignal(State.SignalName.StateTransition, this, "sleep");
 		}
 		
-		if (_parent.Position.DistanceTo(_parent.Player.Position) < 48 && GetParent().GetChildCount() > 2)
+		if (ParentEnemy.Position.DistanceTo(ParentEnemy.Player.Position) < 48 && ParentEnemy is not TankDetonator)
 		{
-			EmitSignal(SignalName.StateTransition, this, "evade");
+			EmitSignal(State.SignalName.StateTransition, this, "evade");
 		}
 		
-		_parent.AttackAction(delta);
-
-		_parent.MoveAction(delta);
+		ParentEnemy.AttackAction(delta);
+		((MovingEnemy)ParentEnemy).MoveAction(delta);
 	}
 }

@@ -92,7 +92,6 @@ colors = PackedColorArray(0.890196, 1, 0, 1, 0.844862, 0.949074, 0, 1, 0.960784,
 gradient = SubResource("Gradient_um5sd")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6pckd"]
-lifetime_randomness = 0.3
 particle_flag_disable_z = true
 emission_shape = 1
 emission_sphere_radius = 5.0
@@ -158,10 +157,10 @@ show_behind_parent = true
 emitting = false
 amount = 32
 process_material = SubResource("ParticleProcessMaterial_6pckd")
+lifetime = 0.5
 one_shot = true
 speed_scale = 2.0
 explosiveness = 1.0
-randomness = 0.25
 
 [node name="ParentIFrameTimer" type="Timer" parent="."]
 wait_time = 0.2

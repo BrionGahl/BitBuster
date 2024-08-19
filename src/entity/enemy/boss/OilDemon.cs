@@ -29,7 +29,6 @@ public partial class OilDemon : MovingEnemy
 
 		_mechanicsTimer.Timeout += OnMechanicsTimeout;
 		NavigationServer2D.MapChanged += OnMapReady;
-		AgentTimer.Timeout += OnAgentTimeout;
 	}
 
 	protected override void OnHealthIsZero()
@@ -71,12 +70,12 @@ public partial class OilDemon : MovingEnemy
 		
 		if (_mechanics <= 0.3)
 		{
-			EntityStats.ProjectileBounces = 8;
+			EntityStats.ProjectileBounces = 4;
 			EntityStats.ProjectileSizeScalar = Vector2.One * 2;
-			EntityStats.ProjectileSpeed = 200;
+			EntityStats.ProjectileSpeed = 150;
 			EntityStats.ProjectileDamage *= 2;
-			EntityStats.ProjectileCooldown = 1.33f;
-			if (WeaponComponent.AttemptShoot(Player.Position.AngleToPoint(Position)))
+			EntityStats.ProjectileCooldown = 1.66f;
+			if (WeaponComponent.AttemptShoot(Position, Player.Position.AngleToPoint(Position)))
 				_iteration -= 10;
 			EntityStats.ProjectileBounces = 0;
 			EntityStats.ProjectileSizeScalar = Vector2.One;
@@ -94,7 +93,7 @@ public partial class OilDemon : MovingEnemy
 
 		if (_mechanics > 0.4)
 		{
-			if (WeaponComponent.AttemptShoot(Player.Position.AngleToPoint(Position)))
+			if (WeaponComponent.AttemptShoot(Position, Player.Position.AngleToPoint(Position)))
 				_iteration--;
 			
 		}
@@ -107,12 +106,6 @@ public partial class OilDemon : MovingEnemy
 		EntityStats.ProjectileCount = 40;
 		_mechanicsTimer.WaitTime = 2.5f;
 		EntityStats.Speed = 75f;
-	}
-	
-
-	protected override void OnAgentTimeout()
-	{
-		Agent.TargetPosition = Target == Vector2.Zero ? Player.Position : Target;
 	}
 
 	private void OnMapReady(Rid rid)

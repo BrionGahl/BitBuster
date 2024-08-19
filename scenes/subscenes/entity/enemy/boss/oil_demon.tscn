@@ -223,3 +223,6 @@ libraries = {
 
 [node name="MechanicsTimer" type="Timer" parent="."]
 wait_time = 5.0
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

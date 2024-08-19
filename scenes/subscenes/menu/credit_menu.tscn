@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=3 uid="uid://36vxyt0s8qct"]
+
+[ext_resource type="FontFile" uid="uid://boj4ahk23hdn6" path="res://assets/menu/fonts/Karma Future.otf" id="1_8yqn8"]
+[ext_resource type="Script" path="res://src/menu/CreditMenu.cs" id="1_o2t42"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_dvm0f"]
+font = ExtResource("1_8yqn8")
+font_size = 32
+
+[node name="CreditMenu" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 20
+script = ExtResource("1_o2t42")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="CreditsLabel" type="Label" parent="VBoxContainer/CenterContainer"]
+layout_mode = 2
+text = "Credits"
+label_settings = SubResource("LabelSettings_dvm0f")
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "WIP
+
+"
+
+[node name="BackButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Return to Menu"

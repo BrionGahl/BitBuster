@@ -6,6 +6,7 @@
 resource_local_to_scene = true
 script = ExtResource("1_opppg")
 Source = 3
+Name = "Cannon Tower"
 BombCount = 0
 KeyCardCount = 0
 CreditCount = 0
