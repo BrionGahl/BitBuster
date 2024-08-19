@@ -99,7 +99,7 @@ public partial class Firespitter : IdleEnemy
 		if (_mechanics <= 0.3)
 		{
 			_mechanicsDir = RandomNumberGenerator.RandiRange(1, 4);
-			EntityStats.ProjectileBounces = 4;
+			EntityStats.ProjectileBounces = 3;
 			EntityStats.ProjectileDamage = 1;
 			EntityStats.ProjectileCooldown = 3f;
 			EntityStats.ProjectileSpeed = 50f;

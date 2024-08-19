@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bhk5nrlkp2n1n" path="res://assets/etc/camera_border.png" id="8_mn0vs"]
 [ext_resource type="PackedScene" uid="uid://n3uhl8voulr4" path="res://scenes/subscenes/hud/hud.tscn" id="9_hgwba"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_p812a"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_opfoa"]
 resource_local_to_scene = true
 shader = ExtResource("4_7w6o4")
 shader_parameter/flash_color = Color(1, 0.188235, 0, 1)
@@ -58,7 +58,7 @@ script = ExtResource("1_jml8v")
 [node name="Level" type="Node2D" parent="."]
 
 [node name="Player" parent="Level" instance=ExtResource("3_q3coj")]
-material = SubResource("ShaderMaterial_p812a")
+material = SubResource("ShaderMaterial_opfoa")
 position = Vector2(1440, 1120)
 EntityStats = SubResource("Resource_htxhu")
 
@@ -83,13 +83,10 @@ format = 2
 
 [node name="Camera" type="Camera2D" parent="Level"]
 position = Vector2(1440, 1120)
-zoom = Vector2(2, 2)
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
 script = ExtResource("7_wgc5s")
 
 [node name="Border" type="Sprite2D" parent="Level/Camera"]
-visible = false
 z_index = 11
-scale = Vector2(0.500868, 0.501543)
 texture = ExtResource("8_mn0vs")
