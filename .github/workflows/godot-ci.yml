@@ -1,9 +1,9 @@
 name: "godot-ci export"
 on:
   push:
-    branches: [main]
+    tags:
+      - 'v*'
   workflow_dispatch:
-
 
 env:
   GODOT_VERSION: 4.2.2
@@ -20,25 +20,40 @@ jobs:
         uses: actions/checkout@v4
         with:
           lfs: true
+
       - name: .NET installation
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: "6.0.x"
+    
+      - name: Authorize GCP
+        uses: 'google-github-actions/auth@v2'
+        with:
+          credentials_json:  ${{ secrets.GCP_SA_KEY }}
+    
+      # Step to Authenticate with GCP
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          version: '>= 363.0.0'
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+
       - name: Setup
         run: |
           mkdir -v -p ~/.local/share/godot/export_templates/
           mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable.mono ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable.mono
+          echo "VERSION=$(grep -o 'config/version="[^"]*"' project.godot | tr -d "config/version=\"")" >> $GITHUB_ENV
+
       - name: Windows Build
         run: |
           mkdir -v -p build/windows
           godot --headless --verbose --export-release "Windows Desktop" ./build/windows/$EXPORT_NAME.exe
-      - name: Upload Artifact
-        id: artifact-upload-step
-        uses: actions/upload-artifact@v1
-        with:
-          name: windows
-          path: build/windows
-    
+
+      - name: Upload to GCS
+        run: |
+          zip -r windows-$VERSION.zip /build/windows/
+          gsutil cp ./windows-$VERSION.zip gs://${{ secrets.GCP_TARGET_BUCKET }}/alpha 
+          
   export-linux:
     name: Linux Export
     runs-on: ubuntu-20.04
@@ -49,21 +64,37 @@ jobs:
         uses: actions/checkout@v4
         with:
           lfs: true
+
       - name: .NET installation
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: "6.0.x"
+
+      - name: Authorize GCP
+        uses: 'google-github-actions/auth@v2'
+        with:
+          credentials_json:  ${{ secrets.GCP_SA_KEY }}
+  
+      # Step to Authenticate with GCP
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          version: '>= 363.0.0'
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+
       - name: Setup
         run: |
           mkdir -v -p ~/.local/share/godot/export_templates/
           mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable.mono ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable.mono
+          echo "VERSION=$(grep -o 'config/version="[^"]*"' project.godot | tr -d "config/version=\"")" >> $GITHUB_ENV
+
       - name: Linux Build
         run: |
           mkdir -v -p build/linux
           godot --headless --verbose --export-release "Linux/X11" ./build/linux/$EXPORT_NAME.x86_64
-      - name: Upload Artifact
-        id: artifact-upload-step
-        uses: actions/upload-artifact@v1
-        with:
-          name: linux
-          path: build/linux
+
+      - name: Upload to GCS
+        run: |
+          zip -r linux-$VERSION.zip /build/linux/
+          gsutil cp ./linux-$VERSION.zip gs://${{ secrets.GCP_TARGET_BUCKET }}/alpha
+      
