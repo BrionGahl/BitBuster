@@ -1,8 +1,7 @@
-name: "godot-ci export"
+name: "Export Release"
 on:
-  push:
-    tags:
-      - 'v*'
+  release:
+    types: [published]
   workflow_dispatch:
 
 env:
@@ -29,7 +28,7 @@ jobs:
       - name: Authorize GCP
         uses: 'google-github-actions/auth@v2'
         with:
-          credentials_json:  ${{ secrets.GCP_SA_KEY }}
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
     
       # Step to Authenticate with GCP
       - name: Set up Cloud SDK
@@ -43,6 +42,7 @@ jobs:
           mkdir -v -p ~/.local/share/godot/export_templates/
           mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable.mono ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable.mono
           echo "VERSION=$(grep -o 'config/version="[^"]*"' project.godot | tr -d "config/version=\"")" >> $GITHUB_ENV
+          echo "RELEASE_TYPE="$(echo ${{ github.event.release.name }} | grep -o '[^v0-9\.\-]' | tr -d '\n') >> $GITHUB_ENV
 
       - name: Windows Build
         run: |
@@ -52,7 +52,7 @@ jobs:
       - name: Upload to GCS
         run: |
           zip -r windows-$VERSION.zip build/windows/
-          gsutil cp ./windows-$VERSION.zip gs://${{ secrets.GCP_BITBUCKET_RELEASE_BUCKET }}/alpha 
+          gsutil cp ./windows-$VERSION.zip gs://${{ secrets.GCP_BITBUCKET_RELEASE_BUCKET }}/$RELEASE_TYPE/windows 
 
   export-linux:
     name: Linux Export
@@ -73,7 +73,7 @@ jobs:
       - name: Authorize GCP
         uses: 'google-github-actions/auth@v2'
         with:
-          credentials_json:  ${{ secrets.GCP_SA_KEY }}
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
   
       # Step to Authenticate with GCP
       - name: Set up Cloud SDK
@@ -87,6 +87,8 @@ jobs:
           mkdir -v -p ~/.local/share/godot/export_templates/
           mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable.mono ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable.mono
           echo "VERSION=$(grep -o 'config/version="[^"]*"' project.godot | tr -d "config/version=\"")" >> $GITHUB_ENV
+          echo "RELEASE_TYPE="$(echo ${{ github.event.release.name }} | grep -o '[^v0-9\.\-]' | tr -d '\n') >> $GITHUB_ENV
+
 
       - name: Linux Build
         run: |
@@ -96,5 +98,5 @@ jobs:
       - name: Upload to GCS
         run: |
           zip -r linux-$VERSION.zip build/linux/
-          gsutil cp ./linux-$VERSION.zip gs://${{ secrets.GCP_BITBUCKET_RELEASE_BUCKET }}/alpha
+          gsutil cp ./linux-$VERSION.zip gs://${{ secrets.GCP_BITBUCKET_RELEASE_BUCKET }}/$RELEASE_TYPE/linux
       
