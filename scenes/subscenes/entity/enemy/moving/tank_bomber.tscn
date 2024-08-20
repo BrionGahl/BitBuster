@@ -145,7 +145,6 @@ collision_mask = 27
 HealthComponent = NodePath("../HealthComponent")
 
 [node name="Hitbox" type="CollisionShape2D" parent="HitboxComponent"]
-position = Vector2(2.38419e-07, -1.04216e-14)
 shape = SubResource("RectangleShape2D_8pmvs")
 
 [node name="Collider" type="CollisionShape2D" parent="."]

@@ -182,7 +182,6 @@ collision_mask = 27
 HealthComponent = NodePath("../HealthComponent")
 
 [node name="Hitbox" type="CollisionShape2D" parent="HitboxComponent"]
-position = Vector2(-1.04216e-14, -2.38419e-07)
 shape = SubResource("RectangleShape2D_6yacv")
 
 [node name="TrackTrailComponent" parent="." instance=ExtResource("16_e2htl")]
@@ -199,6 +198,7 @@ avoidance_mask = 4
 wait_time = 0.3
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+visible = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
