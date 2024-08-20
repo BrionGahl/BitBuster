@@ -2,7 +2,6 @@ name: "Export Release"
 on:
   release:
     types: [published]
-  workflow_dispatch:
 
 env:
   GODOT_VERSION: 4.2.2
