@@ -51,7 +51,7 @@ jobs:
       - name: Upload to GCS
         run: |
           (cd build/windows; zip -r ../../$EXPORT_NAME-$VERSION.zip ./)
-          gsutil cp ./windows-$VERSION.zip gs://${{ secrets.GCP_BITBUCKET_RELEASE_BUCKET }}/$RELEASE_TYPE/windows 
+          gsutil cp ./$EXPORT_NAME-$VERSION.zip gs://${{ secrets.GCP_BITBUCKET_RELEASE_BUCKET }}/$RELEASE_TYPE/windows 
 
   export-linux:
     name: Linux Export
@@ -97,5 +97,5 @@ jobs:
       - name: Upload to GCS
         run: |
           (cd build/linux; zip -r ../../$EXPORT_NAME-$VERSION.zip ./)
-          gsutil cp ./linux-$VERSION.zip gs://${{ secrets.GCP_BITBUCKET_RELEASE_BUCKET }}/$RELEASE_TYPE/linux
+          gsutil cp ./$EXPORT_NAME-$VERSION.zip gs://${{ secrets.GCP_BITBUCKET_RELEASE_BUCKET }}/$RELEASE_TYPE/linux
       
