@@ -51,9 +51,9 @@ jobs:
 
       - name: Upload to GCS
         run: |
-          zip -r windows-$VERSION.zip /build/windows/
+          zip -r windows-$VERSION.zip build/windows/
           gsutil cp ./windows-$VERSION.zip gs://${{ secrets.GCP_TARGET_BUCKET }}/alpha 
-          
+
   export-linux:
     name: Linux Export
     runs-on: ubuntu-20.04
@@ -95,6 +95,6 @@ jobs:
 
       - name: Upload to GCS
         run: |
-          zip -r linux-$VERSION.zip /build/linux/
+          zip -r linux-$VERSION.zip build/linux/
           gsutil cp ./linux-$VERSION.zip gs://${{ secrets.GCP_TARGET_BUCKET }}/alpha
       
