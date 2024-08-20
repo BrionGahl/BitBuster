@@ -24,16 +24,15 @@ public partial class ItemPickupHitbox : Area2D
 
 	private void OnBodyEntered(Node body)
 	{
-		if (body is not BitBuster.item.Item)
+		if (body is not Item)
 			return;
 		
-		item.Item item = (item.Item)body;
+		Item item = (Item)body;
 
 		if (EntityStats.CreditCount < item.CreditCost)
 			return;
 
 		EntityStats.CreditCount -= item.CreditCost;
-		item.SetCollisionLayerValue((int)BBCollisionLayer.Item, false);
 
 		if (item.ItemType == ItemType.Normal)
 		{
@@ -48,7 +47,7 @@ public partial class ItemPickupHitbox : Area2D
 				return;
 			HealthComponent.Heal(item.AddedHealth);
 		}
-
+		
 		if (item.AddedOverheal > 0)
 		{
 			if (HealthComponent.Overheal >= HealthComponent.MaxHealth)
@@ -56,6 +55,8 @@ public partial class ItemPickupHitbox : Area2D
 			EntityStats.Overheal += item.AddedOverheal;
 			HealthComponent.Heal(0);
 		}
+		item.SetCollisionLayerValue((int)BBCollisionLayer.Item, false);
+
 		
 		item.OnPickup();
 

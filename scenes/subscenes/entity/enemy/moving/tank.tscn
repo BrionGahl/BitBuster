@@ -20,7 +20,7 @@
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gbvby"]
 radius = 6.0
-height = 12.0
+height = 14.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7cpb8"]
 atlas = ExtResource("10_jg8o2")
@@ -136,6 +136,7 @@ _dropTable = ExtResource("2_48mcr")
 EntityStats = ExtResource("2_ew4kh")
 
 [node name="Collider" type="CollisionShape2D" parent="."]
+scale = Vector2(1.11833, 1)
 shape = SubResource("CapsuleShape2D_gbvby")
 
 [node name="SpritesComponent" parent="." instance=ExtResource("13_lq0tj")]
@@ -183,7 +184,6 @@ collision_mask = 27
 HealthComponent = NodePath("../HealthComponent")
 
 [node name="Hitbox" type="CollisionShape2D" parent="HitboxComponent"]
-position = Vector2(-1.04216e-14, -2.38419e-07)
 shape = SubResource("RectangleShape2D_6yacv")
 
 [node name="TrackTrailComponent" parent="." instance=ExtResource("15_3mb1m")]

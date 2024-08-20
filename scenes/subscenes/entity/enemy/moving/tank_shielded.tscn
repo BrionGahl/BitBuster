@@ -185,7 +185,6 @@ collision_mask = 27
 HealthComponent = NodePath("../HealthComponent")
 
 [node name="Hitbox" type="CollisionShape2D" parent="HitboxComponent"]
-position = Vector2(-1.04216e-14, -2.38419e-07)
 shape = SubResource("RectangleShape2D_6yacv")
 
 [node name="TrackTrailComponent" parent="." instance=ExtResource("15_rc6xa")]
