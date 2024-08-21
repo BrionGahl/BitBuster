@@ -1,5 +1,6 @@
 using System;
 using BitBuster.entity.player;
+using BitBuster.resource;
 using BitBuster.utils;
 using BitBuster.world;
 using Godot;
@@ -23,6 +24,10 @@ public partial class Door : Area2D
 	
 	private Sprite2D _doorFrame;
 	private Sprite2D _doorClosed;
+	private Sprite2D _doorLocked;
+
+	private Area2D _keyOpenArea;
+	
 	private StaticBody2D _entityBlockingBody;
 	private CollisionShape2D _collisionShape;
 	private GpuParticles2D _openDoorEmitter;
@@ -43,15 +48,22 @@ public partial class Door : Area2D
 		_collisionShape = GetNode<CollisionShape2D>("CollisionShape2D");
 		_doorFrame = GetNode<Sprite2D>("DoorFrame");
 		_doorClosed = GetNode<Sprite2D>("DoorClosed");
+		_doorLocked = GetNode<Sprite2D>("DoorLocked");
+
+		_keyOpenArea = GetNode<Area2D>("KeyOpenArea");
+		
 		_openDoorEmitter = GetNode<GpuParticles2D>("OpenDoorEmitter");
 		_entityBlockingBody = GetNode<StaticBody2D>("EntityBlockingBody");
 		_destination = GetNode<Marker2D>("Destination");
-		
+
+		_keyOpenArea.BodyEntered += OnKeyAreaBodyEntered;
 		BodyEntered += OnBodyEntered;
 	}
 
-	public void SetDoorInfo(float radian, Vector2I position, Vector2I offset)
+	public void SetDoorInfo(float radian, Vector2I position, Vector2I offset, bool isLocked = false)
 	{
+		SetDoorLocked(isLocked);
+		
 		radian += Mathf.Pi;
 		Type = (DoorType)(int)((radian * 180 / Math.PI) % 360);
 		Offset = offset;
@@ -89,11 +101,42 @@ public partial class Door : Area2D
 		body.GlobalPosition = _destination.GlobalPosition + Offset;
 	}
 
+	private void OnKeyAreaBodyEntered(Node2D body)
+	{
+		if (!body.IsInGroup(Groups.GroupPlayer))
+			return; 
+		
+		Logger.Log.Information("body entered: {@type}", Type);
+
+		if (((Player)body).EntityStats.KeyCardCount > 0 && _doorLocked.Visible)
+		{
+			((Player)body).EntityStats.KeyCardCount--;
+			((Player)body).EntityStats.EmitStatChangeSignal();
+			
+			SetDoorLocked(false);
+		}
+	}
+	
 	private void OnToggleDoors(bool isOpen)
 	{
 		_doorClosed.Visible = !isOpen;
+
+		_keyOpenArea.SetCollisionMaskValue((int)BBCollisionLayer.Player, isOpen);
+		
+		if (_doorLocked.Visible)
+			return;
+		
 		_openDoorEmitter.Emitting = isOpen;
 		_entityBlockingBody.SetCollisionLayerValue((int)BBCollisionLayer.World, !isOpen);;
+	}
+	
+	private void SetDoorLocked(bool isLocked)
+	{
+		_doorLocked.Visible = isLocked;
+		
+		_openDoorEmitter.Emitting = !isLocked;
+
+		_entityBlockingBody.SetCollisionLayerValue((int)BBCollisionLayer.World, isLocked);
 	}
 	
 	public override void _ExitTree()

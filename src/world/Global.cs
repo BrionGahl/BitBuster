@@ -14,7 +14,7 @@ public partial class Global : Node
 	
 	public Dictionary<int, PackedScene> CompletePickupPoolList { get; private set; }
 	
-	public int WorldLevel { get; set; } = 6;
+	public int WorldLevel { get; set; } = 1;
 	public int[,] MapGrid { get; set; }
 	
 	private string[] _itemNames;

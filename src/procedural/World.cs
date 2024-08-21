@@ -238,8 +238,7 @@ public partial class World : Node2D
 				_roomQueue.Enqueue(neighbors[i]);
 			}
 
-			Logger.Log.Information("Added neigbors for (" + currRoom.X + "," + currRoom.Y + ") room: " +
-								   addedNeighbors);
+			Logger.Log.Information("Added neigbors for (" + currRoom.X + "," + currRoom.Y + ") room: " + addedNeighbors);
 			if (addedNeighbors == 0)
 			{
 				Logger.Log.Debug("FloorManager - End Room found at: " + currRoom + ".");
@@ -366,14 +365,25 @@ public partial class World : Node2D
 					((Enemy)newObject).MakeElite((EliteType)_random.RandiRange(0, 4));
 			}
 		}
-		
+
+		bool doorLocked;
 		for (int i = 0; i < data.TileMap.Count; i++)
 		{
+			doorLocked = false;
+			
 			// If a tile has a direction vector tied to it, it must be a type of door.
 			if (adjacentRooms.Contains(data.TileMap[i].Direction))
 			{
 				Door door = _doorScene.Instantiate<Area2D>() as Door;
-				door.SetDoorInfo(((Vector2)data.TileMap[i].Direction).Angle(), data.TileMap[i].Offset * _rooms.CellSize + worldOffset, data.TileMap[i].Direction * 32);
+
+				if (_mapGrid[offset.X + data.TileMap[i].Direction.X, offset.Y + data.TileMap[i].Direction.Y] == (int)RoomType.Treasure && _global.WorldLevel > 1)
+					doorLocked = true;
+				
+				if (_mapGrid[offset.X + data.TileMap[i].Direction.X, offset.Y + data.TileMap[i].Direction.Y] == (int)RoomType.Store && _global.WorldLevel > 1)
+					doorLocked = true;
+				
+				door.SetDoorInfo(((Vector2)data.TileMap[i].Direction).Angle(), data.TileMap[i].Offset * _rooms.CellSize + worldOffset, data.TileMap[i].Direction * 32, doorLocked);
+
 				_levelBakeable.AddChild(door);
 				continue; 
 			}

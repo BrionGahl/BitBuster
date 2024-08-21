@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bhk5nrlkp2n1n" path="res://assets/etc/camera_border.png" id="8_mn0vs"]
 [ext_resource type="PackedScene" uid="uid://n3uhl8voulr4" path="res://scenes/subscenes/hud/hud.tscn" id="9_hgwba"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hdqxf"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bes8l"]
 resource_local_to_scene = true
 shader = ExtResource("4_7w6o4")
 shader_parameter/flash_color = Color(1, 0.188235, 0, 1)
@@ -22,7 +22,7 @@ script = ExtResource("5_32a3a")
 Source = 2
 Name = "Player"
 BombCount = 3
-KeyCardCount = 0
+KeyCardCount = 100
 CreditCount = 0
 MaxHealth = 3.0
 CurrentHealth = 3.0
@@ -58,9 +58,8 @@ script = ExtResource("1_jml8v")
 [node name="Level" type="Node2D" parent="."]
 
 [node name="Player" parent="Level" instance=ExtResource("3_q3coj")]
-material = SubResource("ShaderMaterial_hdqxf")
+material = SubResource("ShaderMaterial_bes8l")
 position = Vector2(1440, 1440)
-collision_mask = 68
 EntityStats = SubResource("Resource_htxhu")
 
 [node name="NavRegion" type="NavigationRegion2D" parent="Level"]
