@@ -1,4 +1,5 @@
 using BitBuster.component;
+using BitBuster.utils;
 using Godot;
 
 namespace BitBuster.entity.enemy.idle;
@@ -58,6 +59,8 @@ public partial class TowerDetonator : IdleEnemy
 		if ((_timeTillExplosion >= 1.5f || HealthComponent.CurrentHealth <= 0) && !_hasExploded)
 		{
 			_hasExploded = true;
+			
+			Logger.Log.Information("BOOLS {@A}, {@B}, {@C}", _timeTillExplosion >= 1.5f , HealthComponent.CurrentHealth <= 0, !_hasExploded);
 			
 			SpritesComponent.Visible = false;
 			HealthComponent.Damage(HealthComponent.CurrentHealth);

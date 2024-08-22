@@ -35,6 +35,16 @@ public static class ItemScenes
         itemDict.Add(23, GD.Load<PackedScene>("res://scenes/subscenes/items/normal/23_warhead.tscn"));
         itemDict.Add(24, GD.Load<PackedScene>("res://scenes/subscenes/items/normal/24_wave_beam.tscn"));
         itemDict.Add(25, GD.Load<PackedScene>("res://scenes/subscenes/items/normal/25_wide_plush.tscn"));
+        itemDict.Add(26, GD.Load<PackedScene>("res://scenes/subscenes/items/normal/26_magic_8_ball.tscn"));
+        itemDict.Add(27, GD.Load<PackedScene>("res://scenes/subscenes/items/normal/27_railgun.tscn"));
+        itemDict.Add(28, GD.Load<PackedScene>("res://scenes/subscenes/items/normal/28_eye_of_providence.tscn"));
+        itemDict.Add(29, GD.Load<PackedScene>("res://scenes/subscenes/items/normal/29_grenade.tscn"));
+        itemDict.Add(30, GD.Load<PackedScene>("res://scenes/subscenes/items/normal/30_maverick.tscn"));
+        itemDict.Add(31, GD.Load<PackedScene>("res://scenes/subscenes/items/normal/31_trigonometry.tscn"));
+        itemDict.Add(32, GD.Load<PackedScene>("res://scenes/subscenes/items/normal/32_pristine_mirror.tscn"));
+        itemDict.Add(33, GD.Load<PackedScene>("res://scenes/subscenes/items/normal/33_broken_mirror.tscn"));
+        itemDict.Add(34, GD.Load<PackedScene>("res://scenes/subscenes/items/normal/34_shotgun.tscn"));
+
 
         return itemDict;
     } 

@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://2m2pbclf1iur" path="res://scenes/subscenes/component/exploding_component.tscn" id="11_h4hrn"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mkoo3"]
+resource_local_to_scene = true
 shader = ExtResource("6_kmnk0")
 shader_parameter/end_time = 1.5
 shader_parameter/start_freq = 1.0

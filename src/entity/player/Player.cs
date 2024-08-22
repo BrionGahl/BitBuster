@@ -90,7 +90,7 @@ public partial class Player : Entity
 			_weaponComponent.AttemptShoot(Position, GetGlobalMousePosition().AngleToPoint(Position));
 
 		if (_hasBombed)
-			_weaponComponent.AttemptBomb(Position);
+			_weaponComponent.AttemptBomb(Position, GetGlobalMousePosition().AngleToPoint(Position));
 		
 		HandleRotation();
 		HandleAnimations();
@@ -173,9 +173,6 @@ public partial class Player : Entity
 	
 	private void OnHealthIsZero()
 	{
-		if (true)
-			return;
-		
 		EmitSignal(SignalName.Died);
 		_hull.Visible = false;
 		_gun.Visible = false;

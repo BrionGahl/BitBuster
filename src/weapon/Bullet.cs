@@ -10,6 +10,8 @@ namespace BitBuster.weapon;
 public partial class Bullet : CharacterBody2D
 {
 	private GlobalEvents _globalEvents;
+
+	private RandomNumberGenerator _random;
 	
 	private Sprite2D _bulletTexture;
 	private Area2D _hitbox;
@@ -35,6 +37,8 @@ public partial class Bullet : CharacterBody2D
 		if (what != NotificationSceneInstantiated) 
 			return;
 
+		_random = new RandomNumberGenerator();
+		
 		_bulletTexture = GetNode<Sprite2D>("Sprite2D");
 		_hitbox = GetNode<Area2D>("Hitbox");
 
@@ -74,7 +78,13 @@ public partial class Bullet : CharacterBody2D
 
 			if (_bounceType.HasFlag(BounceType.Compounding))
 				_attackData.Damage *= 2;
+
+			if (_bounceType.HasFlag(BounceType.Accelerating))
+				Velocity *= 1.33f;
 			
+			if (_bounceType.HasFlag(BounceType.Changing))
+				Velocity = Velocity.Bounce(collision.GetNormal() + new Vector2(_random.RandfRange(-Mathf.Pi, Mathf.Pi), _random.RandfRange(-Mathf.Pi, Mathf.Pi)));
+
 		} else if (collision != null && _remainingBounces <= 0)
 		{
 			if (_explodeEmitter.Emitting) 

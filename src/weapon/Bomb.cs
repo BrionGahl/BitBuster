@@ -6,7 +6,7 @@ using Godot;
 
 namespace BitBuster.weapon;
 
-public partial class Bomb : StaticBody2D
+public partial class Bomb : RigidBody2D
 {
 	private GlobalEvents _globalEvents;
 	private Sprite2D _bombTexture;
@@ -63,8 +63,11 @@ public partial class Bomb : StaticBody2D
 		}
 	}
 
-	public void SetPositionAndRadius(Vector2 position, AttackData attackData, float radius)
+	public void SetPositionAndRadius(Vector2 position, Vector2 direction, AttackData attackData, BombModifier modifier, float radius)
 	{
+		if (modifier == BombModifier.Throwing)
+			LinearVelocity = direction * attackData.Damage * 30;
+		
 		Position = position;
 		_attackData = attackData;
 		EntityStats.BombRadius = radius;

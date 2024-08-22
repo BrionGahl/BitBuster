@@ -30,7 +30,7 @@ public partial class Minimap: TextureRect
 		_exploredMapGrid = new int[9, 10];
 		
 		_globalEvents.RoomEnter += OnPlayerEnterRoom;
-		_globalEvents.IncrementAndGenerateLevel += OnIncrementAndGenerateLevel;
+		_globalEvents.ClearMinimap += OnClearMinimap;
 	}
 
 	private void AddUnknownRoom(Vector2I position, RoomType room)
@@ -80,7 +80,7 @@ public partial class Minimap: TextureRect
 		}
 	}
 
-	private void OnIncrementAndGenerateLevel()
+	private void OnClearMinimap()
 	{
 		_exploredMapGrid = new int[9, 8];
 		
@@ -95,6 +95,6 @@ public partial class Minimap: TextureRect
 	public override void _ExitTree()
 	{
 		_globalEvents.RoomEnter -= OnPlayerEnterRoom;
-		_globalEvents.IncrementAndGenerateLevel -= OnIncrementAndGenerateLevel;	
+		_globalEvents.ClearMinimap -= OnClearMinimap;	
 	}
 }

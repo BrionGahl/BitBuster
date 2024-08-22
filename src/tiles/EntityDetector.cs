@@ -30,6 +30,7 @@ public partial class EntityDetector : Area2D
 			if (entity.IsInGroup(Groups.GroupEnemy))
 			{
 				_enemyCount++;
+				((Enemy)entity).EntityStats.CurrentHealth = ((Enemy)entity).EntityStats.MaxHealth; 
 				((Enemy)entity).Activate();
 			}
 				

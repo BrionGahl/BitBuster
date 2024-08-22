@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://qxo8egnykndd"]
+
+[ext_resource type="Script" path="res://src/item/Item.cs" id="1_e1xl6"]
+[ext_resource type="Texture2D" uid="uid://dm7hlyqg7dibx" path="res://assets/items/normal/item_broken_mirror.png" id="2_2ly0n"]
+[ext_resource type="PackedScene" uid="uid://ddckip0887shk" path="res://scenes/subscenes/component/particle_item_pickup_component.tscn" id="3_xikh7"]
+[ext_resource type="Theme" uid="uid://c8qs8rvxfk3jf" path="res://assets/menu/default_theme.tres" id="4_yfk1t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k1piv"]
+size = Vector2(16, 16)
+
+[node name="BrokenMirror" type="RigidBody2D" groups=["item"]]
+z_index = 1
+collision_layer = 8
+collision_mask = 73
+script = ExtResource("1_e1xl6")
+ItemId = 33
+ItemName = "Broken Mirror"
+ItemDescription = "7 years bad luck..."
+CreditCost = 14
+ProjectileWeaponType = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_k1piv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_2ly0n")
+
+[node name="ParticleItemPickupComponent" parent="." instance=ExtResource("3_xikh7")]
+
+[node name="PriceLabel" type="Label" parent="."]
+texture_filter = 1
+offset_left = -7.0
+offset_top = 7.0
+offset_right = 7.0
+offset_bottom = 23.0
+theme = ExtResource("4_yfk1t")
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0.262745)
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+vertical_alignment = 1

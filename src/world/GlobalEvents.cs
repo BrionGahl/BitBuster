@@ -15,6 +15,9 @@ public partial class GlobalEvents : Node
 	public delegate void IncrementAndGenerateLevelEventHandler();
 	
 	[Signal]
+	public delegate void ClearMinimapEventHandler();
+	
+	[Signal]
 	public delegate void BakeNavigationMeshEventHandler();
 
 	[Signal]
@@ -39,6 +42,11 @@ public partial class GlobalEvents : Node
 	public void EmitIncrementAndGenerateLevelSignal()
 	{
 		EmitSignal(SignalName.IncrementAndGenerateLevel);
+	}
+	
+	public void EmitClearMinimapSignal()
+	{
+		EmitSignal(SignalName.ClearMinimap);
 	}
 
 	public void EmitBakeNavigationMeshSignal()

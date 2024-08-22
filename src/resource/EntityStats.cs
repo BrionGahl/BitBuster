@@ -70,6 +70,8 @@ public partial class EntityStats : Resource
 	public EffectType BombDamageType { get; set; }
 	[Export]
 	public float BombRadius { get; set; }
+	[Export]
+	public BombModifier BombModifier { get; set; }
 	
 	// Control Related Stats
 	[Export]
@@ -86,7 +88,6 @@ public partial class EntityStats : Resource
 	public bool OverhealBurst { get; set; }
 	[Export]
 	public float OverhealRegen { get; set; }
-
 	
 	private RandomNumberGenerator _random;
 
@@ -139,6 +140,7 @@ public partial class EntityStats : Resource
 		BombDamage += item.BombDamage;
 		BombDamageType |= item.BombDamageType;
 		BombRadius += item.BombRadius;
+		BombModifier |= item.BombModifier;
 		
 		Speed += item.Speed;
 		ITime += item.ITime;

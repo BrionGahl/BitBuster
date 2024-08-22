@@ -44,6 +44,7 @@ ProjectileAccuracy = 0.11
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 0.0
 ITime = 0.2
 TrailEffect = 0
@@ -51,7 +52,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_lmxu5"]
+[sub_resource type="Resource" id="Resource_bjgir"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -77,6 +78,7 @@ ProjectileAccuracy = 0.0
 BombDamage = 3.0
 BombDamageType = 0
 BombRadius = 30.0
+BombModifier = 1
 Speed = 75.0
 ITime = 0.2
 TrailEffect = 0
@@ -110,6 +112,7 @@ ProjectileAccuracy = 0.17
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 70.0
 ITime = 0.2
 TrailEffect = 0
@@ -143,6 +146,7 @@ ProjectileAccuracy = 0.17
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 70.0
 ITime = 0.2
 TrailEffect = 0
@@ -176,6 +180,7 @@ ProjectileAccuracy = 0.17
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 70.0
 ITime = 0.2
 TrailEffect = 0
@@ -209,6 +214,7 @@ ProjectileAccuracy = 0.17
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 70.0
 ITime = 0.2
 TrailEffect = 0
@@ -216,7 +222,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_esw2v"]
+[sub_resource type="Resource" id="Resource_42tej"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -241,7 +247,8 @@ ProjectileTrajectoryType = 0
 ProjectileAccuracy = 0.0
 BombDamage = 2.0
 BombDamageType = 0
-BombRadius = 48.0
+BombRadius = 68.0
+BombModifier = 0
 Speed = 55.0
 ITime = 0.2
 TrailEffect = 0
@@ -275,6 +282,7 @@ ProjectileAccuracy = 0.17
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 70.0
 ITime = 0.2
 TrailEffect = 0
@@ -308,6 +316,7 @@ ProjectileAccuracy = 0.17
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 70.0
 ITime = 0.2
 TrailEffect = 0
@@ -341,6 +350,7 @@ ProjectileAccuracy = 0.11
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 0.0
 ITime = 0.2
 TrailEffect = 0
@@ -374,6 +384,7 @@ ProjectileAccuracy = 0.17
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 70.0
 ITime = 0.2
 TrailEffect = 0
@@ -381,7 +392,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_8u6tx"]
+[sub_resource type="Resource" id="Resource_1jvmw"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -406,7 +417,8 @@ ProjectileTrajectoryType = 0
 ProjectileAccuracy = 0.0
 BombDamage = 2.0
 BombDamageType = 0
-BombRadius = 48.0
+BombRadius = 68.0
+BombModifier = 0
 Speed = 55.0
 ITime = 0.2
 TrailEffect = 0
@@ -440,6 +452,7 @@ ProjectileAccuracy = 0.17
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 70.0
 ITime = 0.2
 TrailEffect = 0
@@ -473,6 +486,7 @@ ProjectileAccuracy = 0.11
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 0.0
 ITime = 0.2
 TrailEffect = 0
@@ -506,6 +520,7 @@ ProjectileAccuracy = 0.17
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 70.0
 ITime = 0.2
 TrailEffect = 0
@@ -539,6 +554,7 @@ ProjectileAccuracy = 0.11
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 0.0
 ITime = 0.2
 TrailEffect = 0
@@ -546,7 +562,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_1q7aq"]
+[sub_resource type="Resource" id="Resource_0si0n"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -571,7 +587,8 @@ ProjectileTrajectoryType = 0
 ProjectileAccuracy = 0.0
 BombDamage = 2.0
 BombDamageType = 0
-BombRadius = 48.0
+BombRadius = 68.0
+BombModifier = 0
 Speed = 0.0
 ITime = 0.2
 TrailEffect = 0
@@ -579,7 +596,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_ybrdj"]
+[sub_resource type="Resource" id="Resource_f2agh"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -604,7 +621,8 @@ ProjectileTrajectoryType = 0
 ProjectileAccuracy = 0.0
 BombDamage = 2.0
 BombDamageType = 0
-BombRadius = 48.0
+BombRadius = 68.0
+BombModifier = 0
 Speed = 55.0
 ITime = 0.2
 TrailEffect = 0
@@ -612,7 +630,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_sbexh"]
+[sub_resource type="Resource" id="Resource_yavkb"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -637,7 +655,8 @@ ProjectileTrajectoryType = 0
 ProjectileAccuracy = 0.0
 BombDamage = 2.0
 BombDamageType = 0
-BombRadius = 48.0
+BombRadius = 68.0
+BombModifier = 0
 Speed = 55.0
 ITime = 0.2
 TrailEffect = 0
@@ -645,7 +664,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_6r2o4"]
+[sub_resource type="Resource" id="Resource_drfk4"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -670,7 +689,8 @@ ProjectileTrajectoryType = 0
 ProjectileAccuracy = 0.0
 BombDamage = 2.0
 BombDamageType = 0
-BombRadius = 48.0
+BombRadius = 68.0
+BombModifier = 0
 Speed = 0.0
 ITime = 0.2
 TrailEffect = 0
@@ -704,6 +724,7 @@ ProjectileAccuracy = 0.11
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 0.0
 ITime = 0.2
 TrailEffect = 0
@@ -737,6 +758,7 @@ ProjectileAccuracy = 0.11
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 0.0
 ITime = 0.2
 TrailEffect = 0
@@ -770,6 +792,7 @@ ProjectileAccuracy = 0.17
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 70.0
 ITime = 0.2
 TrailEffect = 0
@@ -803,6 +826,7 @@ ProjectileAccuracy = 0.17
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 70.0
 ITime = 0.2
 TrailEffect = 0
@@ -836,6 +860,7 @@ ProjectileAccuracy = 0.11
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 0.0
 ITime = 0.2
 TrailEffect = 0
@@ -869,6 +894,7 @@ ProjectileAccuracy = 0.11
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 0.0
 ITime = 0.2
 TrailEffect = 0
@@ -902,6 +928,7 @@ ProjectileAccuracy = 0.11
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 0.0
 ITime = 0.2
 TrailEffect = 0
@@ -935,6 +962,7 @@ ProjectileAccuracy = 0.11
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 0.0
 ITime = 0.2
 TrailEffect = 0
@@ -968,6 +996,7 @@ ProjectileAccuracy = 0.11
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 0.0
 ITime = 0.2
 TrailEffect = 0
@@ -975,7 +1004,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_d6okv"]
+[sub_resource type="Resource" id="Resource_ku36c"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -1000,7 +1029,8 @@ ProjectileTrajectoryType = 0
 ProjectileAccuracy = 0.0
 BombDamage = 2.0
 BombDamageType = 0
-BombRadius = 48.0
+BombRadius = 68.0
+BombModifier = 0
 Speed = 0.0
 ITime = 0.2
 TrailEffect = 0
@@ -1034,6 +1064,7 @@ ProjectileAccuracy = 0.17
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 70.0
 ITime = 0.2
 TrailEffect = 0
@@ -1067,6 +1098,7 @@ ProjectileAccuracy = 0.17
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 70.0
 ITime = 0.2
 TrailEffect = 0
@@ -1074,7 +1106,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fx8su"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s7knt"]
 resource_local_to_scene = true
 shader = ExtResource("6_3x3u3")
 shader_parameter/flash_color = Color(1, 0.188235, 0, 1)
@@ -1106,6 +1138,7 @@ ProjectileAccuracy = 0.0
 BombDamage = 2.0
 BombDamageType = 0
 BombRadius = 30.0
+BombModifier = 0
 Speed = 75.0
 ITime = 0.2
 TrailEffect = 0
@@ -1139,6 +1172,7 @@ ProjectileAccuracy = 0.0
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 0.0
 ITime = 0.2
 TrailEffect = 0
@@ -1172,6 +1206,7 @@ ProjectileAccuracy = 0.51
 BombDamage = 1.0
 BombDamageType = 0
 BombRadius = 45.0
+BombModifier = 0
 Speed = 50.0
 ITime = 0.2
 TrailEffect = 0
@@ -1205,6 +1240,7 @@ ProjectileAccuracy = 0.11
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 70.0
 ITime = 0.2
 TrailEffect = 0
@@ -1238,6 +1274,7 @@ ProjectileAccuracy = 0.17
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 70.0
 ITime = 0.2
 TrailEffect = 0
@@ -1271,6 +1308,7 @@ ProjectileAccuracy = 0.17
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 70.0
 ITime = 0.2
 TrailEffect = 0
@@ -1304,6 +1342,7 @@ ProjectileAccuracy = 0.11
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 0.0
 ITime = 0.2
 TrailEffect = 0
@@ -1337,6 +1376,7 @@ ProjectileAccuracy = 0.17
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 70.0
 ITime = 0.2
 TrailEffect = 0
@@ -1344,7 +1384,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_et8o1"]
+[sub_resource type="Resource" id="Resource_lqldy"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -1370,6 +1410,7 @@ ProjectileAccuracy = 0.0
 BombDamage = 3.0
 BombDamageType = 0
 BombRadius = 30.0
+BombModifier = 1
 Speed = 75.0
 ITime = 0.2
 TrailEffect = 0
@@ -1403,6 +1444,7 @@ ProjectileAccuracy = 0.17
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 70.0
 ITime = 0.2
 TrailEffect = 0
@@ -1436,6 +1478,7 @@ ProjectileAccuracy = 0.17
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 70.0
 ITime = 0.2
 TrailEffect = 0
@@ -1469,6 +1512,7 @@ ProjectileAccuracy = 0.17
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 70.0
 ITime = 0.2
 TrailEffect = 0
@@ -1502,6 +1546,7 @@ ProjectileAccuracy = 0.11
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 0.0
 ITime = 0.2
 TrailEffect = 0
@@ -1535,6 +1580,7 @@ ProjectileAccuracy = 0.17
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 70.0
 ITime = 0.2
 TrailEffect = 0
@@ -1542,7 +1588,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_nsqoq"]
+[sub_resource type="Resource" id="Resource_tm3lj"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -1567,7 +1613,8 @@ ProjectileTrajectoryType = 0
 ProjectileAccuracy = 0.0
 BombDamage = 2.0
 BombDamageType = 0
-BombRadius = 48.0
+BombRadius = 68.0
+BombModifier = 0
 Speed = 55.0
 ITime = 0.2
 TrailEffect = 0
@@ -1601,6 +1648,7 @@ ProjectileAccuracy = 0.11
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 0.0
 ITime = 0.2
 TrailEffect = 0
@@ -1634,6 +1682,7 @@ ProjectileAccuracy = 0.11
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 0.0
 ITime = 0.2
 TrailEffect = 0
@@ -1667,6 +1716,7 @@ ProjectileAccuracy = 0.11
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 0.0
 ITime = 0.2
 TrailEffect = 0
@@ -1700,6 +1750,7 @@ ProjectileAccuracy = 0.17
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 70.0
 ITime = 0.2
 TrailEffect = 0
@@ -1729,7 +1780,7 @@ EntityStats = SubResource("Resource_a4qfm")
 
 [node name="Bomber" parent="NORMAL/0" instance=ExtResource("6_qjjyq")]
 position = Vector2(176, 160)
-EntityStats = SubResource("Resource_lmxu5")
+EntityStats = SubResource("Resource_bjgir")
 
 [node name="Tank" parent="NORMAL/0" instance=ExtResource("11_d6h5w")]
 position = Vector2(176, 96)
@@ -1820,7 +1871,7 @@ layer_0/tile_data = PackedInt32Array(0, 196608, 1, 65536, 131072, 1, 131072, 131
 
 [node name="Detonator" parent="NORMAL/2" instance=ExtResource("9_07htp")]
 position = Vector2(160, 120)
-EntityStats = SubResource("Resource_esw2v")
+EntityStats = SubResource("Resource_42tej")
 
 [node name="Tank" parent="NORMAL/2" instance=ExtResource("11_d6h5w")]
 position = Vector2(160, 200)
@@ -1849,7 +1900,7 @@ EntityStats = SubResource("Resource_2qlia")
 
 [node name="Detonator" parent="NORMAL/3" instance=ExtResource("9_07htp")]
 position = Vector2(160, 216)
-EntityStats = SubResource("Resource_8u6tx")
+EntityStats = SubResource("Resource_1jvmw")
 
 [node name="EntityDetector" parent="NORMAL/3" instance=ExtResource("4_5l8sk")]
 visible = false
@@ -1961,19 +2012,19 @@ layer_0/tile_data = PackedInt32Array(0, 196608, 1, 65536, 131072, 1, 131072, 131
 
 [node name="TowerDetonator" parent="NORMAL/5" instance=ExtResource("11_jkvly")]
 position = Vector2(216, 152)
-EntityStats = SubResource("Resource_1q7aq")
+EntityStats = SubResource("Resource_0si0n")
 
 [node name="Detonator" parent="NORMAL/5" instance=ExtResource("9_07htp")]
 position = Vector2(160, 80)
-EntityStats = SubResource("Resource_ybrdj")
+EntityStats = SubResource("Resource_f2agh")
 
 [node name="Detonator2" parent="NORMAL/5" instance=ExtResource("9_07htp")]
 position = Vector2(160, 240)
-EntityStats = SubResource("Resource_sbexh")
+EntityStats = SubResource("Resource_yavkb")
 
 [node name="TowerDetonator2" parent="NORMAL/5" instance=ExtResource("11_jkvly")]
 position = Vector2(104, 168)
-EntityStats = SubResource("Resource_6r2o4")
+EntityStats = SubResource("Resource_drfk4")
 
 [node name="EntityDetector" parent="NORMAL/5" instance=ExtResource("4_5l8sk")]
 visible = false
@@ -2105,7 +2156,7 @@ EntityStats = SubResource("Resource_g78kx")
 
 [node name="TowerDetonator" parent="NORMAL/8" instance=ExtResource("11_jkvly")]
 position = Vector2(200, 120)
-EntityStats = SubResource("Resource_d6okv")
+EntityStats = SubResource("Resource_ku36c")
 
 [node name="Tank" parent="NORMAL/8" instance=ExtResource("11_d6h5w")]
 position = Vector2(40, 288)
@@ -2197,7 +2248,7 @@ layer_0/name = "World"
 layer_0/tile_data = PackedInt32Array(0, 196608, 1, 65536, 131072, 1, 131072, 131072, 1, 196608, 131072, 1, 262144, 131072, 1, 327680, 131072, 1, 393216, 131072, 1, 458752, 131072, 1, 524288, 131072, 1, 589824, 131073, 1, 720896, 131072, 1, 786432, 131072, 1, 851968, 131072, 1, 917504, 131072, 1, 983040, 131072, 1, 1048576, 131072, 1, 1114112, 131072, 1, 1179648, 131072, 1, 1245184, 196608, 2, 1, 65536, 2, 1245185, 65536, 0, 2, 65536, 2, 1245186, 65536, 0, 3, 65536, 2, 1245187, 65536, 0, 4, 65536, 2, 1245188, 65536, 0, 5, 65536, 2, 1245189, 65536, 0, 6, 65536, 2, 1245190, 65536, 0, 7, 65536, 2, 1245191, 65536, 0, 8, 65536, 2, 1245192, 65536, 0, 9, 1, 3, 1245193, 1, 0, 11, 65536, 2, 1245195, 65536, 0, 12, 65536, 2, 1245196, 65536, 0, 13, 65536, 2, 1245197, 65536, 0, 14, 65536, 2, 1245198, 65536, 0, 15, 65536, 2, 1245199, 65536, 0, 16, 65536, 2, 1245200, 65536, 0, 17, 65536, 2, 1245201, 65536, 0, 18, 65536, 2, 1245202, 65536, 0, 19, 262144, 1, 65555, 0, 1, 131091, 0, 1, 196627, 0, 1, 262163, 0, 1, 327699, 0, 1, 393235, 0, 1, 458771, 0, 1, 524307, 0, 1, 589843, 1, 1, 720915, 0, 1, 786451, 0, 1, 851987, 0, 1, 917523, 0, 1, 983059, 0, 1, 1048595, 0, 1, 1114131, 0, 1, 1179667, 0, 1, 1245203, 262144, 2)
 
 [node name="Player" parent="START/0" instance=ExtResource("2_pa2gp")]
-material = SubResource("ShaderMaterial_fx8su")
+material = SubResource("ShaderMaterial_s7knt")
 position = Vector2(160, 160)
 EntityStats = SubResource("Resource_8x4dg")
 
@@ -2358,7 +2409,7 @@ layer_0/tile_data = PackedInt32Array(262144, 196608, 1, 327680, 131072, 1, 39321
 
 [node name="Bomber" parent="LR_NORMAL/2" instance=ExtResource("6_qjjyq")]
 position = Vector2(160, 96)
-EntityStats = SubResource("Resource_et8o1")
+EntityStats = SubResource("Resource_lqldy")
 
 [node name="Tank" parent="LR_NORMAL/2" instance=ExtResource("11_d6h5w")]
 position = Vector2(112, 192)
@@ -2461,7 +2512,7 @@ layer_0/tile_data = PackedInt32Array(4, 196608, 1, 65540, 131072, 1, 131076, 131
 
 [node name="Detonator" parent="TB_NORMAL/1" instance=ExtResource("9_07htp")]
 position = Vector2(128, 208)
-EntityStats = SubResource("Resource_nsqoq")
+EntityStats = SubResource("Resource_tm3lj")
 
 [node name="Tower" parent="TB_NORMAL/1" instance=ExtResource("6_s61rk")]
 position = Vector2(224, 32)
