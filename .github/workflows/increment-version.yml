@@ -1,0 +1,34 @@
+name: "Bump Version"
+
+on:
+  workflow_call:
+    inputs:
+      godot_version:
+        required: false
+        type: string
+        default: 4.2.2
+
+jobs:
+  increment-release:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Change Version to Branch Name
+        run: |
+          mv /root/.local/share/godot/export_templates/${{ inputs.godot_version }}.stable.mono ~/.local/share/godot/export_templates/${{ inputs.godot_version }}.stable.mono
+          echo "NEW_VERSION="$(echo ${{ github.head_ref }} | tr -d 'alpha|beta|\brelease\b/-') >> $GITHUB_ENV
+          sed -i 's/config\/version=0.0.1/config\/version=${{ env.NEW_VERSION }}/' project.godot
+
+      - name: Commit and Push
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with: 
+          commit-message: "Automated Version Bump"
+          file_pattern: '*.godot'
+

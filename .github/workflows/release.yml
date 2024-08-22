@@ -1,0 +1,30 @@
+name: "Release Executable"
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+    types:
+      - closed      
+
+jobs:
+  export:
+    if: ${{ ( github.event.name == 'pull_request' && github.event.pull_request.merged == true ) || ( github.event.name == 'workflow_dispatch' )}}
+    name: Export Windows and Linux
+    uses: ./.github/workflows/export.yml 
+    secrets: inherit
+    with: 
+      export_name: Bitbuster
+
+  make-release:
+    name: Make New Release
+    uses: ./.github/workflows/create-release.yml 
+    needs: [export]
+    secrets: inherit
+
+  increment-version:
+    name: Bump Version
+    uses: ./.github/workflows/increment-version.yml
+    needs: [export]
+    secrets: inherit
