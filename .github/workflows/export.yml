@@ -45,7 +45,7 @@ jobs:
           mkdir -v -p ~/.local/share/godot/export_templates/
           mv /root/.local/share/godot/export_templates/${{ inputs.godot_version }}.stable.mono ~/.local/share/godot/export_templates/${{ inputs.godot_version }}.stable.mono
           echo "VERSION=$(grep -o 'config/version="[^"]*"' project.godot | tr -d "config/version=\"")" >> $GITHUB_ENV
-          echo "RELEASE_TYPE="$(echo ${{ github.head_ref }} | grep -oE 'alpha|beta|\brelease\b') >> $GITHUB_ENV
+          echo "RELEASE_TYPE="$(echo ${{ github.head_ref }} | cut -c 16-) >> $GITHUB_ENV
 
       - name: Windows Build
         run: |
@@ -90,7 +90,7 @@ jobs:
           mkdir -v -p ~/.local/share/godot/export_templates/
           mv /root/.local/share/godot/export_templates/${{ inputs.godot_version }}.stable.mono ~/.local/share/godot/export_templates/${{ inputs.godot_version }}.stable.mono
           echo "VERSION=$(grep -o 'config/version="[^"]*"' project.godot | tr -d "config/version=\"")" >> $GITHUB_ENV
-          echo "RELEASE_TYPE="$(echo ${{ github.head_ref }} | grep -oE 'alpha|beta|\brelease\b') >> $GITHUB_ENV
+          echo "RELEASE_TYPE="$(echo ${{ github.head_ref }} | cut -c 16-) >> $GITHUB_ENV
 
       - name: Linux Build
         run: |
@@ -100,4 +100,4 @@ jobs:
       - name: Upload to GCS
         run: |
           (cd build/linux; zip -r ../../${{ inputs.export_name }}-${{ env.VERSION }}.zip ./)
-          gsutil cp ./${{ inputs.export_name }}-${{ env.VERSION }}.zip gs://${{ secrets.GCP_BITBUSTER_RELEASE_BUCKET }}/${{ env.RELEASE_TYPE }}/linux
+          gsutil cp ./${{ inputs.export_name }}-${{ env.VERSION }}.zip gs://${{ secrets.GCP_BITBUSTER_RELEASE_BUCKET }}/${{ env.RELEASE_TYPE }}/linux # it yields `release alpha`
