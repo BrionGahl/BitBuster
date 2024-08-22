@@ -98,10 +98,11 @@ public partial class World : Node2D
 		_random.Randomize();
 		
 		GenerateMap();
-		PrintMap(new Vector2I(4, 3));
+		PrintMap(new Vector2I(4, 4));
 		PlaceRooms();
 		
 		_rooms.QueueFree();
+		_globalEvents.EmitClearMinimapSignal();
 	}
 
 	private void CleanLevel()
@@ -118,12 +119,11 @@ public partial class World : Node2D
 
 	private void OnIncrementAndGenerateLevel()
 	{
-		_levelPlayer.Visible = false;
 		CleanLevel();
 		
 		_global.WorldLevel++;
+		
 		GenerateLevel();
-		_levelPlayer.Visible = true;
 	}
 
 	private void OnBakeNavigationMesh()

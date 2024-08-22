@@ -100,7 +100,7 @@ grow_vertical = 2
 theme_override_constants/margin_left = 60
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 60
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_bottom = 5
 
 [node name="BossHealthBar" parent="RootHud/SecondaryHudMargins" instance=ExtResource("10_py63r")]
 layout_mode = 2

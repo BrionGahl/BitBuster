@@ -87,7 +87,7 @@ public partial class OilDemon : MovingEnemy
 		// Bomb
 		if (_mechanics > 0.3 && _mechanics <= 0.4)
 		{
-			if (WeaponComponent.AttemptBomb(Player.Position + new Vector2(RandomNumberGenerator.RandfRange(-10f, 10f), RandomNumberGenerator.RandfRange(-10f, 10f))))
+			if (WeaponComponent.AttemptBomb(Player.Position + new Vector2(RandomNumberGenerator.RandfRange(-10f, 10f), RandomNumberGenerator.RandfRange(-10f, 10f)), 0f))
 				_iteration -= 5;
 		}
 

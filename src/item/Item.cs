@@ -74,6 +74,8 @@ public partial class Item: RigidBody2D
 	public EffectType BombDamageType { get; set; }
 	[Export]
 	public float BombRadius { get; private set; }
+	[Export]
+	public BombModifier BombModifier { get; set; }
 
 	// Control Related Stats
 	[Export]
