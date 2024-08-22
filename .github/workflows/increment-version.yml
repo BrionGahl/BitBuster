@@ -11,7 +11,9 @@ on:
 jobs:
   increment-release:
     runs-on: ubuntu-latest
-
+    container:
+      image: barichello/godot-ci:mono-4.2.2
+      
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
