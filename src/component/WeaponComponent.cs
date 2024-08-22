@@ -114,23 +114,23 @@ public partial class WeaponComponent : Node2D
 		container.AddChild(bullet);
 	}
 
-	public bool AttemptBomb(Vector2 position)
+	public bool AttemptBomb(Vector2 position, float rotation)
 	{
 		if (!CanBomb || BombCount <= 0)
 			return false;
 		
 		Logger.Log.Information("Bombed...");
-		Bomb(position);
+		Bomb(position, rotation);
 			
 		BombTimer.Start();
 
 		return true;
 	}
 
-	private void Bomb(Vector2 position)
+	private void Bomb(Vector2 position, float rotation)
 	{
-		Bomb bomb = _bomb.Instantiate<StaticBody2D>() as Bomb;
-		bomb.SetPositionAndRadius(position, EntityStats.GetBombAttackData(), EntityStats.BombRadius);
+		Bomb bomb = _bomb.Instantiate<Bomb>();
+		bomb.SetPositionAndRadius(position, Vector2.FromAngle(rotation + Mathf.Pi), EntityStats.GetBombAttackData(),EntityStats.BombModifier, EntityStats.BombRadius);
 		
 		BombCount--;
 		EntityStats.EmitStatChangeSignal();

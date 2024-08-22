@@ -55,7 +55,7 @@ public partial class TankBomber : MovingEnemy
 
 		if (Position.DistanceTo(Player.Position) < 48 && RandomNumberGenerator.Randf() > 0.3f)
 		{
-			WeaponComponent.AttemptBomb(Position);
+			WeaponComponent.AttemptBomb(Position, -Rotation);
 		}
 	}
 

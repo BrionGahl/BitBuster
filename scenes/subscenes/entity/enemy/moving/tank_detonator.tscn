@@ -20,6 +20,7 @@ radius = 6.0
 height = 12.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_c4pxw"]
+resource_local_to_scene = true
 shader = ExtResource("6_drmaf")
 shader_parameter/end_time = 1.5
 shader_parameter/start_freq = 1.0

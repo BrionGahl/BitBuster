@@ -22,6 +22,7 @@ shader_parameter/blink_length = 0.5
 resource_local_to_scene = true
 script = ExtResource("3_alicv")
 Source = 3
+Name = ""
 BombCount = 0
 KeyCardCount = 0
 CreditCount = 0
@@ -43,6 +44,7 @@ ProjectileAccuracy = 0.0
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 0.0
 ITime = 0.2
 TrailEffect = 0
@@ -56,7 +58,7 @@ radius = 6.32456
 [sub_resource type="CircleShape2D" id="CircleShape2D_08s7u"]
 radius = 5.38516
 
-[node name="Bomb" type="StaticBody2D"]
+[node name="Bomb" type="RigidBody2D"]
 top_level = true
 material = SubResource("ShaderMaterial_nyra3")
 collision_layer = 0

@@ -13,6 +13,9 @@ namespace BitBuster.procedural;
 
 public partial class World : Node2D
 {
+	private const int X = 9;
+	private const int Y = 10;
+	
 	private int _roomCount;
 	private int _roomLimit;
 	private Queue<Vector2I> _roomQueue;
@@ -72,6 +75,7 @@ public partial class World : Node2D
 			if (!_global.CurrentRunItemPoolList.ContainsKey(itemId))
 				return;
 			item = _global.CurrentRunItemPoolList[itemId].Instantiate<Item>();
+			_global.CurrentRunItemPoolList.Remove(itemId);
 		}
 		else if ((ItemType)itemType == ItemType.Pickup)
 			item = _global.CompletePickupPoolList[itemId].Instantiate<Item>();
@@ -94,10 +98,11 @@ public partial class World : Node2D
 		_random.Randomize();
 		
 		GenerateMap();
-		PrintMap(new Vector2I(4, 3));
+		PrintMap(new Vector2I(4, 4));
 		PlaceRooms();
 		
 		_rooms.QueueFree();
+		_globalEvents.EmitClearMinimapSignal();
 	}
 
 	private void CleanLevel()
@@ -117,6 +122,7 @@ public partial class World : Node2D
 		CleanLevel();
 		
 		_global.WorldLevel++;
+		
 		GenerateLevel();
 	}
 
@@ -138,13 +144,13 @@ public partial class World : Node2D
 		_roomQueue = new Queue<Vector2I>();
 		_endRooms = new List<Vector2I>();
 
-		_global.MapGrid = new int[9, 8];
+		_global.MapGrid = new int[X, Y];
 		_mapGrid = _global.MapGrid;
 
-		_mapGrid[4, 3] = (int)RoomType.Start;
+		_mapGrid[4, 4] = (int)RoomType.Start;
 
 		_roomCount = 1;
-		_roomQueue.Enqueue(new Vector2I(4, 3));
+		_roomQueue.Enqueue(new Vector2I(4, 4));
 
 		List<Vector2I> neighbors = new List<Vector2I>();
 
@@ -162,11 +168,11 @@ public partial class World : Node2D
 			// Out of bounds check
 			for (int i = 0; i < neighbors.Count; i++)
 			{
-				if (neighbors[i].X == 0 || neighbors[i].X == 8)
+				if (neighbors[i].X == 0 || neighbors[i].X == X - 1)
 				{
 					neighbors.RemoveAt(i);
 				}
-				else if (neighbors[i].Y < 0 || neighbors[i].Y > 7)
+				else if (neighbors[i].Y == 0 || neighbors[i].Y == Y - 1)
 				{
 					neighbors.RemoveAt(i);
 				}
@@ -203,11 +209,11 @@ public partial class World : Node2D
 				// Out of bounds check
 				for (int j = 0; j < neighborsOfNeighbor.Count; j++)
 				{
-					if (neighborsOfNeighbor[j].X == 0 || neighborsOfNeighbor[j].X == 8)
+					if (neighborsOfNeighbor[j].X == 0 || neighborsOfNeighbor[j].X == X - 1)
 					{
 						neighborsOfNeighbor.RemoveAt(j);
 					}
-					else if (neighborsOfNeighbor[j].Y < 0 || neighborsOfNeighbor[j].Y > 7)
+					else if (neighborsOfNeighbor[j].Y < 0 || neighborsOfNeighbor[j].Y > Y - 1)
 					{
 						neighborsOfNeighbor.RemoveAt(j);
 					}
@@ -232,8 +238,7 @@ public partial class World : Node2D
 				_roomQueue.Enqueue(neighbors[i]);
 			}
 
-			Logger.Log.Information("Added neigbors for (" + currRoom.X + "," + currRoom.Y + ") room: " +
-								   addedNeighbors);
+			Logger.Log.Information("Added neigbors for (" + currRoom.X + "," + currRoom.Y + ") room: " + addedNeighbors);
 			if (addedNeighbors == 0)
 			{
 				Logger.Log.Debug("FloorManager - End Room found at: " + currRoom + ".");
@@ -272,10 +277,19 @@ public partial class World : Node2D
 	private void PlaceRooms()
 	{
 		NavigationPolygon poly = new NavigationPolygon();
-		poly.AgentRadius = 4;
-		for (int x = 0; x < 9; x++)
+		poly.AgentRadius = 6;
+		
+		// poly.AddOutline(new Vector2[]
+		// {
+		// 	GridToWorld(new Vector2I(0, 0)),
+		// 	GridToWorld(new Vector2I(X, 0)),
+		// 	GridToWorld(new Vector2I(X, Y)),
+		// 	GridToWorld(new Vector2I(0, Y))
+		// });
+		
+		for (int x = 0; x < X; x++)
 		{
-			for (int y = 0; y < 8; y++)
+			for (int y = 0; y < Y; y++)
 			{
 				if (_mapGrid[x, y] == 0)
 					continue;
@@ -284,15 +298,21 @@ public partial class World : Node2D
 				
 				if (y - 1 >= 0 && _mapGrid[x, y - 1] != 0)
 					adjacentRooms.Add(Vector2I.Up);
-				if (y + 1 < 8 && _mapGrid[x, y + 1] != 0)
+				if (y + 1 < Y && _mapGrid[x, y + 1] != 0)
 					adjacentRooms.Add(Vector2I.Down);
 				if (x - 1 >= 0 && _mapGrid[x - 1, y] != 0)
 					adjacentRooms.Add(Vector2I.Left);
-				if (x + 1 < 9 && _mapGrid[x + 1, y] != 0)
+				if (x + 1 < X && _mapGrid[x + 1, y] != 0)
 					adjacentRooms.Add(Vector2I.Right);
 
 				CopyRoom(new Vector2I(x, y), (RoomType)_mapGrid[x, y], adjacentRooms);
-				poly.AddOutline(new Vector2[] {GridToWorld(new Vector2I(x, y)), GridToWorld(new Vector2I(x, y) + new Vector2I(320, 0)), GridToWorld(new Vector2I(x, y)) + new Vector2I(320, 320), GridToWorld(new Vector2I(x, y) + new Vector2I(0, 320))});
+				poly.AddOutline(new Vector2[]
+				{
+					GridToWorld(new Vector2I(x, y)),
+					GridToWorld(new Vector2I(x, y)) + new Vector2I(320, 0), 
+					GridToWorld(new Vector2I(x, y)) + new Vector2I(320, 320), 
+					GridToWorld(new Vector2I(x, y)) + new Vector2I(0, 320)
+				});
 			}
 		}
 		_levelRegion.NavigationPolygon = poly;
@@ -345,14 +365,25 @@ public partial class World : Node2D
 					((Enemy)newObject).MakeElite((EliteType)_random.RandiRange(0, 4));
 			}
 		}
-		
+
+		bool doorLocked;
 		for (int i = 0; i < data.TileMap.Count; i++)
 		{
+			doorLocked = false;
+			
 			// If a tile has a direction vector tied to it, it must be a type of door.
 			if (adjacentRooms.Contains(data.TileMap[i].Direction))
 			{
 				Door door = _doorScene.Instantiate<Area2D>() as Door;
-				door.SetDoorInfo(((Vector2)data.TileMap[i].Direction).Angle(), data.TileMap[i].Offset * _rooms.CellSize + worldOffset, data.TileMap[i].Direction * 32);
+
+				if (_mapGrid[offset.X + data.TileMap[i].Direction.X, offset.Y + data.TileMap[i].Direction.Y] == (int)RoomType.Treasure && _global.WorldLevel > 1)
+					doorLocked = true;
+				
+				if (_mapGrid[offset.X + data.TileMap[i].Direction.X, offset.Y + data.TileMap[i].Direction.Y] == (int)RoomType.Store && _global.WorldLevel > 1)
+					doorLocked = true;
+				
+				door.SetDoorInfo(((Vector2)data.TileMap[i].Direction).Angle(), data.TileMap[i].Offset * _rooms.CellSize + worldOffset, data.TileMap[i].Direction * 32, doorLocked);
+
 				_levelBakeable.AddChild(door);
 				continue; 
 			}
@@ -376,8 +407,8 @@ public partial class World : Node2D
 
 	private bool CheckLrRoom(Vector2I pos)
 	{
-		if (pos.X - 1 >= 0 && pos.X + 1 < 9 && 
-			pos.Y - 1 >= 0 && pos.Y + 1 < 8 &&
+		if (pos.X - 1 >= 0 && pos.X + 1 < X && 
+			pos.Y - 1 >= 0 && pos.Y + 1 < Y &&
 			_mapGrid[pos.X, pos.Y] == (int)RoomType.Normal && 
 			_mapGrid[pos.X - 1, pos.Y] != (int)RoomType.None &&
 			_mapGrid[pos.X + 1, pos.Y] != (int)RoomType.None &&
@@ -391,8 +422,8 @@ public partial class World : Node2D
 	
 	private bool CheckTbRoom(Vector2I pos)
 	{
-		if (pos.X - 1 >= 0 && pos.X + 1 < 9 && 
-			pos.Y - 1 >= 0 && pos.Y + 1 < 8 &&
+		if (pos.X - 1 >= 0 && pos.X + 1 < X && 
+			pos.Y - 1 >= 0 && pos.Y + 1 < Y &&
 			_mapGrid[pos.X, pos.Y] == (int)RoomType.Normal && 
 			_mapGrid[pos.X, pos.Y + 1] != (int)RoomType.None &&
 			_mapGrid[pos.X, pos.Y - 1] != (int)RoomType.None &&
@@ -406,10 +437,10 @@ public partial class World : Node2D
 
 	public void PrintMap(Vector2I currentPosition)
 	{
-		for (int i = 0; i < 8; i++)
+		for (int i = 0; i < Y; i++)
 		{
 			Console.Write("\t");
-			for (int j = 0; j < 9; j++)
+			for (int j = 0; j < X; j++)
 			{
 				if (j == currentPosition.X && i == currentPosition.Y)
 					Console.Write(_mapGrid[j, i] + " ");

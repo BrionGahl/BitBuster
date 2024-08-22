@@ -1,5 +1,5 @@
 using BitBuster.component;
-using BitBuster.world;
+using BitBuster.utils;
 using Godot;
 
 namespace BitBuster.entity.enemy.moving;
@@ -59,6 +59,8 @@ public partial class TankDetonator : MovingEnemy
 		if ((_timeTillExplosion >= 1.5f || HealthComponent.CurrentHealth <= 0) && !_hasExploded)
 		{
 			_hasExploded = true;
+			
+			Logger.Log.Information("BOOLS {@A}, {@B}, {@C}", _timeTillExplosion >= 1.5f , HealthComponent.CurrentHealth <= 0, !_hasExploded);
 			
 			SpritesComponent.Visible = false;
 			EntityStats.Speed = 0;
