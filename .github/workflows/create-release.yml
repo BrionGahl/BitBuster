@@ -13,14 +13,13 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: barichello/godot-ci:mono-4.2.2
-      
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Setup
         run: |
-          mv /root/.local/share/godot/export_templates/${{ inputs.godot_version }}.stable.mono ~/.local/share/godot/export_templates/${{ inputs.godot_version }}.stable.mono
           echo "VERSION=$(grep -o 'config/version="[^"]*"' project.godot | tr -d "config/version=\"")" >> $GITHUB_ENV
           echo "RELEASE_TYPE="$(echo ${{ github.head_ref }} | cut -c 15-) >> $GITHUB_ENV
 
