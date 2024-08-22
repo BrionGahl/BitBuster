@@ -45,7 +45,7 @@ jobs:
           mkdir -v -p ~/.local/share/godot/export_templates/
           mv /root/.local/share/godot/export_templates/${{ inputs.godot_version }}.stable.mono ~/.local/share/godot/export_templates/${{ inputs.godot_version }}.stable.mono
           echo "VERSION=$(grep -o 'config/version="[^"]*"' project.godot | tr -d "config/version=\"")" >> $GITHUB_ENV
-          echo "RELEASE_TYPE="$(echo ${{ github.head_ref }} | cut -c 16-) >> $GITHUB_ENV
+          echo "RELEASE_TYPE="$(echo ${{ github.head_ref }} | cut -c 15-) >> $GITHUB_ENV
 
       - name: Windows Build
         run: |
@@ -90,7 +90,7 @@ jobs:
           mkdir -v -p ~/.local/share/godot/export_templates/
           mv /root/.local/share/godot/export_templates/${{ inputs.godot_version }}.stable.mono ~/.local/share/godot/export_templates/${{ inputs.godot_version }}.stable.mono
           echo "VERSION=$(grep -o 'config/version="[^"]*"' project.godot | tr -d "config/version=\"")" >> $GITHUB_ENV
-          echo "RELEASE_TYPE="$(echo ${{ github.head_ref }} | cut -c 16-) >> $GITHUB_ENV
+          echo "RELEASE_TYPE="$(echo ${{ github.head_ref }} | cut -c 15-) >> $GITHUB_ENV
 
       - name: Linux Build
         run: |
