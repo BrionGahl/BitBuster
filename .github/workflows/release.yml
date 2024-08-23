@@ -25,5 +25,5 @@ jobs:
   increment-version:
     name: Bump Version
     uses: ./.github/workflows/increment-version.yml
-    needs: [export]
+    needs: [make-release]
     secrets: inherit
