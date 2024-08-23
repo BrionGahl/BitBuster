@@ -22,12 +22,8 @@ jobs:
         run: |
           echo "VERSION=$(grep -o 'config/version="[^"]*"' project.godot | tr -d "config/version=\"")" >> $GITHUB_ENV
           echo "NEW_VERSION="$(echo ${{ github.head_ref }} | cut -c 15-) >> $GITHUB_ENV
-          sed -i 's/config\/version=${{ env.VERSION }}/config\/version=${{ env.NEW_VERSION }}/' project.godot
+          sed -i 's/config\/version="${{ env.VERSION }}"/config\/version="${{ env.NEW_VERSION }}"/' project.godot
           git config --global --add safe.directory /__w/BitBuster/BitBuster
 
       - name: Commit and Push
         uses: stefanzweifel/git-auto-commit-action@v5
-        with: 
-          commit-message: "Automated Version Bump"
-          file_pattern: '*.godot'
-
