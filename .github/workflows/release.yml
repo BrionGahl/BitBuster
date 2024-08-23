@@ -16,14 +16,14 @@ jobs:
     with: 
       export_name: Bitbuster
 
-  make-release:
-    name: Make New Release
-    uses: ./.github/workflows/create-release.yml 
-    needs: [export]
-    secrets: inherit
-
   increment-version:
     name: Bump Version
     uses: ./.github/workflows/increment-version.yml
-    needs: [make-release]
+    needs: [export]
+    secrets: inherit
+
+  make-release:
+    name: Make New Release
+    uses: ./.github/workflows/create-release.yml 
+    needs: [increment-version]
     secrets: inherit
