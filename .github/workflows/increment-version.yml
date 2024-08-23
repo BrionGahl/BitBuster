@@ -21,7 +21,7 @@ jobs:
       - name: Setup
         run: |
           echo "VERSION=$(grep -o 'config/version="[^"]*"' project.godot | tr -d "config/version=\"")" >> $GITHUB_ENV
-          echo "NEW_VERSION="$(echo ${{ github.head_ref }} | cut -c 15-) >> $GITHUB_ENV
+          echo "NEW_VERSION="$(echo ${{ github.head_ref }} | grep -o [0-9.] | tr -d '\n') >> $GITHUB_ENV
 
       - name: Change Version to Branch Name
         run: |
@@ -30,3 +30,5 @@ jobs:
 
       - name: Commit and Push
         uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          branch: main
