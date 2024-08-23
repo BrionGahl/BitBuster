@@ -18,12 +18,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       
-      - name: Change Version to Branch Name
+      - name: Setup
         run: |
           echo "VERSION=$(grep -o 'config/version="[^"]*"' project.godot | tr -d "config/version=\"")" >> $GITHUB_ENV
           echo "NEW_VERSION="$(echo ${{ github.head_ref }} | cut -c 15-) >> $GITHUB_ENV
-          sed -i 's/config\/version=\"${{ env.VERSION }}\"/config\/version=\"${{ env.NEW_VERSION }}\"/' project.godot
+
+      - name: Change Version to Branch Name
+        run: |
           git config --global --add safe.directory /__w/BitBuster/BitBuster
+          sed -i 's/config\/version="${{ env.VERSION }}"/config\/version="${{ env.NEW_VERSION }}"/' project.godot
 
       - name: Commit and Push
         uses: stefanzweifel/git-auto-commit-action@v5
