@@ -109,7 +109,7 @@ public abstract partial class Enemy: Entity
 				break;
 			case EliteType.Deadly:
 				EntityStats.ProjectileDamage *= 2f;
-				SetColor(Colors.Red);
+				SetColor(Colors.Green);
 				break;
 			case EliteType.Invisible:
 				SetColor(new Color(Colors.White, 0.25f));
@@ -168,7 +168,7 @@ public abstract partial class Enemy: Entity
 
 	public void Activate()
 	{
-		_timer.Start(1f);
+		_timer.Start(1.5f);
 	}
 
 	private void OnTimerTimeout()

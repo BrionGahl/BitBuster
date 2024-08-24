@@ -1,7 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://bbg3hi2aqa1mq"]
+[gd_scene load_steps=6 format=3 uid="uid://6fd6usfepjd7"]
 
 [ext_resource type="Script" path="res://src/item/Item.cs" id="1_h8sy6"]
-[ext_resource type="Texture2D" uid="uid://t24yyqvlbcjl" path="res://assets/items/normal/item_shotgun.png" id="2_5flcg"]
+[ext_resource type="Texture2D" path="res://assets/items/normal/item_shotgun.png" id="2_5flcg"]
 [ext_resource type="PackedScene" uid="uid://ddckip0887shk" path="res://scenes/subscenes/component/particle_item_pickup_component.tscn" id="3_tavg4"]
 [ext_resource type="Theme" uid="uid://c8qs8rvxfk3jf" path="res://assets/menu/default_theme.tres" id="4_d34cl"]
 
@@ -13,9 +13,9 @@ z_index = 1
 collision_layer = 8
 collision_mask = 73
 script = ExtResource("1_h8sy6")
-ItemId = 25
-ItemName = "Wide Plush"
-ItemDescription = "May be wanted by the IRS..."
+ItemId = 34
+ItemName = "Shotgun"
+ItemDescription = "Buckshot included."
 CreditCost = 15
 ProjectileCooldown = -0.1
 ProjectileSpeed = 10.0

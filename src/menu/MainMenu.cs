@@ -9,6 +9,8 @@ public partial class MainMenu : Menu
 	private Button _optionButton;
 	private Button _creditButton;
 	private Button _quitButton;
+
+	private Label _versionLabel;
 	
 	public override void _Ready()
 	{
@@ -16,6 +18,9 @@ public partial class MainMenu : Menu
 		_optionButton = GetNode<Button>("VBoxContainer/HBoxContainer/OptionButton");
 		_creditButton = GetNode<Button>("VBoxContainer/CreditButton");
 		_quitButton = GetNode<Button>("VBoxContainer/HBoxContainer/QuitButton");
+
+		_versionLabel = GetNode<Label>("VBoxContainer/VersionContainer/VersionLabel");
+		_versionLabel.Text = $"ver. {(string)ProjectSettings.GetSettingWithOverride("application/config/version")}";
 		
 		_playButton.Pressed += OnPlayPressed;
 		_optionButton.Pressed += OnOptionPressed;
