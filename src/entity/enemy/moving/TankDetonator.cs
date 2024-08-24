@@ -53,14 +53,12 @@ public partial class TankDetonator : MovingEnemy
 		{
 			_timeTillExplosion += (float)delta;
 			SpritesComponent.SetBodyMaterialProperty("shader_parameter/time", _timeTillExplosion);
-			EntityStats.Speed /= 4;
+			EntityStats.Speed = 0;
 		}
 		
 		if ((_timeTillExplosion >= 1.5f || HealthComponent.CurrentHealth <= 0) && !_hasExploded)
 		{
 			_hasExploded = true;
-			
-			Logger.Log.Information("BOOLS {@A}, {@B}, {@C}", _timeTillExplosion >= 1.5f , HealthComponent.CurrentHealth <= 0, !_hasExploded);
 			
 			SpritesComponent.Visible = false;
 			EntityStats.Speed = 0;

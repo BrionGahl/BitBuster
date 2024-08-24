@@ -15,6 +15,8 @@ public partial class Bullet : CharacterBody2D
 	
 	private Sprite2D _bulletTexture;
 	private Area2D _hitbox;
+	private CollisionShape2D _hitboxCollision;
+	private CollisionShape2D _collision;
 
 	private ExplodingComponent _explodingComponent;
 	
@@ -41,7 +43,10 @@ public partial class Bullet : CharacterBody2D
 		
 		_bulletTexture = GetNode<Sprite2D>("Sprite2D");
 		_hitbox = GetNode<Area2D>("Hitbox");
+		_hitboxCollision = GetNode<CollisionShape2D>("Hitbox/AreaCollider");
 
+		_collision = GetNode<CollisionShape2D>("CollisionShape2D");
+		
 		_explodingComponent = GetNode<ExplodingComponent>("ExplodingComponent");
 		
 		_bounceEmitter = GetNode<GpuParticles2D>("ParticleBounce");
@@ -109,7 +114,9 @@ public partial class Bullet : CharacterBody2D
 		
 		_bulletTexture.Modulate = Color.FromHsv(_remainingBounces * _hueShift, 1.0f, 1.0f);
 
-		Scale = new Vector2(size.X, size.Y);
+		_bulletTexture.Scale = new Vector2(size.X, size.Y);
+		_collision.Scale = new Vector2(size.X, size.Y);
+		((RectangleShape2D)_hitboxCollision.Shape).Size = new Vector2(2 * size.X + 2, 4 * size.Y + 2);
 		
 		_activeTrail = speed > 150
 			? GetNode<GpuParticles2D>("ParticleFastTrail")

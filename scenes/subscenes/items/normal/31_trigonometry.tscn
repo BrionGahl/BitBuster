@@ -1,7 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://d3xif1bbequtg"]
+[gd_scene load_steps=6 format=3 uid="uid://e2omhuf6da22"]
 
 [ext_resource type="Script" path="res://src/item/Item.cs" id="1_lsk2d"]
-[ext_resource type="Texture2D" uid="uid://c780q4vnxeqyj" path="res://assets/items/normal/item_wide_plush.png" id="2_u2luy"]
+[ext_resource type="Texture2D" path="res://assets/items/normal/item_trigonometry.png" id="2_dtbr0"]
 [ext_resource type="PackedScene" uid="uid://ddckip0887shk" path="res://scenes/subscenes/component/particle_item_pickup_component.tscn" id="3_tyji2"]
 [ext_resource type="Theme" uid="uid://c8qs8rvxfk3jf" path="res://assets/menu/default_theme.tres" id="4_lj4a0"]
 
@@ -25,7 +25,7 @@ shape = SubResource("RectangleShape2D_k1piv")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-texture = ExtResource("2_u2luy")
+texture = ExtResource("2_dtbr0")
 
 [node name="ParticleItemPickupComponent" parent="." instance=ExtResource("3_tyji2")]
 

@@ -43,6 +43,8 @@ public partial class Player : Entity
 	private bool _hasShot;
 	private bool _hasBombed;
 
+	private bool _deactivated;
+
 	public WeaponComponent WeaponComponent
 	{
 		get => _weaponComponent;
@@ -108,8 +110,11 @@ public partial class Player : Entity
 		_doorEnterTimer.Start();
 	}
 	
-	private void GetInput() 
+	private void GetInput()
 	{
+		if (_deactivated)
+			return;
+		
 		_movementDirection = new Vector2(
 			Input.GetAxis("left", "right"), 
 			Input.GetAxis("up", "down"));
@@ -177,9 +182,8 @@ public partial class Player : Entity
 		_hull.Visible = false;
 		_gun.Visible = false;
 		
-		_hasShot = true;
-		_hasBombed = true;
 		Speed = 0;
+		_deactivated = true;
 		
 		if (!ParticleDeath.Emitting)
 			ParticleDeath.Emitting = true;

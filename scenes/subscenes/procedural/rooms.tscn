@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://32elsci7h0v1"]
+[gd_scene load_steps=69 format=3 uid="uid://32elsci7h0v1"]
 
 [ext_resource type="Script" path="res://src/procedural/Rooms.cs" id="1_lawn4"]
 [ext_resource type="PackedScene" uid="uid://det6gkgxg57mw" path="res://scenes/subscenes/entity/player/player.tscn" id="2_pa2gp"]
@@ -18,7 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://c0ej06grjhkpg" path="res://scenes/subscenes/tiles/breakable_wall.tscn" id="17_jxgax"]
 [ext_resource type="PackedScene" uid="uid://cx30lc66gc3rv" path="res://scenes/subscenes/entity/enemy/moving/tank_cannon.tscn" id="17_yhbs0"]
 
-[sub_resource type="Resource" id="Resource_a4qfm"]
+[sub_resource type="Resource" id="Resource_uroux"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -31,7 +31,7 @@ CurrentHealth = 3.0
 Overheal = 0.0
 ProjectileDamage = 1.0
 ProjectileCount = 3
-ProjectileCooldown = 1.33
+ProjectileCooldown = 1.66
 ProjectileBounces = 1
 ProjectileSpeed = 100.0
 ProjectileSizeScalar = Vector2(1, 1)
@@ -52,7 +52,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_bjgir"]
+[sub_resource type="Resource" id="Resource_n23ni"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -86,7 +86,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_w7yov"]
+[sub_resource type="Resource" id="Resource_tp8j7"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -94,12 +94,12 @@ Name = "Tank"
 BombCount = 0
 KeyCardCount = 0
 CreditCount = 0
-MaxHealth = 3.0
-CurrentHealth = 3.0
+MaxHealth = 2.0
+CurrentHealth = 2.0
 Overheal = 0.0
 ProjectileDamage = 1.0
 ProjectileCount = 3
-ProjectileCooldown = 1.33
+ProjectileCooldown = 1.66
 ProjectileBounces = 1
 ProjectileSpeed = 100.0
 ProjectileSizeScalar = Vector2(1, 1)
@@ -120,7 +120,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_7uwd8"]
+[sub_resource type="Resource" id="Resource_uo256"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -128,12 +128,12 @@ Name = "Tank"
 BombCount = 0
 KeyCardCount = 0
 CreditCount = 0
-MaxHealth = 3.0
-CurrentHealth = 3.0
+MaxHealth = 2.0
+CurrentHealth = 2.0
 Overheal = 0.0
 ProjectileDamage = 1.0
 ProjectileCount = 3
-ProjectileCooldown = 1.33
+ProjectileCooldown = 1.66
 ProjectileBounces = 1
 ProjectileSpeed = 100.0
 ProjectileSizeScalar = Vector2(1, 1)
@@ -154,7 +154,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_dso62"]
+[sub_resource type="Resource" id="Resource_gslgh"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -162,12 +162,12 @@ Name = "Tank"
 BombCount = 0
 KeyCardCount = 0
 CreditCount = 0
-MaxHealth = 3.0
-CurrentHealth = 3.0
+MaxHealth = 2.0
+CurrentHealth = 2.0
 Overheal = 0.0
 ProjectileDamage = 1.0
 ProjectileCount = 3
-ProjectileCooldown = 1.33
+ProjectileCooldown = 1.66
 ProjectileBounces = 1
 ProjectileSpeed = 100.0
 ProjectileSizeScalar = Vector2(1, 1)
@@ -188,7 +188,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_pqfek"]
+[sub_resource type="Resource" id="Resource_icqxa"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -196,12 +196,12 @@ Name = "Tank"
 BombCount = 0
 KeyCardCount = 0
 CreditCount = 0
-MaxHealth = 3.0
-CurrentHealth = 3.0
+MaxHealth = 2.0
+CurrentHealth = 2.0
 Overheal = 0.0
 ProjectileDamage = 1.0
 ProjectileCount = 3
-ProjectileCooldown = 1.33
+ProjectileCooldown = 1.66
 ProjectileBounces = 1
 ProjectileSpeed = 100.0
 ProjectileSizeScalar = Vector2(1, 1)
@@ -222,7 +222,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_42tej"]
+[sub_resource type="Resource" id="Resource_0opmx"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -256,7 +256,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_a88y0"]
+[sub_resource type="Resource" id="Resource_hxes5"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -264,12 +264,12 @@ Name = "Tank"
 BombCount = 0
 KeyCardCount = 0
 CreditCount = 0
-MaxHealth = 3.0
-CurrentHealth = 3.0
+MaxHealth = 2.0
+CurrentHealth = 2.0
 Overheal = 0.0
 ProjectileDamage = 1.0
 ProjectileCount = 3
-ProjectileCooldown = 1.33
+ProjectileCooldown = 1.66
 ProjectileBounces = 1
 ProjectileSpeed = 100.0
 ProjectileSizeScalar = Vector2(1, 1)
@@ -290,7 +290,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_ymqov"]
+[sub_resource type="Resource" id="Resource_a3xcv"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -298,12 +298,12 @@ Name = "Tank"
 BombCount = 0
 KeyCardCount = 0
 CreditCount = 0
-MaxHealth = 3.0
-CurrentHealth = 3.0
+MaxHealth = 2.0
+CurrentHealth = 2.0
 Overheal = 0.0
 ProjectileDamage = 1.0
 ProjectileCount = 3
-ProjectileCooldown = 1.33
+ProjectileCooldown = 1.66
 ProjectileBounces = 1
 ProjectileSpeed = 100.0
 ProjectileSizeScalar = Vector2(1, 1)
@@ -324,7 +324,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_74alx"]
+[sub_resource type="Resource" id="Resource_o4cmv"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -337,7 +337,7 @@ CurrentHealth = 3.0
 Overheal = 0.0
 ProjectileDamage = 2.0
 ProjectileCount = 3
-ProjectileCooldown = 1.33
+ProjectileCooldown = 2.0
 ProjectileBounces = 1
 ProjectileSpeed = 75.0
 ProjectileSizeScalar = Vector2(2, 2)
@@ -358,7 +358,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_2qlia"]
+[sub_resource type="Resource" id="Resource_rfps3"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -366,12 +366,12 @@ Name = "Tank"
 BombCount = 0
 KeyCardCount = 0
 CreditCount = 0
-MaxHealth = 3.0
-CurrentHealth = 3.0
+MaxHealth = 2.0
+CurrentHealth = 2.0
 Overheal = 0.0
 ProjectileDamage = 1.0
 ProjectileCount = 3
-ProjectileCooldown = 1.33
+ProjectileCooldown = 1.66
 ProjectileBounces = 1
 ProjectileSpeed = 100.0
 ProjectileSizeScalar = Vector2(1, 1)
@@ -392,7 +392,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_1jvmw"]
+[sub_resource type="Resource" id="Resource_njbak"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -426,7 +426,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_fbqsl"]
+[sub_resource type="Resource" id="Resource_nbokg"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -434,12 +434,12 @@ Name = "Tank"
 BombCount = 0
 KeyCardCount = 0
 CreditCount = 0
-MaxHealth = 3.0
-CurrentHealth = 3.0
+MaxHealth = 2.0
+CurrentHealth = 2.0
 Overheal = 0.0
 ProjectileDamage = 1.0
 ProjectileCount = 3
-ProjectileCooldown = 1.33
+ProjectileCooldown = 1.66
 ProjectileBounces = 1
 ProjectileSpeed = 100.0
 ProjectileSizeScalar = Vector2(1, 1)
@@ -460,7 +460,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_vakpq"]
+[sub_resource type="Resource" id="Resource_jcsun"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -473,7 +473,7 @@ CurrentHealth = 3.0
 Overheal = 0.0
 ProjectileDamage = 1.0
 ProjectileCount = 3
-ProjectileCooldown = 1.33
+ProjectileCooldown = 1.66
 ProjectileBounces = 1
 ProjectileSpeed = 100.0
 ProjectileSizeScalar = Vector2(1, 1)
@@ -494,7 +494,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_1q83s"]
+[sub_resource type="Resource" id="Resource_mvb2n"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -502,12 +502,12 @@ Name = "Tank"
 BombCount = 0
 KeyCardCount = 0
 CreditCount = 0
-MaxHealth = 3.0
-CurrentHealth = 3.0
+MaxHealth = 2.0
+CurrentHealth = 2.0
 Overheal = 0.0
 ProjectileDamage = 1.0
 ProjectileCount = 3
-ProjectileCooldown = 1.33
+ProjectileCooldown = 1.66
 ProjectileBounces = 1
 ProjectileSpeed = 100.0
 ProjectileSizeScalar = Vector2(1, 1)
@@ -528,7 +528,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_5jnpw"]
+[sub_resource type="Resource" id="Resource_6yyls"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -541,7 +541,7 @@ CurrentHealth = 3.0
 Overheal = 0.0
 ProjectileDamage = 1.0
 ProjectileCount = 3
-ProjectileCooldown = 1.33
+ProjectileCooldown = 1.66
 ProjectileBounces = 1
 ProjectileSpeed = 100.0
 ProjectileSizeScalar = Vector2(1, 1)
@@ -562,7 +562,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_0si0n"]
+[sub_resource type="Resource" id="Resource_7ejcw"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -570,8 +570,8 @@ Name = "Detonator Tower"
 BombCount = 0
 KeyCardCount = 0
 CreditCount = 0
-MaxHealth = 3.0
-CurrentHealth = 3.0
+MaxHealth = 2.0
+CurrentHealth = 2.0
 Overheal = 0.0
 ProjectileDamage = 0.0
 ProjectileCount = 0
@@ -596,7 +596,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_f2agh"]
+[sub_resource type="Resource" id="Resource_r5bv6"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -630,7 +630,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_yavkb"]
+[sub_resource type="Resource" id="Resource_78kli"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -664,7 +664,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_drfk4"]
+[sub_resource type="Resource" id="Resource_hbwyr"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -672,8 +672,8 @@ Name = "Detonator Tower"
 BombCount = 0
 KeyCardCount = 0
 CreditCount = 0
-MaxHealth = 3.0
-CurrentHealth = 3.0
+MaxHealth = 2.0
+CurrentHealth = 2.0
 Overheal = 0.0
 ProjectileDamage = 0.0
 ProjectileCount = 0
@@ -698,7 +698,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_6ahwf"]
+[sub_resource type="Resource" id="Resource_iyg01"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -711,7 +711,7 @@ CurrentHealth = 3.0
 Overheal = 0.0
 ProjectileDamage = 2.0
 ProjectileCount = 3
-ProjectileCooldown = 1.33
+ProjectileCooldown = 2.0
 ProjectileBounces = 1
 ProjectileSpeed = 75.0
 ProjectileSizeScalar = Vector2(2, 2)
@@ -732,7 +732,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_eboib"]
+[sub_resource type="Resource" id="Resource_ocjne"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -745,7 +745,7 @@ CurrentHealth = 3.0
 Overheal = 0.0
 ProjectileDamage = 2.0
 ProjectileCount = 3
-ProjectileCooldown = 1.33
+ProjectileCooldown = 2.0
 ProjectileBounces = 1
 ProjectileSpeed = 75.0
 ProjectileSizeScalar = Vector2(2, 2)
@@ -766,7 +766,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_gnlde"]
+[sub_resource type="Resource" id="Resource_pcrsx"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -774,12 +774,12 @@ Name = "Tank"
 BombCount = 0
 KeyCardCount = 0
 CreditCount = 0
-MaxHealth = 3.0
-CurrentHealth = 3.0
+MaxHealth = 2.0
+CurrentHealth = 2.0
 Overheal = 0.0
 ProjectileDamage = 1.0
 ProjectileCount = 3
-ProjectileCooldown = 1.33
+ProjectileCooldown = 1.66
 ProjectileBounces = 1
 ProjectileSpeed = 100.0
 ProjectileSizeScalar = Vector2(1, 1)
@@ -800,7 +800,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_he4jl"]
+[sub_resource type="Resource" id="Resource_ywyun"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -808,12 +808,12 @@ Name = "Tank"
 BombCount = 0
 KeyCardCount = 0
 CreditCount = 0
-MaxHealth = 3.0
-CurrentHealth = 3.0
+MaxHealth = 2.0
+CurrentHealth = 2.0
 Overheal = 0.0
 ProjectileDamage = 1.0
 ProjectileCount = 3
-ProjectileCooldown = 1.33
+ProjectileCooldown = 1.66
 ProjectileBounces = 1
 ProjectileSpeed = 100.0
 ProjectileSizeScalar = Vector2(1, 1)
@@ -834,7 +834,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_tfr2f"]
+[sub_resource type="Resource" id="Resource_5n5ys"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -847,7 +847,7 @@ CurrentHealth = 3.0
 Overheal = 0.0
 ProjectileDamage = 1.0
 ProjectileCount = 3
-ProjectileCooldown = 1.33
+ProjectileCooldown = 1.66
 ProjectileBounces = 1
 ProjectileSpeed = 100.0
 ProjectileSizeScalar = Vector2(1, 1)
@@ -868,7 +868,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_o7s53"]
+[sub_resource type="Resource" id="Resource_mrr83"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -881,7 +881,7 @@ CurrentHealth = 3.0
 Overheal = 0.0
 ProjectileDamage = 1.0
 ProjectileCount = 3
-ProjectileCooldown = 1.33
+ProjectileCooldown = 1.66
 ProjectileBounces = 1
 ProjectileSpeed = 100.0
 ProjectileSizeScalar = Vector2(1, 1)
@@ -902,7 +902,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_gmdij"]
+[sub_resource type="Resource" id="Resource_ffhqi"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -915,7 +915,7 @@ CurrentHealth = 3.0
 Overheal = 0.0
 ProjectileDamage = 1.0
 ProjectileCount = 3
-ProjectileCooldown = 1.33
+ProjectileCooldown = 1.66
 ProjectileBounces = 1
 ProjectileSpeed = 100.0
 ProjectileSizeScalar = Vector2(1, 1)
@@ -936,7 +936,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_ecb4q"]
+[sub_resource type="Resource" id="Resource_ktr52"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -949,7 +949,7 @@ CurrentHealth = 3.0
 Overheal = 0.0
 ProjectileDamage = 1.0
 ProjectileCount = 3
-ProjectileCooldown = 1.33
+ProjectileCooldown = 1.66
 ProjectileBounces = 1
 ProjectileSpeed = 100.0
 ProjectileSizeScalar = Vector2(1, 1)
@@ -970,41 +970,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_g78kx"]
-resource_local_to_scene = true
-script = ExtResource("6_2n5vs")
-Source = 3
-Name = "Tower"
-BombCount = 0
-KeyCardCount = 0
-CreditCount = 0
-MaxHealth = 3.0
-CurrentHealth = 3.0
-Overheal = 0.0
-ProjectileDamage = 1.0
-ProjectileCount = 3
-ProjectileCooldown = 1.33
-ProjectileBounces = 1
-ProjectileSpeed = 100.0
-ProjectileSizeScalar = Vector2(1, 1)
-ProjectileDamageType = 0
-ProjectileWeaponType = 0
-ProjectileBulletType = 0
-ProjectileBounceType = 0
-ProjectileTrajectoryType = 0
-ProjectileAccuracy = 0.11
-BombDamage = 0.0
-BombDamageType = 0
-BombRadius = 0.0
-BombModifier = 0
-Speed = 0.0
-ITime = 0.2
-TrailEffect = 0
-Luck = 0
-OverhealBurst = false
-OverhealRegen = 0.0
-
-[sub_resource type="Resource" id="Resource_ku36c"]
+[sub_resource type="Resource" id="Resource_v7626"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -1012,8 +978,8 @@ Name = "Detonator Tower"
 BombCount = 0
 KeyCardCount = 0
 CreditCount = 0
-MaxHealth = 3.0
-CurrentHealth = 3.0
+MaxHealth = 2.0
+CurrentHealth = 2.0
 Overheal = 0.0
 ProjectileDamage = 0.0
 ProjectileCount = 0
@@ -1038,7 +1004,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_wjaul"]
+[sub_resource type="Resource" id="Resource_ftoyo"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -1046,12 +1012,12 @@ Name = "Tank"
 BombCount = 0
 KeyCardCount = 0
 CreditCount = 0
-MaxHealth = 3.0
-CurrentHealth = 3.0
+MaxHealth = 2.0
+CurrentHealth = 2.0
 Overheal = 0.0
 ProjectileDamage = 1.0
 ProjectileCount = 3
-ProjectileCooldown = 1.33
+ProjectileCooldown = 1.66
 ProjectileBounces = 1
 ProjectileSpeed = 100.0
 ProjectileSizeScalar = Vector2(1, 1)
@@ -1072,7 +1038,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_flwns"]
+[sub_resource type="Resource" id="Resource_1w3nw"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -1080,12 +1046,12 @@ Name = "Tank"
 BombCount = 0
 KeyCardCount = 0
 CreditCount = 0
-MaxHealth = 3.0
-CurrentHealth = 3.0
+MaxHealth = 2.0
+CurrentHealth = 2.0
 Overheal = 0.0
 ProjectileDamage = 1.0
 ProjectileCount = 3
-ProjectileCooldown = 1.33
+ProjectileCooldown = 1.66
 ProjectileBounces = 1
 ProjectileSpeed = 100.0
 ProjectileSizeScalar = Vector2(1, 1)
@@ -1106,7 +1072,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_s7knt"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gcui7"]
 resource_local_to_scene = true
 shader = ExtResource("6_3x3u3")
 shader_parameter/flash_color = Color(1, 0.188235, 0, 1)
@@ -1146,7 +1112,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_2qqv2"]
+[sub_resource type="Resource" id="Resource_3a85f"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -1158,7 +1124,7 @@ MaxHealth = 30.0
 CurrentHealth = 30.0
 Overheal = 0.0
 ProjectileDamage = 1.0
-ProjectileCount = 15
+ProjectileCount = 13
 ProjectileCooldown = 0.2
 ProjectileBounces = 0
 ProjectileSpeed = 100.0
@@ -1180,7 +1146,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_us7sx"]
+[sub_resource type="Resource" id="Resource_kyf21"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -1214,7 +1180,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_swg4r"]
+[sub_resource type="Resource" id="Resource_7rlms"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -1222,12 +1188,12 @@ Name = "Cannon Tank"
 BombCount = 0
 KeyCardCount = 0
 CreditCount = 0
-MaxHealth = 3.0
-CurrentHealth = 3.0
+MaxHealth = 1.0
+CurrentHealth = 1.0
 Overheal = 0.0
 ProjectileDamage = 2.0
 ProjectileCount = 3
-ProjectileCooldown = 1.33
+ProjectileCooldown = 2.0
 ProjectileBounces = 1
 ProjectileSpeed = 75.0
 ProjectileSizeScalar = Vector2(2, 2)
@@ -1248,7 +1214,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_1fu55"]
+[sub_resource type="Resource" id="Resource_y5xg3"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -1256,12 +1222,12 @@ Name = "Tank"
 BombCount = 0
 KeyCardCount = 0
 CreditCount = 0
-MaxHealth = 3.0
-CurrentHealth = 3.0
+MaxHealth = 2.0
+CurrentHealth = 2.0
 Overheal = 0.0
 ProjectileDamage = 1.0
 ProjectileCount = 3
-ProjectileCooldown = 1.33
+ProjectileCooldown = 1.66
 ProjectileBounces = 1
 ProjectileSpeed = 100.0
 ProjectileSizeScalar = Vector2(1, 1)
@@ -1282,7 +1248,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_224at"]
+[sub_resource type="Resource" id="Resource_rd8j0"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -1290,12 +1256,12 @@ Name = "Tank"
 BombCount = 0
 KeyCardCount = 0
 CreditCount = 0
-MaxHealth = 3.0
-CurrentHealth = 3.0
+MaxHealth = 2.0
+CurrentHealth = 2.0
 Overheal = 0.0
 ProjectileDamage = 1.0
 ProjectileCount = 3
-ProjectileCooldown = 1.33
+ProjectileCooldown = 1.66
 ProjectileBounces = 1
 ProjectileSpeed = 100.0
 ProjectileSizeScalar = Vector2(1, 1)
@@ -1316,7 +1282,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_uo2rf"]
+[sub_resource type="Resource" id="Resource_6dxlu"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -1329,7 +1295,7 @@ CurrentHealth = 3.0
 Overheal = 0.0
 ProjectileDamage = 2.0
 ProjectileCount = 3
-ProjectileCooldown = 1.33
+ProjectileCooldown = 2.0
 ProjectileBounces = 1
 ProjectileSpeed = 75.0
 ProjectileSizeScalar = Vector2(2, 2)
@@ -1350,7 +1316,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_bljsa"]
+[sub_resource type="Resource" id="Resource_nfvns"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -1358,12 +1324,12 @@ Name = "Tank"
 BombCount = 0
 KeyCardCount = 0
 CreditCount = 0
-MaxHealth = 3.0
-CurrentHealth = 3.0
+MaxHealth = 2.0
+CurrentHealth = 2.0
 Overheal = 0.0
 ProjectileDamage = 1.0
 ProjectileCount = 3
-ProjectileCooldown = 1.33
+ProjectileCooldown = 1.66
 ProjectileBounces = 1
 ProjectileSpeed = 100.0
 ProjectileSizeScalar = Vector2(1, 1)
@@ -1384,7 +1350,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_lqldy"]
+[sub_resource type="Resource" id="Resource_6eue7"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -1418,7 +1384,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_yvjvo"]
+[sub_resource type="Resource" id="Resource_oajfu"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -1426,12 +1392,12 @@ Name = "Tank"
 BombCount = 0
 KeyCardCount = 0
 CreditCount = 0
-MaxHealth = 3.0
-CurrentHealth = 3.0
+MaxHealth = 2.0
+CurrentHealth = 2.0
 Overheal = 0.0
 ProjectileDamage = 1.0
 ProjectileCount = 3
-ProjectileCooldown = 1.33
+ProjectileCooldown = 1.66
 ProjectileBounces = 1
 ProjectileSpeed = 100.0
 ProjectileSizeScalar = Vector2(1, 1)
@@ -1452,7 +1418,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_klsyk"]
+[sub_resource type="Resource" id="Resource_ktnne"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -1460,12 +1426,12 @@ Name = "Tank"
 BombCount = 0
 KeyCardCount = 0
 CreditCount = 0
-MaxHealth = 3.0
-CurrentHealth = 3.0
+MaxHealth = 2.0
+CurrentHealth = 2.0
 Overheal = 0.0
 ProjectileDamage = 1.0
 ProjectileCount = 3
-ProjectileCooldown = 1.33
+ProjectileCooldown = 1.66
 ProjectileBounces = 1
 ProjectileSpeed = 100.0
 ProjectileSizeScalar = Vector2(1, 1)
@@ -1486,7 +1452,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_buvmy"]
+[sub_resource type="Resource" id="Resource_oush4"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -1494,12 +1460,12 @@ Name = "Tank"
 BombCount = 0
 KeyCardCount = 0
 CreditCount = 0
-MaxHealth = 3.0
-CurrentHealth = 3.0
+MaxHealth = 2.0
+CurrentHealth = 2.0
 Overheal = 0.0
 ProjectileDamage = 1.0
 ProjectileCount = 3
-ProjectileCooldown = 1.33
+ProjectileCooldown = 1.66
 ProjectileBounces = 1
 ProjectileSpeed = 100.0
 ProjectileSizeScalar = Vector2(1, 1)
@@ -1520,7 +1486,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_3ve1q"]
+[sub_resource type="Resource" id="Resource_o8qw3"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -1533,7 +1499,7 @@ CurrentHealth = 3.0
 Overheal = 0.0
 ProjectileDamage = 2.0
 ProjectileCount = 3
-ProjectileCooldown = 1.33
+ProjectileCooldown = 2.0
 ProjectileBounces = 1
 ProjectileSpeed = 75.0
 ProjectileSizeScalar = Vector2(2, 2)
@@ -1554,7 +1520,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_phivs"]
+[sub_resource type="Resource" id="Resource_v5bxt"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -1562,12 +1528,12 @@ Name = "Tank"
 BombCount = 0
 KeyCardCount = 0
 CreditCount = 0
-MaxHealth = 3.0
-CurrentHealth = 3.0
+MaxHealth = 2.0
+CurrentHealth = 2.0
 Overheal = 0.0
 ProjectileDamage = 1.0
 ProjectileCount = 3
-ProjectileCooldown = 1.33
+ProjectileCooldown = 1.66
 ProjectileBounces = 1
 ProjectileSpeed = 100.0
 ProjectileSizeScalar = Vector2(1, 1)
@@ -1588,7 +1554,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_tm3lj"]
+[sub_resource type="Resource" id="Resource_ec8jb"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -1622,7 +1588,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_o2ai0"]
+[sub_resource type="Resource" id="Resource_algfp"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -1635,7 +1601,7 @@ CurrentHealth = 3.0
 Overheal = 0.0
 ProjectileDamage = 1.0
 ProjectileCount = 3
-ProjectileCooldown = 1.33
+ProjectileCooldown = 1.66
 ProjectileBounces = 1
 ProjectileSpeed = 100.0
 ProjectileSizeScalar = Vector2(1, 1)
@@ -1656,7 +1622,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_mg1j8"]
+[sub_resource type="Resource" id="Resource_ky5xi"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -1669,7 +1635,7 @@ CurrentHealth = 3.0
 Overheal = 0.0
 ProjectileDamage = 2.0
 ProjectileCount = 3
-ProjectileCooldown = 1.33
+ProjectileCooldown = 2.0
 ProjectileBounces = 1
 ProjectileSpeed = 75.0
 ProjectileSizeScalar = Vector2(2, 2)
@@ -1690,7 +1656,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_3yw7s"]
+[sub_resource type="Resource" id="Resource_5gwhl"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -1703,7 +1669,7 @@ CurrentHealth = 3.0
 Overheal = 0.0
 ProjectileDamage = 2.0
 ProjectileCount = 3
-ProjectileCooldown = 1.33
+ProjectileCooldown = 2.0
 ProjectileBounces = 1
 ProjectileSpeed = 75.0
 ProjectileSizeScalar = Vector2(2, 2)
@@ -1724,7 +1690,7 @@ Luck = 0
 OverhealBurst = false
 OverhealRegen = 0.0
 
-[sub_resource type="Resource" id="Resource_il5of"]
+[sub_resource type="Resource" id="Resource_psgxd"]
 resource_local_to_scene = true
 script = ExtResource("6_2n5vs")
 Source = 3
@@ -1732,12 +1698,12 @@ Name = "Tank"
 BombCount = 0
 KeyCardCount = 0
 CreditCount = 0
-MaxHealth = 3.0
-CurrentHealth = 3.0
+MaxHealth = 2.0
+CurrentHealth = 2.0
 Overheal = 0.0
 ProjectileDamage = 1.0
 ProjectileCount = 3
-ProjectileCooldown = 1.33
+ProjectileCooldown = 1.66
 ProjectileBounces = 1
 ProjectileSpeed = 100.0
 ProjectileSizeScalar = Vector2(1, 1)
@@ -1762,7 +1728,6 @@ OverhealRegen = 0.0
 script = ExtResource("1_lawn4")
 
 [node name="NORMAL" type="Node2D" parent="."]
-visible = false
 
 [node name="0" type="TileMap" parent="NORMAL"]
 visible = false
@@ -1776,19 +1741,19 @@ visible = false
 
 [node name="Tower" parent="NORMAL/0" instance=ExtResource("6_s61rk")]
 position = Vector2(104, 216)
-EntityStats = SubResource("Resource_a4qfm")
+EntityStats = SubResource("Resource_uroux")
 
 [node name="Bomber" parent="NORMAL/0" instance=ExtResource("6_qjjyq")]
 position = Vector2(176, 160)
-EntityStats = SubResource("Resource_bjgir")
+EntityStats = SubResource("Resource_n23ni")
 
 [node name="Tank" parent="NORMAL/0" instance=ExtResource("11_d6h5w")]
 position = Vector2(176, 96)
-EntityStats = SubResource("Resource_w7yov")
+EntityStats = SubResource("Resource_tp8j7")
 
 [node name="Tank2" parent="NORMAL/0" instance=ExtResource("11_d6h5w")]
 position = Vector2(80, 176)
-EntityStats = SubResource("Resource_7uwd8")
+EntityStats = SubResource("Resource_uo256")
 
 [node name="BreakableWall" parent="NORMAL/0" instance=ExtResource("17_jxgax")]
 position = Vector2(104, 200)
@@ -1853,11 +1818,11 @@ layer_0/tile_data = PackedInt32Array(0, 196608, 1, 65536, 131072, 1, 131072, 131
 
 [node name="Tank" parent="NORMAL/1" instance=ExtResource("11_d6h5w")]
 position = Vector2(160, 104)
-EntityStats = SubResource("Resource_dso62")
+EntityStats = SubResource("Resource_gslgh")
 
 [node name="Tank2" parent="NORMAL/1" instance=ExtResource("11_d6h5w")]
 position = Vector2(160, 216)
-EntityStats = SubResource("Resource_pqfek")
+EntityStats = SubResource("Resource_icqxa")
 
 [node name="EntityDetector" parent="NORMAL/1" instance=ExtResource("4_5l8sk")]
 visible = false
@@ -1871,15 +1836,15 @@ layer_0/tile_data = PackedInt32Array(0, 196608, 1, 65536, 131072, 1, 131072, 131
 
 [node name="Detonator" parent="NORMAL/2" instance=ExtResource("9_07htp")]
 position = Vector2(160, 120)
-EntityStats = SubResource("Resource_42tej")
+EntityStats = SubResource("Resource_0opmx")
 
 [node name="Tank" parent="NORMAL/2" instance=ExtResource("11_d6h5w")]
 position = Vector2(160, 200)
-EntityStats = SubResource("Resource_a88y0")
+EntityStats = SubResource("Resource_hxes5")
 
 [node name="Tank2" parent="NORMAL/2" instance=ExtResource("11_d6h5w")]
 position = Vector2(120, 160)
-EntityStats = SubResource("Resource_ymqov")
+EntityStats = SubResource("Resource_a3xcv")
 
 [node name="EntityDetector" parent="NORMAL/2" instance=ExtResource("4_5l8sk")]
 
@@ -1892,15 +1857,15 @@ layer_0/tile_data = PackedInt32Array(262144, 196608, 1, 327680, 131072, 1, 39321
 
 [node name="TowerCannon" parent="NORMAL/3" instance=ExtResource("10_b3inl")]
 position = Vector2(160, 160)
-EntityStats = SubResource("Resource_74alx")
+EntityStats = SubResource("Resource_o4cmv")
 
 [node name="Tank" parent="NORMAL/3" instance=ExtResource("11_d6h5w")]
 position = Vector2(160, 104)
-EntityStats = SubResource("Resource_2qlia")
+EntityStats = SubResource("Resource_rfps3")
 
 [node name="Detonator" parent="NORMAL/3" instance=ExtResource("9_07htp")]
 position = Vector2(160, 216)
-EntityStats = SubResource("Resource_1jvmw")
+EntityStats = SubResource("Resource_njbak")
 
 [node name="EntityDetector" parent="NORMAL/3" instance=ExtResource("4_5l8sk")]
 visible = false
@@ -1938,11 +1903,11 @@ layer_0/tile_data = PackedInt32Array(0, 196608, 1, 65536, 131072, 1, 131072, 131
 
 [node name="Tank" parent="NORMAL/4" instance=ExtResource("11_d6h5w")]
 position = Vector2(48, 40)
-EntityStats = SubResource("Resource_fbqsl")
+EntityStats = SubResource("Resource_nbokg")
 
 [node name="Tower" parent="NORMAL/4" instance=ExtResource("6_s61rk")]
 position = Vector2(112, 32)
-EntityStats = SubResource("Resource_vakpq")
+EntityStats = SubResource("Resource_jcsun")
 
 [node name="EntityDetector" parent="NORMAL/4" instance=ExtResource("4_5l8sk")]
 visible = false
@@ -1997,11 +1962,11 @@ position = Vector2(232, 280)
 
 [node name="Tank2" parent="NORMAL/4" instance=ExtResource("11_d6h5w")]
 position = Vector2(272, 280)
-EntityStats = SubResource("Resource_1q83s")
+EntityStats = SubResource("Resource_mvb2n")
 
 [node name="Tower2" parent="NORMAL/4" instance=ExtResource("6_s61rk")]
 position = Vector2(208, 288)
-EntityStats = SubResource("Resource_5jnpw")
+EntityStats = SubResource("Resource_6yyls")
 
 [node name="5" type="TileMap" parent="NORMAL"]
 visible = false
@@ -2012,19 +1977,19 @@ layer_0/tile_data = PackedInt32Array(0, 196608, 1, 65536, 131072, 1, 131072, 131
 
 [node name="TowerDetonator" parent="NORMAL/5" instance=ExtResource("11_jkvly")]
 position = Vector2(216, 152)
-EntityStats = SubResource("Resource_0si0n")
+EntityStats = SubResource("Resource_7ejcw")
 
 [node name="Detonator" parent="NORMAL/5" instance=ExtResource("9_07htp")]
 position = Vector2(160, 80)
-EntityStats = SubResource("Resource_f2agh")
+EntityStats = SubResource("Resource_r5bv6")
 
 [node name="Detonator2" parent="NORMAL/5" instance=ExtResource("9_07htp")]
 position = Vector2(160, 240)
-EntityStats = SubResource("Resource_yavkb")
+EntityStats = SubResource("Resource_78kli")
 
 [node name="TowerDetonator2" parent="NORMAL/5" instance=ExtResource("11_jkvly")]
 position = Vector2(104, 168)
-EntityStats = SubResource("Resource_drfk4")
+EntityStats = SubResource("Resource_hbwyr")
 
 [node name="EntityDetector" parent="NORMAL/5" instance=ExtResource("4_5l8sk")]
 visible = false
@@ -2056,19 +2021,19 @@ layer_0/tile_data = PackedInt32Array(0, 196608, 1, 65536, 131072, 1, 131072, 131
 
 [node name="TowerCannon" parent="NORMAL/6" instance=ExtResource("10_b3inl")]
 position = Vector2(88, 80)
-EntityStats = SubResource("Resource_6ahwf")
+EntityStats = SubResource("Resource_iyg01")
 
 [node name="TowerCannon2" parent="NORMAL/6" instance=ExtResource("10_b3inl")]
 position = Vector2(232, 240)
-EntityStats = SubResource("Resource_eboib")
+EntityStats = SubResource("Resource_ocjne")
 
 [node name="Tank" parent="NORMAL/6" instance=ExtResource("11_d6h5w")]
 position = Vector2(160, 192)
-EntityStats = SubResource("Resource_gnlde")
+EntityStats = SubResource("Resource_pcrsx")
 
 [node name="Tank2" parent="NORMAL/6" instance=ExtResource("11_d6h5w")]
 position = Vector2(160, 128)
-EntityStats = SubResource("Resource_he4jl")
+EntityStats = SubResource("Resource_ywyun")
 
 [node name="EntityDetector" parent="NORMAL/6" instance=ExtResource("4_5l8sk")]
 visible = false
@@ -2103,19 +2068,15 @@ visible = false
 
 [node name="Tower" parent="NORMAL/7" instance=ExtResource("6_s61rk")]
 position = Vector2(40, 40)
-EntityStats = SubResource("Resource_tfr2f")
+EntityStats = SubResource("Resource_5n5ys")
 
 [node name="Tower2" parent="NORMAL/7" instance=ExtResource("6_s61rk")]
 position = Vector2(280, 280)
-EntityStats = SubResource("Resource_o7s53")
+EntityStats = SubResource("Resource_mrr83")
 
 [node name="Tower3" parent="NORMAL/7" instance=ExtResource("6_s61rk")]
 position = Vector2(40, 280)
-EntityStats = SubResource("Resource_gmdij")
-
-[node name="Tower4" parent="NORMAL/7" instance=ExtResource("6_s61rk")]
-position = Vector2(280, 40)
-EntityStats = SubResource("Resource_ecb4q")
+EntityStats = SubResource("Resource_ffhqi")
 
 [node name="BreakableWall" parent="NORMAL/7" instance=ExtResource("17_jxgax")]
 position = Vector2(24, 120)
@@ -2142,6 +2103,7 @@ position = Vector2(296, 120)
 position = Vector2(296, 200)
 
 [node name="8" type="TileMap" parent="NORMAL"]
+visible = false
 texture_filter = 1
 tile_set = ExtResource("2_xldv4")
 format = 2
@@ -2152,19 +2114,19 @@ visible = false
 
 [node name="Tower" parent="NORMAL/8" instance=ExtResource("6_s61rk")]
 position = Vector2(56, 56)
-EntityStats = SubResource("Resource_g78kx")
+EntityStats = SubResource("Resource_ktr52")
 
 [node name="TowerDetonator" parent="NORMAL/8" instance=ExtResource("11_jkvly")]
 position = Vector2(200, 120)
-EntityStats = SubResource("Resource_ku36c")
+EntityStats = SubResource("Resource_v7626")
 
 [node name="Tank" parent="NORMAL/8" instance=ExtResource("11_d6h5w")]
 position = Vector2(40, 288)
-EntityStats = SubResource("Resource_wjaul")
+EntityStats = SubResource("Resource_ftoyo")
 
 [node name="Tank2" parent="NORMAL/8" instance=ExtResource("11_d6h5w")]
 position = Vector2(280, 280)
-EntityStats = SubResource("Resource_flwns")
+EntityStats = SubResource("Resource_1w3nw")
 
 [node name="BreakableWall" parent="NORMAL/8" instance=ExtResource("17_jxgax")]
 position = Vector2(24, 88)
@@ -2239,6 +2201,7 @@ position = Vector2(296, 200)
 position = Vector2(200, 104)
 
 [node name="START" type="Node2D" parent="."]
+visible = false
 
 [node name="0" type="TileMap" parent="START"]
 texture_filter = 1
@@ -2248,7 +2211,7 @@ layer_0/name = "World"
 layer_0/tile_data = PackedInt32Array(0, 196608, 1, 65536, 131072, 1, 131072, 131072, 1, 196608, 131072, 1, 262144, 131072, 1, 327680, 131072, 1, 393216, 131072, 1, 458752, 131072, 1, 524288, 131072, 1, 589824, 131073, 1, 720896, 131072, 1, 786432, 131072, 1, 851968, 131072, 1, 917504, 131072, 1, 983040, 131072, 1, 1048576, 131072, 1, 1114112, 131072, 1, 1179648, 131072, 1, 1245184, 196608, 2, 1, 65536, 2, 1245185, 65536, 0, 2, 65536, 2, 1245186, 65536, 0, 3, 65536, 2, 1245187, 65536, 0, 4, 65536, 2, 1245188, 65536, 0, 5, 65536, 2, 1245189, 65536, 0, 6, 65536, 2, 1245190, 65536, 0, 7, 65536, 2, 1245191, 65536, 0, 8, 65536, 2, 1245192, 65536, 0, 9, 1, 3, 1245193, 1, 0, 11, 65536, 2, 1245195, 65536, 0, 12, 65536, 2, 1245196, 65536, 0, 13, 65536, 2, 1245197, 65536, 0, 14, 65536, 2, 1245198, 65536, 0, 15, 65536, 2, 1245199, 65536, 0, 16, 65536, 2, 1245200, 65536, 0, 17, 65536, 2, 1245201, 65536, 0, 18, 65536, 2, 1245202, 65536, 0, 19, 262144, 1, 65555, 0, 1, 131091, 0, 1, 196627, 0, 1, 262163, 0, 1, 327699, 0, 1, 393235, 0, 1, 458771, 0, 1, 524307, 0, 1, 589843, 1, 1, 720915, 0, 1, 786451, 0, 1, 851987, 0, 1, 917523, 0, 1, 983059, 0, 1, 1048595, 0, 1, 1114131, 0, 1, 1179667, 0, 1, 1245203, 262144, 2)
 
 [node name="Player" parent="START/0" instance=ExtResource("2_pa2gp")]
-material = SubResource("ShaderMaterial_s7knt")
+material = SubResource("ShaderMaterial_gcui7")
 position = Vector2(160, 160)
 EntityStats = SubResource("Resource_8x4dg")
 
@@ -2265,7 +2228,7 @@ layer_0/tile_data = PackedInt32Array(0, 196608, 1, 65536, 131072, 1, 131072, 131
 
 [node name="Firespitter" parent="BOSS/0" instance=ExtResource("12_72x11")]
 position = Vector2(160, 160)
-EntityStats = SubResource("Resource_2qqv2")
+EntityStats = SubResource("Resource_3a85f")
 
 [node name="EntityDetector" parent="BOSS/0" instance=ExtResource("4_5l8sk")]
 
@@ -2281,7 +2244,7 @@ layer_0/tile_data = PackedInt32Array(0, 196608, 1, 65536, 131072, 1, 131072, 131
 
 [node name="OilDemon" parent="BOSS/1" instance=ExtResource("16_a3py5")]
 position = Vector2(160, 160)
-EntityStats = SubResource("Resource_us7sx")
+EntityStats = SubResource("Resource_kyf21")
 
 [node name="Teleporter" parent="BOSS/1" instance=ExtResource("9_5q6ux")]
 
@@ -2348,15 +2311,15 @@ visible = false
 
 [node name="Cannon" parent="LR_NORMAL/0" instance=ExtResource("17_yhbs0")]
 position = Vector2(160, 160)
-EntityStats = SubResource("Resource_swg4r")
+EntityStats = SubResource("Resource_7rlms")
 
 [node name="Tank" parent="LR_NORMAL/0" instance=ExtResource("11_d6h5w")]
 position = Vector2(160, 208)
-EntityStats = SubResource("Resource_1fu55")
+EntityStats = SubResource("Resource_y5xg3")
 
 [node name="Tank2" parent="LR_NORMAL/0" instance=ExtResource("11_d6h5w")]
 position = Vector2(160, 112)
-EntityStats = SubResource("Resource_224at")
+EntityStats = SubResource("Resource_rd8j0")
 
 [node name="BreakableWall" parent="LR_NORMAL/0" instance=ExtResource("17_jxgax")]
 position = Vector2(104, 136)
@@ -2391,11 +2354,11 @@ layer_0/tile_data = PackedInt32Array(262144, 196608, 1, 327680, 131072, 1, 39321
 
 [node name="TowerCannon" parent="LR_NORMAL/1" instance=ExtResource("10_b3inl")]
 position = Vector2(160, 104)
-EntityStats = SubResource("Resource_uo2rf")
+EntityStats = SubResource("Resource_6dxlu")
 
 [node name="Tank" parent="LR_NORMAL/1" instance=ExtResource("11_d6h5w")]
 position = Vector2(160, 160)
-EntityStats = SubResource("Resource_bljsa")
+EntityStats = SubResource("Resource_nfvns")
 
 [node name="EntityDetector" parent="LR_NORMAL/1" instance=ExtResource("4_5l8sk")]
 visible = false
@@ -2409,11 +2372,11 @@ layer_0/tile_data = PackedInt32Array(262144, 196608, 1, 327680, 131072, 1, 39321
 
 [node name="Bomber" parent="LR_NORMAL/2" instance=ExtResource("6_qjjyq")]
 position = Vector2(160, 96)
-EntityStats = SubResource("Resource_lqldy")
+EntityStats = SubResource("Resource_6eue7")
 
 [node name="Tank" parent="LR_NORMAL/2" instance=ExtResource("11_d6h5w")]
 position = Vector2(112, 192)
-EntityStats = SubResource("Resource_yvjvo")
+EntityStats = SubResource("Resource_oajfu")
 
 [node name="EntityDetector" parent="LR_NORMAL/2" instance=ExtResource("4_5l8sk")]
 visible = false
@@ -2474,11 +2437,11 @@ layer_0/tile_data = PackedInt32Array(262144, 196608, 1, 327680, 131072, 1, 39321
 
 [node name="Tank" parent="LR_NORMAL/3" instance=ExtResource("11_d6h5w")]
 position = Vector2(120, 120)
-EntityStats = SubResource("Resource_klsyk")
+EntityStats = SubResource("Resource_ktnne")
 
 [node name="Tank2" parent="LR_NORMAL/3" instance=ExtResource("11_d6h5w")]
 position = Vector2(176, 192)
-EntityStats = SubResource("Resource_buvmy")
+EntityStats = SubResource("Resource_oush4")
 
 [node name="EntityDetector" parent="LR_NORMAL/3" instance=ExtResource("4_5l8sk")]
 visible = false
@@ -2494,11 +2457,11 @@ layer_0/tile_data = PackedInt32Array(4, 196608, 1, 65540, 131072, 1, 131076, 131
 
 [node name="TowerCannon" parent="TB_NORMAL/0" instance=ExtResource("10_b3inl")]
 position = Vector2(232, 112)
-EntityStats = SubResource("Resource_3ve1q")
+EntityStats = SubResource("Resource_o8qw3")
 
 [node name="Tank" parent="TB_NORMAL/0" instance=ExtResource("11_d6h5w")]
 position = Vector2(112, 144)
-EntityStats = SubResource("Resource_phivs")
+EntityStats = SubResource("Resource_v5bxt")
 
 [node name="EntityDetector" parent="TB_NORMAL/0" instance=ExtResource("4_5l8sk")]
 visible = false
@@ -2512,11 +2475,11 @@ layer_0/tile_data = PackedInt32Array(4, 196608, 1, 65540, 131072, 1, 131076, 131
 
 [node name="Detonator" parent="TB_NORMAL/1" instance=ExtResource("9_07htp")]
 position = Vector2(128, 208)
-EntityStats = SubResource("Resource_tm3lj")
+EntityStats = SubResource("Resource_ec8jb")
 
 [node name="Tower" parent="TB_NORMAL/1" instance=ExtResource("6_s61rk")]
 position = Vector2(224, 32)
-EntityStats = SubResource("Resource_o2ai0")
+EntityStats = SubResource("Resource_algfp")
 
 [node name="EntityDetector" parent="TB_NORMAL/1" instance=ExtResource("4_5l8sk")]
 visible = false
@@ -2557,15 +2520,15 @@ layer_0/tile_data = PackedInt32Array(4, 196608, 1, 65540, 131072, 1, 131076, 131
 
 [node name="TowerCannon" parent="TB_NORMAL/2" instance=ExtResource("10_b3inl")]
 position = Vector2(96, 200)
-EntityStats = SubResource("Resource_mg1j8")
+EntityStats = SubResource("Resource_ky5xi")
 
 [node name="TowerCannon2" parent="TB_NORMAL/2" instance=ExtResource("10_b3inl")]
 position = Vector2(224, 120)
-EntityStats = SubResource("Resource_3yw7s")
+EntityStats = SubResource("Resource_5gwhl")
 
 [node name="Tank" parent="TB_NORMAL/2" instance=ExtResource("11_d6h5w")]
 position = Vector2(160, 160)
-EntityStats = SubResource("Resource_il5of")
+EntityStats = SubResource("Resource_psgxd")
 
 [node name="BreakableWall" parent="TB_NORMAL/2" instance=ExtResource("17_jxgax")]
 position = Vector2(88, 216)

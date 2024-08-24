@@ -118,7 +118,7 @@ public partial class Firespitter : IdleEnemy
 			EntityStats.ProjectileBulletType = BulletType.Invulnerable;
 		} else if (_mechanics > 0.7)
 		{
-			EntityStats.ProjectileBounces = 2;
+			EntityStats.ProjectileBounces = 1;
 			EntityStats.ProjectileDamage = 1;
 			EntityStats.ProjectileCooldown = 1.5f;
 			EntityStats.ProjectileSpeed = 100f;
