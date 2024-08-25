@@ -6,6 +6,7 @@ namespace BitBuster.weapon;
 public enum EffectType
 {
     Fire = 1,
-    Confuse = 2,
-    Freeze = 4,
+    Oil = 2,
+    Water = 4,
+    Poison = 8
 }

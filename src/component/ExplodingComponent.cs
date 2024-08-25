@@ -23,10 +23,13 @@ public partial class ExplodingComponent : Area2D
 			
 			_explosion.Radius = _entityStats.BombRadius;
 			((ParticleProcessMaterial)ExplodingEmitter.ProcessMaterial).EmissionSphereRadius = _entityStats.BombRadius;
+			((ParticleProcessMaterial)RadiusIndicatorEmitter.ProcessMaterial).EmissionRingRadius = _entityStats.BombRadius;
+			((ParticleProcessMaterial)RadiusIndicatorEmitter.ProcessMaterial).EmissionRingInnerRadius = _entityStats.BombRadius;
 		}
 	}
 
 	public GpuParticles2D ExplodingEmitter { get; private set; }
+	public GpuParticles2D RadiusIndicatorEmitter { get; private set; }
 
 
 	public override void _Ready()
@@ -34,19 +37,26 @@ public partial class ExplodingComponent : Area2D
 		_globalEvents = GetNode<GlobalEvents>("/root/GlobalEvents");
 		
 		ExplodingEmitter = GetNode<GpuParticles2D>("ExplodeEmitter");
+		RadiusIndicatorEmitter = GetNode<GpuParticles2D>("RadiusIndicatorEmitter");
+		
 		_areaCollider = GetNode<CollisionShape2D>("AreaCollider");
 		
 		_areaCollider.Shape = new CircleShape2D();
 		_explosion = (CircleShape2D)_areaCollider.Shape;
 		
 		_explosion.Radius = 20f;
-		((ParticleProcessMaterial)ExplodingEmitter.ProcessMaterial).EmissionSphereRadius = 25f;
+		((ParticleProcessMaterial)ExplodingEmitter.ProcessMaterial).EmissionSphereRadius = 20f;
+		((ParticleProcessMaterial)RadiusIndicatorEmitter.ProcessMaterial).EmissionRingRadius = 20f;
+		((ParticleProcessMaterial)RadiusIndicatorEmitter.ProcessMaterial).EmissionRingInnerRadius = 20f;
 
 		ExplodingEmitter.Finished += OnExplodeFinished;
 	}
 
 	public void Explode(AttackData attackData)
 	{
+
+		RadiusIndicatorEmitter.Emitting = false;
+		
 		foreach (var area in GetOverlappingAreas())
 		{
 			if (area is HitboxComponent hitboxComponent)
