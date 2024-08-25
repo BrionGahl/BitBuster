@@ -14,7 +14,7 @@
 
 [sub_resource type="Gradient" id="Gradient_4x0jy"]
 offsets = PackedFloat32Array(0.932143, 1)
-colors = PackedColorArray(1, 0, 0, 1, 1, 1, 1, 0)
+colors = PackedColorArray(1, 0, 0, 0.615686, 1, 1, 1, 0)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vtgkd"]
 atlas = ExtResource("3_0ptsh")
@@ -185,11 +185,11 @@ EntityStats = ExtResource("2_axdfk")
 [node name="AimIndicatorComponent" type="Line2D" parent="." node_paths=PackedStringArray("Parent")]
 top_level = true
 texture_filter = 1
-width = 1.0
+width = 1.5
 gradient = SubResource("Gradient_4x0jy")
 script = ExtResource("11_fck6t")
 Parent = NodePath("..")
-IndicatorDistance = 100.0
+IndicatorDistance = 75.0
 
 [node name="Gun" type="AnimatedSprite2D" parent="."]
 top_level = true
