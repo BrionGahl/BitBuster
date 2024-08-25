@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://det6gkgxg57mw"]
+[gd_scene load_steps=28 format=3 uid="uid://det6gkgxg57mw"]
 
 [ext_resource type="Script" path="res://src/entity/player/Player.cs" id="1_nju6n"]
 [ext_resource type="Resource" uid="uid://ddoxfug6s6lh" path="res://scenes/resources/entity/player/player_stats.tres" id="2_axdfk"]
@@ -10,6 +10,11 @@
 [ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="8_gp6gs"]
 [ext_resource type="Script" path="res://src/item/ItemPickupHitbox.cs" id="9_qalwr"]
 [ext_resource type="PackedScene" uid="uid://6d0b62fihn27" path="res://scenes/subscenes/component/particle_death_component.tscn" id="10_na6pd"]
+[ext_resource type="Script" path="res://src/component/AimIndicatorComponent.cs" id="11_fck6t"]
+
+[sub_resource type="Gradient" id="Gradient_4x0jy"]
+offsets = PackedFloat32Array(0.932143, 1)
+colors = PackedColorArray(1, 0, 0, 1, 1, 1, 1, 0)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vtgkd"]
 atlas = ExtResource("3_0ptsh")
@@ -166,7 +171,7 @@ _data = {
 "effect_heal_blink": SubResource("Animation_g4sgd")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_weaponComponent", "_healthComponent") groups=["player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_weaponComponent", "_healthComponent", "_aimIndicatorComponent") groups=["player"]]
 z_index = 1
 collision_layer = 2
 collision_mask = 69
@@ -174,7 +179,17 @@ motion_mode = 1
 script = ExtResource("1_nju6n")
 _weaponComponent = NodePath("WeaponComponent")
 _healthComponent = NodePath("HealthComponent")
+_aimIndicatorComponent = NodePath("AimIndicatorComponent")
 EntityStats = ExtResource("2_axdfk")
+
+[node name="AimIndicatorComponent" type="Line2D" parent="." node_paths=PackedStringArray("Parent")]
+top_level = true
+texture_filter = 1
+width = 1.0
+gradient = SubResource("Gradient_4x0jy")
+script = ExtResource("11_fck6t")
+Parent = NodePath("..")
+IndicatorDistance = 100.0
 
 [node name="Gun" type="AnimatedSprite2D" parent="."]
 top_level = true
@@ -203,6 +218,7 @@ shape = SubResource("CapsuleShape2D_pjmg8")
 [node name="WeaponComponent" parent="." instance=ExtResource("4_mw4jj")]
 
 [node name="TrackTrailComponent" parent="." instance=ExtResource("4_g7sml")]
+texture_filter = 1
 
 [node name="HealthComponent" parent="." instance=ExtResource("5_umbbr")]
 

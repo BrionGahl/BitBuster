@@ -20,6 +20,9 @@ public partial class Player : Entity
 
 	[Export] 
 	private HealthComponent _healthComponent;
+	
+	[Export]
+	private AimIndicatorComponent _aimIndicatorComponent;
 
 	private ItemPickupHitbox _itemPickupHitbox;
 	
@@ -88,6 +91,9 @@ public partial class Player : Entity
 		GetInput();
 		_gun.Rotation = (float)Mathf.RotateToward(_gun.Rotation, GetGlobalMousePosition().AngleToPoint(Position) - Constants.HalfPiOffset, 0.5);
 		
+		_aimIndicatorComponent.ClearPoints();
+		_aimIndicatorComponent.DrawLine(GetGlobalMousePosition());
+		
 		if (_hasShot)
 			_weaponComponent.AttemptShoot(Position, GetGlobalMousePosition().AngleToPoint(Position));
 
@@ -96,6 +102,7 @@ public partial class Player : Entity
 		
 		HandleRotation();
 		HandleAnimations();
+		
 	}
 	
 	public override void _PhysicsProcess(double delta)
