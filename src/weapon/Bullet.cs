@@ -14,9 +14,11 @@ public partial class Bullet : CharacterBody2D
 	private RandomNumberGenerator _random;
 	
 	private Sprite2D _bulletTexture;
+	private Sprite2D _bulletInvulnTexture;
 	private Area2D _hitbox;
 	private CollisionShape2D _hitboxCollision;
 	private CollisionShape2D _collision;
+	private RemoteTransform2D _remoteShieldTransform;
 
 	private ExplodingComponent _explodingComponent;
 	
@@ -42,8 +44,10 @@ public partial class Bullet : CharacterBody2D
 		_random = new RandomNumberGenerator();
 		
 		_bulletTexture = GetNode<Sprite2D>("Sprite2D");
+		_bulletInvulnTexture = GetNode<Sprite2D>("BulletInvulnerableSprite");
 		_hitbox = GetNode<Area2D>("Hitbox");
 		_hitboxCollision = GetNode<CollisionShape2D>("Hitbox/AreaCollider");
+		_remoteShieldTransform = GetNode<RemoteTransform2D>("RemoteTransform2D");
 
 		_collision = GetNode<CollisionShape2D>("CollisionShape2D");
 		
@@ -111,12 +115,15 @@ public partial class Bullet : CharacterBody2D
 		
 		_remainingBounces = bounces;
 		_hueShift = 0.33f / bounces;
+
+		_bulletInvulnTexture.Visible = _bulletType.HasFlag(BulletType.Invulnerable);
 		
 		_bulletTexture.Modulate = Color.FromHsv(_remainingBounces * _hueShift, 1.0f, 1.0f);
 
 		_bulletTexture.Scale = new Vector2(size.X, size.Y);
 		_collision.Scale = new Vector2(size.X, size.Y);
 		((RectangleShape2D)_hitboxCollision.Shape).Size = new Vector2(2 * size.X + 2, 4 * size.Y + 2);
+		_remoteShieldTransform.Scale = new Vector2(2f * size.X, 1.5f * size.Y);
 		
 		_activeTrail = speed > 150
 			? GetNode<GpuParticles2D>("ParticleFastTrail")
@@ -133,6 +140,7 @@ public partial class Bullet : CharacterBody2D
 		_bulletTexture.Visible = false;
 		_activeTrail.Emitting = false;
 		_bounceEmitter.Visible = false;
+		_bulletInvulnTexture.Visible = false;
 		
 		_hitbox.SetDeferred("monitoring", false);
 		_hitbox.SetDeferred("monitorable", false);

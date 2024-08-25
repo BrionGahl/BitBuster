@@ -130,7 +130,7 @@ _data = {
 [node name="Shielded" type="CharacterBody2D" groups=["enemy"]]
 z_index = 1
 collision_layer = 4
-collision_mask = 111
+collision_mask = 103
 motion_mode = 1
 script = ExtResource("1_jiq06")
 _dropTable = ExtResource("2_2l4i8")

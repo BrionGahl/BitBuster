@@ -105,7 +105,7 @@ _data = {
 
 [node name="Detonator" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 4
-collision_mask = 111
+collision_mask = 103
 script = ExtResource("2_rcjrj")
 _dropTable = ExtResource("2_b436w")
 EntityStats = ExtResource("3_4tdxk")
