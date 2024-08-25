@@ -52,6 +52,14 @@ public partial class ExplodingComponent : Area2D
 		ExplodingEmitter.Finished += OnExplodeFinished;
 	}
 
+	public void SetRadius(float r)
+	{
+		_explosion.Radius = r;
+		((ParticleProcessMaterial)ExplodingEmitter.ProcessMaterial).EmissionSphereRadius = r;
+		((ParticleProcessMaterial)RadiusIndicatorEmitter.ProcessMaterial).EmissionRingRadius = r;
+		((ParticleProcessMaterial)RadiusIndicatorEmitter.ProcessMaterial).EmissionRingInnerRadius = r;
+	}
+
 	public void Explode(AttackData attackData)
 	{
 

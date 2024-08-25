@@ -184,6 +184,7 @@ EntityStats = ExtResource("2_axdfk")
 
 [node name="AimIndicatorComponent" type="Line2D" parent="." node_paths=PackedStringArray("Parent")]
 top_level = true
+z_index = 2
 texture_filter = 1
 width = 1.5
 gradient = SubResource("Gradient_4x0jy")

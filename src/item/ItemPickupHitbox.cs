@@ -55,7 +55,7 @@ public partial class ItemPickupHitbox : Area2D
 			EntityStats.Overheal += item.AddedOverheal;
 			HealthComponent.Heal(0);
 		}
-		item.SetCollisionLayerValue((int)BBCollisionLayer.Item, false);
+		item.SetCollisionLayerValue((int)BbCollisionLayer.Item, false);
 
 		
 		item.OnPickup();

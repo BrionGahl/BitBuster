@@ -29,12 +29,13 @@ public partial class Bullet : CharacterBody2D
 	private Timer _parentIFrameTimer;
 	private Timer _selfIFrameTimer;
 
-	private AttackData _attackData;
 	private int _remainingBounces;
 	private float _hueShift;
 	
 	private BulletType _bulletType;
 	private BounceType _bounceType;
+	
+	public AttackData AttackData { get; private set; }
 	
 	public override void _Notification(int what)
 	{
@@ -86,7 +87,7 @@ public partial class Bullet : CharacterBody2D
 			_bounceEmitter.Emitting = true;
 
 			if (_bounceType.HasFlag(BounceType.Compounding))
-				_attackData.Damage *= 2;
+				AttackData.Damage *= 2;
 
 			if (_bounceType.HasFlag(BounceType.Accelerating))
 				Velocity *= 1.33f;
@@ -109,7 +110,7 @@ public partial class Bullet : CharacterBody2D
 		GlobalPosition = position;
 		GlobalRotation = rotation;
 
-		_attackData = attackData;
+		AttackData = attackData;
 		_bulletType = bulletType;
 		_bounceType = bounceType;
 		
@@ -130,7 +131,7 @@ public partial class Bullet : CharacterBody2D
 			: GetNode<GpuParticles2D>("ParticleTrail");
 		_activeTrail.Emitting = true;
 		
-		GetNode<GpuParticles2D>("ParticleCritComponent").Emitting = _attackData.IsCrit;
+		GetNode<GpuParticles2D>("ParticleCritComponent").Emitting = AttackData.IsCrit;
 		
 		Velocity = new Vector2(0, -speed).Rotated(GlobalRotation);
 	}
@@ -164,12 +165,12 @@ public partial class Bullet : CharacterBody2D
 			Logger.Log.Information("Hitbox hit at " + hitboxComponent.Name);
 			if (hitboxComponent.Source is SourceType.Enemy && _bulletType.HasFlag(BulletType.Invulnerable))
 				return;
-			hitboxComponent.Damage(_attackData);
+			hitboxComponent.Damage(AttackData);
 		}
 
 		if (_bulletType.HasFlag(BulletType.Exploding))
 		{
-			_explodingComponent.Explode(new AttackData(1f, _attackData.Effects, _attackData.SourceType, false));
+			_explodingComponent.Explode(new AttackData(1f, AttackData.Effects, AttackData.SourceType, false));
 		}
 		
 		if (_bulletType.HasFlag(BulletType.Piercing))
@@ -193,23 +194,23 @@ public partial class Bullet : CharacterBody2D
 	private void OnParentIFrameTimeout()
 	{
 
-		if (_attackData.SourceType == SourceType.Enemy)
-			_hitbox.SetCollisionMaskValue((int)BBCollisionLayer.Player, true);
+		if (AttackData.SourceType == SourceType.Enemy)
+			_hitbox.SetCollisionMaskValue((int)BbCollisionLayer.Player, true);
 		else
-			_hitbox.SetCollisionMaskValue((int)BBCollisionLayer.Enemy, true);
+			_hitbox.SetCollisionMaskValue((int)BbCollisionLayer.Enemy, true);
 		
-		_hitbox.SetCollisionMaskValue((int)BBCollisionLayer.Projectile, true);
-		_hitbox.SetCollisionMaskValue((int)BBCollisionLayer.Item, true);
+		_hitbox.SetCollisionMaskValue((int)BbCollisionLayer.Projectile, true);
+		_hitbox.SetCollisionMaskValue((int)BbCollisionLayer.Item, true);
 		
 		_selfIFrameTimer.Start();
 	}
 
 	private void OnSelfIFrameTimeout()
 	{
-		if (_attackData.SourceType == SourceType.Enemy)
-			_hitbox.SetCollisionMaskValue((int)BBCollisionLayer.Enemy, true);
+		if (AttackData.SourceType == SourceType.Enemy)
+			_hitbox.SetCollisionMaskValue((int)BbCollisionLayer.Enemy, true);
 		else
-			_hitbox.SetCollisionMaskValue((int)BBCollisionLayer.Player, true);
+			_hitbox.SetCollisionMaskValue((int)BbCollisionLayer.Player, true);
 	}
 	
 	private void OnExplodeFinished()

@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://befqfx4khgoan"]
+[gd_scene load_steps=13 format=3 uid="uid://befqfx4khgoan"]
 
 [ext_resource type="Script" path="res://src/weapon/EffectPool.cs" id="1_r8opu"]
+[ext_resource type="PackedScene" uid="uid://2m2pbclf1iur" path="res://scenes/subscenes/component/exploding_component.tscn" id="2_muw8a"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_e4w05"]
 radius = 30.0
@@ -48,10 +49,17 @@ scale_over_velocity_max = 8.0
 scale_over_velocity_curve = SubResource("CurveTexture_8dfoq")
 color_ramp = SubResource("GradientTexture1D_kabn8")
 
-[node name="EffectPool" type="Area2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_6w6gu"]
+radius = 30.0
+
+[node name="EffectPool" type="Area2D" groups=["pool"]]
 top_level = true
-collision_mask = 6
+collision_layer = 0
+collision_mask = 30
 script = ExtResource("1_r8opu")
+
+[node name="ExplodingComponent" parent="." instance=ExtResource("2_muw8a")]
+collision_mask = 31
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_e4w05")
@@ -63,12 +71,20 @@ autostart = true
 
 [node name="DamageTimer" type="Timer" parent="."]
 wait_time = 1.5
+one_shot = true
 
 [node name="PoolEmitter" type="GPUParticles2D" parent="."]
 amount = 128
 process_material = SubResource("ParticleProcessMaterial_be6o8")
 
 [node name="PoolSubEmitter" type="GPUParticles2D" parent="."]
-amount = 16
+amount = 128
 process_material = SubResource("ParticleProcessMaterial_6yp8x")
 randomness = 1.0
+
+[node name="SmokeBody" type="StaticBody2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SmokeBody"]
+shape = SubResource("CircleShape2D_6w6gu")

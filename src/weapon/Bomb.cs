@@ -48,6 +48,8 @@ public partial class Bomb : RigidBody2D
 		
 		_timeTillExplosion = 0f;
 		Material.Set("shader_parameter/Time", 0f);
+
+		_effectPool = GD.Load<PackedScene>("res://scenes/subscenes/weapon/effect_pool.tscn");
 		
 		_healthComponent.HealthIsZero += OnHealthIsZero;
 		_explodingComponent.ExplodingEmitter.Finished += OnExplodeFinished;
@@ -90,14 +92,14 @@ public partial class Bomb : RigidBody2D
 
 	private void OnExplodeFinished()
 	{
-		if (_attackData.Effects.HasFlag(EffectType.Fire))
-			return;
-		if (_attackData.Effects.HasFlag(EffectType.Oil))
-			return;
-		if (_attackData.Effects.HasFlag(EffectType.Water))
-			return;
-		if (_attackData.Effects.HasFlag(EffectType.Poison))
-			return;
+
+		EffectPool pool;
+		if (_attackData.Effects > 0)
+		{
+			pool = _effectPool.Instantiate<EffectPool>();
+			pool.SetPosition(Position, _attackData);
+			_container.AddChild(pool);
+		}
 
 		QueueFree();
 	}

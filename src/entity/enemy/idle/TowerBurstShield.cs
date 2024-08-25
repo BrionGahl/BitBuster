@@ -28,7 +28,7 @@ public partial class TowerBurstShield : IdleEnemy
 		Collider.SetDeferred("disabled", true);
 		
 		_overhealBurstComponent.Visible = false;
-		_overhealBurstComponent.SetCollisionLayerValue((int)BBCollisionLayer.Projectile, false);
+		_overhealBurstComponent.SetCollisionLayerValue((int)BbCollisionLayer.Projectile, false);
 		
 		HitboxComponent.SetDeferred("monitorable", false);
 		HitboxComponent.SetDeferred("monitoring", false);

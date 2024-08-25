@@ -28,6 +28,7 @@ ProjectileAccuracy = 0.0
 BombDamage = 0.0
 BombDamageType = 0
 BombRadius = 0.0
+BombModifier = 0
 Speed = 0.0
 ITime = 0.2
 TrailEffect = 0
