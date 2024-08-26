@@ -117,7 +117,7 @@ public partial class EffectPool : Area2D
 		
 		HandleElement();
 		
-		Logger.Log.Information("Timer Started...");
+		// Logger.Log.Information("Timer Started...");
 	}
 
 

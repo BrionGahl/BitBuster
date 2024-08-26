@@ -88,6 +88,9 @@ public partial class Player : Entity
 	
 	public override void _Process(double delta)
 	{
+		if (_deactivated)
+			return;
+		
 		GetInput();
 		_gun.Rotation = (float)Mathf.RotateToward(_gun.Rotation, GetGlobalMousePosition().AngleToPoint(Position) - Constants.HalfPiOffset, 0.5);
 		
@@ -119,9 +122,6 @@ public partial class Player : Entity
 	
 	private void GetInput()
 	{
-		if (_deactivated)
-			return;
-		
 		_movementDirection = new Vector2(
 			Input.GetAxis("left", "right"), 
 			Input.GetAxis("up", "down"));
