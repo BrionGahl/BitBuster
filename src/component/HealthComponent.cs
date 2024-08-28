@@ -44,11 +44,10 @@ public partial class HealthComponent : Node2D
 		private set => EntityStats.Overheal = value; 
 	}
 	
+	public EffectType StatusCondition { get; private set; }
+	
 	private Timer _iFrameTimer;
 	private OverhealBurstComponent _overhealBurstComponent;
-	private GpuParticles2D _onFireEmitter;
-
-	private int _fireTickCount;
 	
 	private bool CanBeHit => _iFrameTimer.TimeLeft <= 0;
 
@@ -57,9 +56,6 @@ public partial class HealthComponent : Node2D
 	{
 		_iFrameTimer = GetNode<Timer>("IFrameTimer");
 		_overhealBurstComponent = GetNode<OverhealBurstComponent>("OverhealBurstComponent");
-		_onFireEmitter = GetNode<GpuParticles2D>("OnFireEmitter");
-
-		_iFrameTimer.Timeout += OnIFrameTimeout;
 	}
 
 	public void Damage(AttackData attackData)
@@ -68,13 +64,6 @@ public partial class HealthComponent : Node2D
 			return;
 		
 		Logger.Log.Information(EntityStats.Name + " taking " + attackData.Damage + " damage.");
-		
-		if (attackData.Effects.HasFlag(EffectType.Fire))
-		{
-			_fireTickCount = 15;
-			_onFireEmitter.Emitting = true;
-		}
-		// TODO: Add Stun Logic Here. Toggle Stun State in EntityStats?
 		
 		if (Overheal > 0)
 		{
@@ -139,20 +128,5 @@ public partial class HealthComponent : Node2D
 		}
 	
 		EmitSignal(SignalName.HealthChange, heal);
-	}
-
-	private void OnIFrameTimeout()
-	{
-		if (_fireTickCount <= 0)
-			return;
-		
-
-		Damage(new AttackData(0.1f, 0, SourceType.World, false));		
-		_iFrameTimer.Start(EntityStats.ITime);
-
-		_fireTickCount--;
-		
-		if (_fireTickCount <= 0)
-			_onFireEmitter.Emitting = false;
 	}
 }

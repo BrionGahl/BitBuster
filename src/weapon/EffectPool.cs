@@ -49,8 +49,6 @@ public partial class EffectPool : Area2D
 
 		
 		_despawnTimer.Timeout += OnDespawnTimeout;
-		// _damageTimer.Timeout += OnDamageTimeout;
-		
 		_explodingComponent.ExplodingEmitter.Finished += OnExplodeFinished;
 	}
 
@@ -64,27 +62,18 @@ public partial class EffectPool : Area2D
 		
 		if (AttackData.Effects.HasFlag(EffectType.Fire))
 		{
-			color.R = 1;
-			color.G = 0.35f;
+			color.R += 1;
+			color.G += 0.35f;
 		}
 
 		if (AttackData.Effects.HasFlag(EffectType.Oil))
 		{
-			color.R -= 0.5f;
-			color.B -= 0.5f;
-			color.G -= 0.5f;
+			color = Colors.SaddleBrown;
 		}
 		
 		if (AttackData.Effects.HasFlag(EffectType.Water))
 		{
-			color.B = 1;
-		}
-
-		if (AttackData.Effects.HasFlag(EffectType.Electric))
-		{
-			color.G = 0.7f;
-			color.B = 0.7f;
-			_despawnTimer.WaitTime = 2f;
+			color.B += 1;
 		}
 
 		Modulate = color;
@@ -114,16 +103,20 @@ public partial class EffectPool : Area2D
 			return;
 		
 		_damageTimer.Start();
+		foreach (var area in GetOverlappingAreas())
+		{
+			if (area is not HitboxComponent hitboxComponent)
+				return;
+			
+			HandleElement(hitboxComponent);
+		}
 		
-		HandleElement();
-		
-		// Logger.Log.Information("Timer Started...");
 	}
 
 
-	private void HandleElement()
+	private void HandleElement(HitboxComponent hitboxComponent)
 	{
-		
+		hitboxComponent.ApplyStatus(AttackData.Effects);
 	}
 	
 	private void CheckElementCombinations()
@@ -148,15 +141,6 @@ public partial class EffectPool : Area2D
 
 			_poolSubEmitter.Amount *= 5;
 			_smokeBody.SetCollisionLayerValue((int)BbCollisionLayer.EntityNoSee, true);
-			
-			_elementsResolved = true;
-		}
-		
-		if (AttackData.Effects.HasFlag(EffectType.Electified))
-		{
-			_poolSubEmitter.Modulate = Colors.Yellow;
-			_poolEmitter.Modulate = Colors.Aqua;
-			Emitting = true;
 			
 			_elementsResolved = true;
 		}
