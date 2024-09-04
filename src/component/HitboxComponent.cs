@@ -46,21 +46,22 @@ public partial class HitboxComponent: Area2D
 	public void ApplyStatus(EffectType effects)
 	{
 		
+		if (effects.HasFlag(EffectType.Oil) && !effects.HasFlag(EffectType.Sludge))
+		{
+			_onStatusEmitter.Modulate = Colors.SaddleBrown;
+			_statusTicks[1] = 30;
+		}
 		if (effects.HasFlag(EffectType.Fire))
 		{
 			_onStatusEmitter.Modulate = Colors.Orange;
-			_statusTicks[0] = 15;
+			_statusTicks[0] = 15 + _statusTicks[1];
+			_statusTicks[1] = 0;
 		}
 		if (effects.HasFlag(EffectType.Water) && !effects.HasFlag(EffectType.Smoke))
 		{
 			_onStatusEmitter.Modulate = Colors.Blue;
 			_statusTicks[0] = 0; // put out the fire.
 			_statusTicks[4] = 30;
-		}
-		if (effects.HasFlag(EffectType.Oil) && !effects.HasFlag(EffectType.Sludge))
-		{
-			_onStatusEmitter.Modulate = Colors.SaddleBrown;
-			_statusTicks[1] = 30;
 		}
 		if (effects.HasFlag(EffectType.Sludge))
 		{

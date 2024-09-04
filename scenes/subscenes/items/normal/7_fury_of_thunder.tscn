@@ -20,6 +20,7 @@ CreditCost = 12
 ProjectileCount = 1
 ProjectileBounces = 1
 ProjectileSpeed = 25.0
+ProjectileDamageType = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_k1piv")
