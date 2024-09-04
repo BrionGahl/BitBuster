@@ -93,7 +93,7 @@ public partial class Bullet : CharacterBody2D
 				Velocity *= 1.33f;
 			
 			if (_bounceType.HasFlag(BounceType.Changing))
-				Velocity = Velocity.Bounce(collision.GetNormal() + new Vector2(_random.RandfRange(-Mathf.Pi, Mathf.Pi), _random.RandfRange(-Mathf.Pi, Mathf.Pi)));
+				Velocity = Velocity.Bounce(new Vector2(_random.RandfRange(-Mathf.Pi, Mathf.Pi), _random.RandfRange(-Mathf.Pi, Mathf.Pi)));
 
 		} else if (collision != null && _remainingBounces <= 0)
 		{

@@ -75,6 +75,11 @@ public partial class EffectPool : Area2D
 		{
 			color.B += 1;
 		}
+		
+		if (AttackData.Effects.HasFlag(EffectType.Shocked))
+		{
+			color = Colors.Yellow;
+		}
 
 		Modulate = color;
 	}
@@ -159,11 +164,6 @@ public partial class EffectPool : Area2D
 	{
 		QueueFree();
 	}
-
-	// private void OnDamageTimeout()
-	// {
-	// 	
-	// }
 	
 	private void OnExplodeFinished()
 	{
