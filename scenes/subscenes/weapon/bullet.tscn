@@ -121,6 +121,19 @@ script = ExtResource("1_caguc")
 texture_filter = 1
 texture = ExtResource("2_x7le7")
 
+[node name="BulletInvulnerableSprite" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(0.470588, 1, 1, 0.341176)
+top_level = true
+z_index = 2
+texture_filter = 1
+scale = Vector2(2, 1.5)
+texture = ExtResource("2_x7le7")
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
+scale = Vector2(2, 1.5)
+remote_path = NodePath("../BulletInvulnerableSprite")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_u4xfs")
 

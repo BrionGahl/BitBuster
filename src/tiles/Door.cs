@@ -121,13 +121,13 @@ public partial class Door : Area2D
 	{
 		_doorClosed.Visible = !isOpen;
 
-		_keyOpenArea.SetCollisionMaskValue((int)BBCollisionLayer.Player, isOpen);
+		_keyOpenArea.SetCollisionMaskValue((int)BbCollisionLayer.Player, isOpen);
 		
 		if (_doorLocked.Visible)
 			return;
 		
 		_openDoorEmitter.Emitting = isOpen;
-		_entityBlockingBody.SetCollisionLayerValue((int)BBCollisionLayer.World, !isOpen);;
+		_entityBlockingBody.SetCollisionLayerValue((int)BbCollisionLayer.World, !isOpen);;
 	}
 	
 	private void SetDoorLocked(bool isLocked)
@@ -136,7 +136,7 @@ public partial class Door : Area2D
 		
 		_openDoorEmitter.Emitting = !isLocked;
 
-		_entityBlockingBody.SetCollisionLayerValue((int)BBCollisionLayer.World, isLocked);
+		_entityBlockingBody.SetCollisionLayerValue((int)BbCollisionLayer.World, isLocked);
 	}
 	
 	public override void _ExitTree()

@@ -1,6 +1,7 @@
 using BitBuster.data;
 using BitBuster.resource;
 using BitBuster.utils;
+using BitBuster.weapon;
 using Godot;
 
 namespace BitBuster.component;
@@ -43,6 +44,8 @@ public partial class HealthComponent : Node2D
 		private set => EntityStats.Overheal = value; 
 	}
 	
+	public EffectType StatusCondition { get; private set; }
+	
 	private Timer _iFrameTimer;
 	private OverhealBurstComponent _overhealBurstComponent;
 	
@@ -61,7 +64,7 @@ public partial class HealthComponent : Node2D
 			return;
 		
 		Logger.Log.Information(EntityStats.Name + " taking " + attackData.Damage + " damage.");
-
+		
 		if (Overheal > 0)
 		{
 			Overheal -= attackData.Damage;

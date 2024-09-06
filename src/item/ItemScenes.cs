@@ -44,8 +44,15 @@ public static class ItemScenes
         itemDict.Add(32, GD.Load<PackedScene>("res://scenes/subscenes/items/normal/32_pristine_mirror.tscn"));
         itemDict.Add(33, GD.Load<PackedScene>("res://scenes/subscenes/items/normal/33_broken_mirror.tscn"));
         itemDict.Add(34, GD.Load<PackedScene>("res://scenes/subscenes/items/normal/34_shotgun.tscn"));
-
-
+        itemDict.Add(35, GD.Load<PackedScene>("res://scenes/subscenes/items/normal/35_water_gun.tscn"));
+        itemDict.Add(36, GD.Load<PackedScene>("res://scenes/subscenes/items/normal/36_avocado.tscn"));
+        itemDict.Add(37, GD.Load<PackedScene>("res://scenes/subscenes/items/normal/37_pepper.tscn"));
+        itemDict.Add(38, GD.Load<PackedScene>("res://scenes/subscenes/items/normal/38_barrel_of_oil.tscn"));
+        itemDict.Add(39, GD.Load<PackedScene>("res://scenes/subscenes/items/normal/39_lightning_bottle.tscn"));
+        itemDict.Add(40, GD.Load<PackedScene>("res://scenes/subscenes/items/normal/40_molotov.tscn"));
+        itemDict.Add(41, GD.Load<PackedScene>("res://scenes/subscenes/items/normal/41_water_balloon.tscn"));
+        itemDict.Add(42, GD.Load<PackedScene>("res://scenes/subscenes/items/normal/42_skeleton_key.tscn"));
+        
         return itemDict;
     } 
     

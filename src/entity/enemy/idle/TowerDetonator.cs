@@ -52,6 +52,7 @@ public partial class TowerDetonator : IdleEnemy
 		if (Position.DistanceTo(Player.Position) < 64)
 		{
 			_timeTillExplosion += (float)delta;
+			_explodingComponent.RadiusIndicatorEmitter.Emitting = true;
 			SpritesComponent.SetBodyMaterialProperty("shader_parameter/time", _timeTillExplosion);
 			EntityStats.Speed /= 4;
 		}
@@ -59,8 +60,6 @@ public partial class TowerDetonator : IdleEnemy
 		if ((_timeTillExplosion >= 1.5f || HealthComponent.CurrentHealth <= 0) && !_hasExploded)
 		{
 			_hasExploded = true;
-			
-			Logger.Log.Information("BOOLS {@A}, {@B}, {@C}", _timeTillExplosion >= 1.5f , HealthComponent.CurrentHealth <= 0, !_hasExploded);
 			
 			SpritesComponent.Visible = false;
 			HealthComponent.Damage(HealthComponent.CurrentHealth);
@@ -71,6 +70,7 @@ public partial class TowerDetonator : IdleEnemy
 		if (Position.DistanceTo(Player.Position) >= 64)
 		{
 			_timeTillExplosion = 0f;
+			_explodingComponent.RadiusIndicatorEmitter.Emitting = false;
 			SpritesComponent.SetBodyMaterialProperty("shader_parameter/time", _timeTillExplosion);
 		}
 	}

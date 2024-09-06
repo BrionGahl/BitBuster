@@ -52,6 +52,7 @@ public partial class TankDetonator : MovingEnemy
 		if (Position.DistanceTo(Player.Position) < 64)
 		{
 			_timeTillExplosion += (float)delta;
+			_explodingComponent.RadiusIndicatorEmitter.Emitting = true;
 			SpritesComponent.SetBodyMaterialProperty("shader_parameter/time", _timeTillExplosion);
 			EntityStats.Speed = 0;
 		}
@@ -70,6 +71,7 @@ public partial class TankDetonator : MovingEnemy
 		if (Position.DistanceTo(Player.Position) >= 64)
 		{
 			_timeTillExplosion = 0f;
+			_explodingComponent.RadiusIndicatorEmitter.Emitting = false;
 			SpritesComponent.SetBodyMaterialProperty("shader_parameter/time", _timeTillExplosion);
 			if (EntityStats.Speed < 35)
 				EntityStats.Speed = 35;

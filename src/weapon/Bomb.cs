@@ -9,6 +9,10 @@ namespace BitBuster.weapon;
 public partial class Bomb : RigidBody2D
 {
 	private GlobalEvents _globalEvents;
+
+	private Node2D _container;
+	private PackedScene _effectPool;
+	
 	private Sprite2D _bombTexture;
 	private EntityStats _entityStats;
 	private HitboxComponent _hitboxComponent;
@@ -34,6 +38,7 @@ public partial class Bomb : RigidBody2D
 		
 		_explodingComponent = GetNode<ExplodingComponent>("ExplodingComponent");
 		_explodingComponent.EntityStats = EntityStats;
+		_explodingComponent.RadiusIndicatorEmitter.Emitting = true;
 		
 		_healthComponent = GetNode<HealthComponent>("HealthComponent");
 		_healthComponent.EntityStats = EntityStats;
@@ -43,6 +48,8 @@ public partial class Bomb : RigidBody2D
 		
 		_timeTillExplosion = 0f;
 		Material.Set("shader_parameter/Time", 0f);
+
+		_effectPool = GD.Load<PackedScene>("res://scenes/subscenes/weapon/effect_pool.tscn");
 		
 		_healthComponent.HealthIsZero += OnHealthIsZero;
 		_explodingComponent.ExplodingEmitter.Finished += OnExplodeFinished;
@@ -63,8 +70,10 @@ public partial class Bomb : RigidBody2D
 		}
 	}
 
-	public void SetPositionAndRadius(Vector2 position, Vector2 direction, AttackData attackData, BombModifier modifier, float radius)
+	public void SetPositionAndRadius(Vector2 position, Vector2 direction, AttackData attackData, BombModifier modifier, float radius, Node2D container)
 	{
+		_container = container;
+		
 		if (modifier == BombModifier.Throwing)
 			LinearVelocity = direction * attackData.Damage * 30;
 		
@@ -83,6 +92,15 @@ public partial class Bomb : RigidBody2D
 
 	private void OnExplodeFinished()
 	{
+
+		EffectPool pool;
+		if (_attackData.Effects > 0)
+		{
+			pool = _effectPool.Instantiate<EffectPool>();
+			pool.SetPosition(Position, _attackData);
+			_container.AddChild(pool);
+		}
+
 		QueueFree();
 	}
 }

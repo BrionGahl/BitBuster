@@ -120,17 +120,17 @@ public partial class WeaponComponent : Node2D
 			return false;
 		
 		Logger.Log.Information("Bombed...");
-		Bomb(position, rotation);
+		Bomb(position, rotation, Bombs);
 			
 		BombTimer.Start();
 
 		return true;
 	}
 
-	private void Bomb(Vector2 position, float rotation)
+	private void Bomb(Vector2 position, float rotation, Node2D container)
 	{
 		Bomb bomb = _bomb.Instantiate<Bomb>();
-		bomb.SetPositionAndRadius(position, Vector2.FromAngle(rotation + Mathf.Pi), EntityStats.GetBombAttackData(),EntityStats.BombModifier, EntityStats.BombRadius);
+		bomb.SetPositionAndRadius(position, Vector2.FromAngle(rotation + Mathf.Pi), EntityStats.GetBombAttackData(), EntityStats.BombModifier, EntityStats.BombRadius, container);
 		
 		BombCount--;
 		EntityStats.EmitStatChangeSignal();

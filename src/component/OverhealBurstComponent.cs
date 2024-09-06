@@ -35,14 +35,14 @@ public partial class OverhealBurstComponent : Area2D
 		_burstEmitter.Emitting = true;
 		_burstInsideEmitter.Emitting = true;
 		
-		SetCollisionLayerValue((int)BBCollisionLayer.Projectile, true);
+		SetCollisionLayerValue((int)BbCollisionLayer.Projectile, true);
 
 		_timer.Start();
 	}
 
 	private void OnTimerTimeout()
 	{
-		SetCollisionLayerValue((int)BBCollisionLayer.Projectile, false);
+		SetCollisionLayerValue((int)BbCollisionLayer.Projectile, false);
 		_burstEmitter.Emitting = false;
 		_burstInsideEmitter.Emitting = false;
 	}

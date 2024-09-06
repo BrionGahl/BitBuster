@@ -1,6 +1,6 @@
 namespace BitBuster.world;
 
-public enum BBCollisionLayer
+public enum BbCollisionLayer
 {
     World = 1,
     Player = 2,

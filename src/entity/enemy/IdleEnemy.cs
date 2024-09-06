@@ -19,7 +19,7 @@ public abstract partial class IdleEnemy: Enemy
 
     protected void CleanAndRebake()
     {
-        _staticBody.SetCollisionLayerValue((int)BBCollisionLayer.EntityNoPass, false);
+        _staticBody.SetCollisionLayerValue((int)BbCollisionLayer.EntityNoPass, false);
         GlobalEvents.EmitBakeNavigationMeshSignal();
     }
 }
