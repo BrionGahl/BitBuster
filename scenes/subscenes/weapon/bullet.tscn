@@ -176,7 +176,7 @@ speed_scale = 2.0
 explosiveness = 1.0
 
 [node name="ParentIFrameTimer" type="Timer" parent="."]
-wait_time = 0.2
+wait_time = 0.1
 one_shot = true
 
 [node name="ExplodingComponent" parent="." instance=ExtResource("3_owbfi")]
@@ -184,4 +184,5 @@ one_shot = true
 [node name="ParticleCritComponent" parent="." instance=ExtResource("4_b8uvi")]
 
 [node name="SelfIFrameTimer" type="Timer" parent="."]
-wait_time = 1.2
+wait_time = 0.9
+one_shot = true

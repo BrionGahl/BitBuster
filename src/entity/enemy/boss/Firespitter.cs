@@ -105,7 +105,7 @@ public partial class Firespitter : IdleEnemy
 			EntityStats.ProjectileSpeed = 50f;
 			EntityStats.ProjectileSizeScalar = new Vector2(130, 1);
 			EntityStats.ProjectileWeaponType = 0;
-			EntityStats.ProjectileBulletType = BulletType.Piercing | BulletType.Invulnerable;
+			EntityStats.ProjectileBulletType = BulletType.Piercing;
 		} else if (_mechanics > 0.3 && _mechanics <= 0.7)
 		{
 			_mechanicsDir = RandomNumberGenerator.RandiRange(0, 1);
