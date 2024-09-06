@@ -1,0 +1,90 @@
+[gd_scene load_steps=13 format=3 uid="uid://befqfx4khgoan"]
+
+[ext_resource type="Script" path="res://src/weapon/EffectPool.cs" id="1_r8opu"]
+[ext_resource type="PackedScene" uid="uid://2m2pbclf1iur" path="res://scenes/subscenes/component/exploding_component.tscn" id="2_muw8a"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e4w05"]
+radius = 30.0
+
+[sub_resource type="Gradient" id="Gradient_g564l"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_hr35m"]
+gradient = SubResource("Gradient_g564l")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_be6o8"]
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 30.0
+emission_ring_inner_radius = 30.0
+angle_max = 360.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.2
+scale_max = 2.0
+color_ramp = SubResource("GradientTexture1D_hr35m")
+
+[sub_resource type="Gradient" id="Gradient_os0tp"]
+colors = PackedColorArray(1, 1, 1, 1, 0.0392157, 0.0392157, 0.0392157, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_kabn8"]
+gradient = SubResource("Gradient_os0tp")
+
+[sub_resource type="Curve" id="Curve_7nvfo"]
+max_value = 2.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 2.57362), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_8dfoq"]
+curve = SubResource("Curve_7nvfo")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6yp8x"]
+particle_flag_disable_z = true
+emission_shape = 2
+emission_sphere_radius = 30.0
+angle_max = 360.0
+direction = Vector3(0, 0, 1)
+scale_over_velocity_max = 8.0
+scale_over_velocity_curve = SubResource("CurveTexture_8dfoq")
+color_ramp = SubResource("GradientTexture1D_kabn8")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6w6gu"]
+radius = 30.0
+
+[node name="EffectPool" type="Area2D" groups=["pool"]]
+top_level = true
+collision_layer = 0
+collision_mask = 30
+script = ExtResource("1_r8opu")
+
+[node name="ExplodingComponent" parent="." instance=ExtResource("2_muw8a")]
+collision_mask = 31
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_e4w05")
+
+[node name="DespawnTimer" type="Timer" parent="."]
+wait_time = 20.0
+one_shot = true
+autostart = true
+
+[node name="DamageTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[node name="PoolEmitter" type="GPUParticles2D" parent="."]
+amount = 128
+process_material = SubResource("ParticleProcessMaterial_be6o8")
+
+[node name="PoolSubEmitter" type="GPUParticles2D" parent="."]
+amount = 128
+process_material = SubResource("ParticleProcessMaterial_6yp8x")
+randomness = 1.0
+
+[node name="SmokeBody" type="StaticBody2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SmokeBody"]
+shape = SubResource("CircleShape2D_6w6gu")

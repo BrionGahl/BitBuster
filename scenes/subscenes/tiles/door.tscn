@@ -78,7 +78,7 @@ texture = ExtResource("4_h5coi")
 [node name="Destination" type="Marker2D" parent="."]
 position = Vector2(8, 16)
 
-[node name="KeyOpenArea" type="Area2D" parent="."]
+[node name="KeyOpenArea" type="Area2D" parent="." groups=["bullet_pass"]]
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KeyOpenArea"]
