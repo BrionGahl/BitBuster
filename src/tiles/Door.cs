@@ -32,6 +32,8 @@ public partial class Door : Area2D
 	private CollisionShape2D _collisionShape;
 	private GpuParticles2D _openDoorEmitter;
 	private Marker2D _destination;
+
+	private AudioStreamPlayer2D _unlockSound;
 	
 	public override void _Ready()
 	{
@@ -55,6 +57,8 @@ public partial class Door : Area2D
 		_openDoorEmitter = GetNode<GpuParticles2D>("OpenDoorEmitter");
 		_entityBlockingBody = GetNode<StaticBody2D>("EntityBlockingBody");
 		_destination = GetNode<Marker2D>("Destination");
+
+		_unlockSound = GetNode<AudioStreamPlayer2D>("UnlockSound");
 
 		_keyOpenArea.BodyEntered += OnKeyAreaBodyEntered;
 		BodyEntered += OnBodyEntered;
@@ -114,6 +118,7 @@ public partial class Door : Area2D
 			((Player)body).EntityStats.EmitStatChangeSignal();
 			
 			SetDoorLocked(false);
+			_unlockSound.Play();
 		}
 	}
 	
@@ -127,7 +132,9 @@ public partial class Door : Area2D
 			return;
 		
 		_openDoorEmitter.Emitting = isOpen;
-		_entityBlockingBody.SetCollisionLayerValue((int)BbCollisionLayer.World, !isOpen);;
+		_entityBlockingBody.SetCollisionLayerValue((int)BbCollisionLayer.World, !isOpen);
+
+		_unlockSound.Play();
 	}
 	
 	private void SetDoorLocked(bool isLocked)

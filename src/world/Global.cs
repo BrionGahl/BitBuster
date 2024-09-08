@@ -26,7 +26,6 @@ public partial class Global : Node
 		MainMenuPackedScene = ResourceLoader.Load<PackedScene>("res://scenes/subscenes/menu/root_menu.tscn");
 		
 		CompleteItemPoolList = ItemScenes.GetCompleteNormalItemDictionary();
-
 		CompletePickupPoolList = ItemScenes.GetCompletePickupItemDictionary();
 	}
 

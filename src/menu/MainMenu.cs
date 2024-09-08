@@ -14,6 +14,8 @@ public partial class MainMenu : Menu
 	
 	public override void _Ready()
 	{
+		base._Ready();
+
 		_playButton = GetNode<Button>("VBoxContainer/PlayButton");
 		_optionButton = GetNode<Button>("VBoxContainer/HBoxContainer/OptionButton");
 		_creditButton = GetNode<Button>("VBoxContainer/CreditButton");
@@ -31,21 +33,25 @@ public partial class MainMenu : Menu
 	private void OnQuitPressed()
 	{
 		Logger.Log.Information("Closing Game...");
+		GlobalButtonSfx.Play();
 		GetTree().Quit();
 	}
 	
 	private void OnPlayPressed()
 	{
+		GlobalButtonSfx.Play();
 		EmitSignal(Menu.SignalName.MenuNavigation, this, "playmenu");
 	}
 	
 	private void OnOptionPressed()
 	{
+		GlobalButtonSfx.Play();
 		EmitSignal(Menu.SignalName.MenuNavigation, this, "optionmenu");
 	}
 	
 	private void OnCreditPressed()
 	{
+		GlobalButtonSfx.Play();
 		EmitSignal(Menu.SignalName.MenuNavigation, this, "creditmenu");
 	}
 }

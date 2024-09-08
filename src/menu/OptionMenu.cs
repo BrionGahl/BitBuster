@@ -19,6 +19,8 @@ public partial class OptionMenu : Menu
 	
 	public override void _Ready()
 	{
+		base._Ready();
+
 		_settings = new Settings();
 
 		_resolutionOptions = GetNode<OptionButton>("VBoxContainer/TabContainer/Graphics/VBoxContainer/ResolutionSetting/ResolutionOptions");
@@ -62,6 +64,7 @@ public partial class OptionMenu : Menu
 	
 	private void OnBackPressed()
 	{
+		GlobalButtonSfx.Play();
 		EmitSignal(Menu.SignalName.MenuNavigation, this, "mainmenu");
 	}
 	

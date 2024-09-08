@@ -48,6 +48,9 @@ public partial class HealthComponent : Node2D
 	
 	private Timer _iFrameTimer;
 	private OverhealBurstComponent _overhealBurstComponent;
+
+	private AudioStreamPlayer2D _deathSound;
+	private AudioStreamPlayer2D _hurtSound;
 	
 	private bool CanBeHit => _iFrameTimer.TimeLeft <= 0;
 
@@ -56,41 +59,24 @@ public partial class HealthComponent : Node2D
 	{
 		_iFrameTimer = GetNode<Timer>("IFrameTimer");
 		_overhealBurstComponent = GetNode<OverhealBurstComponent>("OverhealBurstComponent");
+
+		_deathSound = GetNode<AudioStreamPlayer2D>("DeathSound");
+		_hurtSound = GetNode<AudioStreamPlayer2D>("HurtSound");
 	}
 
-	public void Damage(AttackData attackData)
+	public bool Damage(AttackData attackData)
 	{
-		if (!CanBeHit)
-			return;
+		if (!Damage(attackData.Damage))
+			return false;
 		
-		Logger.Log.Information(EntityStats.Name + " taking " + attackData.Damage + " damage.");
-		
-		if (Overheal > 0)
-		{
-			Overheal -= attackData.Damage;
-			Overheal = Mathf.Floor(Overheal);
-			if (Overheal < 0)
-				Overheal = 0;
-			if (EntityStats.OverhealBurst)
-				_overhealBurstComponent.Burst(75f);
-		}
-		else 
-			CurrentHealth -= attackData.Damage;
-		
-		if (CurrentHealth <= 0)
-		{
-			CurrentHealth = 0;
-			EmitSignal(SignalName.HealthIsZero);
-		}
-	
-		EmitSignal(SignalName.HealthChange, -attackData.Damage);
 		_iFrameTimer.Start(EntityStats.ITime);
+		return true;
 	}
 
-	public void Damage(float damage)
+	public bool Damage(float damage)
 	{
-		if (!CanBeHit)
-			return;
+		if (!CanBeHit || CurrentHealth <= 0)
+			return false;
 		
 		Logger.Log.Information(EntityStats.Name + " taking " + damage + " damage.");
 
@@ -110,11 +96,14 @@ public partial class HealthComponent : Node2D
 		if (CurrentHealth <= 0)
 		{
 			CurrentHealth = 0;
+			_deathSound.Play();
 			EmitSignal(SignalName.HealthIsZero);
-			return;
 		}
-	
+		
+		_hurtSound.Play();
 		EmitSignal(SignalName.HealthChange, -damage);
+
+		return true;
 	}
 
 	

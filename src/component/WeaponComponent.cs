@@ -23,6 +23,9 @@ public partial class WeaponComponent : Node2D
 	private Timer BombTimer { get; set; }
 
 	private Node2D ExtraBullets { get; set; }
+
+	private AudioStreamPlayer2D _shootSound;
+	private AudioStreamPlayer2D _bombSound;
 	
 	public int BulletsChildren => Bullets.GetChildCount();
 	public int BombsChildren => Bombs.GetChildCount();
@@ -59,6 +62,9 @@ public partial class WeaponComponent : Node2D
 		ShootTimer = GetNode<Timer>("ShootTimer");
 		BombTimer = GetNode<Timer>("BombTimer");
 
+		_bombSound = GetNode<AudioStreamPlayer2D>("BombSound");
+		_shootSound = GetNode<AudioStreamPlayer2D>("ShootSound");
+		
 		_random = new RandomNumberGenerator();
 		
 		ShootTimer.Timeout += OnShootTimeout;
@@ -112,6 +118,8 @@ public partial class WeaponComponent : Node2D
 			EntityStats.GetAttackData(), EntityStats.ProjectileSpeed, EntityStats.ProjectileBounces, 
 			EntityStats.ProjectileSizeScalar, EntityStats.ProjectileBulletType, EntityStats.ProjectileBounceType);
 		container.AddChild(bullet);
+		
+		SoundUtils.PlayAtRandomPitch(_shootSound);
 	}
 
 	public bool AttemptBomb(Vector2 position, float rotation)
@@ -135,7 +143,10 @@ public partial class WeaponComponent : Node2D
 		BombCount--;
 		EntityStats.EmitStatChangeSignal();
 		
-		Bombs.AddChild(bomb);
+		container.AddChild(bomb);
+		
+		
+		SoundUtils.PlayAtRandomPitch(_bombSound);
 	}
 
 	private void OnShootTimeout()

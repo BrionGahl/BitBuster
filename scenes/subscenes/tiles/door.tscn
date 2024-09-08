@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://t7jiw2i3paak"]
+[gd_scene load_steps=14 format=3 uid="uid://t7jiw2i3paak"]
 
 [ext_resource type="Script" path="res://src/tiles/Door.cs" id="1_fxrn5"]
 [ext_resource type="Texture2D" uid="uid://d0xyx13qi14hs" path="res://assets/tiles/door.png" id="2_vw0rc"]
 [ext_resource type="Shader" path="res://assets/shaders/rainbow_gradient.gdshader" id="3_vhqev"]
 [ext_resource type="Texture2D" uid="uid://cokfni522151l" path="res://assets/tiles/door_shut.png" id="4_h5coi"]
 [ext_resource type="Texture2D" uid="uid://cverk2vcsu17a" path="res://assets/tiles/door_locked.png" id="5_gks28"]
+[ext_resource type="AudioStream" uid="uid://cbqd2s3e4gj4" path="res://assets/sound/tiles/door_unlock.wav" id="6_k6xx5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ajxog"]
 size = Vector2(3, 32)
@@ -92,3 +93,6 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EntityBlockingBody"]
 position = Vector2(8, 16)
 shape = SubResource("RectangleShape2D_3seb1")
+
+[node name="UnlockSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_k6xx5")

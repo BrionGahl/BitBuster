@@ -1,0 +1,58 @@
+[gd_scene load_steps=4 format=3 uid="uid://cbxpbwx1q0hel"]
+
+[ext_resource type="Theme" uid="uid://c8qs8rvxfk3jf" path="res://assets/menu/default_theme.tres" id="1_lcr7r"]
+[ext_resource type="Script" path="res://src/menu/other/RootDeathMenu.cs" id="2_3rksk"]
+[ext_resource type="AudioStream" uid="uid://c2kdoyonlc0iw" path="res://assets/sound/world/world_gameover.wav" id="3_xni7g"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="RootDeathMenu" type="Control" parent="."]
+visible = false
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_lcr7r")
+script = ExtResource("2_3rksk")
+
+[node name="MarginContainer" type="MarginContainer" parent="RootDeathMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -118.5
+offset_top = -26.5
+offset_right = 118.5
+offset_bottom = 26.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RootDeathMenu/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="RootDeathMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0.403922, 1)
+text = "Busted!"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="RootDeathMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="RestartButton" type="Button" parent="RootDeathMenu/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(145, 0)
+layout_mode = 2
+text = "Restrart"
+
+[node name="ReturnButton" type="Button" parent="RootDeathMenu/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(145, 0)
+layout_mode = 2
+text = "Return to Menu"
+
+[node name="GameoverSound" type="AudioStreamPlayer" parent="RootDeathMenu"]
+stream = ExtResource("3_xni7g")

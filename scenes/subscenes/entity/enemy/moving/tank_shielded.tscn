@@ -199,6 +199,7 @@ avoidance_mask = 4
 
 [node name="Timer" type="Timer" parent="Agent"]
 wait_time = 0.3
+autostart = true
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 

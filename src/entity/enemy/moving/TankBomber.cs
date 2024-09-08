@@ -16,15 +16,12 @@ public partial class TankBomber : MovingEnemy
 	
 	public override void _Ready()
 	{
-		SetPhysicsProcess(false);
 		base._Ready();
 		_globalEvents = GetNode<GlobalEvents>("/root/GlobalEvents");
 		
 		_explodingComponent = GetNode<ExplodingComponent>("ExplodingComponent");
 		
 		_timeTillExplosion = 0f;
-		
-		NavigationServer2D.MapChanged += OnMapReady;
 	}
 	
 	protected override void OnHealthIsZero()
@@ -57,11 +54,5 @@ public partial class TankBomber : MovingEnemy
 		{
 			WeaponComponent.AttemptBomb(Position, -Rotation);
 		}
-	}
-
-	private void OnMapReady(Rid rid)
-	{
-		SetPhysicsProcess(true);
-		AgentTimer.Start();
 	}
 }

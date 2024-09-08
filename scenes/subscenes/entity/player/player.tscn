@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://det6gkgxg57mw"]
+[gd_scene load_steps=30 format=3 uid="uid://det6gkgxg57mw"]
 
 [ext_resource type="Script" path="res://src/entity/player/Player.cs" id="1_nju6n"]
 [ext_resource type="Resource" uid="uid://ddoxfug6s6lh" path="res://scenes/resources/entity/player/player_stats.tres" id="2_axdfk"]
@@ -11,6 +11,8 @@
 [ext_resource type="Script" path="res://src/item/ItemPickupHitbox.cs" id="9_qalwr"]
 [ext_resource type="PackedScene" uid="uid://6d0b62fihn27" path="res://scenes/subscenes/component/particle_death_component.tscn" id="10_na6pd"]
 [ext_resource type="Script" path="res://src/component/AimIndicatorComponent.cs" id="11_fck6t"]
+[ext_resource type="AudioStream" uid="uid://bil22ryftgc1a" path="res://assets/sound/item/item_normal.wav" id="11_nk8c1"]
+[ext_resource type="AudioStream" uid="uid://k8trdtudw60m" path="res://assets/sound/item/item_pickup.wav" id="12_66g1r"]
 
 [sub_resource type="Gradient" id="Gradient_4x0jy"]
 offsets = PackedFloat32Array(0.932143, 1)
@@ -239,6 +241,12 @@ HealthComponent = NodePath("../HealthComponent")
 shape = SubResource("RectangleShape2D_r5da5")
 
 [node name="ItemsList" type="Node2D" parent="ItemPickupHitbox"]
+
+[node name="NormalSound" type="AudioStreamPlayer2D" parent="ItemPickupHitbox"]
+stream = ExtResource("11_nk8c1")
+
+[node name="PickupSound" type="AudioStreamPlayer2D" parent="ItemPickupHitbox"]
+stream = ExtResource("12_66g1r")
 
 [node name="ParticleDeath" parent="." instance=ExtResource("10_na6pd")]
 

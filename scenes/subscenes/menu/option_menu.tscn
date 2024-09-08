@@ -1,10 +1,9 @@
 [gd_scene load_steps=4 format=3 uid="uid://bde6px02akw1q"]
 
+[ext_resource type="Theme" uid="uid://c8qs8rvxfk3jf" path="res://assets/menu/default_theme.tres" id="1_4qs7s"]
 [ext_resource type="Script" path="res://src/menu/OptionMenu.cs" id="1_ajg85"]
-[ext_resource type="FontFile" uid="uid://boj4ahk23hdn6" path="res://assets/menu/fonts/Karma Future.otf" id="1_ymcdh"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_dvm0f"]
-font = ExtResource("1_ymcdh")
 font_size = 32
 
 [node name="OptionMenu" type="MarginContainer"]
@@ -13,6 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_4qs7s")
 theme_override_constants/margin_left = 30
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 30
@@ -84,16 +84,16 @@ size_flags_horizontal = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 4
+size_flags_horizontal = 4
 
 [node name="BackButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(195, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 text = "Return to Menu"
 
 [node name="ApplyButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(195, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 disabled = true
 text = "Apply Changes
 "
