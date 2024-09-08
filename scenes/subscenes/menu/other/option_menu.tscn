@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://otngnrolfrym"]
+
+[ext_resource type="Script" path="res://src/menu/other/OptionMenu.cs" id="1_in3dl"]
+
+[node name="OptionMenu" type="MarginContainer"]
+script = ExtResource("1_in3dl")

@@ -153,6 +153,7 @@ target_desired_distance = 16.0
 
 [node name="Timer" type="Timer" parent="Agent"]
 wait_time = 0.3
+autostart = true
 
 [node name="ExplodingComponent" parent="." instance=ExtResource("12_pk6fm")]
 

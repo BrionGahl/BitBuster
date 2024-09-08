@@ -6,11 +6,7 @@ public partial class DefaultTank : MovingEnemy
 {
 	public override void _Ready()
 	{
-		SetPhysicsProcess(false);
-
 		base._Ready();
-		
-		NavigationServer2D.MapChanged += OnMapReady;
 	}
 
 	protected override void OnHealthIsZero()
@@ -42,11 +38,5 @@ public partial class DefaultTank : MovingEnemy
 		SpritesComponent.SetGunRotation(CanSeePlayer(), Player.Position, Mathf.Pi/12);
 		if (CanSeePlayer() && RandomNumberGenerator.Randf() > 0.3f)
 			WeaponComponent.AttemptShoot(Position, Player.Position.AngleToPoint(Position));
-	}
-
-	private void OnMapReady(Rid rid)
-	{
-		SetPhysicsProcess(true);
-		AgentTimer.Start();
 	}
 }

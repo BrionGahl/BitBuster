@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cubpk1i28p0wk"]
+[gd_scene load_steps=4 format=3 uid="uid://cubpk1i28p0wk"]
 
 [ext_resource type="Script" path="res://src/component/WeaponComponent.cs" id="1_gqvkb"]
+[ext_resource type="AudioStream" uid="uid://d4dre0tu2iwr7" path="res://assets/sound/weapon/bullet_shoot.wav" id="2_fgp6d"]
+[ext_resource type="AudioStream" uid="uid://dox0efh7fuo8" path="res://assets/sound/weapon/bomb_place.wav" id="3_art2f"]
 
 [node name="WeaponComponent" type="Node2D"]
 script = ExtResource("1_gqvkb")
@@ -16,3 +18,9 @@ one_shot = true
 [node name="ExtraBullets" type="Node2D" parent="."]
 
 [node name="Bombs" type="Node2D" parent="."]
+
+[node name="ShootSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_fgp6d")
+
+[node name="BombSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_art2f")

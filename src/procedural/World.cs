@@ -49,13 +49,13 @@ public partial class World : Node2D
 		_roomsScene = GD.Load<PackedScene>("res://scenes/subscenes/procedural/rooms.tscn");
 		_doorScene = GD.Load<PackedScene>("res://scenes/subscenes/tiles/door.tscn");
 
-		_levelRegion = GetNode<NavigationRegion2D>("Level/NavRegion");
-		_levelMain = GetNode<TileMap>("Level/NavRegion/TileMapMain");
-		_levelSemi = GetNode<TileMap>("Level/NavRegion/TileMapSemi");
-		_levelBakeable = GetNode<Node2D>("Level/NavRegion/Bakeable");
-		_levelExtra = GetNode<Node2D>("Level/NavRegion/Extra");
+		_levelRegion = GetNode<NavigationRegion2D>("NavRegion");
+		_levelMain = GetNode<TileMap>("NavRegion/TileMapMain");
+		_levelSemi = GetNode<TileMap>("NavRegion/TileMapSemi");
+		_levelBakeable = GetNode<Node2D>("NavRegion/Bakeable");
+		_levelExtra = GetNode<Node2D>("NavRegion/Extra");
 		
-		_levelPlayer = GetNode<CharacterBody2D>("Level/Player") as Player;
+		_levelPlayer = GetNode<CharacterBody2D>("Player") as Player;
 		
 		_global.PrepareCurrentRunItemPool();
 		_random = new RandomNumberGenerator();

@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://btrxy7t83y8en"]
+[gd_scene load_steps=7 format=3 uid="uid://btrxy7t83y8en"]
 
 [ext_resource type="Shader" path="res://assets/shaders/hit_blink.gdshader" id="1_85t2j"]
 [ext_resource type="Script" path="res://src/component/HealthComponent.cs" id="1_mpy7l"]
 [ext_resource type="PackedScene" uid="uid://c7l0u657l447r" path="res://scenes/subscenes/component/overheal_burst_component.tscn" id="3_3eptg"]
+[ext_resource type="AudioStream" uid="uid://cckxnk5s3ssrc" path="res://assets/sound/entity/entity_death.wav" id="4_al4ec"]
+[ext_resource type="AudioStream" uid="uid://b3j6sk1mesyvj" path="res://assets/sound/entity/entity_hurt.wav" id="5_ue1is"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sg62w"]
 shader = ExtResource("1_85t2j")
@@ -17,3 +19,9 @@ script = ExtResource("1_mpy7l")
 
 [node name="IFrameTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_al4ec")
+
+[node name="HurtSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_ue1is")
