@@ -96,3 +96,4 @@ shape = SubResource("RectangleShape2D_3seb1")
 
 [node name="UnlockSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_k6xx5")
+bus = &"SFX"

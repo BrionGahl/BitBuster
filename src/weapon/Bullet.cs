@@ -1,6 +1,7 @@
 using BitBuster.component;
 using BitBuster.data;
 using BitBuster.entity.enemy;
+using BitBuster.sound;
 using BitBuster.utils;
 using BitBuster.world;
 using Godot;

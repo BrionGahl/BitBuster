@@ -1,6 +1,6 @@
 using Godot;
 
-namespace BitBuster.utils;
+namespace BitBuster.sound;
 
 public static class SoundUtils
 {

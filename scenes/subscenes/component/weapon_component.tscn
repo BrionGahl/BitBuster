@@ -21,6 +21,8 @@ one_shot = true
 
 [node name="ShootSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_fgp6d")
+bus = &"SFX"
 
 [node name="BombSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_art2f")
+bus = &"SFX"

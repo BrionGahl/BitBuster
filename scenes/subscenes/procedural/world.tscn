@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://cehnmnx4td2yf" path="res://scenes/subscenes/menu/other/root_pause_menu.tscn" id="10_gt1oa"]
 [ext_resource type="PackedScene" uid="uid://cbxpbwx1q0hel" path="res://scenes/subscenes/menu/other/root_death_menu.tscn" id="11_osw7o"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_iio27"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3ydxh"]
 resource_local_to_scene = true
 shader = ExtResource("4_7w6o4")
 shader_parameter/flash_color = Color(1, 0.188235, 0, 1)
@@ -59,7 +59,7 @@ source_geometry_group_name = &"navigation_polygon_source_group"
 script = ExtResource("1_jml8v")
 
 [node name="Player" parent="." instance=ExtResource("3_q3coj")]
-material = SubResource("ShaderMaterial_iio27")
+material = SubResource("ShaderMaterial_3ydxh")
 position = Vector2(1440, 1440)
 EntityStats = SubResource("Resource_htxhu")
 

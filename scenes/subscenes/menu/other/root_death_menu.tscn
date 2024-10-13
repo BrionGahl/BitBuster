@@ -56,3 +56,4 @@ text = "Return to Menu"
 
 [node name="GameoverSound" type="AudioStreamPlayer" parent="RootDeathMenu"]
 stream = ExtResource("3_xni7g")
+bus = &"SFX"

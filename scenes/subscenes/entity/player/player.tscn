@@ -244,9 +244,11 @@ shape = SubResource("RectangleShape2D_r5da5")
 
 [node name="NormalSound" type="AudioStreamPlayer2D" parent="ItemPickupHitbox"]
 stream = ExtResource("11_nk8c1")
+bus = &"SFX"
 
 [node name="PickupSound" type="AudioStreamPlayer2D" parent="ItemPickupHitbox"]
 stream = ExtResource("12_66g1r")
+bus = &"SFX"
 
 [node name="ParticleDeath" parent="." instance=ExtResource("10_na6pd")]
 
