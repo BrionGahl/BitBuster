@@ -70,10 +70,9 @@ public partial class Firespitter : IdleEnemy
 		// Beam
 		if (_mechanics <= 0.3)
 		{
-			SpritesComponent.SetGunRotation(false, Player.Position, _mechanicsDir * Mathf.Pi / 2);
-			if (WeaponComponent.AttemptShoot(Position, _mechanicsDir * Mathf.Pi / 2))
+			SpritesComponent.SetGunRotation(CanSeePlayer(), Player.Position, Mathf.Pi / 4);
+			if (WeaponComponent.AttemptShoot(Position, Player.Position.AngleToPoint(Position)))
 				_iteration -= 5;
-			_mechanicsDir = RandomNumberGenerator.RandiRange(1, 4);
 		}
 		
 		// Spray
@@ -101,11 +100,12 @@ public partial class Firespitter : IdleEnemy
 			_mechanicsDir = RandomNumberGenerator.RandiRange(1, 4);
 			EntityStats.ProjectileBounces = 3;
 			EntityStats.ProjectileDamage = 1;
-			EntityStats.ProjectileCooldown = 3f;
+			EntityStats.ProjectileCooldown = 2f;
 			EntityStats.ProjectileSpeed = 50f;
-			EntityStats.ProjectileSizeScalar = new Vector2(130, 1);
-			EntityStats.ProjectileWeaponType = 0;
-			EntityStats.ProjectileBulletType = BulletType.Piercing;
+			EntityStats.ProjectileSizeScalar = new Vector2(2, 2);
+			EntityStats.ProjectileWeaponType = WeaponType.Random;
+			EntityStats.ProjectileDamageType = EffectType.Fire;
+			EntityStats.ProjectileBulletType = 0;
 		} else if (_mechanics > 0.3 && _mechanics <= 0.7)
 		{
 			_mechanicsDir = RandomNumberGenerator.RandiRange(0, 1);
