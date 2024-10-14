@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://b7dnbe8lj3dp8"]
+
+[ext_resource type="Theme" uid="uid://c8qs8rvxfk3jf" path="res://assets/menu/default_theme.tres" id="1_tm2vm"]
+[ext_resource type="Script" path="res://src/menu/component/KeybindContainer.cs" id="2_ema03"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_gjb02"]
+
+[node name="KeybindContainer" type="HBoxContainer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -152.0
+offset_top = -15.5
+offset_right = 152.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_tm2vm")
+script = ExtResource("2_ema03")
+
+[node name="InputAction" type="Label" parent="."]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Action
+"
+label_settings = SubResource("LabelSettings_gjb02")
+horizontal_alignment = 1
+
+[node name="InputButton" type="Button" parent="."]
+custom_minimum_size = Vector2(150, 20)
+layout_mode = 2
+text = "Keybind"

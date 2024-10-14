@@ -158,6 +158,7 @@ target_desired_distance = 8.0
 
 [node name="Timer" type="Timer" parent="Agent"]
 wait_time = 0.3
+autostart = true
 
 [node name="ParticleDeath" parent="." instance=ExtResource("2_h3pg2")]
 

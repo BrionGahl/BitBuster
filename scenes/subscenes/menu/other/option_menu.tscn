@@ -1,0 +1,213 @@
+[gd_scene load_steps=7 format=3 uid="uid://copy27c5xgvhl"]
+
+[ext_resource type="Theme" uid="uid://c8qs8rvxfk3jf" path="res://assets/menu/default_theme.tres" id="1_byitx"]
+[ext_resource type="Script" path="res://src/menu/other/OptionMenu.cs" id="1_in3dl"]
+[ext_resource type="Script" path="res://src/menu/component/KeybindListContainer.cs" id="3_j5gv1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_4qsx8"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_0j7jw"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_l6re7"]
+font_size = 12
+
+[node name="OptionMenu" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_byitx")
+script = ExtResource("1_in3dl")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Paused"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Video" type="ScrollContainer" parent="VBoxContainer/TabContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/Video"]
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="FullscreenHBox" type="HBoxContainer" parent="VBoxContainer/TabContainer/Video/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="FullscreenLabel" type="Label" parent="VBoxContainer/TabContainer/Video/VBoxContainer/FullscreenHBox"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Fullscreen
+"
+label_settings = SubResource("LabelSettings_4qsx8")
+horizontal_alignment = 1
+
+[node name="FullscreenCheckBox" type="CheckBox" parent="VBoxContainer/TabContainer/Video/VBoxContainer/FullscreenHBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ResolutionHBox" type="HBoxContainer" parent="VBoxContainer/TabContainer/Video/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="ResolutionOptionLabel" type="Label" parent="VBoxContainer/TabContainer/Video/VBoxContainer/ResolutionHBox"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Resolution"
+label_settings = SubResource("LabelSettings_0j7jw")
+horizontal_alignment = 1
+
+[node name="ResolutionOptions" type="OptionButton" parent="VBoxContainer/TabContainer/Video/VBoxContainer/ResolutionHBox"]
+layout_mode = 2
+item_count = 5
+selected = 0
+popup/item_0/text = "640x320"
+popup/item_0/id = 1
+popup/item_1/text = "1280x720"
+popup/item_1/id = 2
+popup/item_2/text = "1920x1080"
+popup/item_2/id = 3
+popup/item_3/text = "2560x1440"
+popup/item_3/id = 4
+popup/item_4/text = "3840x2160"
+popup/item_4/id = 5
+
+[node name="VSyncHBox" type="HBoxContainer" parent="VBoxContainer/TabContainer/Video/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="VSyncLabel" type="Label" parent="VBoxContainer/TabContainer/Video/VBoxContainer/VSyncHBox"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "VSync
+"
+label_settings = SubResource("LabelSettings_4qsx8")
+horizontal_alignment = 1
+
+[node name="VSyncCheckBox" type="CheckBox" parent="VBoxContainer/TabContainer/Video/VBoxContainer/VSyncHBox"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+
+[node name="Audio" type="ScrollContainer" parent="VBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/Audio"]
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="MasterVolHBox" type="HBoxContainer" parent="VBoxContainer/TabContainer/Audio/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="MasterVolLabel" type="Label" parent="VBoxContainer/TabContainer/Audio/VBoxContainer/MasterVolHBox"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Master Volume"
+label_settings = SubResource("LabelSettings_4qsx8")
+
+[node name="PercentLabel" type="Label" parent="VBoxContainer/TabContainer/Audio/VBoxContainer/MasterVolHBox"]
+layout_mode = 2
+text = "0%
+"
+label_settings = SubResource("LabelSettings_l6re7")
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer/TabContainer/Audio/VBoxContainer/MasterVolHBox"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+tick_count = 10
+
+[node name="SfxVolHBox" type="HBoxContainer" parent="VBoxContainer/TabContainer/Audio/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="SfxVolLabel" type="Label" parent="VBoxContainer/TabContainer/Audio/VBoxContainer/SfxVolHBox"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "SFX Volume"
+label_settings = SubResource("LabelSettings_4qsx8")
+
+[node name="PercentLabel" type="Label" parent="VBoxContainer/TabContainer/Audio/VBoxContainer/SfxVolHBox"]
+layout_mode = 2
+text = "0%
+"
+label_settings = SubResource("LabelSettings_l6re7")
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer/TabContainer/Audio/VBoxContainer/SfxVolHBox"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+tick_count = 10
+
+[node name="MusicVolHBox" type="HBoxContainer" parent="VBoxContainer/TabContainer/Audio/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="MusicVolLabel" type="Label" parent="VBoxContainer/TabContainer/Audio/VBoxContainer/MusicVolHBox"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Music Volume
+"
+label_settings = SubResource("LabelSettings_4qsx8")
+
+[node name="PercentLabel" type="Label" parent="VBoxContainer/TabContainer/Audio/VBoxContainer/MusicVolHBox"]
+layout_mode = 2
+text = "0%
+"
+label_settings = SubResource("LabelSettings_l6re7")
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer/TabContainer/Audio/VBoxContainer/MusicVolHBox"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+tick_count = 10
+
+[node name="Keybindings" type="ScrollContainer" parent="VBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/Keybindings"]
+layout_mode = 2
+size_flags_horizontal = 6
+script = ExtResource("3_j5gv1")
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/TabContainer/Keybindings/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/Keybindings/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="BackButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Return to Last Menu
+"

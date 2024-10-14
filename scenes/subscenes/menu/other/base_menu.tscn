@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://bm2wnt060f6ps"]
+
+[ext_resource type="Script" path="res://src/menu/other/BaseMenu.cs" id="1_jhhub"]
+[ext_resource type="Theme" uid="uid://c8qs8rvxfk3jf" path="res://assets/menu/default_theme.tres" id="1_wetd0"]
+
+[node name="BaseMenu" type="MarginContainer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -70.5
+offset_top = -46.0
+offset_right = 70.5
+offset_bottom = 46.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_wetd0")
+script = ExtResource("1_jhhub")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Paused"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ContinueButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Continue"
+
+[node name="OptionsButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Options
+"
+
+[node name="ReturnButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Return to Menu
+"

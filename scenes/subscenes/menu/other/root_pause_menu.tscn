@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://cehnmnx4td2yf"]
+
+[ext_resource type="Theme" uid="uid://c8qs8rvxfk3jf" path="res://assets/menu/default_theme.tres" id="1_8ot77"]
+[ext_resource type="Script" path="res://src/menu/other/RootPauseMenu.cs" id="2_w0unj"]
+[ext_resource type="PackedScene" uid="uid://bm2wnt060f6ps" path="res://scenes/subscenes/menu/other/base_menu.tscn" id="3_ggc01"]
+[ext_resource type="PackedScene" uid="uid://copy27c5xgvhl" path="res://scenes/subscenes/menu/other/option_menu.tscn" id="4_jj5vh"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="RootPauseMenu" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_8ot77")
+script = ExtResource("2_w0unj")
+
+[node name="BaseMenu" parent="RootPauseMenu" instance=ExtResource("3_ggc01")]
+layout_mode = 1
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="OptionMenu" parent="RootPauseMenu" instance=ExtResource("4_jj5vh")]
+layout_mode = 1

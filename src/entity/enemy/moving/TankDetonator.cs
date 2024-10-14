@@ -12,8 +12,7 @@ public partial class TankDetonator : MovingEnemy
 	private bool _hasExploded;
 	
 	public override void _Ready()
-	{
-		SetPhysicsProcess(false);
+	{ 
 		base._Ready();
 		
 		_explodingComponent = GetNode<ExplodingComponent>("ExplodingComponent");
@@ -22,7 +21,6 @@ public partial class TankDetonator : MovingEnemy
 		_timeTillExplosion = 0f;
 		SpritesComponent.SetBodyMaterialProperty("shader_parameter/time", _timeTillExplosion);
 		
-		NavigationServer2D.MapChanged += OnMapReady;
 		_explodingComponent.ExplodingEmitter.Finished += OnExplodeFinished;
 	}
 

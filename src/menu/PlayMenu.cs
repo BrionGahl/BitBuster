@@ -14,6 +14,8 @@ public partial class PlayMenu : Menu
 
 	public override void _Ready()
 	{
+		base._Ready();
+
 		_global = GetNode<Global>("/root/Global");
 
 		_playButton = GetNode<Button>("VBoxContainer/PlayButton");
@@ -27,11 +29,13 @@ public partial class PlayMenu : Menu
 	private void OnPlayPressed()
 	{
 		Logger.Log.Information("Moving to Game and Level Generation...");
+		GlobalButtonSfx.Play();
 		GetTree().ChangeSceneToPacked(_global.GamePackedScene);
 	}
 	
 	private void OnBackPressed()
 	{
+		GlobalButtonSfx.Play();
 		EmitSignal(Menu.SignalName.MenuNavigation, this, "mainmenu");
 	}
 }

@@ -16,7 +16,6 @@ public partial class OilDemon : MovingEnemy
 	
 	public override void _Ready()
 	{
-		SetPhysicsProcess(false);
 		base._Ready();
 		
 		_globalEvents = GetNode<GlobalEvents>("/root/GlobalEvents");
@@ -28,7 +27,6 @@ public partial class OilDemon : MovingEnemy
 		_isRaging = false;
 
 		_mechanicsTimer.Timeout += OnMechanicsTimeout;
-		NavigationServer2D.MapChanged += OnMapReady;
 	}
 
 	protected override void OnHealthIsZero()
@@ -106,12 +104,6 @@ public partial class OilDemon : MovingEnemy
 		EntityStats.ProjectileCount = 40;
 		_mechanicsTimer.WaitTime = 2.5f;
 		EntityStats.Speed = 75f;
-	}
-
-	private void OnMapReady(Rid rid)
-	{
-		SetPhysicsProcess(true);
-		AgentTimer.Start();
 	}
 	
 	private void OnMechanicsTimeout()

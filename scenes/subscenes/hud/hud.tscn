@@ -1,15 +1,63 @@
-[gd_scene load_steps=11 format=3 uid="uid://n3uhl8voulr4"]
+[gd_scene load_steps=16 format=3 uid="uid://n3uhl8voulr4"]
 
 [ext_resource type="PackedScene" uid="uid://c4g61mo4wfsdd" path="res://scenes/subscenes/hud/health_bar_with_delta.tscn" id="1_itswx"]
 [ext_resource type="PackedScene" uid="uid://cyehxgn0ifye0" path="res://scenes/subscenes/hud/title_bar.tscn" id="2_4khqt"]
 [ext_resource type="PackedScene" uid="uid://bj8lasfvi3jbi" path="res://scenes/subscenes/hud/bullet_counter.tscn" id="2_muu5f"]
 [ext_resource type="PackedScene" uid="uid://kk07ijvac1k2" path="res://scenes/subscenes/hud/bomb_counter.tscn" id="3_d8y6y"]
+[ext_resource type="FontFile" uid="uid://gh3ejbl8chjh" path="res://assets/etc/fonts/upheavtt.ttf" id="3_ho8w7"]
 [ext_resource type="PackedScene" uid="uid://cdcjttks8vxna" path="res://scenes/subscenes/hud/minimap.tscn" id="3_v42l8"]
+[ext_resource type="FontFile" uid="uid://c8blrymtpseup" path="res://assets/etc/fonts/gamer.ttf" id="4_hahj5"]
 [ext_resource type="Theme" uid="uid://c8qs8rvxfk3jf" path="res://assets/menu/default_theme.tres" id="4_py63n"]
 [ext_resource type="PackedScene" uid="uid://bc8j74kbh608b" path="res://scenes/subscenes/hud/card_counter.tscn" id="4_wu1un"]
 [ext_resource type="PackedScene" uid="uid://chkhmv0eqskpp" path="res://scenes/subscenes/hud/credit_counter.tscn" id="5_xcmwk"]
 [ext_resource type="Script" path="res://src/hud/ItemsContainer.cs" id="7_feqiq"]
 [ext_resource type="PackedScene" uid="uid://ce2qwbuw2oj8s" path="res://scenes/subscenes/hud/boss_health_bar.tscn" id="10_py63r"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dswir"]
+content_margin_left = 15.0
+content_margin_top = 5.0
+content_margin_right = 15.0
+content_margin_bottom = 5.0
+bg_color = Color(0.635294, 0.635294, 0.635294, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 0.262745, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+corner_detail = 1
+shadow_color = Color(0, 0, 0, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8mp07"]
+content_margin_left = 15.0
+content_margin_top = 5.0
+content_margin_right = 15.0
+content_margin_bottom = 5.0
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+corner_detail = 1
+
+[sub_resource type="Theme" id="Theme_pxtht"]
+resource_local_to_scene = true
+default_font = ExtResource("4_hahj5")
+default_font_size = 22
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_hover_color = Color(1, 1, 1, 1)
+Button/styles/hover = SubResource("StyleBoxFlat_dswir")
+Button/styles/normal = SubResource("StyleBoxFlat_8mp07")
+Label/fonts/font = ExtResource("3_ho8w7")
 
 [node name="Hud" type="CanvasLayer"]
 
@@ -36,6 +84,7 @@ theme_override_constants/margin_bottom = 20
 
 [node name="TitleBar" parent="RootHud/MainHudMargins" instance=ExtResource("2_4khqt")]
 layout_mode = 2
+theme = SubResource("Theme_pxtht")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="RootHud/MainHudMargins"]
 layout_mode = 2

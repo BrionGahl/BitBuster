@@ -9,6 +9,8 @@ public partial class CreditMenu : Menu
 
 	public override void _Ready()
 	{
+		base._Ready();
+
 		_backButton = GetNode<Button>("VBoxContainer/BackButton");
 		
 		_backButton.Pressed += OnBackPressed;
@@ -16,6 +18,7 @@ public partial class CreditMenu : Menu
 
 	private void OnBackPressed()
 	{
+		GlobalButtonSfx.Play();
 		EmitSignal(Menu.SignalName.MenuNavigation, this, "mainmenu");
 	}
 }

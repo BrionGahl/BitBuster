@@ -1,10 +1,9 @@
 [gd_scene load_steps=4 format=3 uid="uid://d1g1rhosg1hr0"]
 
 [ext_resource type="Script" path="res://src/menu/PlayMenu.cs" id="1_24k5c"]
-[ext_resource type="FontFile" uid="uid://boj4ahk23hdn6" path="res://assets/menu/fonts/Karma Future.otf" id="1_wv7s7"]
+[ext_resource type="Theme" uid="uid://c8qs8rvxfk3jf" path="res://assets/menu/default_theme.tres" id="1_m8p4c"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_dvm0f"]
-font = ExtResource("1_wv7s7")
 font_size = 32
 
 [node name="PlayMenu" type="MarginContainer"]
@@ -13,6 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_m8p4c")
 theme_override_constants/margin_left = 30
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 30
@@ -35,15 +35,21 @@ layout_mode = 2
 theme_override_constants/separation = 32
 
 [node name="PlayButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(195, 0)
 layout_mode = 2
+size_flags_horizontal = 4
 text = "Deploy"
 
 [node name="ContinueButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(195, 0)
 layout_mode = 2
+size_flags_horizontal = 4
 disabled = true
 text = "Continue"
 
 [node name="BackButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(195, 0)
 layout_mode = 2
+size_flags_horizontal = 4
 text = "Return to Menu
 "

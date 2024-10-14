@@ -1,15 +1,43 @@
-[gd_scene load_steps=7 format=3 uid="uid://hyxgxtf32jbj"]
+[gd_scene load_steps=11 format=3 uid="uid://hyxgxtf32jbj"]
 
 [ext_resource type="Theme" uid="uid://c8qs8rvxfk3jf" path="res://assets/menu/default_theme.tres" id="1_opylh"]
 [ext_resource type="Script" path="res://src/menu/RootMenu.cs" id="2_n758f"]
 [ext_resource type="PackedScene" uid="uid://cphandtc2qux1" path="res://scenes/subscenes/menu/main_menu.tscn" id="3_wo46y"]
+[ext_resource type="FontFile" uid="uid://gh3ejbl8chjh" path="res://assets/etc/fonts/upheavtt.ttf" id="4_8s7bw"]
 [ext_resource type="PackedScene" uid="uid://bde6px02akw1q" path="res://scenes/subscenes/menu/option_menu.tscn" id="5_f4qr8"]
+[ext_resource type="FontFile" uid="uid://c8blrymtpseup" path="res://assets/etc/fonts/gamer.ttf" id="5_x2ldn"]
 [ext_resource type="PackedScene" uid="uid://36vxyt0s8qct" path="res://scenes/subscenes/menu/credit_menu.tscn" id="7_fq4p7"]
 [ext_resource type="PackedScene" uid="uid://d1g1rhosg1hr0" path="res://scenes/subscenes/menu/play_menu.tscn" id="8_vhukx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8mp07"]
+content_margin_left = 15.0
+content_margin_top = 5.0
+content_margin_right = 15.0
+content_margin_bottom = 5.0
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+corner_detail = 1
+
+[sub_resource type="Theme" id="Theme_i7fun"]
+resource_local_to_scene = true
+default_font = ExtResource("5_x2ldn")
+default_font_size = 22
+Button/styles/hover = null
+Button/styles/normal = SubResource("StyleBoxFlat_8mp07")
+Label/fonts/font = ExtResource("4_8s7bw")
 
 [node name="CanvasLayer" type="CanvasLayer"]
 
 [node name="RootMenu" type="Control" parent="."]
+texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,6 +50,7 @@ script = ExtResource("2_n758f")
 [node name="MainMenu" parent="RootMenu" instance=ExtResource("3_wo46y")]
 layout_mode = 1
 offset_bottom = 0.0
+theme = SubResource("Theme_i7fun")
 
 [node name="OptionMenu" parent="RootMenu" instance=ExtResource("5_f4qr8")]
 visible = false

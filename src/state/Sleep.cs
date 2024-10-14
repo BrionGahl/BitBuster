@@ -47,7 +47,7 @@ public partial class Sleep: State
 		{
 			movingEnemy.Agent.TargetPosition = ParentEnemy.Player.GlobalPosition;
 			if (movingEnemy.Agent.IsTargetReachable()) 
-				EmitSignal(SignalName.StateTransition, this, NextState);
+				EmitSignal(State.SignalName.StateTransition, this, NextState);
 			return;
 		}
 		

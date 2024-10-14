@@ -1,9 +1,10 @@
-[gd_scene load_steps=22 format=3 uid="uid://unevbktxs2h2"]
+[gd_scene load_steps=23 format=3 uid="uid://unevbktxs2h2"]
 
 [ext_resource type="Script" path="res://src/weapon/Bullet.cs" id="1_caguc"]
 [ext_resource type="Texture2D" uid="uid://b06be3cyhn7m8" path="res://assets/weapon/bullet.png" id="2_x7le7"]
 [ext_resource type="PackedScene" uid="uid://2m2pbclf1iur" path="res://scenes/subscenes/component/exploding_component.tscn" id="3_owbfi"]
 [ext_resource type="PackedScene" uid="uid://t60grtdiwdu5" path="res://scenes/subscenes/component/particle_crit_component.tscn" id="4_b8uvi"]
+[ext_resource type="AudioStream" uid="uid://bynvv0gmj68nl" path="res://assets/sound/weapon/bullet_bounce.wav" id="5_ankx7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u4xfs"]
 size = Vector2(2, 4)
@@ -186,3 +187,7 @@ one_shot = true
 [node name="SelfIFrameTimer" type="Timer" parent="."]
 wait_time = 0.9
 one_shot = true
+
+[node name="BounceSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_ankx7")
+bus = &"SFX"

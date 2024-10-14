@@ -179,15 +179,14 @@ public partial class Player : Entity
 
 	protected override void OnParticleDeathFinished()
 	{
-		Logger.Log.Information("Moving to main menu...");
-		GetTree().ChangeSceneToPacked(_global.MainMenuPackedScene);
+		EmitSignal(SignalName.Died);
 	}
 	
 	private void OnHealthIsZero()
 	{
-		EmitSignal(SignalName.Died);
 		_hull.Visible = false;
 		_gun.Visible = false;
+		_aimIndicatorComponent.Visible = false;
 		
 		Speed = 0;
 		_deactivated = true;

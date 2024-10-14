@@ -1,6 +1,7 @@
 using BitBuster.component;
 using BitBuster.data;
 using BitBuster.entity.enemy;
+using BitBuster.sound;
 using BitBuster.utils;
 using BitBuster.world;
 using Godot;
@@ -28,6 +29,8 @@ public partial class Bullet : CharacterBody2D
 
 	private Timer _parentIFrameTimer;
 	private Timer _selfIFrameTimer;
+
+	private AudioStreamPlayer2D _bounceSound;
 
 	private int _remainingBounces;
 	private float _hueShift;
@@ -59,6 +62,8 @@ public partial class Bullet : CharacterBody2D
 
 		_parentIFrameTimer = GetNode<Timer>("ParentIFrameTimer");
 		_selfIFrameTimer = GetNode<Timer>("SelfIFrameTimer");
+		
+		_bounceSound = GetNode<AudioStreamPlayer2D>("BounceSound");
 		
 		_hitbox.AreaEntered += OnAreaEntered;
 
@@ -94,15 +99,16 @@ public partial class Bullet : CharacterBody2D
 			
 			if (_bounceType.HasFlag(BounceType.Changing))
 				Velocity = Velocity.Bounce(new Vector2(_random.RandfRange(-Mathf.Pi, Mathf.Pi), _random.RandfRange(-Mathf.Pi, Mathf.Pi)));
-
+			
+			SoundUtils.PlayAtRandomPitch(_bounceSound);
 		} else if (collision != null && _remainingBounces <= 0)
 		{
 			if (_explodeEmitter.Emitting) 
 				return;
 			
 			PrepForFree();
+			SoundUtils.PlayAtRandomPitch(_bounceSound);
 		}
-
 	}
 
 	public void SetTrajectory(Vector2 position, float rotation, AttackData attackData, float speed, int bounces, Vector2 size, BulletType bulletType, BounceType bounceType)

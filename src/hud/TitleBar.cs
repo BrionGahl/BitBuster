@@ -27,7 +27,6 @@ public partial class TitleBar : VSplitContainer
 		_subtitle = GetNode<Label>("Subtitle");
 		
 		_playerStats.ItemAdded += OnItemAdded;
-		_player.Died += OnPlayerDied;
 	}
 
 	private void SetLabels(string title, string subtitle)
@@ -40,10 +39,5 @@ public partial class TitleBar : VSplitContainer
 	private void OnItemAdded(Item item)
 	{
 		SetLabels(item.ItemName, item.ItemDescription);
-	}
-
-	private void OnPlayerDied()
-	{
-		SetLabels("Busted...", "Remember to submit tickets!");
 	}
 }

@@ -11,7 +11,7 @@ public partial class RootMenu : Control
 	private Dictionary<string, Menu> _menus;
 	
 	public override void _Ready()
-	{
+	{ 
 		_menus = new Dictionary<string, Menu>();
 		
 		foreach (var child in GetChildren())
