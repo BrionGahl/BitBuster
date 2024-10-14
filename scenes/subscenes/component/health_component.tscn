@@ -22,6 +22,8 @@ one_shot = true
 
 [node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_al4ec")
+bus = &"SFX"
 
 [node name="HurtSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_ue1is")
+bus = &"SFX"

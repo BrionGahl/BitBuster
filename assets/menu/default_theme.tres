@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=9 format=3 uid="uid://c8qs8rvxfk3jf"]
+[gd_resource type="Theme" load_steps=15 format=3 uid="uid://c8qs8rvxfk3jf"]
 
 [ext_resource type="FontFile" uid="uid://c8blrymtpseup" path="res://assets/etc/fonts/gamer.ttf" id="1_0lt71"]
 [ext_resource type="FontFile" uid="uid://gh3ejbl8chjh" path="res://assets/etc/fonts/upheavtt.ttf" id="2_nr6yi"]
@@ -50,6 +50,64 @@ corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
 corner_detail = 1
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g3dr6"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aneny"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_03nco"]
+content_margin_left = 3.0
+content_margin_right = 3.0
+bg_color = Color(0, 0, 0, 1)
+border_width_top = 2
+border_color = Color(1, 1, 0.403922, 1)
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_602h1"]
+content_margin_left = 3.0
+content_margin_right = 3.0
+bg_color = Color(0, 0, 0, 1)
+border_width_top = 1
+border_color = Color(1, 1, 0.403922, 1)
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2g442"]
+content_margin_left = 3.0
+content_margin_right = 3.0
+bg_color = Color(0, 0, 0, 1)
+border_width_top = 2
+border_color = Color(1, 1, 1, 1)
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wg0qw"]
+content_margin_left = 3.0
+content_margin_right = 3.0
+bg_color = Color(0, 0, 0, 1)
+border_width_top = 1
+border_color = Color(1, 1, 1, 1)
+corner_detail = 1
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_206l1"]
 bg_color = Color(1, 1, 1, 0)
 border_width_left = 1
@@ -96,9 +154,15 @@ Button/colors/font_hover_color = Color(1, 1, 1, 1)
 Button/styles/focus = SubResource("StyleBoxFlat_22jof")
 Button/styles/hover = SubResource("StyleBoxFlat_ybiid")
 Button/styles/normal = SubResource("StyleBoxFlat_8mp07")
+CheckBox/styles/normal = SubResource("StyleBoxFlat_g3dr6")
 CheckButton/icons/checked = null
 CheckButton/icons/unchecked = null
 Label/fonts/font = ExtResource("2_nr6yi")
+TabContainer/styles/panel = SubResource("StyleBoxFlat_aneny")
+TabContainer/styles/tab_focus = SubResource("StyleBoxFlat_03nco")
+TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_602h1")
+TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_2g442")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_wg0qw")
 VScrollBar/styles/grabber = SubResource("StyleBoxFlat_206l1")
 VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_ut53x")
 VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_5fsxv")

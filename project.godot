@@ -21,6 +21,7 @@ config/icon="res://assets/menu/icon.svg"
 GlobalEvents="*res://src/world/GlobalEvents.cs"
 Global="*res://src/world/Global.cs"
 GlobalButtonSfx="*res://src/world/GlobalButtonSFX.cs"
+Settings="*res://src/world/Settings.cs"
 
 [display]
 

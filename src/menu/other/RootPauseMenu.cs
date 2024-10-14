@@ -6,19 +6,15 @@ namespace BitBuster.menu.other;
 
 public partial class RootPauseMenu : Control
 {
-	
-	private VBoxContainer _vBoxContainer;
-
 	private bool _isPaused;
 	private Dictionary<string, Menu> _menus;
 
 	
 	public override void _Ready()
 	{
-		_vBoxContainer = GetNode<VBoxContainer>("VBoxContainer");
 		_menus = new Dictionary<string, Menu>();
 		
-		foreach (var child in _vBoxContainer.GetChildren())
+		foreach (var child in GetChildren())
 		{
 			if (child is Menu menu)
 			{
