@@ -40,6 +40,14 @@ public partial class SpritesComponent : Node2D
 		sprite2D.Play();
 	}
 
+	public void PlayGunAnimation(bool hasShot)
+	{
+		if (Gun is not AnimatedSprite2D sprite2D) return;
+		
+		sprite2D.Animation = hasShot ? "default" : "shot";
+		sprite2D.Play();
+	}
+
 	public void SetBodyMaterialProperty(string property, float value)
 	{
 		Body.Material.Set(property, value);

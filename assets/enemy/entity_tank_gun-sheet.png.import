@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dqifb8gnrm6b3"
-path="res://.godot/imported/entity_tank_gun.png-1949ebd349ee12eef07b049fd6839a19.ctex"
+uid="uid://bdki7cjhb77uo"
+path="res://.godot/imported/entity_tank_gun-sheet.png-b8ee4dd883ef7b4975b7726300c07737.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemy/entity_tank_gun.png"
-dest_files=["res://.godot/imported/entity_tank_gun.png-1949ebd349ee12eef07b049fd6839a19.ctex"]
+source_file="res://assets/enemy/entity_tank_gun-sheet.png"
+dest_files=["res://.godot/imported/entity_tank_gun-sheet.png-b8ee4dd883ef7b4975b7726300c07737.ctex"]
 
 [params]
 

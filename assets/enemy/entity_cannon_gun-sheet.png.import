@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cfkipkgj76ogf"
-path="res://.godot/imported/entity_shielded_turret_gun.png-fcfd6feab62acbd93d195831ed172251.ctex"
+uid="uid://cqkhuvxngmlsd"
+path="res://.godot/imported/entity_cannon_gun-sheet.png-4890a984423ba895b31d52bf7e9ffd9c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemy/entity_shielded_turret_gun.png"
-dest_files=["res://.godot/imported/entity_shielded_turret_gun.png-fcfd6feab62acbd93d195831ed172251.ctex"]
+source_file="res://assets/enemy/entity_cannon_gun-sheet.png"
+dest_files=["res://.godot/imported/entity_cannon_gun-sheet.png-4890a984423ba895b31d52bf7e9ffd9c.ctex"]
 
 [params]
 

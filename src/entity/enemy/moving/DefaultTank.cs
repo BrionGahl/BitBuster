@@ -37,6 +37,6 @@ public partial class DefaultTank : MovingEnemy
 
 		SpritesComponent.SetGunRotation(CanSeePlayer(), Player.Position, Mathf.Pi/12);
 		if (CanSeePlayer() && RandomNumberGenerator.Randf() > 0.3f)
-			WeaponComponent.AttemptShoot(Position, Player.Position.AngleToPoint(Position));
+			SpritesComponent.PlayGunAnimation(WeaponComponent.AttemptShoot(Position, Player.Position.AngleToPoint(Position)));
 	}
 }

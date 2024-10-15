@@ -44,8 +44,6 @@ public partial class HealthComponent : Node2D
 		private set => EntityStats.Overheal = value; 
 	}
 	
-	public EffectType StatusCondition { get; private set; }
-	
 	private Timer _iFrameTimer;
 	private OverhealBurstComponent _overhealBurstComponent;
 

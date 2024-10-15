@@ -26,7 +26,7 @@ corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
 corner_detail = 1
 
-[sub_resource type="Theme" id="Theme_i7fun"]
+[sub_resource type="Theme" id="Theme_y16x2"]
 resource_local_to_scene = true
 default_font = ExtResource("5_x2ldn")
 default_font_size = 22
@@ -50,7 +50,7 @@ script = ExtResource("2_n758f")
 [node name="MainMenu" parent="RootMenu" instance=ExtResource("3_wo46y")]
 layout_mode = 1
 offset_bottom = 0.0
-theme = SubResource("Theme_i7fun")
+theme = SubResource("Theme_y16x2")
 
 [node name="OptionMenu" parent="RootMenu" instance=ExtResource("5_f4qr8")]
 visible = false

@@ -1,3 +1,4 @@
+using BitBuster.weapon;
 using BitBuster.world;
 using Godot;
 
@@ -99,11 +100,14 @@ public partial class OilDemon : MovingEnemy
 		
 		if (EntityStats.CurrentHealth > EntityStats.MaxHealth / 5 && !_isRaging) 
 			return;
-		Modulate = Colors.DarkRed;
+		
+		SpritesComponent.Gun.Modulate = Colors.DarkRed;
+		SpritesComponent.Body.Modulate = Colors.DarkRed;
+		
 		_isRaging = true;
-		EntityStats.ProjectileCount = 40;
 		_mechanicsTimer.WaitTime = 2.5f;
 		EntityStats.Speed = 75f;
+		HitboxComponent.ApplyStatus(EffectType.Fire);
 	}
 	
 	private void OnMechanicsTimeout()

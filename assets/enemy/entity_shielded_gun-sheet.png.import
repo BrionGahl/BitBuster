@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cu8yd01sov6wk"
-path="res://.godot/imported/entity_shielded_gun.png-9c23a6f11619f0470b0a48dab87b4a56.ctex"
+uid="uid://b3w24ymvifrrt"
+path="res://.godot/imported/entity_shielded_gun-sheet.png-85b105cf16c8b580cf9b06c9813764bd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemy/entity_shielded_gun.png"
-dest_files=["res://.godot/imported/entity_shielded_gun.png-9c23a6f11619f0470b0a48dab87b4a56.ctex"]
+source_file="res://assets/enemy/entity_shielded_gun-sheet.png"
+dest_files=["res://.godot/imported/entity_shielded_gun-sheet.png-85b105cf16c8b580cf9b06c9813764bd.ctex"]
 
 [params]
 

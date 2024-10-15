@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://jfv7afsl8mvt"]
+[gd_scene load_steps=30 format=3 uid="uid://jfv7afsl8mvt"]
 
 [ext_resource type="Script" path="res://src/entity/enemy/moving/DefaultTank.cs" id="1_pjrn6"]
 [ext_resource type="Resource" uid="uid://bjpwk2vnrlbvh" path="res://scenes/resources/drops/default_drop_table.tres" id="2_48mcr"]
@@ -9,8 +9,7 @@
 [ext_resource type="Script" path="res://src/state/moveable/Pursue.cs" id="5_5inii"]
 [ext_resource type="Script" path="res://src/state/moveable/Evade.cs" id="6_lsrp8"]
 [ext_resource type="Script" path="res://src/state/moveable/Pace.cs" id="7_ljh8w"]
-[ext_resource type="Shader" path="res://assets/shaders/hit_blink.gdshader" id="8_iv546"]
-[ext_resource type="Texture2D" uid="uid://dqifb8gnrm6b3" path="res://assets/enemy/entity_tank_gun.png" id="9_eo3d1"]
+[ext_resource type="Texture2D" uid="uid://bdki7cjhb77uo" path="res://assets/enemy/entity_tank_gun-sheet.png" id="8_ntdtc"]
 [ext_resource type="Texture2D" uid="uid://b33fni7tb2yq7" path="res://assets/enemy/entity_tank.png" id="10_jg8o2"]
 [ext_resource type="PackedScene" uid="uid://btrxy7t83y8en" path="res://scenes/subscenes/component/health_component.tscn" id="12_p118s"]
 [ext_resource type="PackedScene" uid="uid://cubpk1i28p0wk" path="res://scenes/subscenes/component/weapon_component.tscn" id="13_8rxjh"]
@@ -56,11 +55,39 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_sukqo"]
-resource_local_to_scene = true
-shader = ExtResource("8_iv546")
-shader_parameter/flash_color = Color(1, 0.188235, 0, 1)
-shader_parameter/flash_modifier = 0.0
+[sub_resource type="AtlasTexture" id="AtlasTexture_ge7ko"]
+atlas = ExtResource("8_ntdtc")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pf26t"]
+atlas = ExtResource("8_ntdtc")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_84fd4"]
+atlas = ExtResource("8_ntdtc")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_26wl0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ge7ko")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pf26t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_84fd4")
+}],
+"loop": true,
+"name": &"shot",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6yacv"]
 size = Vector2(16, 16)
@@ -70,22 +97,10 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("SpritesComponent/Gun:self_modulate")
+tracks/0/path = NodePath("SpritesComponent/Hull:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("SpritesComponent/Hull:self_modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -98,22 +113,10 @@ length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("SpritesComponent/Gun:self_modulate")
+tracks/0/path = NodePath("SpritesComponent/Hull:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 0.188235, 0, 1), Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("SpritesComponent/Hull:self_modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
@@ -149,13 +152,13 @@ rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_pkkcn")
 animation = &"moving"
 
-[node name="Gun" type="Sprite2D" parent="SpritesComponent"]
+[node name="Gun" type="AnimatedSprite2D" parent="SpritesComponent"]
 top_level = true
 z_index = 2
 texture_filter = 1
-material = SubResource("ShaderMaterial_sukqo")
-use_parent_material = true
-texture = ExtResource("9_eo3d1")
+sprite_frames = SubResource("SpriteFrames_26wl0")
+animation = &"shot"
+frame_progress = 0.135752
 
 [node name="ParticleDeath" parent="." instance=ExtResource("2_jjihf")]
 

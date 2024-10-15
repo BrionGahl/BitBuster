@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://b77vqmiv587v8"]
+[gd_scene load_steps=26 format=3 uid="uid://b77vqmiv587v8"]
 
 [ext_resource type="Script" path="res://src/entity/enemy/idle/DefaultTower.cs" id="1_qxq8w"]
 [ext_resource type="PackedScene" uid="uid://6d0b62fihn27" path="res://scenes/subscenes/component/particle_death_component.tscn" id="2_84ss7"]
@@ -8,12 +8,47 @@
 [ext_resource type="PackedScene" uid="uid://dpul1hjxi1dkq" path="res://scenes/subscenes/state/state_machine.tscn" id="3_0lmak"]
 [ext_resource type="Script" path="res://src/state/Sleep.cs" id="4_ijgx6"]
 [ext_resource type="Script" path="res://src/state/idle/Attack.cs" id="5_yb4n7"]
-[ext_resource type="Texture2D" uid="uid://cfkipkgj76ogf" path="res://assets/enemy/entity_shielded_turret_gun.png" id="6_khuji"]
+[ext_resource type="Texture2D" uid="uid://bdki7cjhb77uo" path="res://assets/enemy/entity_tank_gun-sheet.png" id="6_gtr2q"]
 [ext_resource type="Texture2D" uid="uid://c136oeffrwkic" path="res://assets/enemy/entity_shielded_turret.png" id="7_6rh4l"]
+[ext_resource type="Texture2D" uid="uid://b3w24ymvifrrt" path="res://assets/enemy/entity_shielded_gun-sheet.png" id="7_v1r4l"]
 [ext_resource type="PackedScene" uid="uid://btrxy7t83y8en" path="res://scenes/subscenes/component/health_component.tscn" id="8_fnlwq"]
 [ext_resource type="PackedScene" uid="uid://qbyxihapjh1i" path="res://scenes/subscenes/component/hitbox_component.tscn" id="9_hdg2f"]
 [ext_resource type="PackedScene" uid="uid://cubpk1i28p0wk" path="res://scenes/subscenes/component/weapon_component.tscn" id="11_u5mme"]
 [ext_resource type="PackedScene" uid="uid://bokgykgjalnrg" path="res://scenes/subscenes/component/shield_component.tscn" id="12_xpycs"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ge7ko"]
+atlas = ExtResource("6_gtr2q")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2rssy"]
+atlas = ExtResource("7_v1r4l")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mrup8"]
+atlas = ExtResource("7_v1r4l")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jqjwa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ge7ko")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2rssy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mrup8")
+}],
+"loop": true,
+"name": &"shot",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4hc1y"]
 size = Vector2(10, 10)
@@ -26,22 +61,10 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("SpritesComponent/Gun:self_modulate")
+tracks/0/path = NodePath("SpritesComponent/Body:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("SpritesComponent/Body:self_modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -54,22 +77,10 @@ length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("SpritesComponent/Gun:self_modulate")
+tracks/0/path = NodePath("SpritesComponent/Body:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 0.188235, 0, 1), Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("SpritesComponent/Body:self_modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
@@ -102,11 +113,12 @@ texture_filter = 1
 use_parent_material = true
 texture = ExtResource("7_6rh4l")
 
-[node name="Gun" type="Sprite2D" parent="SpritesComponent"]
+[node name="Gun" type="AnimatedSprite2D" parent="SpritesComponent"]
 top_level = true
 z_index = 2
 texture_filter = 1
-texture = ExtResource("6_khuji")
+sprite_frames = SubResource("SpriteFrames_jqjwa")
+animation = &"shot"
 
 [node name="ParticleDeath" parent="." instance=ExtResource("2_84ss7")]
 
